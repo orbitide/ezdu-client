@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: 'EzDu — Pocket Learning Companion',
+    title: 'Ezdu — Pocket Learning Companion',
 
     description: 'The best platform to learn and practice. AI-powered exam prep, mock tests, and study tools.',
     keywords: [
@@ -34,13 +34,16 @@ export const metadata: Metadata = {
         "IELTS Mock Test"
     ],
     icons: {
-        icon: '/favicon.ico',
+        icon: [
+            {url: '/favicon.ico'},
+            {url: '/logo.png', sizes: '512x512', type: 'image/png'}
+        ],
     },
     openGraph: {
-        title: 'EzDu — Pocket Learning Companion',
+        title: 'Ezdu — Pocket Learning Companion',
         description: 'The best platform to learn and practice. AI-powered exam prep, mock tests, and study tools.',
         url: 'https://ezdu.net',
-        siteName: 'EzDu',
+        siteName: 'Ezdu',
         images: [
             {
                 url: 'https://ezdu.net/logo.png',
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'EzDu — Pocket Learning Companion',
+        title: 'Ezdu — Pocket Learning Companion',
         description: 'The best platform to learn and practice. AI-powered exam prep, mock tests, and study tools.',
         images: ['https://ezdu.net/logo.png'],
     },

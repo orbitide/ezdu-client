@@ -52,7 +52,7 @@ export const Hero = () => {
                     <div className="relative z-10">
                         <div className="w-full max-w-[390px] min-w-[280px] min-h-[500px] md:max-w-[280px] mx-auto">
                             <Image
-                                src="/ss2.png"
+                                src="/ss.png"
                                 alt="EzDu App"
                                 width={390}
                                 height={900}
