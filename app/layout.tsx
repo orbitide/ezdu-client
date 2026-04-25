@@ -33,12 +33,7 @@ export const metadata: Metadata = {
         "IELTS Preparation",
         "IELTS Mock Test"
     ],
-    icons: {
-        icon: [
-            {url: '/favicon.ico'},
-            {url: '/logo.png', sizes: '512x512', type: 'image/png'}
-        ],
-    },
+    // Favicons are served via `app/icon.tsx` and `app/apple-icon.tsx`
     openGraph: {
         title: 'Ezdu — Pocket Learning Companion',
         description: 'The best platform to learn and practice. AI-powered exam prep, mock tests, and study tools.',
@@ -46,7 +41,7 @@ export const metadata: Metadata = {
         siteName: 'Ezdu',
         images: [
             {
-                url: 'https://ezdu.net/logo.png',
+                url: 'https://ezdu.net/icon',
                 width: 1200,
                 height: 630,
                 alt: 'Learning Platform',
@@ -58,7 +53,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Ezdu — Pocket Learning Companion',
         description: 'The best platform to learn and practice. AI-powered exam prep, mock tests, and study tools.',
-        images: ['https://ezdu.net/logo.png'],
+        images: ['https://ezdu.net/icon'],
     },
     metadataBase: new URL('https://ezdu.net'),
 };
