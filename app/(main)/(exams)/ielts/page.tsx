@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/metadata';
-import { getPageJsonLd, getFaqJsonLd } from '@/lib/jsonld';
+import { getPageJsonLd, getFaqJsonLd, getBreadcrumbJsonLd } from '@/lib/jsonld';
 import ExamPageTemplate from '@/components/ExamPageTemplate';
 
 export const metadata: Metadata = buildMetadata('ielts', {
@@ -22,12 +22,14 @@ const faqs = [
 
 const pageJsonLd = getPageJsonLd('ielts', 'IELTS Mock Test ও প্র্যাকটিস', 'IELTS Reading, Listening ও vocabulary প্র্যাকটিস');
 const faqJsonLd = getFaqJsonLd(faqs);
+const breadcrumbJsonLd = getBreadcrumbJsonLd('ielts', 'IELTS প্রস্তুতি');
 
 export default function IELTSPage() {
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
             <ExamPageTemplate config={{
                 slug: 'ielts',
                 color: 'purple',

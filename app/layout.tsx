@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     title: 'Ezdu — Pocket Learning Companion',
 
     description: 'The best platform to learn and practice. AI-powered exam prep, mock tests, and study tools.',
+    alternates: {
+        canonical: 'https://ezdu.net',
+    },
     keywords: [
         'practice exams',
         'study materials',
@@ -41,10 +44,10 @@ export const metadata: Metadata = {
         siteName: 'Ezdu',
         images: [
             {
-                url: 'https://ezdu.net/icon',
+                url: 'https://ezdu.net/opengraph-image',
                 width: 1200,
                 height: 630,
-                alt: 'Learning Platform',
+                alt: 'EzDu — Pocket Learning Companion',
             },
         ],
         type: 'website',
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Ezdu — Pocket Learning Companion',
         description: 'The best platform to learn and practice. AI-powered exam prep, mock tests, and study tools.',
-        images: ['https://ezdu.net/icon'],
+        images: ['https://ezdu.net/opengraph-image'],
     },
     metadataBase: new URL('https://ezdu.net'),
 };

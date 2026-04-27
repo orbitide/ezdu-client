@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/metadata';
-import { getPageJsonLd, getFaqJsonLd } from '@/lib/jsonld';
+import { getPageJsonLd, getFaqJsonLd, getBreadcrumbJsonLd } from '@/lib/jsonld';
 import ExamPageTemplate from '@/components/ExamPageTemplate';
 
 export const metadata: Metadata = buildMetadata('vocabulary', {
@@ -23,12 +23,14 @@ const faqs = [
 
 const pageJsonLd = getPageJsonLd('vocabulary', 'English Vocabulary Practice', 'IELTS, BCS ও SSC/HSC-এর জন্য English vocabulary practice');
 const faqJsonLd = getFaqJsonLd(faqs);
+const breadcrumbJsonLd = getBreadcrumbJsonLd('vocabulary', 'Vocabulary');
 
 export default function VocabularyPage() {
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
             <ExamPageTemplate config={{
                 slug: 'vocabulary',
                 color: 'rose',

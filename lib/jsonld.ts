@@ -12,6 +12,7 @@ export function getRootJsonLd() {
         description: 'SSC, HSC, BCS, IELTS পরীক্ষার MCQ প্র্যাকটিস ও mock test অ্যাপ',
         applicationCategory: 'EducationApplication',
         operatingSystem: 'Android, iOS',
+        inLanguage: 'bn',
         url: SITE,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'BDT' },
     };
@@ -30,6 +31,13 @@ export function getRootJsonLd() {
     return {
         '@context': 'https://schema.org',
         '@graph': [
+            {
+                '@type': 'WebSite',
+                '@id': `${SITE}/#website`,
+                name: 'EzDu',
+                url: SITE,
+                inLanguage: 'bn',
+            },
             mobileApp,
             {
                 '@type': 'WebApplication',
@@ -38,6 +46,7 @@ export function getRootJsonLd() {
                 description: 'SSC, HSC, BCS, IELTS পরীক্ষার MCQ প্র্যাকটিস ও mock test — ব্রাউজারেই করো',
                 applicationCategory: 'EducationApplication',
                 browserRequirements: 'Requires JavaScript',
+                inLanguage: 'bn',
                 url: SITE,
                 offers: { '@type': 'Offer', price: '0', priceCurrency: 'BDT' },
             },
@@ -56,10 +65,11 @@ export function getRootJsonLd() {
 export function getPageJsonLd(slug: string, name: string, description: string) {
     return {
         '@context': 'https://schema.org',
-        '@type': 'Quiz',
-        '@id': `${SITE}/${slug}/#quiz`,
+        '@type': 'LearningResource',
+        '@id': `${SITE}/${slug}/#learning-resource`,
         name,
         description,
+        url: `${SITE}/${slug}`,
         inLanguage: 'bn',
         isAccessibleForFree: true,
         provider: {
@@ -68,6 +78,17 @@ export function getPageJsonLd(slug: string, name: string, description: string) {
             name: 'EzDu',
             url: SITE,
         },
+    };
+}
+
+export function getBreadcrumbJsonLd(slug: string, name: string) {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'EzDu', item: SITE },
+            { '@type': 'ListItem', position: 2, name, item: `${SITE}/${slug}` },
+        ],
     };
 }
 

@@ -25,14 +25,14 @@ export function buildMetadata(slug: string, meta: PageMeta): Metadata {
             siteName: 'EzDu',
             locale: 'bn_BD',
             alternateLocale: ['en_US'],
-            images: [{ url: `${BASE_URL}/logo.png`, width: 1200, height: 630, alt: 'EzDu' }],
+            images: [{ url: `${BASE_URL}/opengraph-image`, width: 1200, height: 630, alt: 'EzDu — Pocket Learning Companion' }],
             type: 'website',
         },
         twitter: {
             card: 'summary_large_image',
             title: `${meta.title} — EzDu`,
             description: meta.description,
-            images: [`${BASE_URL}/logo.png`],
+            images: [`${BASE_URL}/opengraph-image`],
         },
     };
 }

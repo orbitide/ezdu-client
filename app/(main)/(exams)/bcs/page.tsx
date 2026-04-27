@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/metadata';
-import { getPageJsonLd, getFaqJsonLd } from '@/lib/jsonld';
+import { getPageJsonLd, getFaqJsonLd, getBreadcrumbJsonLd } from '@/lib/jsonld';
 import ExamPageTemplate from '@/components/ExamPageTemplate';
 
 export const metadata: Metadata = buildMetadata('bcs', {
@@ -22,12 +22,14 @@ const faqs = [
 
 const pageJsonLd = getPageJsonLd('bcs', 'BCS MCQ প্র্যাকটিস ও Mock Test', 'BCS প্রিলিমিনারি MCQ প্র্যাকটিস ও mock test');
 const faqJsonLd = getFaqJsonLd(faqs);
+const breadcrumbJsonLd = getBreadcrumbJsonLd('bcs', 'BCS প্রস্তুতি');
 
 export default function BCSPage() {
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
             <ExamPageTemplate config={{
                 slug: 'bcs',
                 color: 'orange',
