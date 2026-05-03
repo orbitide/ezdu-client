@@ -3,6 +3,7 @@ import { Features } from "@/components/features";
 import { EdtechModules } from "@/components/modules";
 import { Pricing } from "@/components/pricing";
 import { Testimonials } from "@/components/testimonials";
+import { Blog } from "@/components/blog";
 
 export default function Home() {
     return (
@@ -10,7 +11,7 @@ export default function Home() {
             <Hero />
             <Features />
             <EdtechModules />
-            <Pricing />
+            {/*<Pricing />*/}
             <Testimonials />
             {/*<Blog />*/}
             {/*<Contact />*/}
