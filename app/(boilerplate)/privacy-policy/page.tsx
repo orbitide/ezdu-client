@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
             <div className="max-w-3xl mx-auto">
                 <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Privacy Policy</h1>
                 <p className="text-sm text-zinc-500 mb-10">
-                    Effective date: March 1, 2026 · Operator: EzDu (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;)
+                    Effective date: April 30, 2026 · Operator: EzDu (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;)
                 </p>
 
                 <div className="space-y-8 text-zinc-400 leading-relaxed">
@@ -161,7 +161,7 @@ export default function PrivacyPolicyPage() {
                                 hello@ezdu.net
                             </a>
                             <br />
-                            Mailing address (example): EzDu, Dhaka, Bangladesh.
+                            Mailing address : EzDu, Rangpur, Bangladesh.
                         </p>
                     </section>
                 </div>

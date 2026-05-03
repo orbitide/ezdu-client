@@ -15,7 +15,7 @@ export default function TermsPage() {
             <div className="max-w-3xl mx-auto">
                 <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Terms of Service</h1>
                 <p className="text-sm text-zinc-500 mb-10">
-                    Effective date: March 1, 2026 · These Terms govern your use of EzDu&apos;s Services.
+                    Effective date: April 30, 2026 · These Terms govern your use of EzDu&apos;s Services.
                 </p>
 
                 <div className="space-y-8 text-zinc-400 leading-relaxed">

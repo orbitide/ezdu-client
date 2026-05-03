@@ -14,7 +14,7 @@ export default function CookiesPage() {
         <div className="min-h-screen surface-page px-4 pb-20 pt-ez-below-nav-lg">
             <div className="max-w-3xl mx-auto">
                 <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Cookie Policy</h1>
-                <p className="text-sm text-zinc-500 mb-10">Effective date: March 1, 2026</p>
+                <p className="text-sm text-zinc-500 mb-10">Effective date: April 30, 2026</p>
 
                 <div className="space-y-8 text-zinc-400 leading-relaxed">
                     <section>
@@ -52,12 +52,12 @@ export default function CookiesPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">3. Example cookies (illustrative)</h2>
+                        <h2 className="text-lg font-semibold text-white mb-3">3. Cookies (illustrative)</h2>
                         <div className="overflow-x-auto rounded-lg border border-zinc-800">
                             <table className="w-full text-sm text-left">
                                 <thead className="bg-zinc-900/80 text-zinc-300">
                                     <tr>
-                                        <th className="p-3 font-medium">Name (example)</th>
+                                        <th className="p-3 font-medium">Name</th>
                                         <th className="p-3 font-medium">Purpose</th>
                                         <th className="p-3 font-medium">Typical duration</th>
                                     </tr>
@@ -74,7 +74,7 @@ export default function CookiesPage() {
                                         <td className="p-3">12 months</td>
                                     </tr>
                                     <tr>
-                                        <td className="p-3 font-mono text-xs text-zinc-500">va_* (Vercel Analytics)</td>
+                                        <td className="p-3 font-mono text-xs text-zinc-500">va_* (Google Analytics)</td>
                                         <td className="p-3">Anonymous page views and Web Vitals</td>
                                         <td className="p-3">Per vendor policy</td>
                                     </tr>
