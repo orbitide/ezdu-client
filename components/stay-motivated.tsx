@@ -6,9 +6,9 @@ import Image from 'next/image';
 import React from 'react';
 
 const habits = [
-    { icon: Flame, title: 'ডেইলি স্ট্রিক', desc: 'প্রতিদিন পড়লে স্ট্রিক বাড়তে থাকে — একদিনও মিস করো না', color: 'text-orange-400' },
-    { icon: CalendarDays, title: 'দৈনিক লক্ষ্য', desc: 'ছোট ছোট টার্গেট সেট করো, প্রতিদিন পূরণ করো', color: 'text-emerald-400' },
-    { icon: Bell, title: 'স্মার্ট রিমাইন্ডার', desc: 'তোমার সময়মতো নোটিফিকেশন পাঠাবে Ezdu', color: 'text-sky-400' },
+    { icon: Flame,        title: 'ডেইলি স্ট্রিক',     desc: 'প্রতিদিন পড়লে স্ট্রিক বাড়তে থাকে — একদিনও মিস করো না', color: 'text-orange-400' },
+    { icon: CalendarDays, title: 'দৈনিক লক্ষ্য',      desc: 'ছোট ছোট টার্গেট সেট করো, প্রতিদিন পূরণ করো',           color: 'text-emerald-400' },
+    { icon: Bell,         title: 'স্মার্ট রিমাইন্ডার', desc: 'তোমার সময়মতো নোটিফিকেশন পাঠাবে Ezdu',               color: 'text-sky-400' },
 ];
 
 export const StayMotivated = () => {
