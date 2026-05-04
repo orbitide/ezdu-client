@@ -70,39 +70,39 @@ const EXAM_CHIPS: { badge: typeof BADGE_POS[number]; subjects: Chip[] }[] = [
     {
         badge: BADGE_POS[0],
         subjects: [
-            { icon: '/subjects/physics.svg',     label: 'Physics',     cx: 155, cy: 105 },
-            { icon: '/subjects/chemistry.svg',   label: 'Chemistry',   cx: 155, cy: 185 },
-            { icon: '/subjects/mathematics.svg', label: 'Mathematics', cx: 155, cy: 265 },
-            { icon: '/subjects/bangla.svg',      label: 'Bangla',      cx: 255, cy:  55 },
-            { icon: '/subjects/english.svg',     label: 'English',     cx: 260, cy: 140 },
-            { icon: '/subjects/ict.svg',         label: 'ICT',         cx: 155, cy: 355 },
+            { icon: '/subjects/physics.svg',     label: 'Physics',     cx:  75, cy:  80 },
+            { icon: '/subjects/chemistry.svg',   label: 'Chemistry',   cx:  80, cy: 200 },
+            { icon: '/subjects/mathematics.svg', label: 'Mathematics', cx: 200, cy:  40 },
+            { icon: '/subjects/bangla.svg',      label: 'Bangla',      cx: 310, cy:  80 },
+            { icon: '/subjects/english.svg',     label: 'English',     cx: 110, cy: 330 },
+            { icon: '/subjects/ict.svg',         label: 'ICT',         cx: 240, cy: 170 },
         ],
     },
     {
         badge: BADGE_POS[1],
         subjects: [
-            { icon: '/subjects/buet.svg',      label: 'BUET',        cx: 805, cy: 105 },
-            { icon: '/subjects/du-gst.svg',    label: 'DU / GST',    cx: 805, cy: 185 },
-            { icon: '/subjects/medical.svg',   label: 'Medical',     cx: 805, cy: 265 },
-            { icon: '/subjects/physics.svg',   label: 'Physics',     cx: 705, cy:  55 },
-            { icon: '/subjects/chemistry.svg', label: 'Chemistry',   cx: 700, cy: 140 },
-            { icon: '/subjects/ict.svg',       label: 'ICT',         cx: 805, cy: 355 },
+            { icon: '/subjects/buet.svg',      label: 'BUET',      cx: 885, cy:  80 },
+            { icon: '/subjects/du-gst.svg',    label: 'DU / GST',  cx: 880, cy: 200 },
+            { icon: '/subjects/medical.svg',   label: 'Medical',   cx: 760, cy:  30 },
+            { icon: '/subjects/physics.svg',   label: 'Physics',   cx: 650, cy:  90 },
+            { icon: '/subjects/chemistry.svg', label: 'Chemistry', cx: 850, cy: 330 },
+            { icon: '/subjects/ict.svg',       label: 'ICT',       cx: 730, cy: 165 },
         ],
     },
     {
         badge: BADGE_POS[2],
         subjects: [
-            { icon: '/subjects/mcq.svg',      label: 'MCQ',            cx: 155, cy: 455 },
-            { icon: '/subjects/gk.svg',       label: 'GK',             cx: 155, cy: 535 },
-            { icon: '/subjects/eng-math.svg', label: 'English & Math', cx: 250, cy: 580 },
+            { icon: '/subjects/mcq.svg',      label: 'MCQ',            cx:  75, cy: 470 },
+            { icon: '/subjects/gk.svg',       label: 'GK',             cx: 220, cy: 555 },
+            { icon: '/subjects/eng-math.svg', label: 'English & Math', cx:  80, cy: 570 },
         ],
     },
     {
         badge: BADGE_POS[3],
         subjects: [
-            { icon: '/subjects/listening.svg', label: 'Listening', cx: 805, cy: 455 },
-            { icon: '/subjects/reading.svg',   label: 'Reading',   cx: 805, cy: 535 },
-            { icon: '/subjects/writing.svg',   label: 'Writing',   cx: 710, cy: 580 },
+            { icon: '/subjects/listening.svg', label: 'Listening', cx: 885, cy: 470 },
+            { icon: '/subjects/reading.svg',   label: 'Reading',   cx: 730, cy: 555 },
+            { icon: '/subjects/writing.svg',   label: 'Writing',   cx: 870, cy: 575 },
         ],
     },
 ];
@@ -138,7 +138,7 @@ export const PersonalizedLearning = () => {
         <section className="surface-section-muted py-28 md:py-40" ref={ref}>
 
             {/* Heading */}
-            <div className="max-w-2xl mx-auto px-6 text-center mb-14">
+            <div className="max-w-2xl mx-auto px-6 text-center mb-24 md:mb-32">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
