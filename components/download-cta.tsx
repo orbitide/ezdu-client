@@ -17,14 +17,14 @@ export const DownloadCTA = () => {
 
                 {/* Phone cluster */}
                 <div className="flex justify-center mb-14">
-                    <div className="relative flex items-end justify-center h-[440px] w-full max-w-[420px]">
+                    <div className="relative flex items-end justify-center h-[700px] w-full max-w-[640px]">
 
                         {/* Left phone (history) */}
                         <motion.div
                             initial={{ opacity: 0, x: -30, y: 20 }}
                             animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
                             transition={{ duration: 0.7, delay: 0.4 }}
-                            className="absolute left-0 bottom-0 w-40 -rotate-[10deg] origin-bottom opacity-80 z-0"
+                            className="absolute left-0 bottom-0 w-60 -rotate-[10deg] origin-bottom opacity-80 z-0"
                         >
                             <Image
                                 src="/history.png"
@@ -40,7 +40,7 @@ export const DownloadCTA = () => {
                             initial={{ opacity: 0, x: 30, y: 20 }}
                             animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
                             transition={{ duration: 0.7, delay: 0.4 }}
-                            className="absolute right-0 bottom-0 w-40 rotate-[10deg] origin-bottom opacity-80 z-0"
+                            className="absolute right-0 bottom-0 w-60 rotate-[10deg] origin-bottom opacity-80 z-0"
                         >
                             <Image
                                 src="/profile.png"
@@ -56,7 +56,7 @@ export const DownloadCTA = () => {
                             initial={{ opacity: 0, y: 40 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.7, delay: 0.2 }}
-                            className="relative z-10 w-52"
+                            className="relative z-10 w-72"
                         >
                             <Image
                                 src="/home.png"
