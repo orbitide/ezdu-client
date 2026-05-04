@@ -135,7 +135,7 @@ export const PersonalizedLearning = () => {
     });
 
     return (
-        <section className="surface-section-muted py-28 md:py-40" ref={ref}>
+        <section className="surface-section-muted min-h-screen py-28 flex flex-col justify-center" ref={ref}>
 
             {/* Heading */}
             <div className="max-w-2xl mx-auto px-6 text-center mb-24 md:mb-32">

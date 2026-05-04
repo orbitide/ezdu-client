@@ -1,0 +1,28 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip_eff)">
+
+<!-- Target rings — outer to inner -->
+<circle cx="40" cy="40" r="34" stroke="#0369a1" stroke-width="2.5" fill="none" opacity="0.35"/>
+<circle cx="40" cy="40" r="24" stroke="#0ea5e9" stroke-width="2" fill="none" opacity="0.55"/>
+<circle cx="40" cy="40" r="14" stroke="#38bdf8" stroke-width="2" fill="none" opacity="0.8"/>
+<circle cx="40" cy="40" r="5" fill="#38bdf8"/>
+
+<!-- Checkmark shadow -->
+<path d="M19 41 L30 53 L59 22" stroke="#0c4a6e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+<!-- Checkmark main -->
+<path d="M18 40 L29 52 L58 21" stroke="#0ea5e9" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+<!-- Checkmark highlight -->
+<path d="M18 40 L29 52 L58 21" stroke="#7dd3fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.85"/>
+
+<!-- Spark — rounded rect -->
+<rect x="62" y="16" width="7" height="7" rx="1.4" fill="#7dd3fc" opacity="0.9" transform="rotate(10 65 19)"/>
+<!-- Spark — circle -->
+<circle cx="72" cy="30" r="2.5" fill="#38bdf8" opacity="0.8"/>
+
+</g>
+<defs>
+<clipPath id="clip_eff"><rect width="80" height="80"/></clipPath>
+</defs>
+</svg>

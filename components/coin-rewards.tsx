@@ -41,12 +41,18 @@ export const CoinRewards = () => {
     const isInView = useInView(ref, { once: true, margin: '-80px' });
 
     return (
-        <section className="relative py-28 md:py-40 overflow-hidden">
+        <section className="relative min-h-screen py-28 flex items-center overflow-hidden">
             {sparks.map((s, i) =>
                 s.type === 'star' ? (
-                    <span key={i} className="absolute pointer-events-none" style={{ left: s.x, top: s.y }}>
-                        <StarSparkle size={s.size} color={s.color} opacity={s.opacity} rotate={s.rotate} />
-                    </span>
+                    <motion.span
+                        key={i}
+                        className="absolute pointer-events-none"
+                        style={{ left: s.x, top: s.y }}
+                        animate={{ rotate: [s.rotate, s.rotate + 360] }}
+                        transition={{ duration: 18 + i * 2, repeat: Infinity, ease: 'linear' }}
+                    >
+                        <StarSparkle size={s.size} color={s.color} opacity={s.opacity} rotate={0} />
+                    </motion.span>
                 ) : (
                     <span
                         key={i}
@@ -56,7 +62,7 @@ export const CoinRewards = () => {
                 )
             )}
 
-            <div className="max-w-2xl mx-auto px-6 text-center" ref={ref}>
+            <div className="max-w-2xl mx-auto px-6 text-center w-full" ref={ref}>
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}

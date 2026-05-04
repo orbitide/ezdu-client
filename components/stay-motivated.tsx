@@ -16,8 +16,8 @@ export const StayMotivated = () => {
     const isInView = useInView(ref, { once: true, margin: '-80px' });
 
     return (
-        <section className="py-28 md:py-40">
-            <div className="max-w-3xl mx-auto px-6 text-center" ref={ref}>
+        <section className="min-h-screen py-28 flex items-center">
+            <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}

@@ -12,8 +12,8 @@ export const DownloadCTA = () => {
     const isInView = useInView(ref, { once: true, margin: '-80px' });
 
     return (
-        <section className="surface-section-muted border-t border-emerald-400/10 py-28 md:py-40 overflow-hidden">
-            <div className="max-w-3xl mx-auto px-6 text-center" ref={ref}>
+        <section className="surface-section-muted border-t border-emerald-400/10 min-h-screen py-28 flex items-center overflow-hidden">
+            <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
 
                 {/* Phone cluster */}
                 <div className="flex justify-center mb-14">

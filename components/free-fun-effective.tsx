@@ -1,25 +1,29 @@
 'use client';
 
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
+import React from 'react';
 
 type Spark =
     | { type: 'star'; x: string; y: string; size: number; color: string; opacity: number; rotate: number }
     | { type: 'dot';  x: string; y: string; size: number; color: string; opacity: number };
 
+// same distribution as CoinRewards, FreeFunEffective color palette
 const sparks: Spark[] = [
-    { type: 'star', x: '4%',  y: '12%', size: 14, color: 'text-emerald-400', opacity: 0.6,  rotate: 20  },
-    { type: 'dot',  x: '12%', y: '72%', size: 7,  color: 'bg-emerald-400',   opacity: 0.5  },
-    { type: 'star', x: '7%',  y: '44%', size: 9,  color: 'text-emerald-400', opacity: 0.4,  rotate: -30 },
-    { type: 'dot',  x: '18%', y: '90%', size: 8,  color: 'bg-amber-400',     opacity: 0.55 },
-    { type: 'star', x: '35%', y: '5%',  size: 11, color: 'text-amber-400',   opacity: 0.5,  rotate: 15  },
-    { type: 'dot',  x: '62%', y: '7%',  size: 6,  color: 'bg-emerald-400',   opacity: 0.4  },
-    { type: 'star', x: '50%', y: '93%', size: 10, color: 'text-amber-400',   opacity: 0.45, rotate: -18 },
-    { type: 'dot',  x: '25%', y: '18%', size: 5,  color: 'bg-sky-400',       opacity: 0.4  },
-    { type: 'star', x: '88%', y: '10%', size: 13, color: 'text-sky-400',     opacity: 0.55, rotate: 35  },
-    { type: 'dot',  x: '94%', y: '55%', size: 7,  color: 'bg-sky-400',       opacity: 0.5  },
-    { type: 'star', x: '82%', y: '82%', size: 11, color: 'text-sky-400',     opacity: 0.5,  rotate: -25 },
-    { type: 'dot',  x: '96%', y: '30%', size: 5,  color: 'bg-emerald-400',   opacity: 0.4  },
-    { type: 'star', x: '76%', y: '22%', size: 9,  color: 'text-amber-400',   opacity: 0.4,  rotate: 40  },
+    { type: 'star', x: '3%',  y: '8%',  size: 14, color: 'text-emerald-400', opacity: 0.6,  rotate: 15  },
+    { type: 'dot',  x: '10%', y: '70%', size: 7,  color: 'bg-emerald-400',   opacity: 0.45 },
+    { type: 'star', x: '6%',  y: '40%', size: 10, color: 'text-emerald-400', opacity: 0.4,  rotate: -25 },
+    { type: 'dot',  x: '18%', y: '90%', size: 9,  color: 'bg-amber-400',     opacity: 0.5  },
+    { type: 'star', x: '30%', y: '4%',  size: 11, color: 'text-amber-400',   opacity: 0.5,  rotate: 30  },
+    { type: 'dot',  x: '46%', y: '94%', size: 6,  color: 'bg-emerald-400',   opacity: 0.4  },
+    { type: 'star', x: '64%', y: '5%',  size: 9,  color: 'text-sky-400',     opacity: 0.45, rotate: -18 },
+    { type: 'dot',  x: '75%', y: '90%', size: 8,  color: 'bg-amber-400',     opacity: 0.45 },
+    { type: 'star', x: '85%', y: '10%', size: 14, color: 'text-sky-400',     opacity: 0.6,  rotate: 22  },
+    { type: 'dot',  x: '93%', y: '52%', size: 6,  color: 'bg-sky-400',       opacity: 0.4  },
+    { type: 'star', x: '96%', y: '26%', size: 9,  color: 'text-amber-400',   opacity: 0.45, rotate: -40 },
+    { type: 'star', x: '88%', y: '78%', size: 13, color: 'text-sky-400',     opacity: 0.5,  rotate: 12  },
+    { type: 'dot',  x: '22%', y: '16%', size: 5,  color: 'bg-amber-400',     opacity: 0.35 },
+    { type: 'dot',  x: '55%', y: '8%',  size: 7,  color: 'bg-emerald-400',   opacity: 0.35 },
 ];
 
 const StarSparkle = ({ size, color, opacity, rotate }: { size: number; color: string; opacity: number; rotate: number }) => (
@@ -34,13 +38,22 @@ const StarSparkle = ({ size, color, opacity, rotate }: { size: number; color: st
 );
 
 export const FreeFunEffective = () => {
+    const ref = React.useRef(null);
+    const isInView = useInView(ref, { once: true, margin: '-80px' });
+
     return (
-        <section className="relative surface-section-muted py-28 md:py-40 overflow-hidden">
+        <section className="relative surface-section-muted min-h-screen py-28 flex items-center overflow-hidden">
             {sparks.map((s, i) =>
                 s.type === 'star' ? (
-                    <span key={i} className="absolute pointer-events-none" style={{ left: s.x, top: s.y }}>
-                        <StarSparkle size={s.size} color={s.color} opacity={s.opacity} rotate={s.rotate} />
-                    </span>
+                    <motion.span
+                        key={i}
+                        className="absolute pointer-events-none"
+                        style={{ left: s.x, top: s.y }}
+                        animate={{ rotate: [s.rotate, s.rotate + 360] }}
+                        transition={{ duration: 18 + i * 2, repeat: Infinity, ease: 'linear' }}
+                    >
+                        <StarSparkle size={s.size} color={s.color} opacity={s.opacity} rotate={0} />
+                    </motion.span>
                 ) : (
                     <span
                         key={i}
@@ -50,27 +63,51 @@ export const FreeFunEffective = () => {
                 )
             )}
 
-            <div className="max-w-3xl mx-auto px-6 text-center">
-                <div className="flex justify-center mb-14">
-                    <Image
-                        src="/illustrations/free-fun-effective.svg"
-                        alt="Ezdu বিনামূল্যে, মজাদার ও কার্যকর"
-                        width={420}
-                        height={340}
-                        className="w-full max-w-md"
-                        priority={false}
-                    />
+            <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
+                <div className="flex items-end justify-center gap-10 md:gap-14 mb-14">
+                    {[
+                        { src: '/illustrations/free.svg',      alt: 'বিনামূল্যে', label: 'বিনামূল্যে', color: 'text-emerald-400', delay: 0.1, lift: false },
+                        { src: '/illustrations/fun.svg',       alt: 'মজাদার',     label: 'মজাদার',     color: 'text-amber-400',   delay: 0.2, lift: true  },
+                        { src: '/illustrations/effective.svg', alt: 'কার্যকর',    label: 'কার্যকর',    color: 'text-sky-400',     delay: 0.3, lift: false },
+                    ].map((item) => (
+                        <motion.div
+                            key={item.alt}
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.6, delay: item.delay }}
+                            className={`flex flex-col items-center gap-3 ${item.lift ? '-translate-y-4' : ''}`}
+                        >
+                            <Image
+                                src={item.src}
+                                alt={item.alt}
+                                width={96}
+                                height={96}
+                                className={`w-20 h-20 md:w-24 md:h-24 ${item.lift ? 'drop-shadow-[0_0_18px_rgba(251,191,36,0.35)]' : ''}`}
+                            />
+                            <span className={`text-sm font-semibold tracking-wide ${item.color}`}>{item.label}</span>
+                        </motion.div>
+                    ))}
                 </div>
 
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6">
+                <motion.h2
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="text-3xl md:text-4xl font-bold leading-tight mb-6"
+                >
                     <span className="text-emerald-400">বিনামূল্যে।</span>{' '}
                     <span className="text-amber-400">মজাদার।</span>{' '}
                     <span className="text-sky-400">কার্যকর।</span>
-                </h2>
+                </motion.h2>
 
-                <p className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed">
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.35 }}
+                    className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed"
+                >
                     Ezdu-তে শেখা মানে গেমের মতো অভিজ্ঞতা — ছোট ছোট সেশন, তাৎক্ষণিক ফিডব্যাক, আর বাস্তব পরীক্ষার প্রস্তুতি। সবই বিনামূল্যে শুরু করো।
-                </p>
+                </motion.p>
             </div>
         </section>
     );
