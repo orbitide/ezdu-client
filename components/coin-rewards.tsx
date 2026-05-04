@@ -4,34 +4,35 @@ import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import React from 'react';
 
-const sparks = [
-    { x: '3%',  y: '8%',  size: 14, color: 'text-amber-400',  opacity: 'opacity-60' },
-    { x: '10%', y: '70%', size: 10, color: 'text-yellow-400', opacity: 'opacity-50' },
-    { x: '6%',  y: '40%', size: 8,  color: 'text-orange-400', opacity: 'opacity-40' },
-    { x: '18%', y: '88%', size: 12, color: 'text-amber-400',  opacity: 'opacity-55' },
-    { x: '30%', y: '5%',  size: 9,  color: 'text-yellow-400', opacity: 'opacity-45' },
-    { x: '50%', y: '92%', size: 11, color: 'text-amber-400',  opacity: 'opacity-45' },
-    { x: '65%', y: '6%',  size: 8,  color: 'text-violet-400', opacity: 'opacity-40' },
-    { x: '78%', y: '88%', size: 10, color: 'text-amber-400',  opacity: 'opacity-50' },
-    { x: '85%', y: '12%', size: 13, color: 'text-yellow-400', opacity: 'opacity-55' },
-    { x: '92%', y: '55%', size: 9,  color: 'text-orange-400', opacity: 'opacity-45' },
-    { x: '96%', y: '28%', size: 8,  color: 'text-amber-400',  opacity: 'opacity-40' },
-    { x: '88%', y: '80%', size: 14, color: 'text-violet-400', opacity: 'opacity-50' },
-    { x: '22%', y: '18%', size: 7,  color: 'text-yellow-400', opacity: 'opacity-35' },
+type Spark =
+    | { type: 'star'; x: string; y: string; size: number; color: string; opacity: number; rotate: number }
+    | { type: 'dot';  x: string; y: string; size: number; color: string; opacity: number };
+
+const sparks: Spark[] = [
+    { type: 'star', x: '3%',  y: '8%',  size: 14, color: 'text-amber-400',  opacity: 0.6,  rotate: 15  },
+    { type: 'dot',  x: '10%', y: '70%', size: 7,  color: 'bg-yellow-400',   opacity: 0.45 },
+    { type: 'star', x: '6%',  y: '40%', size: 10, color: 'text-orange-400', opacity: 0.4,  rotate: -25 },
+    { type: 'dot',  x: '18%', y: '90%', size: 9,  color: 'bg-amber-400',    opacity: 0.5  },
+    { type: 'star', x: '30%', y: '4%',  size: 11, color: 'text-yellow-400', opacity: 0.5,  rotate: 30  },
+    { type: 'dot',  x: '46%', y: '94%', size: 6,  color: 'bg-amber-400',    opacity: 0.4  },
+    { type: 'star', x: '64%', y: '5%',  size: 9,  color: 'text-violet-400', opacity: 0.45, rotate: -18 },
+    { type: 'dot',  x: '75%', y: '90%', size: 8,  color: 'bg-yellow-400',   opacity: 0.45 },
+    { type: 'star', x: '85%', y: '10%', size: 14, color: 'text-amber-400',  opacity: 0.6,  rotate: 22  },
+    { type: 'dot',  x: '93%', y: '52%', size: 6,  color: 'bg-orange-400',   opacity: 0.4  },
+    { type: 'star', x: '96%', y: '26%', size: 9,  color: 'text-yellow-400', opacity: 0.45, rotate: -40 },
+    { type: 'star', x: '88%', y: '78%', size: 13, color: 'text-violet-400', opacity: 0.5,  rotate: 12  },
+    { type: 'dot',  x: '22%', y: '16%', size: 5,  color: 'bg-amber-400',    opacity: 0.35 },
+    { type: 'dot',  x: '55%', y: '8%',  size: 7,  color: 'bg-yellow-400',   opacity: 0.35 },
 ];
 
-const Sparkle = ({ size, color, opacity }: { size: number; color: string; opacity: string }) => (
+const StarSparkle = ({ size, color, opacity, rotate }: { size: number; color: string; opacity: number; rotate: number }) => (
     <svg
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        className={`${color} ${opacity} pointer-events-none`}
+        width={size} height={size} viewBox="0 0 24 24"
+        className={color}
+        style={{ opacity, transform: `rotate(${rotate}deg)` }}
         aria-hidden
     >
-        <path
-            d="M12 0 L13.6 10.4 L24 12 L13.6 13.6 L12 24 L10.4 13.6 L0 12 L10.4 10.4 Z"
-            fill="currentColor"
-        />
+        <path d="M12 0 L13.6 10.4 L24 12 L13.6 13.6 L12 24 L10.4 13.6 L0 12 L10.4 10.4 Z" fill="currentColor"/>
     </svg>
 );
 
@@ -41,16 +42,19 @@ export const CoinRewards = () => {
 
     return (
         <section className="relative py-28 md:py-40 overflow-hidden">
-            {/* Full-section sparkles */}
-            {sparks.map(({ x, y, size, color, opacity }, i) => (
-                <span
-                    key={i}
-                    className="absolute pointer-events-none"
-                    style={{ left: x, top: y }}
-                >
-                    <Sparkle size={size} color={color} opacity={opacity} />
-                </span>
-            ))}
+            {sparks.map((s, i) =>
+                s.type === 'star' ? (
+                    <span key={i} className="absolute pointer-events-none" style={{ left: s.x, top: s.y }}>
+                        <StarSparkle size={s.size} color={s.color} opacity={s.opacity} rotate={s.rotate} />
+                    </span>
+                ) : (
+                    <span
+                        key={i}
+                        className={`absolute rounded-full pointer-events-none ${s.color}`}
+                        style={{ left: s.x, top: s.y, width: s.size, height: s.size, opacity: s.opacity }}
+                    />
+                )
+            )}
 
             <div className="max-w-2xl mx-auto px-6 text-center" ref={ref}>
                 <motion.div

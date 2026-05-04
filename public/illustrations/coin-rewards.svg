@@ -81,20 +81,9 @@
     <line x1="0" y1="21" x2="36" y2="21" stroke="#0ea5e9" stroke-width="1" opacity="0.35"/>
   </g>
 
-  <!-- 4-pointed sparkles (✦) spread across full area -->
-  <!-- top row -->
-  <path d="M108,8 L109.8,15.2 L117,17 L109.8,18.8 L108,26 L106.2,18.8 L99,17 L106.2,15.2 Z"   fill="#38bdf8" opacity="0.55"/>
-  <path d="M240,4 L241.5,10.5 L248,12 L241.5,13.5 L240,20 L238.5,13.5 L232,12 L238.5,10.5 Z"  fill="#fbbf24" opacity="0.5"/>
-  <path d="M310,8 L312,14.5 L318.5,16 L312,17.5 L310,24 L308,17.5 L301.5,16 L308,14.5 Z"      fill="#fbbf24" opacity="0.6"/>
-
-  <!-- left + right mid -->
-  <path d="M14,118 L15.8,124.2 L22,126 L15.8,127.8 L14,134 L12.2,127.8 L6,126 L12.2,124.2 Z"  fill="#f97316" opacity="0.5"/>
-  <path d="M456,52  L457.8,58.2 L464,60  L457.8,61.8 L456,68  L454.2,61.8 L448,60  L454.2,58.2 Z" fill="#fbbf24" opacity="0.5"/>
-  <path d="M456,182 L457.6,188.4 L464,190 L457.6,191.6 L456,198 L454.4,191.6 L448,190 L454.4,188.4 Z" fill="#a78bfa" opacity="0.55"/>
-
-  <!-- bottom row -->
-  <path d="M14,266  L15.5,272.5 L22,274  L15.5,275.5 L14,282  L12.5,275.5 L6,274   L12.5,272.5 Z" fill="#fbbf24" opacity="0.45"/>
-  <path d="M160,292 L161.8,298.2 L168,300 L161.8,301.8 L160,308 L158.2,301.8 L152,300 L158.2,298.2 Z" fill="#fbbf24" opacity="0.5"/>
-  <path d="M342,288 L343.6,294.4 L350,296 L343.6,297.6 L342,304 L340.4,297.6 L334,296 L340.4,294.4 Z" fill="#fbbf24" opacity="0.45"/>
-  <path d="M400,294 L402,300.5 L408.5,302 L402,303.5 L400,310 L398,303.5 L391.5,302 L398,300.5 Z"    fill="#fbbf24" opacity="0.4"/>
+  <!-- A few sparkles within the illustration -->
+  <path d="M272,18  L273.5,24.5 L280,26  L273.5,27.5 L272,34  L270.5,27.5 L264,26  L270.5,24.5 Z" fill="#fbbf24" opacity="0.55"/>
+  <path d="M30,238  L31.4,244.6 L38,246  L31.4,247.4 L30,254  L28.6,247.4 L22,246  L28.6,244.6 Z" fill="#fbbf24" opacity="0.45"/>
+  <circle cx="398" cy="60"  r="4" fill="#fbbf24" opacity="0.35"/>
+  <circle cx="104" cy="22"  r="3" fill="#38bdf8" opacity="0.35"/>
 </svg>
