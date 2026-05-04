@@ -163,7 +163,7 @@ export const PersonalizedLearning = () => {
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="w-full max-w-5xl mx-auto px-4 mb-20"
+                className="w-full max-w-5xl mx-auto px-4 mb-28"
             >
                 <svg viewBox={`0 0 ${VW} ${VH}`} className="w-full h-auto" aria-hidden>
                     <defs>

@@ -67,7 +67,7 @@ export const CoinRewards = () => {
                     initial={{ opacity: 0, y: 40 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.7 }}
-                    className="flex justify-center mb-14"
+                    className="flex justify-center mb-28"
                 >
                     <Image
                         src="/illustrations/coin-rewards.svg"

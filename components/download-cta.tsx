@@ -16,7 +16,7 @@ export const DownloadCTA = () => {
             <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
 
                 {/* Phone cluster */}
-                <div className="flex justify-center mb-14">
+                <div className="flex justify-center mb-28">
                     <div className="relative flex items-end justify-center h-[700px] w-full max-w-[640px]">
 
                         {/* Left phone (history) */}
@@ -77,7 +77,7 @@ export const DownloadCTA = () => {
                     className="text-3xl md:text-4xl font-bold text-zinc-100 leading-tight mb-6"
                 >
                     যেকোনো সময়,{' '}
-                    <span className="text-emerald-400">যেকোনো জায়গায়</span> পড়ো
+                    <span className="text-emerald-400">যেকোনো জায়গায়</span> প্র্যাকটিস করো
                 </motion.h2>
 
                 <motion.p
