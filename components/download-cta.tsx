@@ -5,10 +5,7 @@ import Image from 'next/image';
 import React from 'react';
 import { DownloadButton } from '@/components/ui/download-button';
 
-const platforms = [
-    { icon: '📱', label: 'iOS', sub: 'App Store' },
-    { icon: '🤖', label: 'Android', sub: 'Google Play' },
-];
+
 
 export const DownloadCTA = () => {
     const ref = React.useRef(null);
@@ -61,19 +58,6 @@ export const DownloadCTA = () => {
                     <DownloadButton type="google" />
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ duration: 0.6, delay: 0.65 }}
-                    className="flex justify-center gap-8"
-                >
-                    {platforms.map(({ icon, label, sub }, i) => (
-                        <div key={i} className="flex items-center gap-2 text-sm text-zinc-500">
-                            <span className="text-xl">{icon}</span>
-                            <span><span className="text-zinc-300 font-medium">{label}</span> · {sub}</span>
-                        </div>
-                    ))}
-                </motion.div>
             </div>
         </section>
     );
