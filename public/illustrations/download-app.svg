@@ -1,0 +1,151 @@
+<svg viewBox="0 0 420 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="phoneDrop">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+    <filter id="sideDrop">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="glowGreen">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="screenGlow" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#34d399" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Left phone (tilted left) -->
+  <g transform="rotate(-17, 76, 178)" filter="url(#sideDrop)">
+    <rect x="22" y="50" width="108" height="194" rx="22" fill="#141414"/>
+    <rect x="22" y="50" width="108" height="194" rx="22" stroke="#252525" stroke-width="1.5"/>
+    <rect x="30" y="60" width="92" height="174" rx="14" fill="#0d0d0d"/>
+    <rect x="30" y="60" width="92" height="174" rx="14" fill="url(#screenGlow)"/>
+    <!-- Notch -->
+    <rect x="56" y="57" width="44" height="8" rx="4" fill="#141414"/>
+    <!-- App bar -->
+    <rect x="36" y="72" width="80" height="22" rx="7" fill="#052e16"/>
+    <text x="76" y="87" text-anchor="middle" font-size="9" font-weight="700" fill="#34d399" font-family="system-ui, sans-serif">Ezdu</text>
+    <!-- Subject card -->
+    <rect x="36" y="100" width="80" height="60" rx="10" fill="#064e3b"/>
+    <!-- Bolt icon inside card -->
+    <g transform="translate(52, 112) scale(1.4)">
+      <path d="M13.92 1.44L6.24 12.96H11.04L9.12 22.56L17.76 9.6H12.96L14.88 1.44H13.92Z" fill="#533794"/>
+      <path d="M13.92 1.44L6.24 12.96H11.04L9.12 22.56L17.76 9.6H12.96L14.88 1.44H13.92Z" fill="#8B5CF6" opacity="0.7"/>
+      <path d="M12.96 4.32L8.64 11.52H11.52L10.56 18.72L15.84 10.08H12.96L13.92 4.32H12.96Z" fill="#C4B5FD"/>
+    </g>
+    <text x="76" y="172" text-anchor="middle" font-size="8" font-weight="600" fill="#6ee7b7" font-family="system-ui, sans-serif">SSC</text>
+    <!-- Progress bar -->
+    <rect x="36" y="178" width="80" height="6" rx="3" fill="#1f1f1f"/>
+    <rect x="36" y="178" width="52" height="6" rx="3" fill="#34d399" opacity="0.8"/>
+    <!-- Home bar -->
+    <rect x="56" y="218" width="44" height="3" rx="1.5" fill="#2a2a2a"/>
+  </g>
+
+  <!-- Right phone (tilted right) -->
+  <g transform="rotate(17, 344, 178)" filter="url(#sideDrop)">
+    <rect x="290" y="50" width="108" height="194" rx="22" fill="#141414"/>
+    <rect x="290" y="50" width="108" height="194" rx="22" stroke="#252525" stroke-width="1.5"/>
+    <rect x="298" y="60" width="92" height="174" rx="14" fill="#0d0d0d"/>
+    <rect x="298" y="60" width="92" height="174" rx="14" fill="url(#screenGlow)"/>
+    <!-- Notch -->
+    <rect x="320" y="57" width="44" height="8" rx="4" fill="#141414"/>
+    <!-- App bar -->
+    <rect x="304" y="72" width="80" height="22" rx="7" fill="#1a1400"/>
+    <text x="344" y="87" text-anchor="middle" font-size="9" font-weight="700" fill="#fbbf24" font-family="system-ui, sans-serif">লিডারবোর্ড</text>
+    <!-- Leaderboard rows -->
+    <rect x="304" y="100" width="80" height="22" rx="6" fill="#052e16" stroke="#34d399" stroke-width="1"/>
+    <!-- crown path for rank 1 -->
+    <path d="M310 113 L313 107 L316 111 L319 105 L322 111 L325 107 L328 113 Z" fill="#fbbf24"/>
+    <text x="340" y="116" font-size="8" fill="#f4f4f5" font-family="system-ui, sans-serif">আরাফাত</text>
+    <text x="376" y="116" text-anchor="end" font-size="8" font-weight="700" fill="#fbbf24" font-family="system-ui, sans-serif">#1</text>
+    <rect x="304" y="126" width="80" height="18" rx="5" fill="#1a1a1a"/>
+    <text x="314" y="139" font-size="8" fill="#a1a1aa" font-family="system-ui, sans-serif">সানজিদা</text>
+    <text x="376" y="139" text-anchor="end" font-size="8" fill="#a1a1aa" font-family="system-ui, sans-serif">#2</text>
+    <rect x="304" y="148" width="80" height="18" rx="5" fill="#1a1a1a"/>
+    <text x="314" y="161" font-size="8" fill="#a1a1aa" font-family="system-ui, sans-serif">তানভীর</text>
+    <text x="376" y="161" text-anchor="end" font-size="8" fill="#a1a1aa" font-family="system-ui, sans-serif">#3</text>
+    <!-- XP row -->
+    <rect x="304" y="172" width="80" height="20" rx="6" fill="#1c1400"/>
+    <text x="344" y="186" text-anchor="middle" font-size="8" fill="#fbbf24" font-family="system-ui, sans-serif">৩,২৮০ XP</text>
+    <!-- Home bar -->
+    <rect x="322" y="218" width="44" height="3" rx="1.5" fill="#2a2a2a"/>
+  </g>
+
+  <!-- Center main phone -->
+  <g transform="translate(136, 10)" filter="url(#phoneDrop)">
+    <rect width="148" height="262" rx="28" fill="#141414" stroke="#34d399" stroke-width="1.5"/>
+    <rect x="8" y="10" width="132" height="242" rx="20" fill="#0d0d0d"/>
+    <rect x="8" y="10" width="132" height="242" rx="20" fill="url(#screenGlow)"/>
+    <!-- Notch -->
+    <rect x="44" y="8" width="60" height="12" rx="6" fill="#141414"/>
+
+    <!-- App header with logo -->
+    <rect x="14" y="26" width="120" height="38" rx="10" fill="#052e16"/>
+    <circle cx="32" cy="45" r="12" fill="#065f46" stroke="#34d399" stroke-width="1.5"/>
+    <text x="32" y="50" text-anchor="middle" font-size="11" font-weight="800" fill="#34d399" font-family="system-ui, sans-serif">E</text>
+    <text x="90" y="41" text-anchor="middle" font-size="10" font-weight="700" fill="#f4f4f5" font-family="system-ui, sans-serif">Ezdu</text>
+    <text x="90" y="54" text-anchor="middle" font-size="7" fill="#6ee7b7" font-family="system-ui, sans-serif">পকেট লার্নিং সঙ্গী</text>
+
+    <!-- Streak + XP row -->
+    <rect x="14" y="70" width="56" height="36" rx="8" fill="#1c0a00" stroke="#f97316" stroke-width="1"/>
+    <!-- streak icon small inside -->
+    <g transform="translate(18, 74) scale(0.9)">
+      <path d="M12 21.12C7.2 21.12 3.84 17.76 3.84 13.68C3.84 11.04 5.28 9.12 6.72 7.68C7.2 7.2 7.2 8.64 7.68 9.12C7.92 9.36 8.16 9.12 8.16 8.64C8.16 6.72 9.6 4.32 12 2.88C13.2 5.28 13.44 7.2 12.96 8.64C12.72 9.36 13.44 10.08 13.92 9.6C15.36 8.16 15.84 6.24 15.36 4.32C17.28 6.24 20.16 9.60001 20.16 13.68C20.16 17.76 16.8 21.12 12 21.12Z" fill="#FF6B6B"/>
+      <path d="M12 18.24C10.08 18.24 8.64001 16.8 8.64001 14.88C8.64001 13.44 9.60001 12.48 10.56 11.76C10.8 11.52 10.8 12 11.04 12.24C11.28 12.48 11.52 12.24 11.52 12C11.52 11.04 12 10.08 12 10.08C12.48 11.04 13.44 12.48 13.44 14.4C13.44 16.56 12.84 18.24 12 18.24Z" fill="#FFC900"/>
+    </g>
+    <text x="42" y="97" text-anchor="middle" font-size="8" font-weight="700" fill="#fb923c" font-family="system-ui, sans-serif">১৭ দিন</text>
+    <rect x="76" y="70" width="58" height="36" rx="8" fill="#1c1400" stroke="#fbbf24" stroke-width="1"/>
+    <!-- coin icon small -->
+    <g transform="translate(80, 75) scale(0.9)">
+      <path d="M12 19.92C16.3741 19.92 19.92 16.3741 19.92 12C19.92 7.62586 16.3741 4.07996 12 4.07996C7.62589 4.07996 4.07999 7.62586 4.07999 12C4.07999 16.3741 7.62589 19.92 12 19.92Z" fill="#FFB800"/>
+      <path d="M12 19.2C15.9764 19.2 19.2 15.9765 19.2 12C19.2 8.0236 15.9764 4.80005 12 4.80005C8.02354 4.80005 4.79999 8.0236 4.79999 12C4.79999 15.9765 8.02354 19.2 12 19.2Z" stroke="#FFBF1A" stroke-width="3.84"/>
+      <path d="M12 8.16003L15.36 12L12 15.84L8.64001 12L12 8.16003Z" fill="#FFB800"/>
+    </g>
+    <text x="105" y="97" text-anchor="middle" font-size="8" font-weight="700" fill="#fbbf24" font-family="system-ui, sans-serif">২,৮০০ XP</text>
+
+    <!-- Subject grid 2x2 -->
+    <rect x="14" y="112" width="56" height="56" rx="10" fill="#064e3b"/>
+    <text x="42" y="140" text-anchor="middle" font-size="9" fill="#6ee7b7" font-weight="700" font-family="system-ui, sans-serif">SSC</text>
+    <text x="42" y="156" text-anchor="middle" font-size="7" fill="#34d399" font-family="system-ui, sans-serif">প্রশ্ন ব্যাংক</text>
+
+    <rect x="78" y="112" width="56" height="56" rx="10" fill="#1e1b4b"/>
+    <text x="106" y="140" text-anchor="middle" font-size="9" fill="#c4b5fd" font-weight="700" font-family="system-ui, sans-serif">BCS</text>
+    <text x="106" y="156" text-anchor="middle" font-size="7" fill="#a78bfa" font-family="system-ui, sans-serif">মক টেস্ট</text>
+
+    <rect x="14" y="174" width="56" height="56" rx="10" fill="#2d1515"/>
+    <text x="42" y="202" text-anchor="middle" font-size="9" fill="#fca5a5" font-weight="700" font-family="system-ui, sans-serif">HSC</text>
+    <text x="42" y="218" text-anchor="middle" font-size="7" fill="#f87171" font-family="system-ui, sans-serif">লেসন</text>
+
+    <rect x="78" y="174" width="56" height="56" rx="10" fill="#0c1a2e"/>
+    <text x="106" y="202" text-anchor="middle" font-size="9" fill="#7dd3fc" font-weight="700" font-family="system-ui, sans-serif">IELTS</text>
+    <text x="106" y="218" text-anchor="middle" font-size="7" fill="#38bdf8" font-family="system-ui, sans-serif">ব্যান্ড স্কোর</text>
+
+    <!-- Home indicator -->
+    <rect x="50" y="248" width="48" height="4" rx="2" fill="#2a2a2a"/>
+  </g>
+
+  <!-- Download arrow badge (bottom center, below phones) -->
+  <g transform="translate(182, 282)" filter="url(#glowGreen)">
+    <rect width="56" height="40" rx="12" fill="#052e16" stroke="#34d399" stroke-width="1.5"/>
+    <!-- Down arrow path -->
+    <path d="M28 10 L28 24 M21 19 L28 26 L35 19" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Floating coin top-right -->
+  <g transform="translate(358, 28)">
+    <g transform="scale(2.2)">
+      <path d="M12 19.92C16.3741 19.92 19.92 16.3741 19.92 12C19.92 7.62586 16.3741 4.07996 12 4.07996C7.62589 4.07996 4.07999 7.62586 4.07999 12C4.07999 16.3741 7.62589 19.92 12 19.92Z" fill="#FFB800"/>
+      <path d="M12 8.16003L15.36 12L12 15.84L8.64001 12L12 8.16003Z" fill="#FFD159"/>
+    </g>
+  </g>
+
+  <!-- Sparkle accents -->
+  <path d="M22 90 L24 84 L26 90 L32 92 L26 94 L24 100 L22 94 L16 92 Z" fill="#34d399" opacity="0.4"/>
+  <path d="M394 90 L396 84 L398 90 L404 92 L398 94 L396 100 L394 94 L388 92 Z" fill="#34d399" opacity="0.4"/>
+  <circle cx="50" cy="20" r="5" fill="#34d399" opacity="0.3"/>
+  <circle cx="374" cy="20" r="4" fill="#fbbf24" opacity="0.3"/>
+  <circle cx="22" cy="210" r="3" fill="#f97316" opacity="0.3"/>
+  <circle cx="398" cy="210" r="3" fill="#fbbf24" opacity="0.3"/>
+</svg>

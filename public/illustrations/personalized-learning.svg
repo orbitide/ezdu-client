@@ -1,0 +1,99 @@
+<svg viewBox="0 0 420 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="nodeGlow">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient glow -->
+  <circle cx="210" cy="168" r="88" fill="url(#coreGlow)"/>
+
+  <!-- Dashed connection lines to subject nodes -->
+  <line x1="210" y1="168" x2="82" y2="78" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.5"/>
+  <line x1="210" y1="168" x2="338" y2="78" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.5"/>
+  <line x1="210" y1="168" x2="82" y2="278" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.5"/>
+  <line x1="210" y1="168" x2="338" y2="278" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.5"/>
+
+  <!-- Dots along connection lines -->
+  <circle cx="146" cy="123" r="3" fill="#7c3aed" opacity="0.6"/>
+  <circle cx="274" cy="123" r="3" fill="#7c3aed" opacity="0.6"/>
+  <circle cx="146" cy="223" r="3" fill="#7c3aed" opacity="0.6"/>
+  <circle cx="274" cy="223" r="3" fill="#7c3aed" opacity="0.6"/>
+
+  <!-- Central AI ring -->
+  <circle cx="210" cy="168" r="66" fill="#1e1b4b" fill-opacity="0.85" stroke="#6d28d9" stroke-width="2" filter="url(#shadow)"/>
+  <circle cx="210" cy="168" r="50" fill="#2e1065" fill-opacity="0.7" stroke="#7c3aed" stroke-width="1.5"/>
+
+  <!-- Neural circuit lines inside brain -->
+  <path d="M190 150 Q197 142 204 150 Q211 158 218 150 Q225 142 232 150" stroke="#a78bfa" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <path d="M184 167 Q193 159 202 167 Q211 175 220 167 Q229 159 238 167" stroke="#a78bfa" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <path d="M190 184 Q197 192 204 184 Q211 176 218 184 Q225 192 232 184" stroke="#a78bfa" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="204" y1="150" x2="204" y2="184" stroke="#a78bfa" stroke-width="1" opacity="0.35"/>
+  <line x1="220" y1="150" x2="220" y2="184" stroke="#a78bfa" stroke-width="1" opacity="0.35"/>
+  <!-- Center pulsing node -->
+  <circle cx="210" cy="167" r="10" fill="#7c3aed" opacity="0.25"/>
+  <circle cx="210" cy="167" r="6" fill="#8b5cf6"/>
+  <circle cx="210" cy="167" r="3" fill="#ede9fe"/>
+  <!-- AI label -->
+  <text x="210" y="200" text-anchor="middle" font-size="8" font-weight="700" fill="#a78bfa" letter-spacing="2.5" font-family="system-ui, sans-serif">AI ENGINE</text>
+
+  <!-- Subject node — SSC (top-left) -->
+  <g transform="translate(30, 26)" filter="url(#nodeGlow)">
+    <rect width="104" height="72" rx="16" fill="#0f0f23" fill-opacity="0.9" stroke="#6d28d9" stroke-width="1.5"/>
+    <rect x="10" y="10" width="84" height="24" rx="8" fill="#1e1b4b"/>
+    <text x="52" y="27" text-anchor="middle" font-size="13" font-weight="800" fill="#c4b5fd" font-family="system-ui, sans-serif">SSC</text>
+    <text x="52" y="50" text-anchor="middle" font-size="8" fill="#8b5cf6" font-family="system-ui, sans-serif">৮৫% প্রশ্ন কভার</text>
+    <text x="52" y="62" text-anchor="middle" font-size="7" fill="#6d28d9" font-family="system-ui, sans-serif">AI কাস্টমাইজড</text>
+  </g>
+
+  <!-- Subject node — HSC (top-right) -->
+  <g transform="translate(286, 26)" filter="url(#nodeGlow)">
+    <rect width="104" height="72" rx="16" fill="#0f0f23" fill-opacity="0.9" stroke="#6d28d9" stroke-width="1.5"/>
+    <rect x="10" y="10" width="84" height="24" rx="8" fill="#1e1b4b"/>
+    <text x="52" y="27" text-anchor="middle" font-size="13" font-weight="800" fill="#c4b5fd" font-family="system-ui, sans-serif">HSC</text>
+    <text x="52" y="50" text-anchor="middle" font-size="8" fill="#8b5cf6" font-family="system-ui, sans-serif">৯২% সিলেবাস</text>
+    <text x="52" y="62" text-anchor="middle" font-size="7" fill="#6d28d9" font-family="system-ui, sans-serif">অভিযোজিত পথ</text>
+  </g>
+
+  <!-- Subject node — BCS (bottom-left) -->
+  <g transform="translate(30, 242)" filter="url(#nodeGlow)">
+    <rect width="104" height="72" rx="16" fill="#0f0f23" fill-opacity="0.9" stroke="#6d28d9" stroke-width="1.5"/>
+    <rect x="10" y="10" width="84" height="24" rx="8" fill="#1e1b4b"/>
+    <text x="52" y="27" text-anchor="middle" font-size="13" font-weight="800" fill="#c4b5fd" font-family="system-ui, sans-serif">BCS</text>
+    <text x="52" y="50" text-anchor="middle" font-size="8" fill="#8b5cf6" font-family="system-ui, sans-serif">সিলেবাস-ম্যাপড</text>
+    <text x="52" y="62" text-anchor="middle" font-size="7" fill="#6d28d9" font-family="system-ui, sans-serif">দুর্বল স্পট ফোকাস</text>
+  </g>
+
+  <!-- Subject node — IELTS (bottom-right) -->
+  <g transform="translate(286, 242)" filter="url(#nodeGlow)">
+    <rect width="104" height="72" rx="16" fill="#0f0f23" fill-opacity="0.9" stroke="#6d28d9" stroke-width="1.5"/>
+    <rect x="10" y="10" width="84" height="24" rx="8" fill="#1e1b4b"/>
+    <text x="52" y="27" text-anchor="middle" font-size="13" font-weight="800" fill="#c4b5fd" font-family="system-ui, sans-serif">IELTS</text>
+    <text x="52" y="50" text-anchor="middle" font-size="8" fill="#8b5cf6" font-family="system-ui, sans-serif">ব্যান্ড-লক্ষ্য ট্র্যাক</text>
+    <text x="52" y="62" text-anchor="middle" font-size="7" fill="#6d28d9" font-family="system-ui, sans-serif">পার্সোনালাইজড</text>
+  </g>
+
+  <!-- Floating XP bolts as decoration — bolt.svg paths scaled small -->
+  <g transform="translate(18, 145) scale(1.6)">
+    <path d="M13.92 1.44L6.24 12.96H11.04L9.12 22.56L17.76 9.6H12.96L14.88 1.44H13.92Z" fill="#533794" opacity="0.5"/>
+    <path d="M12.96 4.32L8.64 11.52H11.52L10.56 18.72L15.84 10.08H12.96L13.92 4.32H12.96Z" fill="#8B5CF6" opacity="0.5"/>
+  </g>
+  <g transform="translate(384, 145) scale(1.6)">
+    <path d="M13.92 1.44L6.24 12.96H11.04L9.12 22.56L17.76 9.6H12.96L14.88 1.44H13.92Z" fill="#533794" opacity="0.5"/>
+    <path d="M12.96 4.32L8.64 11.52H11.52L10.56 18.72L15.84 10.08H12.96L13.92 4.32H12.96Z" fill="#8B5CF6" opacity="0.5"/>
+  </g>
+
+  <!-- Sparkle accents -->
+  <path d="M200 16 L202 10 L204 16 L210 18 L204 20 L202 26 L200 20 L194 18 Z" fill="#a78bfa" opacity="0.5"/>
+  <circle cx="390" cy="168" r="5" fill="#7c3aed" opacity="0.35"/>
+  <circle cx="30" cy="168" r="4" fill="#a78bfa" opacity="0.35"/>
+  <path d="M378 220 L380 214 L382 220 L388 222 L382 224 L380 230 L378 224 L372 222 Z" fill="#6d28d9" opacity="0.5"/>
+</svg>

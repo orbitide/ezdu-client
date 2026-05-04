@@ -1,0 +1,101 @@
+<svg viewBox="0 0 420 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="drop">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- LEFT CARD — FREE (emerald) — tilted -->
+  <g transform="translate(20, 62) rotate(-6)" filter="url(#drop)">
+    <rect width="118" height="166" rx="22" fill="#052e16" fill-opacity="0.92"/>
+    <rect width="118" height="166" rx="22" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.6"/>
+    <!-- Icon circle -->
+    <circle cx="59" cy="62" r="32" fill="#064e3b"/>
+    <!-- Gift box -->
+    <rect x="43" y="58" width="32" height="22" rx="4" fill="#34d399" opacity="0.9"/>
+    <rect x="43" y="51" width="32" height="10" rx="4" fill="#6ee7b7"/>
+    <rect x="57" y="51" width="4" height="29" fill="#a7f3d0"/>
+    <path d="M61 51 Q55 43 50 47 Q46 51 61 51" fill="#6ee7b7"/>
+    <path d="M61 51 Q67 43 72 47 Q76 51 61 51" fill="#6ee7b7"/>
+    <!-- Shine on gift -->
+    <circle cx="52" cy="60" r="3" fill="#ffffff" opacity="0.2"/>
+    <!-- Label -->
+    <text x="59" y="114" text-anchor="middle" font-size="12" font-weight="800" fill="#6ee7b7" letter-spacing="1" font-family="system-ui, -apple-system, sans-serif">বিনামূল্যে</text>
+    <text x="59" y="130" text-anchor="middle" font-size="8" fill="#34d399" opacity="0.7" font-family="system-ui, sans-serif">FREE FOREVER</text>
+    <!-- Tag pill -->
+    <rect x="19" y="142" width="80" height="14" rx="7" fill="#34d399" fill-opacity="0.12" stroke="#34d399" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="59" y="153" text-anchor="middle" font-size="7.5" fill="#34d399" font-family="system-ui, sans-serif">সবসময়ের জন্য</text>
+    <!-- Checkmark -->
+    <path d="M92 148 L95 152 L102 144" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- CENTER CARD — FUN (amber) — straight, elevated -->
+  <g transform="translate(151, 26)" filter="url(#drop)">
+    <rect width="118" height="174" rx="22" fill="#1c0a00" fill-opacity="0.92"/>
+    <rect width="118" height="174" rx="22" stroke="#fbbf24" stroke-width="2" stroke-opacity="0.65"/>
+    <!-- Icon circle -->
+    <circle cx="59" cy="66" r="32" fill="#451a03"/>
+    <!-- Star shape -->
+    <polygon points="59,46 63,58 75,58 65,66 69,79 59,72 49,79 53,66 43,58 55,58" fill="#fbbf24"/>
+    <polygon points="59,50 62.5,60.5 74,60.5 65,67 68.5,79 59,73 49.5,79 53,67 44,60.5 55.5,60.5" fill="#fde68a" opacity="0.35"/>
+    <!-- Shine on star -->
+    <circle cx="67" cy="53" r="3.5" fill="#fef3c7" opacity="0.75"/>
+    <!-- Stars rating row -->
+    <text x="12" y="122" font-size="13" fill="#fbbf24" font-family="system-ui">★★★★★</text>
+    <!-- Label -->
+    <text x="59" y="142" text-anchor="middle" font-size="12" font-weight="800" fill="#fde68a" letter-spacing="1" font-family="system-ui, sans-serif">মজাদার</text>
+    <text x="59" y="157" text-anchor="middle" font-size="8" fill="#fbbf24" opacity="0.7" font-family="system-ui, sans-serif">GAMIFIED LEARNING</text>
+    <!-- Progress bar -->
+    <rect x="19" y="164" width="80" height="6" rx="3" fill="#451a03"/>
+    <rect x="19" y="164" width="72" height="6" rx="3" fill="#fbbf24" opacity="0.85"/>
+  </g>
+
+  <!-- RIGHT CARD — EFFECTIVE (sky) — tilted right -->
+  <g transform="translate(282, 62) rotate(6)" filter="url(#drop)">
+    <rect width="118" height="166" rx="22" fill="#0c1a2e" fill-opacity="0.92"/>
+    <rect width="118" height="166" rx="22" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.6"/>
+    <!-- Icon circle -->
+    <circle cx="59" cy="62" r="32" fill="#0c2a3e"/>
+    <!-- Target rings -->
+    <circle cx="59" cy="62" r="24" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.35"/>
+    <circle cx="59" cy="62" r="16" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.55"/>
+    <circle cx="59" cy="62" r="8" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.8"/>
+    <circle cx="59" cy="62" r="3.5" fill="#38bdf8"/>
+    <!-- Arrow into target -->
+    <line x1="42" y1="45" x2="57" y2="60" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round"/>
+    <polygon points="55,58 63.5,55 61,64" fill="#7dd3fc"/>
+    <!-- Label -->
+    <text x="59" y="114" text-anchor="middle" font-size="12" font-weight="800" fill="#7dd3fc" letter-spacing="1" font-family="system-ui, sans-serif">কার্যকর</text>
+    <text x="59" y="130" text-anchor="middle" font-size="8" fill="#38bdf8" opacity="0.7" font-family="system-ui, sans-serif">PROVEN RESULTS</text>
+    <!-- Stat -->
+    <text x="59" y="150" text-anchor="middle" font-size="15" font-weight="800" fill="#38bdf8" font-family="system-ui, sans-serif">৯৫%</text>
+    <text x="59" y="162" text-anchor="middle" font-size="8" fill="#7dd3fc" opacity="0.7" font-family="system-ui, sans-serif">সাফল্যের হার</text>
+  </g>
+
+  <!-- XP bolt decoration (top center) using bolt.svg paths scaled 2x -->
+  <g transform="translate(198, 4) scale(2)">
+    <path d="M13.92 1.44L6.24 12.96H11.04L9.12 22.56L17.76 9.6H12.96L14.88 1.44H13.92Z" fill="#533794" opacity="0.4"/>
+    <path d="M12.96 4.32L8.64 11.52H11.52L10.56 18.72L15.84 10.08H12.96L13.92 4.32H12.96Z" fill="#8B5CF6" opacity="0.45"/>
+  </g>
+
+  <!-- Sparkle stars -->
+  <path d="M54 18 L56 11 L58 18 L65 20 L58 22 L56 29 L54 22 L47 20 Z" fill="#34d399" opacity="0.5"/>
+  <path d="M363 24 L365 18 L367 24 L373 26 L367 28 L365 34 L363 28 L357 26 Z" fill="#38bdf8" opacity="0.5"/>
+
+  <!-- Small scattered dots -->
+  <circle cx="36" cy="248" r="5" fill="#34d399" opacity="0.3"/>
+  <circle cx="384" cy="248" r="4" fill="#38bdf8" opacity="0.28"/>
+  <circle cx="24" cy="170" r="3" fill="#34d399" opacity="0.22"/>
+  <circle cx="396" cy="170" r="3" fill="#38bdf8" opacity="0.22"/>
+  <circle cx="210" cy="322" r="4" fill="#fbbf24" opacity="0.28"/>
+
+  <!-- Connecting dots between cards -->
+  <circle cx="140" cy="172" r="5" fill="#34d399" opacity="0.4"/>
+  <circle cx="150" cy="156" r="3" fill="#34d399" opacity="0.3"/>
+  <circle cx="280" cy="172" r="5" fill="#fbbf24" opacity="0.38"/>
+  <circle cx="270" cy="156" r="3" fill="#fbbf24" opacity="0.28"/>
+</svg>
