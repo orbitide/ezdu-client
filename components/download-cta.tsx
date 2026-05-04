@@ -12,22 +12,63 @@ export const DownloadCTA = () => {
     const isInView = useInView(ref, { once: true, margin: '-80px' });
 
     return (
-        <section className="surface-section-muted border-t border-emerald-400/10 py-28 md:py-40">
+        <section className="surface-section-muted border-t border-emerald-400/10 py-28 md:py-40 overflow-hidden">
             <div className="max-w-3xl mx-auto px-6 text-center" ref={ref}>
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.7 }}
-                    className="flex justify-center mb-14"
-                >
-                    <Image
-                        src="/illustrations/download-app.svg"
-                        alt="Ezdu অ্যাপ ডাউনলোড করো"
-                        width={420}
-                        height={340}
-                        className="w-full max-w-md"
-                    />
-                </motion.div>
+
+                {/* Phone cluster */}
+                <div className="flex justify-center mb-14">
+                    <div className="relative flex items-end justify-center h-[440px] w-full max-w-[420px]">
+
+                        {/* Left phone (history) */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30, y: 20 }}
+                            animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+                            transition={{ duration: 0.7, delay: 0.4 }}
+                            className="absolute left-0 bottom-0 w-40 -rotate-[10deg] origin-bottom opacity-80 z-0"
+                        >
+                            <Image
+                                src="/history.png"
+                                alt="Ezdu অ্যাপ — ইতিহাস"
+                                width={390}
+                                height={844}
+                                className="w-full drop-shadow-2xl"
+                            />
+                        </motion.div>
+
+                        {/* Right phone (profile) */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 30, y: 20 }}
+                            animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+                            transition={{ duration: 0.7, delay: 0.4 }}
+                            className="absolute right-0 bottom-0 w-40 rotate-[10deg] origin-bottom opacity-80 z-0"
+                        >
+                            <Image
+                                src="/profile.png"
+                                alt="Ezdu অ্যাপ — প্রোফাইল"
+                                width={390}
+                                height={844}
+                                className="w-full drop-shadow-2xl"
+                            />
+                        </motion.div>
+
+                        {/* Center phone (home) */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.7, delay: 0.2 }}
+                            className="relative z-10 w-52"
+                        >
+                            <Image
+                                src="/home.png"
+                                alt="Ezdu অ্যাপ — হোম"
+                                width={390}
+                                height={844}
+                                className="w-full drop-shadow-2xl"
+                            />
+                        </motion.div>
+
+                    </div>
+                </div>
 
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
