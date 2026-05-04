@@ -26,7 +26,7 @@ export const Navbar = () => {
                         className="flex items-center gap-2"
                         whileHover={{ scale: 1.05 }}
                     >
-                        <Image alt="EzDu logo" src="/logo.png" width={36} height={32} />
+                        <Image alt="EzDu logo" src="/logo_rounded.png" width={36} height={32} />
                         <span className="text-2xl font-bold tracking-tight text-white">EzDu</span>
                     </motion.div>
                 </Link>
