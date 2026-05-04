@@ -4,15 +4,6 @@
       <stop offset="0%" stop-color="#059669"/>
       <stop offset="100%" stop-color="#34d399"/>
     </linearGradient>
-    <linearGradient id="flameGrad" x1="30%" y1="100%" x2="70%" y2="0%">
-      <stop offset="0%" stop-color="#ea580c"/>
-      <stop offset="50%" stop-color="#f97316"/>
-      <stop offset="100%" stop-color="#fbbf24"/>
-    </linearGradient>
-    <filter id="flameglow">
-      <feGaussianBlur stdDeviation="8" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
     <filter id="drop">
       <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/>
     </filter>
@@ -95,27 +86,21 @@
   <text x="128" y="193" font-size="8" fill="#52525b" font-family="system-ui, sans-serif">অগ্রগতি ৬৪%</text>
   <text x="292" y="193" text-anchor="end" font-size="8" font-weight="600" fill="#34d399" font-family="system-ui, sans-serif">১৭/৩০ দিন</text>
 
-  <!-- Daily goal card -->
-  <rect x="128" y="202" width="164" height="42" rx="12" fill="#111111"/>
-  <rect x="136" y="210" width="10" height="16" rx="2" fill="#533794"/>
-  <path d="M141 210 L136 218 L139 218 L134 226 L141 216 L138 216 Z" fill="#8B5CF6"/>
-  <path d="M140 212 L136.5 218 L138.5 218 L135 224 L140 216 L138 216 Z" fill="#C4B5FD"/>
-  <text x="153" y="222" font-size="9" font-weight="700" fill="#f4f4f5" font-family="system-ui, sans-serif">আজকের লক্ষ্য</text>
-  <text x="284" y="222" text-anchor="end" font-size="9" fill="#34d399" font-family="system-ui, sans-serif">৩০/৫০ XP</text>
-  <rect x="136" y="230" width="148" height="6" rx="3" fill="#1f1f1f"/>
-  <rect x="136" y="230" width="90" height="6" rx="3" fill="#8B5CF6" opacity="0.8"/>
-
   <!-- Home indicator -->
   <rect x="168" y="288" width="84" height="4" rx="2" fill="#2d2d2d"/>
 
-  <!-- Floating flame badge (left of phone) -->
-  <g transform="translate(18, 58)" filter="url(#flameglow)">
-    <rect width="82" height="90" rx="20" fill="#1c0800" stroke="#f97316" stroke-width="1.5"/>
-    <!-- Hand-drawn flame path -->
-    <path d="M41 72 C28 60 26 46 36 36 C37 46 42 49 47 42 C50 35 52 26 44 17 C56 24 64 36 59 50 C64 42 68 37 65 29 C74 39 72 55 62 64 C58 69 51 74 41 72 Z" fill="url(#flameGrad)" opacity="0.95"/>
-    <!-- Inner highlight -->
-    <path d="M41 68 C35 61 34 52 40 44 C40 50 43 52 46 47 C48 42 49 36 44 29 C52 35 56 44 52 53 C55 48 57 44 55 39 C61 46 60 57 53 63 C50 66 46 70 41 68 Z" fill="#fbbf24" opacity="0.35"/>
-    <text x="41" y="84" text-anchor="middle" font-size="10" font-weight="800" fill="#fb923c" font-family="system-ui, -apple-system, sans-serif">১৭ দিন</text>
+  <!-- Floating streak icon (left of phone) — real streak.svg paths, clean, no filter -->
+  <g transform="translate(14, 55)">
+    <!-- streak.svg paths scaled 3.6x, floating transparently -->
+    <g transform="scale(3.6)">
+      <path d="M12.72 22.08C7.92 22.08 4.56 18.72 4.56 14.64C4.56 12 6 10.08 7.44 8.64003C7.92 8.16003 7.92 9.60003 8.4 10.08C8.64 10.32 8.88 10.08 8.88 9.60003C8.88 7.68003 10.32 5.28003 12.72 3.84003C13.92 6.24003 14.16 8.16003 13.68 9.60003C13.44 10.32 14.16 11.04 14.64 10.56C16.08 9.12003 16.56 7.20003 16.08 5.28003C18 7.20003 20.88 10.56 20.88 14.64C20.88 18.72 17.52 22.08 12.72 22.08Z" fill="#A64646"/>
+      <path d="M12 21.12C7.2 21.12 3.84 17.76 3.84 13.68C3.84 11.04 5.28 9.12 6.72 7.68C7.2 7.2 7.2 8.64 7.68 9.12C7.92 9.36 8.16 9.12 8.16 8.64C8.16 6.72 9.6 4.32 12 2.88C13.2 5.28 13.44 7.2 12.96 8.64C12.72 9.36 13.44 10.08 13.92 9.6C15.36 8.16 15.84 6.24 15.36 4.32C17.28 6.24 20.16 9.60001 20.16 13.68C20.16 17.76 16.8 21.12 12 21.12Z" fill="#FF6B6B"/>
+      <path d="M12 18.24C10.08 18.24 8.64001 16.8 8.64001 14.88C8.64001 13.44 9.60001 12.48 10.56 11.76C10.8 11.52 10.8 12 11.04 12.24C11.28 12.48 11.52 12.24 11.52 12C11.52 11.04 12 10.08 12 10.08C12.48 11.04 13.44 12.48 13.44 14.4C13.44 16.56 12.84 18.24 12 18.24Z" fill="#FFC900"/>
+      <path opacity="0.5" d="M11.3195 14.4832C11.7036 14.3803 11.8898 13.8298 11.7355 13.2536C11.5811 12.6775 11.1446 12.2939 10.7605 12.3968C10.3764 12.4997 10.1901 13.0502 10.3445 13.6263C10.4989 14.2025 10.9354 14.5861 11.3195 14.4832Z" fill="#FFEB59"/>
+      <path opacity="0.95" d="M19.776 2.88H19.104C18.8919 2.88 18.72 3.05193 18.72 3.264V3.936C18.72 4.14808 18.8919 4.32 19.104 4.32H19.776C19.9881 4.32 20.16 4.14808 20.16 3.936V3.264C20.16 3.05193 19.9881 2.88 19.776 2.88Z" fill="#FF9F9F"/>
+      <path opacity="0.95" d="M21.36 5.87999C21.6914 5.87999 21.96 5.61136 21.96 5.27999C21.96 4.94862 21.6914 4.67999 21.36 4.67999C21.0286 4.67999 20.76 4.94862 20.76 5.27999C20.76 5.61136 21.0286 5.87999 21.36 5.87999Z" fill="#FF9F9F"/>
+    </g>
+    <text x="43" y="92" text-anchor="middle" font-size="10" font-weight="800" fill="#fb923c" font-family="system-ui, -apple-system, sans-serif">১৭ দিন</text>
   </g>
 
   <!-- XP bonus toast (right of phone) -->

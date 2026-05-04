@@ -37,7 +37,7 @@ export const PersonalizedLearning = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-5xl md:text-6xl font-bold text-zinc-100 leading-tight mb-6"
+                    className="text-3xl md:text-4xl font-bold text-zinc-100 leading-tight mb-6"
                 >
                     তোমার জন্য{' '}
                     <span className="text-violet-400">কাস্টমাইজড</span> শিক্ষা
@@ -47,7 +47,7 @@ export const PersonalizedLearning = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.35 }}
-                    className="text-xl text-zinc-400 max-w-xl mx-auto leading-relaxed mb-14"
+                    className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed mb-14"
                 >
                     Ezdu-র AI তোমার দুর্বল জায়গা বুঝে ঠিক সেখানেই মনোযোগ দেয়। একই প্রশ্নব্যাংক সবার জন্য নয় — তোমার শিক্ষা তোমার মতো করেই সাজানো।
                 </motion.p>

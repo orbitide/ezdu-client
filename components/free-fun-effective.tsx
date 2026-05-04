@@ -1,28 +1,36 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
-import React from 'react';
 
-const pillars = [
-    { label: 'বিনামূল্যে', sub: 'সবসময়ের জন্য', color: 'text-emerald-400', border: 'border-emerald-400/30', bg: 'bg-emerald-400/5' },
-    { label: 'মজাদার', sub: 'গেমের মতো', color: 'text-amber-400', border: 'border-amber-400/30', bg: 'bg-amber-400/5' },
-    { label: 'কার্যকর', sub: '৯৫% সাফল্য', color: 'text-sky-400', border: 'border-sky-400/30', bg: 'bg-sky-400/5' },
+const sparks = [
+    { x: '4%',  y: '12%', size: 10, color: 'bg-emerald-400', opacity: 'opacity-60' },
+    { x: '12%', y: '72%', size: 7,  color: 'bg-emerald-400', opacity: 'opacity-50' },
+    { x: '7%',  y: '44%', size: 5,  color: 'bg-emerald-400', opacity: 'opacity-40' },
+    { x: '18%', y: '90%', size: 8,  color: 'bg-amber-400',   opacity: 'opacity-55' },
+    { x: '88%', y: '10%', size: 9,  color: 'bg-sky-400',     opacity: 'opacity-55' },
+    { x: '94%', y: '55%', size: 7,  color: 'bg-sky-400',     opacity: 'opacity-50' },
+    { x: '82%', y: '82%', size: 10, color: 'bg-sky-400',     opacity: 'opacity-50' },
+    { x: '96%', y: '30%', size: 5,  color: 'bg-emerald-400', opacity: 'opacity-40' },
+    { x: '35%', y: '5%',  size: 6,  color: 'bg-amber-400',   opacity: 'opacity-45' },
+    { x: '62%', y: '8%',  size: 5,  color: 'bg-emerald-400', opacity: 'opacity-40' },
+    { x: '50%', y: '92%', size: 8,  color: 'bg-amber-400',   opacity: 'opacity-45' },
+    { x: '25%', y: '18%', size: 5,  color: 'bg-sky-400',     opacity: 'opacity-40' },
+    { x: '76%', y: '22%', size: 5,  color: 'bg-amber-400',   opacity: 'opacity-40' },
 ];
 
 export const FreeFunEffective = () => {
-    const ref = React.useRef(null);
-    const isInView = useInView(ref, { once: true, margin: '-80px' });
-
     return (
-        <section className="surface-section-muted py-28 md:py-40">
-            <div className="max-w-3xl mx-auto px-6 text-center" ref={ref}>
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.7 }}
-                    className="flex justify-center mb-14"
-                >
+        <section className="relative surface-section-muted py-28 md:py-40 overflow-hidden">
+            {sparks.map(({ x, y, size, color, opacity }, i) => (
+                <span
+                    key={i}
+                    className={`absolute rounded-full ${color} ${opacity} pointer-events-none`}
+                    style={{ left: x, top: y, width: size, height: size }}
+                />
+            ))}
+
+            <div className="max-w-3xl mx-auto px-6 text-center">
+                <div className="flex justify-center mb-14">
                     <Image
                         src="/illustrations/free-fun-effective.svg"
                         alt="Ezdu বিনামূল্যে, মজাদার ও কার্যকর"
@@ -31,41 +39,17 @@ export const FreeFunEffective = () => {
                         className="w-full max-w-md"
                         priority={false}
                     />
-                </motion.div>
+                </div>
 
-                <motion.h2
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-5xl md:text-6xl font-bold leading-tight mb-6"
-                >
+                <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6">
                     <span className="text-emerald-400">বিনামূল্যে।</span>{' '}
                     <span className="text-amber-400">মজাদার।</span>{' '}
                     <span className="text-sky-400">কার্যকর।</span>
-                </motion.h2>
+                </h2>
 
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.35 }}
-                    className="text-xl text-zinc-400 max-w-xl mx-auto leading-relaxed mb-14"
-                >
+                <p className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed">
                     Ezdu-তে শেখা মানে গেমের মতো অভিজ্ঞতা — ছোট ছোট সেশন, তাৎক্ষণিক ফিডব্যাক, আর বাস্তব পরীক্ষার প্রস্তুতি। সবই বিনামূল্যে শুরু করো।
-                </motion.p>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="grid grid-cols-3 gap-4"
-                >
-                    {pillars.map(({ label, sub, color, border, bg }, i) => (
-                        <div key={i} className={`rounded-2xl border ${border} ${bg} px-4 py-5`}>
-                            <div className={`text-xl font-bold mb-1 ${color}`}>{label}</div>
-                            <div className="text-sm text-zinc-500">{sub}</div>
-                        </div>
-                    ))}
-                </motion.div>
+                </p>
             </div>
         </section>
     );

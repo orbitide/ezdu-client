@@ -36,7 +36,7 @@ export const DownloadCTA = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-5xl md:text-6xl font-bold text-zinc-100 leading-tight mb-6"
+                    className="text-3xl md:text-4xl font-bold text-zinc-100 leading-tight mb-6"
                 >
                     যেকোনো সময়,{' '}
                     <span className="text-emerald-400">যেকোনো জায়গায়</span> পড়ো
@@ -46,7 +46,7 @@ export const DownloadCTA = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.35 }}
-                    className="text-xl text-zinc-400 max-w-xl mx-auto leading-relaxed mb-6"
+                    className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed mb-6"
                 >
                     যানজটে, বিরতিতে, বা ঘুমানোর আগে — Ezdu সবসময় তোমার পকেটে। iOS ও Android — দুটোতেই পাওয়া যায়।
                 </motion.p>

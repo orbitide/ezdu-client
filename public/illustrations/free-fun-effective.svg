@@ -1,101 +1,67 @@
 <svg viewBox="0 0 420 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="drop">
-      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#000" flood-opacity="0.5"/>
-    </filter>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
 
-  <!-- LEFT CARD — FREE (emerald) — tilted -->
-  <g transform="translate(20, 62) rotate(-6)" filter="url(#drop)">
-    <rect width="118" height="166" rx="22" fill="#052e16" fill-opacity="0.92"/>
-    <rect width="118" height="166" rx="22" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.6"/>
-    <!-- Icon circle -->
-    <circle cx="59" cy="62" r="32" fill="#064e3b"/>
+  <!-- LEFT — FREE (emerald) — tilted -->
+  <g transform="translate(28, 80) rotate(-8)">
+    <circle cx="56" cy="56" r="56" fill="#064e3b" fill-opacity="0.7"/>
     <!-- Gift box -->
-    <rect x="43" y="58" width="32" height="22" rx="4" fill="#34d399" opacity="0.9"/>
-    <rect x="43" y="51" width="32" height="10" rx="4" fill="#6ee7b7"/>
-    <rect x="57" y="51" width="4" height="29" fill="#a7f3d0"/>
-    <path d="M61 51 Q55 43 50 47 Q46 51 61 51" fill="#6ee7b7"/>
-    <path d="M61 51 Q67 43 72 47 Q76 51 61 51" fill="#6ee7b7"/>
-    <!-- Shine on gift -->
-    <circle cx="52" cy="60" r="3" fill="#ffffff" opacity="0.2"/>
-    <!-- Label -->
-    <text x="59" y="114" text-anchor="middle" font-size="12" font-weight="800" fill="#6ee7b7" letter-spacing="1" font-family="system-ui, -apple-system, sans-serif">বিনামূল্যে</text>
-    <text x="59" y="130" text-anchor="middle" font-size="8" fill="#34d399" opacity="0.7" font-family="system-ui, sans-serif">FREE FOREVER</text>
-    <!-- Tag pill -->
-    <rect x="19" y="142" width="80" height="14" rx="7" fill="#34d399" fill-opacity="0.12" stroke="#34d399" stroke-width="1" stroke-opacity="0.4"/>
-    <text x="59" y="153" text-anchor="middle" font-size="7.5" fill="#34d399" font-family="system-ui, sans-serif">সবসময়ের জন্য</text>
-    <!-- Checkmark -->
-    <path d="M92 148 L95 152 L102 144" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="36" y="52" width="40" height="28" rx="5" fill="#34d399"/>
+    <rect x="36" y="42" width="40" height="14" rx="5" fill="#6ee7b7"/>
+    <rect x="53" y="42" width="6" height="38" fill="#a7f3d0"/>
+    <path d="M56 42 Q47 30 41 35 Q36 40 56 42" fill="#6ee7b7"/>
+    <path d="M56 42 Q65 30 71 35 Q76 40 56 42" fill="#6ee7b7"/>
+    <circle cx="46" cy="54" r="4" fill="#ffffff" opacity="0.15"/>
   </g>
 
-  <!-- CENTER CARD — FUN (amber) — straight, elevated -->
-  <g transform="translate(151, 26)" filter="url(#drop)">
-    <rect width="118" height="174" rx="22" fill="#1c0a00" fill-opacity="0.92"/>
-    <rect width="118" height="174" rx="22" stroke="#fbbf24" stroke-width="2" stroke-opacity="0.65"/>
-    <!-- Icon circle -->
-    <circle cx="59" cy="66" r="32" fill="#451a03"/>
+  <!-- CENTER — FUN (amber) — straight, elevated -->
+  <g transform="translate(154, 40)">
+    <circle cx="56" cy="56" r="56" fill="#451a03" fill-opacity="0.7"/>
     <!-- Star shape -->
-    <polygon points="59,46 63,58 75,58 65,66 69,79 59,72 49,79 53,66 43,58 55,58" fill="#fbbf24"/>
-    <polygon points="59,50 62.5,60.5 74,60.5 65,67 68.5,79 59,73 49.5,79 53,67 44,60.5 55.5,60.5" fill="#fde68a" opacity="0.35"/>
-    <!-- Shine on star -->
-    <circle cx="67" cy="53" r="3.5" fill="#fef3c7" opacity="0.75"/>
-    <!-- Stars rating row -->
-    <text x="12" y="122" font-size="13" fill="#fbbf24" font-family="system-ui">★★★★★</text>
-    <!-- Label -->
-    <text x="59" y="142" text-anchor="middle" font-size="12" font-weight="800" fill="#fde68a" letter-spacing="1" font-family="system-ui, sans-serif">মজাদার</text>
-    <text x="59" y="157" text-anchor="middle" font-size="8" fill="#fbbf24" opacity="0.7" font-family="system-ui, sans-serif">GAMIFIED LEARNING</text>
-    <!-- Progress bar -->
-    <rect x="19" y="164" width="80" height="6" rx="3" fill="#451a03"/>
-    <rect x="19" y="164" width="72" height="6" rx="3" fill="#fbbf24" opacity="0.85"/>
+    <polygon points="56,32 61,48 78,48 65,58 70,74 56,64 42,74 47,58 34,48 51,48" fill="#fbbf24"/>
+    <polygon points="56,37 60,51 75,51 64,59 68,73 56,65 44,73 48,59 37,51 52,51" fill="#fde68a" opacity="0.3"/>
+    <circle cx="64" cy="40" r="4" fill="#fef3c7" opacity="0.7"/>
   </g>
 
-  <!-- RIGHT CARD — EFFECTIVE (sky) — tilted right -->
-  <g transform="translate(282, 62) rotate(6)" filter="url(#drop)">
-    <rect width="118" height="166" rx="22" fill="#0c1a2e" fill-opacity="0.92"/>
-    <rect width="118" height="166" rx="22" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.6"/>
-    <!-- Icon circle -->
-    <circle cx="59" cy="62" r="32" fill="#0c2a3e"/>
+  <!-- RIGHT — EFFECTIVE (sky) — tilted right -->
+  <g transform="translate(282, 80) rotate(8)">
+    <circle cx="56" cy="56" r="56" fill="#0c2a3e" fill-opacity="0.7"/>
     <!-- Target rings -->
-    <circle cx="59" cy="62" r="24" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.35"/>
-    <circle cx="59" cy="62" r="16" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.55"/>
-    <circle cx="59" cy="62" r="8" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.8"/>
-    <circle cx="59" cy="62" r="3.5" fill="#38bdf8"/>
-    <!-- Arrow into target -->
-    <line x1="42" y1="45" x2="57" y2="60" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round"/>
-    <polygon points="55,58 63.5,55 61,64" fill="#7dd3fc"/>
-    <!-- Label -->
-    <text x="59" y="114" text-anchor="middle" font-size="12" font-weight="800" fill="#7dd3fc" letter-spacing="1" font-family="system-ui, sans-serif">কার্যকর</text>
-    <text x="59" y="130" text-anchor="middle" font-size="8" fill="#38bdf8" opacity="0.7" font-family="system-ui, sans-serif">PROVEN RESULTS</text>
-    <!-- Stat -->
-    <text x="59" y="150" text-anchor="middle" font-size="15" font-weight="800" fill="#38bdf8" font-family="system-ui, sans-serif">৯৫%</text>
-    <text x="59" y="162" text-anchor="middle" font-size="8" fill="#7dd3fc" opacity="0.7" font-family="system-ui, sans-serif">সাফল্যের হার</text>
+    <circle cx="56" cy="56" r="40" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.3"/>
+    <circle cx="56" cy="56" r="27" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.55"/>
+    <circle cx="56" cy="56" r="14" stroke="#38bdf8" stroke-width="1.5" fill="none" opacity="0.8"/>
+    <circle cx="56" cy="56" r="5" fill="#38bdf8"/>
+    <!-- Arrow -->
+    <line x1="36" y1="36" x2="53" y2="53" stroke="#7dd3fc" stroke-width="2.5" stroke-linecap="round"/>
+    <polygon points="50,51 60,48 57,58" fill="#7dd3fc"/>
   </g>
 
-  <!-- XP bolt decoration (top center) using bolt.svg paths scaled 2x -->
-  <g transform="translate(198, 4) scale(2)">
-    <path d="M13.92 1.44L6.24 12.96H11.04L9.12 22.56L17.76 9.6H12.96L14.88 1.44H13.92Z" fill="#533794" opacity="0.4"/>
-    <path d="M12.96 4.32L8.64 11.52H11.52L10.56 18.72L15.84 10.08H12.96L13.92 4.32H12.96Z" fill="#8B5CF6" opacity="0.45"/>
-  </g>
+  <!-- Sparkles spread across the full area -->
 
-  <!-- Sparkle stars -->
-  <path d="M54 18 L56 11 L58 18 L65 20 L58 22 L56 29 L54 22 L47 20 Z" fill="#34d399" opacity="0.5"/>
-  <path d="M363 24 L365 18 L367 24 L373 26 L367 28 L365 34 L363 28 L357 26 Z" fill="#38bdf8" opacity="0.5"/>
+  <!-- Top region -->
+  <path d="M54 18 L56 11 L58 18 L65 20 L58 22 L56 29 L54 22 L47 20 Z" fill="#34d399" opacity="0.55"/>
+  <circle cx="120" cy="12" r="3" fill="#34d399" opacity="0.3"/>
+  <path d="M210 8 L211.5 3 L213 8 L218 9.5 L213 11 L211.5 16 L210 11 L205 9.5 Z" fill="#fbbf24" opacity="0.45"/>
+  <circle cx="300" cy="15" r="4" fill="#38bdf8" opacity="0.3"/>
+  <path d="M363 18 L365 11 L367 18 L374 20 L367 22 L365 29 L363 22 L356 20 Z" fill="#38bdf8" opacity="0.5"/>
 
-  <!-- Small scattered dots -->
-  <circle cx="36" cy="248" r="5" fill="#34d399" opacity="0.3"/>
-  <circle cx="384" cy="248" r="4" fill="#38bdf8" opacity="0.28"/>
-  <circle cx="24" cy="170" r="3" fill="#34d399" opacity="0.22"/>
-  <circle cx="396" cy="170" r="3" fill="#38bdf8" opacity="0.22"/>
-  <circle cx="210" cy="322" r="4" fill="#fbbf24" opacity="0.28"/>
+  <!-- Left region -->
+  <circle cx="14" cy="100" r="3" fill="#34d399" opacity="0.25"/>
+  <circle cx="8" cy="160" r="5" fill="#34d399" opacity="0.2"/>
+  <path d="M18 220 L20 214 L22 220 L28 222 L22 224 L20 230 L18 224 L12 222 Z" fill="#34d399" opacity="0.4"/>
 
-  <!-- Connecting dots between cards -->
-  <circle cx="140" cy="172" r="5" fill="#34d399" opacity="0.4"/>
-  <circle cx="150" cy="156" r="3" fill="#34d399" opacity="0.3"/>
-  <circle cx="280" cy="172" r="5" fill="#fbbf24" opacity="0.38"/>
-  <circle cx="270" cy="156" r="3" fill="#fbbf24" opacity="0.28"/>
+  <!-- Right region -->
+  <circle cx="406" cy="100" r="3" fill="#38bdf8" opacity="0.25"/>
+  <circle cx="412" cy="165" r="5" fill="#38bdf8" opacity="0.2"/>
+  <path d="M398 225 L400 219 L402 225 L408 227 L402 229 L400 235 L398 229 L392 227 Z" fill="#38bdf8" opacity="0.4"/>
+
+  <!-- Bottom region -->
+  <circle cx="80" cy="310" r="4" fill="#34d399" opacity="0.25"/>
+  <path d="M170 322 L172 316 L174 322 L180 324 L174 326 L172 332 L170 326 L164 324 Z" fill="#fbbf24" opacity="0.35"/>
+  <circle cx="250" cy="316" r="3" fill="#38bdf8" opacity="0.22"/>
+  <circle cx="345" cy="308" r="5" fill="#38bdf8" opacity="0.22"/>
+
+  <!-- Between cards — mid region -->
+  <circle cx="148" cy="170" r="4" fill="#34d399" opacity="0.35"/>
+  <circle cx="280" cy="170" r="4" fill="#fbbf24" opacity="0.35"/>
+  <circle cx="214" cy="280" r="3" fill="#fbbf24" opacity="0.28"/>
+
 </svg>

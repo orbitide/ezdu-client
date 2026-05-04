@@ -36,7 +36,7 @@ export const CoinRewards = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-5xl md:text-6xl font-bold text-zinc-100 leading-tight mb-6"
+                    className="text-3xl md:text-4xl font-bold text-zinc-100 leading-tight mb-6"
                 >
                     XP জিতো,{' '}
                     <span className="text-yellow-400">শীর্ষে থাকো</span>
@@ -46,7 +46,7 @@ export const CoinRewards = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.35 }}
-                    className="text-xl text-zinc-400 max-w-xl mx-auto leading-relaxed mb-14"
+                    className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed mb-14"
                 >
                     প্রতিটি প্রশ্নের সঠিক উত্তর দিলে XP পাও, লেভেল বাড়াও, ব্যাজ অর্জন করো। লিডারবোর্ডে বন্ধুদের টপকাও আর প্রমাণ করো তুমিই সেরা।
                 </motion.p>

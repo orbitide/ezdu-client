@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="SSC — Secondary School Certificate">
+  
+  <rect width="400" height="400" rx="28" fill="#FEF3C7"></rect>
+
+  
+  <g transform="translate(200 168)">
+    
+    <path d="M-78 0 L0 -32 L78 0 L0 32 Z" fill="#0F172A"></path>
+    
+    <path d="M-44 14 L-44 44 Q0 60 44 44 L44 14 L0 32 Z" fill="#0F172A" opacity="0.85"></path>
+    
+    <circle cx="0" cy="0" r="4" fill="#F59E0B"></circle>
+    
+    <path d="M0 0 L46 -10 L46 18" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+    <circle cx="46" cy="22" r="5" fill="#F59E0B"></circle>
+  </g>
+
+  
+  <text x="200" y="296" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, &#39;Segoe UI&#39;, Roboto, sans-serif" font-size="76" font-weight="800" fill="#0F172A" letter-spacing="2">SSC</text>
+
+  
+  <text x="200" y="328" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, &#39;Segoe UI&#39;, Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A" opacity="0.6" letter-spacing="3">SECONDARY SCHOOL CERTIFICATE</text>
+</svg>

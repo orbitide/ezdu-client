@@ -37,9 +37,9 @@ export const StayMotivated = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-5xl md:text-6xl font-bold text-zinc-100 leading-tight mb-6"
+                    className="text-3xl md:text-4xl font-bold text-zinc-100 leading-tight mb-6"
                 >
-                    প্রতিদিন পড়ো,{' '}
+                    প্রতিদিন প্র্যাকটিস করো,{' '}
                     <span className="text-orange-400">এগিয়ে যাও</span>
                 </motion.h2>
 
@@ -47,7 +47,7 @@ export const StayMotivated = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.35 }}
-                    className="text-xl text-zinc-400 max-w-xl mx-auto leading-relaxed mb-14"
+                    className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed mb-14"
                 >
                     স্ট্রিক সিস্টেম, দৈনিক চ্যালেঞ্জ আর স্মার্ট রিমাইন্ডার দিয়ে পড়ার অভ্যাস গড়ে তোলো। Ezdu তোমার পড়ার সঙ্গী — প্রতিটি দিন।
                 </motion.p>
