@@ -43,6 +43,33 @@ export const FreeFunEffective = () => {
 
     return (
         <section className="relative surface-section-muted min-h-screen py-28 flex items-center overflow-hidden">
+
+            {/* Comet */}
+            <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                    top: '12%',
+                    left: 0,
+                    width: 36,
+                    height: 1,
+                    borderRadius: 999,
+                    background: 'linear-gradient(to right, transparent, rgba(196,181,253,0.75) 50%, rgba(255,255,255,0.92))',
+                    rotate: 20,
+                    boxShadow: '0 0 3px 0.5px rgba(196,181,253,0.3)',
+                    opacity: 0.9,
+                }}
+                animate={{
+                    x: [-60, 2400],
+                    y: [0, 800],
+                }}
+                transition={{
+                    duration: 22,
+                    ease: 'linear',
+                    repeat: Infinity,
+                    repeatDelay: 2,
+                }}
+            />
+
             {sparks.map((s, i) =>
                 s.type === 'star' ? (
                     <motion.span
@@ -64,7 +91,7 @@ export const FreeFunEffective = () => {
             )}
 
             <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
-                <div className="flex items-end justify-center gap-10 md:gap-14 mb-14">
+                <div className="flex items-end justify-center gap-10 md:gap-14 mb-24">
                     {[
                         { src: '/illustrations/free.svg',      alt: 'বিনামূল্যে', label: 'বিনামূল্যে', color: 'text-emerald-400', delay: 0.1, lift: false },
                         { src: '/illustrations/fun.svg',       alt: 'মজাদার',     label: 'মজাদার',     color: 'text-amber-400',   delay: 0.2, lift: true  },
