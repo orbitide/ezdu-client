@@ -45,7 +45,7 @@ export const Footer = () => {
                 <div className="grid md:grid-cols-4 gap-8 mb-10">
                     <div>
                         <Link href="/" className="inline-flex items-center gap-2 mb-3">
-                            <Image alt="EzDu logo" src="/logo.png" width={40} height={32} />
+                            <Image alt="EzDu logo" src="/logo_rounded.png" width={40} height={32} />
                             <span className="text-2xl font-bold text-white tracking-tight">
                                 EzDu
                             </span>
