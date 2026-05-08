@@ -24,10 +24,9 @@ export const metadata: Metadata = {
 
     icons: {
         icon: [
-            { url: '/favicon.ico' },
+            { url: '/logo.png' },
             // { url: '/favicon-192.png', sizes: '192x192', type: 'image/png' },
         ],
-        apple: '/apple-icon.png',
     },
 
     keywords: [

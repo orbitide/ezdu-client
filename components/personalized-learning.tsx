@@ -1,7 +1,6 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import Image from 'next/image';
 import React from 'react';
 
 // ─── SVG coordinate constants ─────────────────────────────────────────────────
