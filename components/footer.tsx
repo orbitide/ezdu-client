@@ -33,7 +33,7 @@ export const Footer = () => {
     ];
 
     const socialLinks = [
-        { icon: Facebook, link: 'https://www.facebook.com/profile.php?id=61585174118847', label: 'Facebook' },
+        { icon: Facebook, link: 'https://www.facebook.com/ezdu.net', label: 'Facebook' },
         { icon: Instagram, link: 'https://www.instagram.com/ezdu.bd/', label: 'Instagram' },
     ];
 
