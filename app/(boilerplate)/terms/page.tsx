@@ -23,8 +23,7 @@ export default function TermsPage() {
                         <h2 className="text-lg font-semibold text-white mb-3">1. Acceptance</h2>
                         <p>
                             By creating an account, downloading our apps, or using ezdu.net and related properties, you
-                            agree to these Terms and our Privacy Policy. If you use the Services on behalf of an
-                            organization, you represent that you have authority to bind that organization.
+                            agree to these Terms and our Privacy Policy. EzDu&apos;s Services are intended for users in Bangladesh.
                         </p>
                     </section>
 
