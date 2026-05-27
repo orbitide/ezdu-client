@@ -20,13 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         // ── Core ──────────────────────────────────────────
         url("/",               1.0, "weekly"),
 
-        // ── Exam pages — highest value pages ─────────────
-        url("/ssc",            0.9, "weekly"),
-        url("/hsc",            0.9, "weekly"),
-        url("/bcs",            0.9, "weekly"),
-        url("/ielts",          0.9, "weekly"),
-        url("/vocabulary",     0.85, "weekly"),
-
         // ── Supporting ────────────────────────────────────
         url("/blog",           0.6, "weekly"),
         url("/faq",            0.55, "monthly"),

@@ -3,13 +3,8 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { ExamHubNav } from '@/components/exam-hub-nav';
-import { isExamPath } from '@/lib/exam-routes';
 
 export const Navbar = () => {
-    const pathname = usePathname();
-    const showExamBar = isExamPath(pathname);
     const reduceMotion = useReducedMotion();
 
     return (
@@ -30,18 +25,7 @@ export const Navbar = () => {
                         <span className="text-2xl font-bold tracking-tight text-white">EzDu</span>
                     </motion.div>
                 </Link>
-
-                {/*<div className="flex items-center gap-5 sm:gap-8">
-                    <Link href="/about" className="text-sm font-medium text-zinc-400 hover:text-emerald-400 transition-colors">About</Link>
-                    <Link href="/career" className="text-sm font-medium text-zinc-400 hover:text-emerald-400 transition-colors">Careers</Link>
-                    <Link href="/contact" className="text-sm font-medium text-zinc-400 hover:text-emerald-400 transition-colors">Contact</Link>
-                </div>*/}
             </div>
-            {showExamBar ? (
-                <div className="h-[var(--ez-exam-bar-height)] overflow-hidden border-t border-zinc-800/90 bg-zinc-950/80">
-                    <ExamHubNav />
-                </div>
-            ) : null}
         </motion.nav>
     );
 };
