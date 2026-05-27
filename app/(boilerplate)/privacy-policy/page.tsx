@@ -34,24 +34,20 @@ export default function PrivacyPolicyPage() {
                         <ul className="list-disc pl-5 space-y-2">
                             <li>
                                 <strong className="text-zinc-300">Account data:</strong> name, email address or phone
-                                number, password hash, profile details you choose to provide, and parent/guardian
-                                contact where required for minors.
+                                number, password hash and profile details you choose to provide.
                             </li>
                             <li>
                                 <strong className="text-zinc-300">Learning activity:</strong> subjects, topics, questions
-                                attempted, scores, time spent, streaks, achievements, and messages you send through in-app
-                                support.
+                                attempted, scores, time spent, streaks, achievements.
                             </li>
                             <li>
-                                <strong className="text-zinc-300">Device and technical data:</strong> device type,
-                                operating system, app version, language, approximate location derived from IP (for
-                                fraud prevention and localization), crash logs, and diagnostic events.
+                                <strong className="text-zinc-300">Device and technical data:</strong> device type, OS, app version, and crash reports.
                             </li>
-                            <li>
-                                <strong className="text-zinc-300">Payments:</strong> if you purchase a subscription,
-                                our payment processor receives card or wallet details; EzDu typically receives a
-                                transaction ID, plan, and subscription status—not your full card number.
-                            </li>
+                            {/*<li>*/}
+                            {/*    <strong className="text-zinc-300">Payments:</strong> if you purchase a subscription,*/}
+                            {/*    our payment processor receives card or wallet details; EzDu typically receives a*/}
+                            {/*    transaction ID, plan, and subscription status—not your full card number.*/}
+                            {/*</li>*/}
                         </ul>
                     </section>
 
@@ -60,7 +56,7 @@ export default function PrivacyPolicyPage() {
                         <p className="mb-2">We use the information above to:</p>
                         <ul className="list-disc pl-5 space-y-2">
                             <li>Provide, personalize, and improve the Services (e.g. difficulty adaptation, recommendations).</li>
-                            <li>Operate AI-powered explanations and question flows tied to your curriculum level.</li>
+                            {/*<li>Operate AI-powered explanations and question flows tied to your curriculum level.</li>*/}
                             <li>Communicate with you about updates, security, and support.</li>
                             <li>Measure engagement, fix bugs, and develop new features.</li>
                             <li>Comply with law, enforce our Terms, and detect abuse or fraud.</li>
@@ -79,25 +75,9 @@ export default function PrivacyPolicyPage() {
 
                     <section>
                         <h2 className="text-lg font-semibold text-white mb-3">5. Sharing of information</h2>
-                        <p className="mb-2">We may share information with:</p>
-                        <ul className="list-disc pl-5 space-y-2">
-                            <li>
-                                <strong className="text-zinc-300">Service providers</strong> who host data, send email or
-                                SMS, process payments, or provide analytics—under contracts that limit use to providing
-                                services to us.
-                            </li>
-                            <li>
-                                <strong className="text-zinc-300">Professional advisers</strong> where required (e.g.
-                                auditors, lawyers).
-                            </li>
-                            <li>
-                                <strong className="text-zinc-300">Authorities</strong> if we believe disclosure is
-                                required by law or to protect rights, safety, or security.
-                            </li>
-                        </ul>
-                        <p className="mt-2">
-                            We do not sell your personal information to third parties in the traditional sense. We may use
-                            aggregated or de-identified data that cannot reasonably identify you.
+                        <p>
+                            <strong className="text-zinc-300">We do not share your personal information with anyone.</strong>{" "}
+                            Your data stays with EzDu and is never sold, rented, or disclosed to third parties for any commercial purpose.
                         </p>
                     </section>
 
@@ -123,7 +103,7 @@ export default function PrivacyPolicyPage() {
                         <h2 className="text-lg font-semibold text-white mb-3">8. Children&apos;s privacy</h2>
                         <p>
                             EzDu is intended for learners. If you are a parent or guardian and believe a child has
-                            provided us with information without appropriate consent, contact us at hello@ezdu.net and
+                            provided us with information without appropriate consent, contact us at <strong className="text-zinc-300">hello@ezdu.net</strong> and
                             we will take steps to delete it where required by law.
                         </p>
                     </section>
@@ -132,7 +112,7 @@ export default function PrivacyPolicyPage() {
                         <h2 className="text-lg font-semibold text-white mb-3">9. Your rights</h2>
                         <p>
                             Depending on your location, you may have rights to access, correct, delete, or export your
-                            data, or to object to or restrict certain processing. Contact hello@ezdu.net to exercise
+                            data, or to object to or restrict certain processing. Contact <strong className="text-zinc-300">hello@ezdu.net</strong> to exercise
                             these rights. You may also have the right to complain to a data protection authority.
                         </p>
                     </section>
@@ -140,8 +120,7 @@ export default function PrivacyPolicyPage() {
                     <section>
                         <h2 className="text-lg font-semibold text-white mb-3">10. International transfers</h2>
                         <p>
-                            We may process data in Bangladesh and other countries where we or our providers operate.
-                            Where required, we use appropriate safeguards for cross-border transfers.
+                            EzDu operates entirely within Bangladesh. Your data is stored and processed in Bangladesh only — we do not transfer your personal information to other countries.
                         </p>
                     </section>
 
