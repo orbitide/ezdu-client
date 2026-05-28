@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export const Navbar = () => {
     const reduceMotion = useReducedMotion();
@@ -25,6 +26,12 @@ export const Navbar = () => {
                         <span className="text-2xl font-bold tracking-tight text-white">EzDu</span>
                     </motion.div>
                 </Link>
+
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                    <Button asChild variant="secondary" size="sm">
+                        <Link href="/register">শুরু করো</Link>
+                    </Button>
+                </motion.div>
             </div>
         </motion.nav>
     );

@@ -1,0 +1,43 @@
+'use client';
+
+import { Menu, Bell, Flame, Zap } from 'lucide-react';
+import { useUIStore } from '@/store/ui.store';
+
+interface AppHeaderProps {
+    title?: string;
+}
+
+export function AppHeader({ title }: AppHeaderProps) {
+    const { toggleSidebar } = useUIStore();
+
+    return (
+        <header className="flex h-14 items-center justify-between border-b border-zinc-800 bg-zinc-950/80 px-4 backdrop-blur-sm lg:px-6">
+            <div className="flex items-center gap-3">
+                <button
+                    className="text-zinc-400 hover:text-zinc-100 lg:hidden"
+                    onClick={toggleSidebar}
+                >
+                    <Menu size={20} />
+                </button>
+                {title && (
+                    <h1 className="text-sm font-semibold text-zinc-100 lg:text-base">{title}</h1>
+                )}
+            </div>
+
+            <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5 rounded-full bg-orange-500/10 px-2.5 py-1 text-xs font-medium text-orange-400">
+                    <Flame size={12} />
+                    <span>৭</span>
+                </div>
+                <div className="flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-2.5 py-1 text-xs font-medium text-yellow-400">
+                    <Zap size={12} />
+                    <span>2,450 XP</span>
+                </div>
+                <button className="relative text-zinc-400 hover:text-zinc-100">
+                    <Bell size={20} />
+                    <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-500" />
+                </button>
+            </div>
+        </header>
+    );
+}
