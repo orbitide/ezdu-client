@@ -16,7 +16,7 @@ export interface PagedList<T> {
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
 export interface LoginDto {
-    email: string;
+    username: string;
     password: string;
 }
 
@@ -48,8 +48,11 @@ export interface ChangePasswordDto {
 }
 
 export interface AuthResponseDto {
+    id: number;
+    username: string;
+    name: string;
+    email: string;
     token: string;
-    user: UserDto;
 }
 
 // ─── User ────────────────────────────────────────────────────────────────────

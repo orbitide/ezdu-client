@@ -8,9 +8,7 @@ import { getActivePlan, markItemComplete, createPlan } from '@/lib/api/study-pla
 import { getRecommendations } from '@/lib/api/recommendations';
 import { getLeaderboard } from '@/lib/api/leaderboard';
 import { HomeGrid } from '@/features/dashboard/components/HomeGrid';
-import { RecommendationSection } from '@/features/dashboard/components/RecommendationSection';
 import { RecentActivity } from '@/features/dashboard/components/RecentActivity';
-import { ExamProgressList } from '@/features/dashboard/components/ExamProgress';
 import { DashboardStats } from '@/features/dashboard/components/DashboardStats';
 import { DashboardPlanPanel } from '@/features/dashboard/components/DashboardPlanPanel';
 import { MiniLeaderboard } from '@/features/dashboard/components/MiniLeaderboard';
@@ -20,6 +18,7 @@ import type { ExamId } from '@/config/exams';
 import type { UserQuizHistoryDto, SubjectMasteryDto, StudyPlanDto } from '@/types/api';
 import type { RecommendationsDto } from '@/lib/api/recommendations';
 import type { LeaderboardEntry } from '@/features/leaderboard/types';
+import { ExamProgressList } from "@/app/(main)/dashboard/ExamProgress";
 
 function guessExamId(subjectName: string): ExamId {
     const s = subjectName.toLowerCase();
@@ -229,6 +228,31 @@ function EmptyCard({ title, sub }: { title: string; sub: string }) {
         <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 text-center">
             <p className="text-sm font-medium text-zinc-400">{title}</p>
             <p className="mt-1 text-xs text-zinc-600">{sub}</p>
+        </div>
+    );
+}
+
+function RecommendationSection({ data }: { data: RecommendationsDto }) {
+    const items = [
+        data.weakSubject && { label: 'দুর্বল বিষয়', value: data.weakSubject.subjectName },
+        data.lesson && { label: 'পড়ার পরামর্শ', value: `${data.lesson.lessonName} — ${data.lesson.subjectName}` },
+        data.vocabulary && { label: 'আজকের শব্দ', value: `${data.vocabulary.name} — ${data.vocabulary.banglaTranslation}` },
+        data.question && { label: 'অনুশীলন প্রশ্ন', value: data.question.name },
+    ].filter(Boolean) as { label: string; value: string }[];
+
+    if (items.length === 0) return null;
+
+    return (
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">আজকের পরামর্শ</p>
+            <div className="grid gap-2 sm:grid-cols-2">
+                {items.map(({ label, value }) => (
+                    <div key={label} className="rounded-lg border border-zinc-800 bg-zinc-950/50 px-3 py-2.5">
+                        <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-600">{label}</p>
+                        <p className="mt-0.5 text-sm text-zinc-300 line-clamp-2">{value}</p>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

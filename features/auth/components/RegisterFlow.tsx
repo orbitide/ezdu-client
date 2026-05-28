@@ -69,9 +69,9 @@ export function RegisterFlow() {
                 email: form.email, otp, name: form.name, password: form.password,
             });
             const user: UserProfile = {
-                id: res.user.id, name: res.user.name, email: res.user.email,
+                id: String(res.id), name: res.name, email: res.email,
                 xp: 0, level: 1, streak: 0, totalQuestions: 0,
-                correctAnswers: 0, badges: [], createdAt: res.user.createdAt,
+                correctAnswers: 0, badges: [], createdAt: '',
             };
             storeLogin(res.token, user);
             router.push('/dashboard');
