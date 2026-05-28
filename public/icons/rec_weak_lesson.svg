@@ -1,0 +1,13 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Book pages shadow (depth) -->
+  <rect x="12" y="11" width="30" height="30" rx="4" fill="#93C5FD"/>
+  <!-- Book cover -->
+  <rect x="6" y="9" width="30" height="30" rx="4" fill="#3B82F6"/>
+  <!-- Book spine -->
+  <rect x="6" y="9" width="5" height="30" rx="2.5" fill="#1D4ED8"/>
+  <!-- Cover text lines -->
+  <rect x="14" y="19" width="15" height="2.5" rx="1.25" fill="white" opacity="0.55"/>
+  <rect x="14" y="25" width="10" height="2.5" rx="1.25" fill="white" opacity="0.55"/>
+  <!-- Bookmark ribbon sticking out from top of cover -->
+  <path d="M27 5 L32 5 L32 23 L29.5 20 L27 23 Z" fill="#FBBF24"/>
+</svg>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { ActivityItem } from '../types';
 import { EXAM_MAP } from '@/config/exams';
 import { cn } from '@/lib/utils';
@@ -18,8 +19,8 @@ export function RecentActivity({ items }: RecentActivityProps) {
                     const pct = Math.round((item.score / item.total) * 100);
                     return (
                         <li key={item.id} className="flex items-center gap-3 px-4 py-3">
-                            <span className={cn('flex h-8 w-8 items-center justify-center rounded-lg text-sm', exam.bgClass)}>
-                                {exam.icon}
+                            <span className={cn('flex h-8 w-8 items-center justify-center rounded-lg', exam.bgClass)}>
+                                <Image src={exam.iconSrc} alt={exam.name} width={20} height={20} className="object-contain" />
                             </span>
                             <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium text-zinc-100">{item.subject}</p>

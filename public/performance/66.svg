@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="b1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#81C784"/>
+      <stop offset="100%" stop-color="#1B5E20"/>
+    </linearGradient>
+    <linearGradient id="b2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#2E7D32"/>
+    </linearGradient>
+    <linearGradient id="b3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A5D6A7"/>
+      <stop offset="100%" stop-color="#388E3C"/>
+    </linearGradient>
+    <clipPath id="c"><rect width="120" height="120"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+
+    <!-- ── Bar 1 (left, shortest) shadow ── -->
+    <rect x="14" y="82" width="22" height="24" rx="4" fill="#1B5E20" opacity="0.3" transform="translate(2,3)"/>
+    <!-- ── Bar 1 main ── -->
+    <rect x="12" y="80" width="22" height="24" rx="4" fill="url(#b3)"/>
+    <!-- ── Bar 1 highlight ── -->
+    <rect x="14" y="82" width="12" height="8" rx="2" fill="white" opacity="0.2"/>
+    <rect x="12" y="80" width="22" height="5" rx="4" fill="#E8F5E9" opacity="0.4"/>
+
+    <!-- ── Bar 2 (centre, medium) shadow ── -->
+    <rect x="50" y="66" width="22" height="40" rx="4" fill="#1B5E20" opacity="0.3" transform="translate(2,3)"/>
+    <!-- ── Bar 2 main ── -->
+    <rect x="48" y="64" width="22" height="40" rx="4" fill="url(#b2)"/>
+    <!-- ── Bar 2 highlight ── -->
+    <rect x="50" y="66" width="12" height="10" rx="2" fill="white" opacity="0.2"/>
+    <rect x="48" y="64" width="22" height="5" rx="4" fill="#E8F5E9" opacity="0.4"/>
+
+    <!-- ── Bar 3 (right, tallest) shadow ── -->
+    <rect x="86" y="48" width="22" height="56" rx="4" fill="#1B5E20" opacity="0.3" transform="translate(2,3)"/>
+    <!-- ── Bar 3 main ── -->
+    <rect x="84" y="46" width="22" height="56" rx="4" fill="url(#b1)"/>
+    <!-- ── Bar 3 highlight ── -->
+    <rect x="86" y="48" width="12" height="14" rx="2" fill="white" opacity="0.2"/>
+    <rect x="84" y="46" width="22" height="5" rx="4" fill="#E8F5E9" opacity="0.4"/>
+
+    <!-- ── Floor line ── -->
+    <line x1="10" y1="104" x2="108" y2="104" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- ── Flag pole shadow ── -->
+    <line x1="107" y1="46" x2="107" y2="28" stroke="#1B5E20" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+    <!-- ── Flag pole main ── -->
+    <line x1="106" y1="46" x2="106" y2="26" stroke="#2E7D32" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- ── Flag triangle shadow ── -->
+    <polygon points="107,26 118,31 107,36" fill="#1B5E20" opacity="0.3" transform="translate(1,2)"/>
+    <!-- ── Flag triangle main ── -->
+    <polygon points="106,26 118,31 106,36" fill="#43A047"/>
+    <polygon points="106,26 118,31 106,36" fill="#A5D6A7" opacity="0.3"/>
+
+    <!-- ── Stick figure shadow ── -->
+    <circle cx="97" cy="36" r="7" fill="#1B5E20" opacity="0.25" transform="translate(2,2)"/>
+    <!-- ── Stick figure head ── -->
+    <circle cx="95" cy="35" r="8" fill="#388E3C"/>
+    <circle cx="95" cy="35" r="6" fill="#43A047"/>
+    <circle cx="92" cy="33" r="2.5" fill="#A5D6A7" opacity="0.5"/>
+
+    <!-- ── Body shadow ── -->
+    <line x1="97" y1="43" x2="97" y2="48" stroke="#1B5E20" stroke-width="3" stroke-linecap="round" opacity="0.25" transform="translate(2,2)"/>
+    <!-- ── Body ── -->
+    <line x1="95" y1="43" x2="95" y2="47" stroke="#2E7D32" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- ── Raised arm (toward flag) ── -->
+    <line x1="95" y1="44" x2="105" y2="39" stroke="#2E7D32" stroke-width="3" stroke-linecap="round"/>
+    <!-- ── Other arm ── -->
+    <line x1="95" y1="44" x2="87" y2="46" stroke="#2E7D32" stroke-width="3" stroke-linecap="round"/>
+    <!-- ── Legs ── -->
+    <line x1="95" y1="47" x2="91" y2="53" stroke="#2E7D32" stroke-width="3" stroke-linecap="round"/>
+    <line x1="95" y1="47" x2="99" y2="53" stroke="#2E7D32" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- ── Sparkle accent ── -->
+    <rect x="4"  y="10" width="9.6" height="9.6" rx="2" fill="#66BB6A" opacity="0.95"/>
+    <circle cx="18" cy="24" r="3.6" fill="#66BB6A" opacity="0.95"/>
+  </g>
+</svg>

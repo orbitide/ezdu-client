@@ -2,6 +2,7 @@
 
 import { Menu, Bell, Flame, Zap } from 'lucide-react';
 import { useUIStore } from '@/store/ui.store';
+import { useAuthStore } from '@/store/auth.store';
 
 interface AppHeaderProps {
     title?: string;
@@ -9,6 +10,10 @@ interface AppHeaderProps {
 
 export function AppHeader({ title }: AppHeaderProps) {
     const { toggleSidebar } = useUIStore();
+    const user = useAuthStore((s) => s.user);
+
+    const streak = user?.streak ?? 0;
+    const xp = user?.xp ?? 0;
 
     return (
         <header className="flex h-14 items-center justify-between border-b border-zinc-800 bg-zinc-950/80 px-4 backdrop-blur-sm lg:px-6">
@@ -25,13 +30,15 @@ export function AppHeader({ title }: AppHeaderProps) {
             </div>
 
             <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5 rounded-full bg-orange-500/10 px-2.5 py-1 text-xs font-medium text-orange-400">
-                    <Flame size={12} />
-                    <span>৭</span>
-                </div>
+                {streak > 0 && (
+                    <div className="flex items-center gap-1.5 rounded-full bg-orange-500/10 px-2.5 py-1 text-xs font-medium text-orange-400">
+                        <Flame size={12} />
+                        <span>{streak}</span>
+                    </div>
+                )}
                 <div className="flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-2.5 py-1 text-xs font-medium text-yellow-400">
                     <Zap size={12} />
-                    <span>2,450 XP</span>
+                    <span>{xp.toLocaleString()} XP</span>
                 </div>
                 <button className="relative text-zinc-400 hover:text-zinc-100">
                     <Bell size={20} />

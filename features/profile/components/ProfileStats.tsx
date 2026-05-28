@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { UserProfile, ExamHistory } from '../types';
 import type { Badge } from '@/types/user';
 import { EXAM_MAP } from '@/config/exams';
@@ -50,8 +51,8 @@ export function ProfileStats({ profile, history }: ProfileStatsProps) {
                         const pct = Math.round((item.score / item.total) * 100);
                         return (
                             <li key={i} className="flex items-center gap-3 px-4 py-3">
-                                <span className={cn('flex h-8 w-8 items-center justify-center rounded-lg text-sm', exam.bgClass)}>
-                                    {exam.icon}
+                                <span className={cn('flex h-8 w-8 items-center justify-center rounded-lg', exam.bgClass)}>
+                                    <Image src={exam.iconSrc} alt={exam.name} width={20} height={20} className="object-contain" />
                                 </span>
                                 <div className="flex-1">
                                     <p className="text-sm font-medium text-zinc-100">{item.subject}</p>

@@ -1,13 +1,11 @@
-import { RegisterForm } from '@/features/auth/components/RegisterForm';
+import { Suspense } from 'react';
+import { RegisterFlow } from '@/features/auth/components/RegisterFlow';
+import { Loader2 } from 'lucide-react';
 
 export default function RegisterPage() {
     return (
-        <div className="space-y-6">
-            <div className="text-center">
-                <h1 className="text-2xl font-bold text-zinc-100">অ্যাকাউন্ট তৈরি করো</h1>
-                <p className="mt-1 text-sm text-zinc-500">বিনামূল্যে শুরু করো, আজই!</p>
-            </div>
-            <RegisterForm />
-        </div>
+        <Suspense fallback={<div className="flex min-h-screen items-center justify-center"><Loader2 size={28} className="animate-spin text-emerald-500" /></div>}>
+            <RegisterFlow />
+        </Suspense>
     );
 }

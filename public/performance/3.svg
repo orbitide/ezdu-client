@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#81C784" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#81C784" stop-opacity="0.05"/>
+    </linearGradient>
+    <clipPath id="c"><rect width="120" height="120"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+
+    <!-- ── Axis shadow ── -->
+    <line x1="22" y1="20" x2="22" y2="96" stroke="#1B5E20" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+    <line x1="20" y1="94" x2="108" y2="94" stroke="#1B5E20" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+
+    <!-- ── Filled area under line ── -->
+    <path d="M 22 90 L 22 76 L 50 62 L 78 47 L 104 30 L 104 90 Z" fill="url(#fill)"/>
+
+    <!-- ── Y axis main ── -->
+    <line x1="20" y1="18" x2="20" y2="94" stroke="#2E7D32" stroke-width="3" stroke-linecap="round"/>
+    <!-- Y arrow -->
+    <polyline points="15,24 20,16 25,24" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linejoin="round"/>
+
+    <!-- ── X axis main ── -->
+    <line x1="18" y1="92" x2="106" y2="92" stroke="#2E7D32" stroke-width="3" stroke-linecap="round"/>
+    <!-- X arrow -->
+    <polyline points="100,87 108,92 100,97" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linejoin="round"/>
+
+    <!-- ── Tick marks ── -->
+    <line x1="20" y1="62" x2="16" y2="62" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+    <line x1="20" y1="47" x2="16" y2="47" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+    <line x1="50" y1="92" x2="50" y2="96" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+    <line x1="78" y1="92" x2="78" y2="96" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- ── Line shadow ── -->
+    <polyline points="22,78 50,64 78,49 104,32" fill="none" stroke="#1B5E20" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+
+    <!-- ── Upward trend line ── -->
+    <polyline points="20,76 50,62 78,47 104,30" fill="none" stroke="#43A047" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- ── Line highlight ── -->
+    <polyline points="20,76 50,62 78,47 104,30" fill="none" stroke="#C8E6C9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+
+    <!-- ── Dot shadows ── -->
+    <circle cx="22" cy="78" r="7" fill="#1B5E20" opacity="0.25"/>
+    <circle cx="50" cy="64" r="7" fill="#1B5E20" opacity="0.25"/>
+    <circle cx="78" cy="49" r="7" fill="#1B5E20" opacity="0.25"/>
+    <circle cx="104" cy="32" r="8" fill="#1B5E20" opacity="0.25"/>
+
+    <!-- ── Dots main ── -->
+    <circle cx="20" cy="76" r="7" fill="#388E3C" stroke="white" stroke-width="2"/>
+    <circle cx="50" cy="62" r="7" fill="#388E3C" stroke="white" stroke-width="2"/>
+    <circle cx="78" cy="47" r="7" fill="#388E3C" stroke="white" stroke-width="2"/>
+    <circle cx="104" cy="30" r="8" fill="#2E7D32" stroke="white" stroke-width="2"/>
+
+    <!-- ── Dot highlights ── -->
+    <circle cx="18" cy="74" r="3" fill="#A5D6A7" opacity="0.6"/>
+    <circle cx="48" cy="60" r="3" fill="#A5D6A7" opacity="0.6"/>
+    <circle cx="76" cy="45" r="3" fill="#A5D6A7" opacity="0.6"/>
+    <circle cx="102" cy="28" r="3" fill="#A5D6A7" opacity="0.6"/>
+
+    <!-- ── Sparkle accent ── -->
+    <rect x="95" y="10" width="9.6" height="9.6" rx="2" fill="#66BB6A" opacity="0.95"/>
+    <circle cx="110" cy="24" r="3.6" fill="#66BB6A" opacity="0.95"/>
+  </g>
+</svg>

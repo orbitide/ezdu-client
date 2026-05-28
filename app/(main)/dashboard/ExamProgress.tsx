@@ -1,4 +1,5 @@
-import type { ExamProgress } from '../types';
+import Image from 'next/image';
+import type { ExamProgress } from './types';
 import { EXAM_MAP } from '@/config/exams';
 import { cn } from '@/lib/utils';
 
@@ -20,8 +21,8 @@ export function ExamProgressList({ items }: ExamProgressProps) {
                         <li key={item.examId} className="px-2 py-3">
                             <div className="flex items-center justify-between mb-2">
                                 <div className="flex items-center gap-2">
-                                    <span className={cn('flex h-7 w-7 items-center justify-center rounded text-sm', exam.bgClass)}>
-                                        {exam.icon}
+                                    <span className={cn('flex h-7 w-7 items-center justify-center rounded', exam.bgClass)}>
+                                        <Image src={exam.iconSrc} alt={exam.name} width={18} height={18} className="object-contain" />
                                     </span>
                                     <span className="text-sm font-medium text-zinc-100">{exam.name}</span>
                                 </div>
@@ -32,7 +33,7 @@ export function ExamProgressList({ items }: ExamProgressProps) {
                             </div>
                             <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-800">
                                 <div
-                                    className={cn('h-full rounded-full transition-all', `bg-${exam.color}-500`)}
+                                    className={cn('h-full rounded-full transition-all', exam.bgBarClass)}
                                     style={{ width: `${pct}%` }}
                                 />
                             </div>

@@ -2,15 +2,17 @@
 
 import type { QuizResult } from '../types';
 import Link from 'next/link';
-import { Trophy, Clock, Target, Zap, RotateCcw, Home } from 'lucide-react';
+import { Trophy, Clock, Zap, RotateCcw, Home, BookOpen, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ResultScreenProps {
     result: QuizResult;
     onRetry: () => void;
+    onReview?: () => void;
+    saving?: boolean;
 }
 
-export function ResultScreen({ result, onRetry }: ResultScreenProps) {
+export function ResultScreen({ result, onRetry, onReview, saving }: ResultScreenProps) {
     const { accuracy } = result;
     const grade = accuracy >= 90 ? 'অসাধারণ!' : accuracy >= 70 ? 'ভালো হয়েছে!' : accuracy >= 50 ? 'চেষ্টা করো' : 'আরো পড়তে হবে';
     const gradeColor = accuracy >= 90 ? 'text-emerald-400' : accuracy >= 70 ? 'text-yellow-400' : accuracy >= 50 ? 'text-orange-400' : 'text-rose-400';
@@ -37,6 +39,12 @@ export function ResultScreen({ result, onRetry }: ResultScreenProps) {
                         </div>
                     </div>
                     <p className={cn('text-xl font-bold', gradeColor)}>{grade}</p>
+                    {saving && (
+                        <div className="flex items-center gap-1.5 text-xs text-zinc-500">
+                            <Loader2 size={12} className="animate-spin" />
+                            ফলাফল সেভ হচ্ছে...
+                        </div>
+                    )}
                 </div>
 
                 {/* Stats grid */}
@@ -65,8 +73,25 @@ export function ResultScreen({ result, onRetry }: ResultScreenProps) {
                     </div>
                 </div>
 
+                {/* Skipped */}
+                {result.skipped > 0 && (
+                    <p className="text-center text-xs text-zinc-500">
+                        {result.skipped}টি প্রশ্ন এড়িয়ে গেছো
+                    </p>
+                )}
+
                 {/* Actions */}
                 <div className="flex flex-col gap-2">
+                    {onReview && (
+                        <button
+                            onClick={onReview}
+                            disabled={saving}
+                            className="flex items-center justify-center gap-2 rounded-xl bg-blue-500/10 border border-blue-500/30 px-6 py-3 font-semibold text-blue-400 hover:bg-blue-500/20 transition-colors disabled:opacity-50"
+                        >
+                            <BookOpen size={16} />
+                            উত্তর রিভিউ করো
+                        </button>
+                    )}
                     <button
                         onClick={onRetry}
                         className="flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-6 py-3 font-semibold text-black hover:bg-emerald-400 transition-colors"

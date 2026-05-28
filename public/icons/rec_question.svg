@@ -1,0 +1,26 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Paper base -->
+  <path d="M6 9 C6 7 7.3 5 9 5 L27 5 L33 11 L33 39 C33 41 31.7 43 30 43 L9 43 C7.3 43 6 41 6 39 Z" fill="#FCA5A5"/>
+  <!-- Folded corner triangle (shadow) -->
+  <path d="M27 5 L33 11 L27 11 Z" fill="#F87171"/>
+  <!-- Folded corner flap -->
+  <path d="M27 5 L33 5 L33 11 Z" fill="#FECACA"/>
+  <!-- Lines on paper -->
+  <rect x="10" y="19" width="16" height="2.5" rx="1.25" fill="#EF4444" opacity="0.35"/>
+  <rect x="10" y="24.5" width="16" height="2.5" rx="1.25" fill="#EF4444" opacity="0.35"/>
+  <rect x="10" y="30" width="10" height="2.5" rx="1.25" fill="#EF4444" opacity="0.35"/>
+  <!-- Clock badge (bottom right, overlapping paper) -->
+  <circle cx="34" cy="35" r="11" fill="#EF4444"/>
+  <circle cx="34" cy="35" r="8.5" fill="#FF6B6B"/>
+  <!-- Clock tick marks at 12/3/6/9 -->
+  <circle cx="34" cy="27.5" r="0.9" fill="white" opacity="0.5"/>
+  <circle cx="41.5" cy="35" r="0.9" fill="white" opacity="0.5"/>
+  <circle cx="34" cy="42.5" r="0.9" fill="white" opacity="0.5"/>
+  <circle cx="26.5" cy="35" r="0.9" fill="white" opacity="0.5"/>
+  <!-- Hour hand (pointing roughly to 11) -->
+  <line x1="34" y1="35" x2="31" y2="29.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <!-- Minute hand (pointing roughly to 2) -->
+  <line x1="34" y1="35" x2="38.5" y2="37" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <!-- Center dot -->
+  <circle cx="34" cy="35" r="1.5" fill="white"/>
+</svg>

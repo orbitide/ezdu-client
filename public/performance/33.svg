@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="p1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#81C784"/>
+      <stop offset="100%" stop-color="#1B5E20"/>
+    </linearGradient>
+    <linearGradient id="p23" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A5D6A7"/>
+      <stop offset="100%" stop-color="#2E7D32"/>
+    </linearGradient>
+    <clipPath id="c"><rect width="120" height="120"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+
+    <!-- ── Podium 3 (left) shadow ── -->
+    <rect x="12" y="80" width="28" height="28" rx="4" fill="#1B5E20" opacity="0.3" transform="translate(2,3)"/>
+    <!-- ── Podium 3 main ── -->
+    <rect x="10" y="78" width="28" height="28" rx="4" fill="url(#p23)"/>
+    <!-- ── Podium 3 highlight ── -->
+    <rect x="12" y="80" width="16" height="8" rx="2" fill="white" opacity="0.2"/>
+    <!-- ── Podium 3 top accent ── -->
+    <rect x="10" y="78" width="28" height="5" rx="4" fill="#C8E6C9" opacity="0.4"/>
+    <!-- ── Podium 3 label ── -->
+    <text x="24" y="98" text-anchor="middle" font-size="15" fill="#1B5E20" font-family="sans-serif" font-weight="900" opacity="0.8">3</text>
+
+    <!-- ── Podium 2 (right) shadow ── -->
+    <rect x="82" y="70" width="28" height="36" rx="4" fill="#1B5E20" opacity="0.3" transform="translate(2,3)"/>
+    <!-- ── Podium 2 main ── -->
+    <rect x="80" y="68" width="28" height="36" rx="4" fill="url(#p23)"/>
+    <!-- ── Podium 2 highlight ── -->
+    <rect x="82" y="70" width="16" height="8" rx="2" fill="white" opacity="0.2"/>
+    <rect x="80" y="68" width="28" height="5" rx="4" fill="#C8E6C9" opacity="0.4"/>
+    <text x="94" y="94" text-anchor="middle" font-size="15" fill="#1B5E20" font-family="sans-serif" font-weight="900" opacity="0.8">2</text>
+
+    <!-- ── Podium 1 (centre) shadow ── -->
+    <rect x="46" y="57" width="28" height="49" rx="4" fill="#1B5E20" opacity="0.3" transform="translate(2,3)"/>
+    <!-- ── Podium 1 main ── -->
+    <rect x="44" y="55" width="28" height="49" rx="4" fill="url(#p1)"/>
+    <!-- ── Podium 1 highlight ── -->
+    <rect x="46" y="57" width="16" height="9" rx="2" fill="white" opacity="0.25"/>
+    <rect x="44" y="55" width="28" height="5" rx="4" fill="#E8F5E9" opacity="0.45"/>
+    <text x="58" y="90" text-anchor="middle" font-size="15" fill="#1B5E20" font-family="sans-serif" font-weight="900" opacity="0.85">1</text>
+
+    <!-- ── Stick figure shadow ── -->
+    <circle cx="60" cy="37" r="7" fill="#1B5E20" opacity="0.25" transform="translate(2,2)"/>
+    <!-- ── Stick figure head ── -->
+    <circle cx="58" cy="36" r="8" fill="#388E3C"/>
+    <circle cx="58" cy="36" r="6" fill="#43A047"/>
+    <circle cx="55" cy="34" r="2.5" fill="#A5D6A7" opacity="0.5"/>
+
+    <!-- ── Body & limbs shadow ── -->
+    <line x1="60" y1="44" x2="60" y2="57" stroke="#1B5E20" stroke-width="3" stroke-linecap="round" opacity="0.25" transform="translate(2,2)"/>
+    <!-- ── Body ── -->
+    <line x1="58" y1="44" x2="58" y2="56" stroke="#2E7D32" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- ── Arms ── -->
+    <line x1="48" y1="48" x2="68" y2="48" stroke="#2E7D32" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- ── Gold star above figure ── -->
+    <polygon points="58,15 60.5,22 68,22 62.5,26 64.5,33 58,29 51.5,33 53.5,26 48,22 55.5,22"
+             fill="#FFC107" stroke="#E65100" stroke-width="1"/>
+    <polygon points="58,15 60.5,22 68,22 62.5,26 64.5,33 58,29 51.5,33 53.5,26 48,22 55.5,22"
+             fill="#FFF9C4" opacity="0.35"/>
+
+    <!-- ── Sparkle accent ── -->
+    <rect x="95" y="10" width="9.6" height="9.6" rx="2" fill="#66BB6A" opacity="0.95"/>
+    <circle cx="110" cy="24" r="3.6" fill="#66BB6A" opacity="0.95"/>
+  </g>
+</svg>

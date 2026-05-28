@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CE93D8"/>
+      <stop offset="100%" stop-color="#FF8A65"/>
+    </linearGradient>
+    <linearGradient id="nd" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EF5350"/>
+      <stop offset="50%" stop-color="#EF5350"/>
+      <stop offset="50%" stop-color="#BDBDBD"/>
+      <stop offset="100%" stop-color="#9E9E9E"/>
+    </linearGradient>
+    <clipPath id="c"><rect width="120" height="120"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+
+    <!-- ── Outer glow ring ── -->
+    <circle cx="62" cy="62" r="46" fill="none" stroke="#E1BEE7" stroke-width="10" opacity="0.35"/>
+
+    <!-- ── Outer ring shadow ── -->
+    <circle cx="61" cy="61" r="44" fill="none" stroke="#5C2C6E" stroke-width="6" opacity="0.25"/>
+
+    <!-- ── Outer ring main ── -->
+    <circle cx="60" cy="60" r="44" fill="none" stroke="url(#rg)" stroke-width="6"/>
+
+    <!-- ── Middle ring shadow ── -->
+    <circle cx="61" cy="61" r="32" fill="none" stroke="#5C2C6E" stroke-width="4" opacity="0.2"/>
+
+    <!-- ── Middle ring main ── -->
+    <circle cx="60" cy="60" r="32" fill="none" stroke="#CE93D8" stroke-width="3.5"/>
+
+    <!-- ── Inner ring ── -->
+    <circle cx="60" cy="60" r="20" fill="none" stroke="#EDE7F6" stroke-width="2.5" opacity="0.6"/>
+
+    <!-- ── Cardinal letters ── -->
+    <text x="60" y="22" text-anchor="middle" font-size="10" fill="#7B1FA2" font-family="sans-serif" font-weight="bold">N</text>
+    <text x="60" y="106" text-anchor="middle" font-size="9" fill="#9E9E9E" font-family="sans-serif">S</text>
+    <text x="20" y="64" text-anchor="middle" font-size="9" fill="#9E9E9E" font-family="sans-serif">W</text>
+    <text x="100" y="64" text-anchor="middle" font-size="9" fill="#9E9E9E" font-family="sans-serif">E</text>
+
+    <!-- ── Cross hairs (subtle) ── -->
+    <line x1="60" y1="18" x2="60" y2="102" stroke="#E1BEE7" stroke-width="1" opacity="0.3"/>
+    <line x1="16" y1="60" x2="104" y2="60" stroke="#E1BEE7" stroke-width="1" opacity="0.3"/>
+
+    <!-- ── Needle shadow ── -->
+    <polygon points="62,24 58,62 62,58 66,62" fill="#37006E" opacity="0.3"/>
+    <polygon points="62,96 58,62 62,66 66,62" fill="#37006E" opacity="0.2"/>
+
+    <!-- ── Needle north (red/purple) ── -->
+    <polygon points="60,22 56,60 60,56 64,60" fill="#7B1FA2"/>
+    <!-- ── Needle south (light) ── -->
+    <polygon points="60,96 56,60 60,64 64,60" fill="#CE93D8" opacity="0.8"/>
+
+    <!-- ── Needle highlight ── -->
+    <polygon points="60,22 58,46 60,44 62,46" fill="#CE93D8" opacity="0.55"/>
+
+    <!-- ── Centre dot shadow ── -->
+    <circle cx="61" cy="61" r="6" fill="#37006E" opacity="0.3"/>
+
+    <!-- ── Centre dot main ── -->
+    <circle cx="60" cy="60" r="6" fill="#4A148C" stroke="white" stroke-width="2"/>
+    <circle cx="58" cy="58" r="2.5" fill="#CE93D8" opacity="0.6"/>
+
+    <!-- ── Sparkle accent ── -->
+    <rect x="95" y="10" width="9.6" height="9.6" rx="2" fill="#CE93D8" opacity="0.95"/>
+    <circle cx="110" cy="24" r="3.6" fill="#CE93D8" opacity="0.95"/>
+  </g>
+</svg>

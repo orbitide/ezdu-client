@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F3E5F5" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#F3E5F5" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="c"><rect width="120" height="120"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+
+    <!-- ── Background glow ── -->
+    <circle cx="60" cy="60" r="52" fill="url(#glow)"/>
+
+    <!-- ── Ring 4 shadow ── -->
+    <circle cx="62" cy="62" r="47" fill="none" stroke="#5C2C6E" stroke-width="9" opacity="0.2"/>
+    <!-- ── Ring 4 main ── -->
+    <circle cx="60" cy="60" r="47" fill="none" stroke="#E1BEE7" stroke-width="7"/>
+    <!-- ── Ring 4 inner highlight ── -->
+    <circle cx="60" cy="60" r="47" fill="none" stroke="white" stroke-width="2" opacity="0.25"/>
+
+    <!-- ── Ring 3 shadow ── -->
+    <circle cx="62" cy="62" r="36" fill="none" stroke="#5C2C6E" stroke-width="8" opacity="0.2"/>
+    <!-- ── Ring 3 main ── -->
+    <circle cx="60" cy="60" r="36" fill="none" stroke="#CE93D8" stroke-width="6"/>
+    <circle cx="60" cy="60" r="36" fill="none" stroke="white" stroke-width="2" opacity="0.2"/>
+
+    <!-- ── Ring 2 shadow ── -->
+    <circle cx="62" cy="62" r="25" fill="none" stroke="#5C2C6E" stroke-width="8" opacity="0.2"/>
+    <!-- ── Ring 2 main ── -->
+    <circle cx="60" cy="60" r="25" fill="none" stroke="#AB47BC" stroke-width="6"/>
+    <circle cx="60" cy="60" r="25" fill="none" stroke="white" stroke-width="2" opacity="0.2"/>
+
+    <!-- ── Ring 1 shadow ── -->
+    <circle cx="62" cy="62" r="14" fill="#5C2C6E" opacity="0.3"/>
+    <!-- ── Ring 1 main ── -->
+    <circle cx="60" cy="60" r="14" fill="#7B1FA2"/>
+    <!-- ── Ring 1 highlight ── -->
+    <circle cx="55" cy="55" r="5" fill="#CE93D8" opacity="0.45"/>
+
+    <!-- ── X crosshair ── -->
+    <line x1="40" y1="40" x2="80" y2="80" stroke="#6A1B9A" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
+    <line x1="80" y1="40" x2="40" y2="80" stroke="#6A1B9A" stroke-width="3.5" stroke-linecap="round" opacity="0.6"/>
+
+    <!-- ── Centre white dot ── -->
+    <circle cx="60" cy="60" r="4" fill="white"/>
+    <circle cx="58" cy="58" r="1.5" fill="#E1BEE7" opacity="0.7"/>
+
+    <!-- ── Sparkle accent ── -->
+    <rect x="95" y="10" width="9.6" height="9.6" rx="2" fill="#CE93D8" opacity="0.95"/>
+    <circle cx="110" cy="24" r="3.6" fill="#CE93D8" opacity="0.95"/>
+  </g>
+</svg>

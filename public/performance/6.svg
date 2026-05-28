@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#1B5E20"/>
+    </linearGradient>
+    <linearGradient id="lg2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A5D6A7"/>
+      <stop offset="100%" stop-color="#2E7D32"/>
+    </linearGradient>
+    <clipPath id="c"><rect width="120" height="120"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+
+    <!-- ── Soil shadow ── -->
+    <ellipse cx="62" cy="100" rx="36" ry="12" fill="#4E2600" opacity="0.35"/>
+
+    <!-- ── Soil base ── -->
+    <ellipse cx="60" cy="98" rx="36" ry="12" fill="#6D4C41"/>
+
+    <!-- ── Soil top ── -->
+    <ellipse cx="60" cy="94" rx="30" ry="9" fill="#8D6E63"/>
+
+    <!-- ── Soil highlight ── -->
+    <ellipse cx="52" cy="92" rx="14" ry="4" fill="#A1887F" opacity="0.5"/>
+
+    <!-- ── Stem shadow ── -->
+    <line x1="63" y1="95" x2="63" y2="46" stroke="#1B5E20" stroke-width="6" stroke-linecap="round" opacity="0.3"/>
+
+    <!-- ── Stem main ── -->
+    <line x1="60" y1="95" x2="60" y2="44" stroke="#388E3C" stroke-width="5.5" stroke-linecap="round"/>
+
+    <!-- ── Stem highlight ── -->
+    <line x1="58" y1="90" x2="58" y2="50" stroke="#A5D6A7" stroke-width="2" stroke-linecap="round" opacity="0.45"/>
+
+    <!-- ── Left leaf shadow ── -->
+    <path d="M 60,76 C 36,64 30,44 32,36 C 54,40 62,62 60,76 Z"
+          fill="#1B5E20" opacity="0.3" transform="translate(2,3)"/>
+
+    <!-- ── Left leaf main ── -->
+    <path d="M 60,76 C 36,64 30,44 32,36 C 54,40 62,62 60,76 Z"
+          fill="url(#lg)"/>
+
+    <!-- ── Left leaf highlight ── -->
+    <path d="M 60,72 C 44,62 38,48 38,40 C 52,44 60,60 60,72 Z"
+          fill="#C8E6C9" opacity="0.4"/>
+
+    <!-- ── Left leaf vein ── -->
+    <path d="M 60,76 C 46,64 36,50 32,36" fill="none" stroke="#1B5E20" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- ── Right leaf shadow ── -->
+    <path d="M 60,64 C 84,52 90,32 88,24 C 66,28 58,50 60,64 Z"
+          fill="#1B5E20" opacity="0.3" transform="translate(2,3)"/>
+
+    <!-- ── Right leaf main ── -->
+    <path d="M 60,64 C 84,52 90,32 88,24 C 66,28 58,50 60,64 Z"
+          fill="url(#lg2)"/>
+
+    <!-- ── Right leaf highlight ── -->
+    <path d="M 60,60 C 76,50 82,36 80,26 C 68,30 60,48 60,60 Z"
+          fill="#C8E6C9" opacity="0.4"/>
+
+    <!-- ── Right leaf vein ── -->
+    <path d="M 60,64 C 74,52 84,36 88,24" fill="none" stroke="#1B5E20" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- ── Bud shadow ── -->
+    <circle cx="62" cy="43" r="8" fill="#1B5E20" opacity="0.3"/>
+
+    <!-- ── Bud main ── -->
+    <circle cx="60" cy="42" r="8" fill="#43A047"/>
+
+    <!-- ── Bud top ── -->
+    <circle cx="60" cy="36" r="5.5" fill="#66BB6A"/>
+
+    <!-- ── Bud highlight ── -->
+    <circle cx="57" cy="34" r="2.5" fill="#C8E6C9" opacity="0.6"/>
+
+    <!-- ── Sparkle accent ── -->
+    <rect x="95" y="10" width="9.6" height="9.6" rx="2" fill="#66BB6A" opacity="0.95"/>
+    <circle cx="110" cy="24" r="3.6" fill="#66BB6A" opacity="0.95"/>
+  </g>
+</svg>

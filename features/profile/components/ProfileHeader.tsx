@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { UserProfile } from '../types';
 import { EXAM_MAP } from '@/config/exams';
 import { Flame, Zap, Trophy } from 'lucide-react';
@@ -30,10 +31,11 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                     )}
                     {exam && (
                         <span className={cn(
-                            'mt-1.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium',
+                            'mt-1.5 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium',
                             exam.bgClass, exam.textClass
                         )}>
-                            {exam.icon} লক্ষ্য: {exam.name}
+                            <Image src={exam.iconSrc} alt={exam.name} width={12} height={12} className="object-contain" />
+                            লক্ষ্য: {exam.name}
                         </span>
                     )}
                 </div>

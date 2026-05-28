@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { EXAMS } from '@/config/exams';
 import { ArrowRight } from 'lucide-react';
@@ -19,7 +20,7 @@ export function QuickStart() {
                             exam.borderClass
                         )}
                     >
-                        <span className="text-2xl">{exam.icon}</span>
+                        <Image src={exam.iconSrc} alt={exam.name} width={24} height={24} className="object-contain" />
                         <span className={cn('text-xs font-semibold', exam.textClass)}>{exam.name}</span>
                     </Link>
                 ))}
