@@ -7,10 +7,9 @@ import type { StudyPlanDto, StudyPlanItemDto } from '@/types/api';
 interface Props {
     plan: StudyPlanDto | null;
     planLoading: boolean;
-    onComplete: (itemId: string) => void;
 }
 
-export function DashboardPlanPanel({ plan, planLoading, onComplete }: Props) {
+export function DashboardPlanPanel({ plan, planLoading }: Props) {
     const today = localDateKey(new Date());
     const todayItems =
         plan?.days.find((d) => localDateKey(d.date) === today)?.items ??
@@ -23,7 +22,7 @@ export function DashboardPlanPanel({ plan, planLoading, onComplete }: Props) {
             {/* Header */}
             <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
                 <div className="flex items-center gap-2">
-                    <BookOpen size={14} className="text-purple-400" />
+                    <BookOpen size={14} className="text-teal-400" />
                     <span className="text-sm font-semibold text-zinc-100">স্টাডি প্ল্যান</span>
                 </div>
                 <Link
@@ -44,18 +43,19 @@ export function DashboardPlanPanel({ plan, planLoading, onComplete }: Props) {
                     <p className="text-sm text-zinc-400">কোনো সক্রিয় প্ল্যান নেই</p>
                     <Link
                         href="/study-plan"
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-purple-500/10 px-3 py-2 text-xs font-semibold text-purple-400 transition-colors hover:bg-purple-500/20"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-teal-500/10 px-3 py-2 text-xs font-semibold text-teal-400 transition-colors hover:bg-teal-500/20"
                     >
                         <Plus size={12} />
                         স্টাডি প্ল্যান দেখো
                     </Link>
                 </div>
             ) : (
-                <div className="space-y-3 p-3">
+                <Link href="/study-plan" className="block space-y-3 p-3 hover:bg-zinc-800/30 transition-colors rounded-b-xl">
+                    {/* Segmented progress */}
                     <div>
                         <div className="mb-1.5 flex items-center justify-between text-xs">
                             <span className="text-zinc-500">সামগ্রিক অগ্রগতি</span>
-                            <span className="font-semibold text-emerald-400">
+                            <span className="font-semibold text-teal-400">
                                 {plan.completedItems}/{plan.totalItems}
                             </span>
                         </div>
@@ -66,7 +66,7 @@ export function DashboardPlanPanel({ plan, planLoading, onComplete }: Props) {
                                         key={i}
                                         className={cn(
                                             'h-1.5 flex-1 rounded-full',
-                                            i < plan.completedItems ? 'bg-emerald-500' : 'bg-zinc-700',
+                                            i < plan.completedItems ? 'bg-teal-500' : 'bg-zinc-700',
                                         )}
                                     />
                                 ))}
@@ -74,11 +74,12 @@ export function DashboardPlanPanel({ plan, planLoading, onComplete }: Props) {
                         )}
                     </div>
 
+                    {/* Today's items (read-only) */}
                     {todayItems.length > 0 ? (
                         <div className="space-y-0.5">
                             <p className="px-1 text-xs font-semibold text-zinc-400">আজকের পরিকল্পনা</p>
                             {todayItems.slice(0, 5).map((item) => (
-                                <PlanItem key={item.id} item={item} onComplete={onComplete} />
+                                <PlanItem key={item.id} item={item} />
                             ))}
                             {todayItems.length > 5 && (
                                 <p className="pt-1 text-center text-[11px] text-zinc-600">
@@ -87,38 +88,29 @@ export function DashboardPlanPanel({ plan, planLoading, onComplete }: Props) {
                             )}
                         </div>
                     ) : (
-                        <p className="py-2 text-center text-xs text-zinc-500">আজকের পরিকল্পনা শেষ!</p>
+                        <p className="py-2 text-center text-xs text-zinc-500">আজকের পরিকল্পনা শেষ! 🎉</p>
                     )}
-                </div>
+                </Link>
             )}
         </div>
     );
 }
 
-function PlanItem({
-    item,
-    onComplete,
-}: {
-    item: StudyPlanItemDto;
-    onComplete: (id: string) => void;
-}) {
+function PlanItem({ item }: { item: StudyPlanItemDto }) {
     return (
         <div
             className={cn(
-                'flex items-center gap-2 rounded-lg px-1 py-1.5 transition-colors',
-                item.isCompleted ? 'opacity-50' : 'hover:bg-zinc-800/50',
+                'flex items-center gap-2 rounded-lg px-1 py-1.5',
+                item.isCompleted ? 'opacity-50' : undefined,
             )}
         >
-            <button
-                onClick={() => !item.isCompleted && onComplete(item.id)}
-                disabled={item.isCompleted}
-                className={cn(
-                    'shrink-0 transition-colors',
-                    item.isCompleted ? 'text-emerald-500' : 'text-zinc-600 hover:text-zinc-400',
+            <div className="shrink-0">
+                {item.isCompleted ? (
+                    <CheckCircle2 size={15} className="text-emerald-500" />
+                ) : (
+                    <Circle size={15} className="text-zinc-600" />
                 )}
-            >
-                {item.isCompleted ? <CheckCircle2 size={15} /> : <Circle size={15} />}
-            </button>
+            </div>
             <div className="min-w-0 flex-1">
                 <p
                     className={cn(

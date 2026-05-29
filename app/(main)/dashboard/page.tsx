@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Loader2 } from 'lucide-react';
 import { getActivePlan } from '@/lib/api/study-plan';
-import { completePlanItem } from '@/lib/study-plan/study-plan-items';
 import { HomeGrid } from '@/features/dashboard/components/HomeGrid';
 import { RecentActivity } from '@/features/dashboard/components/RecentActivity';
 import { DashboardStats } from '@/features/dashboard/components/DashboardStats';
@@ -104,16 +103,6 @@ export default function DashboardPage() {
     const activity = useMemo(() => mapHistoryToActivity(quizHistory), [quizHistory]);
     const progress = useMemo(() => mapMasteryToProgress(subjectMastery), [subjectMastery]);
 
-    const handleComplete = useCallback(
-        (itemId: string) => {
-            if (!plan) return;
-            const updated = completePlanItem(plan, itemId);
-            setPlan(updated);
-            setStudyPlan(updated);
-        },
-        [plan, setStudyPlan],
-    );
-
     if (!isPreloaded) {
         return (
             <div className="flex min-h-[60vh] items-center justify-center">
@@ -153,7 +142,6 @@ export default function DashboardPage() {
                     <DashboardPlanPanel
                         plan={plan}
                         planLoading={planLoading}
-                        onComplete={handleComplete}
                     />
                 </aside>
 

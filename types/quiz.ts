@@ -11,6 +11,7 @@ export interface Question {
     text: string;
     options: Option[];
     explanation?: string;
+    subjectId?: string;
     subject?: string;
     topic?: string;
     difficulty?: 'easy' | 'medium' | 'hard';
@@ -26,6 +27,7 @@ export interface QuizSession {
     startedAt: number;
     timeLimit?: number;
     status: 'idle' | 'active' | 'completed';
+    answerMode: 'editable' | 'lockOnce';
 }
 
 export interface QuizResult {

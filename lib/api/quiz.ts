@@ -104,6 +104,7 @@ function normalizeQuestion(q: any) {
             isCorrect: o.isCorrect ?? false,
         })),
         explanation: q.explanation ?? undefined,
+        subjectId: q.subjectId ? String(q.subjectId) : undefined,
         subjectName: q.subjectName ?? undefined,
         topicName: q.topicName ?? undefined,
         difficulty: q.difficulty ?? undefined,

@@ -185,6 +185,7 @@ export interface QuizListDto {
 export interface QuizDetailsDto {
     id: string;
     title: string;
+    subjectId?: string;
     subjectName?: string;
     questions: QuestionDto[];
     duration?: number;
@@ -195,6 +196,7 @@ export interface QuestionDto {
     text: string;
     options: OptionDto[];
     explanation?: string;
+    subjectId?: string;
     subjectName?: string;
     topicName?: string;
     difficulty?: string;
@@ -248,12 +250,14 @@ export interface UserQuizSubmissionDto {
 }
 
 export interface UserQuizResultDto {
+    userQuizId?: string;
     totalXp: number;
     earnedXp: number;
     totalQuestions: number;
     correctAnswer: number;
     percentage: number;
     streak: number;
+    marks?: number;
 }
 
 // ─── Archive ─────────────────────────────────────────────────────────────────
@@ -398,6 +402,7 @@ export interface StudyPlanItemDto {
     status?: number;
     estimatedMinutes: number;
     isCompleted: boolean;
+    masteryPercent?: number;
 }
 
 /** Payload item for POST /study-plans/save (matches backend CreateStudyPlanVm). */

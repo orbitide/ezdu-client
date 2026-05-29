@@ -54,6 +54,7 @@ export function mapStudyPlanResponse(raw: unknown): StudyPlanDto | null {
             status: item.status ?? 0,
             estimatedMinutes: MINUTES_PER_MOCK,
             isCompleted: item.status === 1,
+            masteryPercent: item.lessonMasteryPercent ?? 0,
         }));
 
         return {

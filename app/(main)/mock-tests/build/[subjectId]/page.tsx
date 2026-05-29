@@ -7,14 +7,14 @@ import { ArrowLeft, ChevronDown, Loader2, AlertTriangle, CheckCircle2 } from 'lu
 import { cn } from '@/lib/utils';
 import { getLessonsWithTopics } from '@/lib/api/classes';
 import { getQuestionCountByTopicIds, getQuestionsByTopicIds } from '@/lib/api/quiz';
-import { useMockTestStore } from '@/features/mock-test/mock-test.store';
+import { useQuizStore } from '@/features/quiz/quiz.store';
 import { MockTestSettingsDialog } from '@/features/mock-test/components/MockTestSettingsDialog';
 import type { LessonWithTopicsDto, TopicDto } from '@/types/api';
 
 export default function MockTestBuildPage() {
     const { subjectId } = useParams<{ subjectId: string }>();
     const router = useRouter();
-    const store = useMockTestStore();
+    const { startQuiz } = useQuizStore();
 
     const [lessons, setLessons] = useState<LessonWithTopicsDto[]>([]);
     const [loading, setLoading] = useState(true);
@@ -117,12 +117,12 @@ export default function MockTestBuildPage() {
                 topic: q.topicName,
                 difficulty: q.difficulty as 'easy' | 'medium' | 'hard' | undefined,
             }));
-            store.startTest('mock', 'মক কুইজ', questions, timeMinutes, 0);
+            startQuiz('ssc', questions, timeMinutes, 'lockOnce');
             router.push('/mock-tests/session');
         } catch {
             setStarting(false);
         }
-    }, [selectedTopicIds, store, router]);
+    }, [selectedTopicIds, startQuiz, router]);
 
     // ── Render ─────────────────────────────────────────────────────────────────
 

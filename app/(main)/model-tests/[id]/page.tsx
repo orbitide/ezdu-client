@@ -7,42 +7,53 @@ import { QuizHeader } from '@/features/quiz/components/QuizHeader';
 import { QuestionCard } from '@/features/quiz/components/QuestionCard';
 import { ResultScreen } from '@/features/quiz/components/ResultScreen';
 import { useQuizStore } from '@/features/quiz/quiz.store';
-import { getQuizDetails, saveQuizResult } from '@/lib/api/quiz';
+import { getQuizDetails, submitUserQuiz } from '@/lib/api/quiz';
+import { QuizType } from '@/types/api';
 import type { QuizDetailsDto } from '@/types/api';
 
 export default function QuizSessionPage() {
     const { id } = useParams<{ id: string }>();
     const router = useRouter();
-    const { session, result, startQuiz, answerQuestion, nextQuestion, prevQuestion, finishQuiz, resetQuiz } = useQuizStore();
-    const [elapsed, setElapsed] = useState(0);
+    const { session, result, quizApiId, startQuiz, answerQuestion, nextQuestion, prevQuestion, finishQuiz, resetQuiz } = useQuizStore();
+
+    const [timeRemaining, setTimeRemaining] = useState(0);
     const [quiz, setQuiz] = useState<QuizDetailsDto | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [saving, setSaving] = useState(false);
     const [savedUserQuizId, setSavedUserQuizId] = useState<string | null>(null);
 
+    // Load quiz — always fetch metadata; resume existing session on refresh
     useEffect(() => {
         let cancelled = false;
-        resetQuiz();
         getQuizDetails(id)
             .then((data) => {
                 if (cancelled) return;
                 setQuiz(data);
-                // Map API questions to the store format
+
+                // Resume: same quiz already active (e.g. page refresh)
+                if (session?.status === 'active' && quizApiId === id) {
+                    const elapsed = Math.round((Date.now() - session.startedAt) / 1000);
+                    const remaining = Math.max(0, (data.duration ?? 30) * 60 - elapsed);
+                    if (remaining <= 0) finishQuiz();
+                    else setTimeRemaining(remaining);
+                    return;
+                }
+
+                // Fresh start
                 const questions = data.questions.map((q) => ({
                     id: q.id,
                     text: q.text,
-                    options: q.options.map((o) => ({
-                        id: o.id,
-                        text: o.text,
-                        isCorrect: o.isCorrect,
-                    })),
+                    options: q.options.map((o) => ({ id: o.id, text: o.text, isCorrect: o.isCorrect })),
                     explanation: q.explanation,
+                    subjectId: q.subjectId,
                     subject: q.subjectName,
                     topic: q.topicName,
                     difficulty: (q.difficulty as 'easy' | 'medium' | 'hard') ?? undefined,
                 }));
-                startQuiz('ssc', questions, data.duration ?? undefined);
+                const durationMinutes = data.duration ?? 30;
+                startQuiz('ssc', questions, durationMinutes, 'editable', id);
+                setTimeRemaining(durationMinutes * 60);
             })
             .catch(() => { if (!cancelled) setError('কুইজ লোড হয়নি। আবার চেষ্টা করো।'); })
             .finally(() => { if (!cancelled) setLoading(false); });
@@ -50,38 +61,42 @@ export default function QuizSessionPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
-    // Timer
+    // Countdown timer — auto-submit at 0
     useEffect(() => {
         if (!session || session.status !== 'active') return;
-        const interval = setInterval(() => setElapsed((p) => p + 1), 1000);
+        const interval = setInterval(() => {
+            setTimeRemaining((prev) => {
+                if (prev <= 1) {
+                    clearInterval(interval);
+                    finishQuiz();
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
         return () => clearInterval(interval);
-    }, [session?.status]);
+    }, [session?.status, finishQuiz]);
 
-    const handleFinish = useCallback(async () => {
-        finishQuiz();
-    }, [finishQuiz]);
+    const handleFinish = useCallback(() => { finishQuiz(); }, [finishQuiz]);
 
-    // Save result after quiz completes
+    // Submit result — matches mobile app's userquiz/save contract
     useEffect(() => {
         if (!result || !session || savedUserQuizId || saving) return;
         setSaving(true);
-        const submittedAnswers = session.questions.map((q) => {
-            const selectedId = session.answers[q.id] ?? null;
-            const isCorrect = !!q.options.find((o) => o.id === selectedId)?.isCorrect;
-            return { questionId: q.id, selectedOptionId: selectedId, isCorrect };
-        });
-        saveQuizResult({
+        const subjectId = quiz?.subjectId ?? session.questions[0]?.subjectId ?? '0';
+        submitUserQuiz({
+            quizType: QuizType.Quiz,
             quizId: id,
-            totalQuestions: result.total,
-            correctAnswers: result.correct,
-            incorrectAnswers: result.incorrect,
-            skippedQuestions: result.skipped,
-            timeTaken: result.timeTaken,
-            xpEarned: result.xpEarned,
-            submittedAnswers,
+            subjectId,
+            durationSeconds: result.timeTaken,
+            lessonId: id,
+            submissions: session.questions.map((q) => ({
+                qId: q.id,
+                opId: session.answers[q.id] ?? '0',
+            })),
         })
-            .then((res) => setSavedUserQuizId(res.id))
-            .catch(() => {}) // fail silently — results still shown
+            .then((res) => setSavedUserQuizId(res.userQuizId ?? null))
+            .catch(() => {})
             .finally(() => setSaving(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [result]);
@@ -120,13 +135,15 @@ export default function QuizSessionPage() {
                             text: q.text,
                             options: q.options.map((o) => ({ id: o.id, text: o.text, isCorrect: o.isCorrect })),
                             explanation: q.explanation,
-                            subject: q.subjectName,
+                            subjectId: q.subjectId,
+                    subject: q.subjectName,
                             topic: q.topicName,
                             difficulty: (q.difficulty as 'easy' | 'medium' | 'hard') ?? undefined,
                         }));
-                        startQuiz('ssc', questions, quiz.duration ?? undefined);
+                        const durationMinutes = quiz.duration ?? 30;
+                        startQuiz('ssc', questions, durationMinutes, 'editable');
+                        setTimeRemaining(durationMinutes * 60);
                     }
-                    setElapsed(0);
                     setSavedUserQuizId(null);
                 }}
             />
@@ -143,8 +160,10 @@ export default function QuizSessionPage() {
             <QuizHeader
                 current={currentNumber}
                 total={session.questions.length}
-                subject={quiz?.title ?? 'কুইজ'}
-                elapsed={elapsed}
+                subject={quiz?.title ?? 'মডেল টেস্ট'}
+                elapsed={0}
+                countdown={true}
+                timeRemaining={timeRemaining}
                 onExit={() => router.push('/model-tests')}
             />
             <QuestionCard
@@ -157,6 +176,7 @@ export default function QuizSessionPage() {
                 onPrev={prevQuestion}
                 isLast={session.currentIndex === session.questions.length - 1}
                 onFinish={handleFinish}
+                examMode={true}
             />
         </div>
     );

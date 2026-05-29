@@ -16,6 +16,7 @@ interface QuestionCardProps {
     onPrev: () => void;
     isLast: boolean;
     onFinish: () => void;
+    examMode?: boolean;  // true = no immediate reveal; blue-only highlight, always-navigable
 }
 
 export function QuestionCard({
@@ -28,13 +29,14 @@ export function QuestionCard({
     onPrev,
     isLast,
     onFinish,
+    examMode = false,
 }: QuestionCardProps) {
     const [revealed, setRevealed] = useState(false);
 
     const handleOption = (optionId: string) => {
         if (revealed) return;
         onAnswer(optionId);
-        setRevealed(true);
+        if (!examMode) setRevealed(true);  // challenge: reveal immediately; exam: no reveal
     };
 
     const handleNext = () => {
@@ -106,7 +108,7 @@ export function QuestionCard({
 
                 <button
                     onClick={handleNext}
-                    disabled={!selectedAnswer && !revealed}
+                    disabled={!examMode && !selectedAnswer && !revealed}
                     className={cn(
                         'flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold transition-colors',
                         isLast
