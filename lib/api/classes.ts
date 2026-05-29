@@ -22,5 +22,7 @@ export async function getSubjects(classId?: string, groupId?: string): Promise<S
 
 export async function getLessonsWithTopics(subjectId: string): Promise<LessonWithTopicsDto[]> {
     const res = await apiClient.get('/lessons/withtopics', { params: { subjectId } });
-    return res.data?.data ?? res.data;
+    const result = res.data?.data ?? res.data;
+    const list = result?.items ?? result;
+    return Array.isArray(list) ? list : [];
 }

@@ -21,8 +21,8 @@ const GRID_ITEMS = [
     },
     {
         icon: '/icons/quiz.svg',
-        label: 'কুইজ',
-        href: '/quiz',
+        label: 'মডেল টেস্ট',
+        href: '/model-tests',
         border: 'border-emerald-500/25',
         hover: 'hover:border-emerald-500/50 hover:bg-emerald-500/5',
         text: 'text-emerald-300',
@@ -30,7 +30,7 @@ const GRID_ITEMS = [
     {
         icon: '/icons/mock_test.svg',
         label: 'মক টেস্ট',
-        href: '/model-tests',
+        href: '/mock-tests',
         border: 'border-purple-500/25',
         hover: 'hover:border-purple-500/50 hover:bg-purple-500/5',
         text: 'text-purple-300',

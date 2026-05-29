@@ -52,7 +52,7 @@ export function mapStudyPlanResponse(raw: unknown): StudyPlanDto | null {
             dayNumber: item.dayNumber,
             order: item.order,
             status: item.status ?? 0,
-            estimatedMinutes: dailyMinutes,
+            estimatedMinutes: MINUTES_PER_MOCK,
             isCompleted: item.status === 1,
         }));
 

@@ -99,8 +99,8 @@ export default function QuizSessionPage() {
             <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 px-4">
                 <AlertCircle size={32} className="text-rose-400" />
                 <p className="text-sm text-zinc-400 text-center">{error}</p>
-                <button onClick={() => router.push('/quiz')} className="text-sm text-emerald-400 hover:text-emerald-300">
-                    কুইজ লিস্টে ফিরে যাও
+                <button onClick={() => router.push('/model-tests')} className="text-sm text-emerald-400 hover:text-emerald-300">
+                    মডেল টেস্ট লিস্টে ফিরে যাও
                 </button>
             </div>
         );
@@ -111,7 +111,7 @@ export default function QuizSessionPage() {
             <ResultScreen
                 result={result}
                 saving={saving}
-                onReview={savedUserQuizId ? () => router.push(`/quiz/${id}/review/${savedUserQuizId}`) : undefined}
+                onReview={savedUserQuizId ? () => router.push(`/model-tests/${id}/review/${savedUserQuizId}`) : undefined}
                 onRetry={() => {
                     resetQuiz();
                     if (quiz) {
@@ -145,7 +145,7 @@ export default function QuizSessionPage() {
                 total={session.questions.length}
                 subject={quiz?.title ?? 'কুইজ'}
                 elapsed={elapsed}
-                onExit={() => router.push('/quiz')}
+                onExit={() => router.push('/model-tests')}
             />
             <QuestionCard
                 question={question}

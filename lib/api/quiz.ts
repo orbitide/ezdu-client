@@ -18,9 +18,29 @@ export interface QuizListParams {
     search?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function normalizeQuiz(item: any): QuizListDto {
+    return {
+        id: String(item.id),
+        title: item.title ?? item.name,
+        subjectId: item.subjectId ? String(item.subjectId) : undefined,
+        subjectName: item.subjectName ?? undefined,
+        questionCount: item.questionCount ?? 0,
+        duration: item.duration ?? item.durationInMinutes ?? undefined,
+        difficulty: item.difficulty ?? undefined,
+        scheduledAt: item.scheduledAt ?? item.startTime ?? undefined,
+        isCompleted: item.isCompleted ?? undefined,
+    };
+}
+
 export async function getQuizzes(params: QuizListParams = {}): Promise<PagedList<QuizListDto>> {
     const res = await apiClient.get('/quizzes', { params });
-    return res.data?.data ?? res.data;
+    const raw = res.data?.data ?? res.data;
+    if (Array.isArray(raw)) {
+        const items = raw.map(normalizeQuiz);
+        return { items, totalCount: items.length, pageNumber: 1, pageSize: items.length };
+    }
+    return { ...raw, items: (raw.items ?? []).map(normalizeQuiz) };
 }
 
 export async function getQuizDetails(quizId: string): Promise<QuizDetailsDto> {
@@ -71,6 +91,44 @@ export async function getMyQuizHistory(page = 1, pageSize = 20): Promise<PagedLi
 export async function getQuestionsByLesson(lessonId: string): Promise<QuizDetailsDto> {
     const res = await apiClient.post('/questions/by-lesson-id', { lessonId });
     return res.data;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function normalizeQuestion(q: any) {
+    return {
+        id: String(q.id),
+        text: q.text ?? q.name ?? '',
+        options: (q.options ?? []).map((o: any) => ({
+            id: String(o.id),
+            text: o.text ?? o.name ?? '',
+            isCorrect: o.isCorrect ?? false,
+        })),
+        explanation: q.explanation ?? undefined,
+        subjectName: q.subjectName ?? undefined,
+        topicName: q.topicName ?? undefined,
+        difficulty: q.difficulty ?? undefined,
+    };
+}
+
+export async function getQuestionCountByTopicIds(topicIds: string[]): Promise<number> {
+    const res = await apiClient.post('/questions/count-by-topic-ids', topicIds.map(Number));
+    const raw = res.data?.data ?? res.data;
+    return raw?.count ?? raw ?? 0;
+}
+
+export async function getQuestionsByTopicIds(topicIds: string[], limit?: number): Promise<QuizDetailsDto> {
+    const res = await apiClient.post(
+        '/questions/by-topic-ids',
+        topicIds.map(Number),
+        { params: limit ? { limit } : undefined },
+    );
+    const raw = res.data?.data ?? res.data;
+    const items = raw?.items ?? raw ?? [];
+    return {
+        id: 'mock',
+        title: 'মক কুইজ',
+        questions: items.map(normalizeQuestion),
+    };
 }
 
 export async function getPresets(): Promise<QuizListDto[]> {

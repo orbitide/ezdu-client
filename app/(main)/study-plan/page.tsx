@@ -1,17 +1,22 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { BookOpen, CheckCircle2, Circle, Calendar, Loader2, AlertCircle } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { BookOpen, CheckCircle2, Circle, Calendar, Loader2, AlertCircle, Play } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getActivePlan } from '@/lib/api/study-plan';
+import { getQuestionsByLesson } from '@/lib/api/quiz';
 import { localDateKey } from '@/lib/study-plan/map-study-plan';
-import { completePlanItem } from '@/lib/study-plan/study-plan-items';
+import { useChallengeStore } from '@/features/challenge/challenge.store';
 import type { StudyPlanDto, StudyPlanItemDto } from '@/types/api';
 
 export default function StudyPlanPage() {
+    const router = useRouter();
     const [plan, setPlan] = useState<StudyPlanDto | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [startingItemId, setStartingItemId] = useState<string | null>(null);
+    const { startChallenge } = useChallengeStore();
 
     const fetchPlan = useCallback(() => {
         setLoading(true);
@@ -26,9 +31,34 @@ export default function StudyPlanPage() {
         fetchPlan();
     }, [fetchPlan]);
 
-    const handleComplete = useCallback((itemId: string) => {
-        setPlan((p) => (p ? completePlanItem(p, itemId) : p));
-    }, []);
+    const handleStartPlanQuiz = useCallback(async (item: StudyPlanItemDto) => {
+        setStartingItemId(item.id);
+        try {
+            const quiz = await getQuestionsByLesson(item.lessonId);
+            const questions = quiz.questions.map((q) => ({
+                id: q.id,
+                text: q.text,
+                options: q.options.map((o) => ({ id: o.id, text: o.text, isCorrect: o.isCorrect })),
+                explanation: q.explanation,
+                subject: item.subjectName ?? q.subjectName,
+                topic: q.topicName,
+            }));
+
+            if (questions.length === 0) {
+                setStartingItemId(null);
+                return;
+            }
+
+            startChallenge(questions, item.subjectName ?? '', item.lessonName, {
+                lessonId: Number(item.lessonId),
+                dayNumber: item.dayNumber ?? 1,
+                subjectId: item.subjectId ?? 0,
+            });
+            router.push('/challenge/session');
+        } catch {
+            setStartingItemId(null);
+        }
+    }, [startChallenge, router]);
 
     if (loading) {
         return (
@@ -60,7 +90,11 @@ export default function StudyPlanPage() {
             {!plan ? (
                 <NoPlanState />
             ) : (
-                <ActivePlan plan={plan} onComplete={handleComplete} />
+                <ActivePlan
+                    plan={plan}
+                    startingItemId={startingItemId}
+                    onStartQuiz={handleStartPlanQuiz}
+                />
             )}
         </div>
     );
@@ -80,7 +114,15 @@ function NoPlanState() {
     );
 }
 
-function ActivePlan({ plan, onComplete }: { plan: StudyPlanDto; onComplete: (id: string) => void }) {
+function ActivePlan({
+    plan,
+    startingItemId,
+    onStartQuiz,
+}: {
+    plan: StudyPlanDto;
+    startingItemId: string | null;
+    onStartQuiz: (item: StudyPlanItemDto) => void;
+}) {
     const pct = plan.totalItems > 0 ? Math.round((plan.completedItems / plan.totalItems) * 100) : 0;
     const today = localDateKey(new Date());
     const todayItems =
@@ -88,6 +130,7 @@ function ActivePlan({ plan, onComplete }: { plan: StudyPlanDto; onComplete: (id:
 
     return (
         <>
+            {/* Overall progress */}
             <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4">
                 <div className="mb-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -110,15 +153,22 @@ function ActivePlan({ plan, onComplete }: { plan: StudyPlanDto; onComplete: (id:
                 </div>
             </div>
 
+            {/* Today's items */}
             {todayItems.length > 0 && (
                 <div className="space-y-2">
                     <h2 className="text-sm font-semibold text-zinc-300">আজকের পরিকল্পনা</h2>
                     {todayItems.map((item) => (
-                        <PlanItemRow key={item.id} item={item} onComplete={onComplete} />
+                        <PlanItemRow
+                            key={item.id}
+                            item={item}
+                            onStart={item.isCompleted ? undefined : () => onStartQuiz(item)}
+                            starting={startingItemId === item.id}
+                        />
                     ))}
                 </div>
             )}
 
+            {/* Upcoming days */}
             {plan.days.map((day) => {
                 if (localDateKey(day.date) === today) return null;
                 const pending = day.items.filter((i) => !i.isCompleted);
@@ -133,7 +183,7 @@ function ActivePlan({ plan, onComplete }: { plan: StudyPlanDto; onComplete: (id:
                             })}
                         </h2>
                         {pending.slice(0, 3).map((item) => (
-                            <PlanItemRow key={item.id} item={item} onComplete={onComplete} future />
+                            <PlanItemRow key={item.id} item={item} future />
                         ))}
                     </div>
                 );
@@ -144,13 +194,17 @@ function ActivePlan({ plan, onComplete }: { plan: StudyPlanDto; onComplete: (id:
 
 function PlanItemRow({
     item,
-    onComplete,
+    onStart,
+    starting,
     future,
 }: {
     item: StudyPlanItemDto;
-    onComplete: (id: string) => void;
+    onStart?: () => void;
+    starting?: boolean;
     future?: boolean;
 }) {
+    const canStart = !item.isCompleted && !future && !!onStart;
+
     return (
         <div
             className={cn(
@@ -158,20 +212,18 @@ function PlanItemRow({
                 item.isCompleted
                     ? 'border-zinc-800 bg-zinc-900 opacity-60'
                     : future
-                      ? 'border-zinc-800 bg-zinc-900'
-                      : 'border-zinc-700 bg-zinc-900 hover:border-zinc-600',
+                      ? 'border-zinc-800 bg-zinc-900 opacity-70'
+                      : 'border-zinc-700 bg-zinc-900',
             )}
         >
-            <button
-                onClick={() => !item.isCompleted && !future && onComplete(item.id)}
-                disabled={item.isCompleted || future}
+            <div
                 className={cn(
-                    'shrink-0 transition-colors',
-                    item.isCompleted ? 'text-emerald-400' : 'text-zinc-600 hover:text-zinc-400',
+                    'shrink-0',
+                    item.isCompleted ? 'text-emerald-400' : 'text-zinc-600',
                 )}
             >
                 {item.isCompleted ? <CheckCircle2 size={20} /> : <Circle size={20} />}
-            </button>
+            </div>
             <div className="min-w-0 flex-1">
                 <p
                     className={cn(
@@ -187,6 +239,16 @@ function PlanItemRow({
                     </p>
                 )}
             </div>
+            {canStart && (
+                <button
+                    onClick={onStart}
+                    disabled={starting}
+                    className="shrink-0 flex items-center gap-1.5 rounded-lg bg-purple-500/10 px-3 py-1.5 text-xs font-semibold text-purple-400 hover:bg-purple-500/20 transition-colors disabled:opacity-60"
+                >
+                    {starting ? <Loader2 size={12} className="animate-spin" /> : <Play size={12} />}
+                    {starting ? 'লোড...' : 'শুরু করো'}
+                </button>
+            )}
         </div>
     );
 }

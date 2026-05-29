@@ -21,8 +21,8 @@ const NAV_SECTIONS = [
     {
         label: 'প্র্যাকটিস',
         items: [
-            { href: '/quiz', icon: Brain, label: 'কুইজ' },
-            { href: '/model-tests', icon: ClipboardList, label: 'মডেল টেস্ট' },
+            { href: '/model-tests', icon: Brain, label: 'মডেল টেস্ট' },
+            { href: '/mock-tests', icon: ClipboardList, label: 'মক টেস্ট' },
             { href: '/challenge', icon: Zap, label: 'দ্রুত চ্যালেঞ্জ' },
             { href: '/vocabulary', icon: BookMarked, label: 'ভোকাবুলারি' },
             { href: '/archive', icon: Archive, label: 'আর্কাইভ' },

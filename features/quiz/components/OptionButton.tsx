@@ -24,7 +24,7 @@ export function OptionButton({ id, text, index, selected, isCorrect, revealed, o
         if (isCorrect) {
             style = 'border-emerald-500 bg-emerald-500/10 text-emerald-300';
         } else if (selected && !isCorrect) {
-            style = 'border-rose-500 bg-rose-500/10 text-rose-300';
+            style = 'border-red-500 bg-red-500/10 text-red-300';
         } else {
             style = 'border-zinc-800 bg-zinc-900 text-zinc-500';
         }
@@ -39,7 +39,7 @@ export function OptionButton({ id, text, index, selected, isCorrect, revealed, o
             </span>
             <span className="flex-1 leading-relaxed">{text}</span>
             {revealed && isCorrect && <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-emerald-400" />}
-            {revealed && selected && !isCorrect && <XCircle size={16} className="mt-0.5 shrink-0 text-rose-400" />}
+            {revealed && selected && !isCorrect && <XCircle size={16} className="mt-0.5 shrink-0 text-red-400" />}
         </button>
     );
 }
