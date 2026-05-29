@@ -18,17 +18,17 @@ export interface QuizListParams {
 
 export async function getQuizzes(params: QuizListParams = {}): Promise<PagedList<QuizListDto>> {
     const res = await apiClient.get('/quizzes', { params });
-    return res.data;
+    return res.data?.data ?? res.data;
 }
 
 export async function getQuizDetails(quizId: string): Promise<QuizDetailsDto> {
     const res = await apiClient.get(`/quizzes/${quizId}/details`);
-    return res.data;
+    return res.data?.data ?? res.data;
 }
 
 export async function getUpcomingQuiz(classId: string): Promise<QuizListDto | null> {
     const res = await apiClient.get(`/quizzes/upcomming/${classId}`);
-    return res.data ?? null;
+    return res.data?.data ?? res.data ?? null;
 }
 
 export async function saveQuizResult(dto: SaveUserQuizDto): Promise<{ id: string; xpEarned: number }> {
@@ -38,17 +38,17 @@ export async function saveQuizResult(dto: SaveUserQuizDto): Promise<{ id: string
 
 export async function getQuizReview(userQuizId: string): Promise<UserQuizReviewDto> {
     const res = await apiClient.get(`/userquiz/details/${userQuizId}`);
-    return res.data;
+    return res.data?.data ?? res.data;
 }
 
 export async function getRetryQuestions(userQuizId: string): Promise<QuizDetailsDto> {
     const res = await apiClient.get(`/userquiz/details/${userQuizId}/retry`);
-    return res.data;
+    return res.data?.data ?? res.data;
 }
 
 export async function getMyQuizHistory(page = 1, pageSize = 20): Promise<PagedList<UserQuizHistoryDto>> {
     const res = await apiClient.get('/users/me/quizzes', { params: { pageNumber: page, pageSize } });
-    return res.data;
+    return res.data?.data ?? res.data;
 }
 
 export async function getQuestionsByLesson(lessonId: string): Promise<QuizDetailsDto> {
@@ -58,10 +58,10 @@ export async function getQuestionsByLesson(lessonId: string): Promise<QuizDetail
 
 export async function getPresets(): Promise<QuizListDto[]> {
     const res = await apiClient.get('/presets');
-    return res.data;
+    return res.data?.data ?? res.data;
 }
 
 export async function getPresetDetails(presetId: string): Promise<QuizDetailsDto> {
     const res = await apiClient.get(`/presets/${presetId}`);
-    return res.data;
+    return res.data?.data ?? res.data;
 }

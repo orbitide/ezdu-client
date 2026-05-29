@@ -39,7 +39,7 @@ export default function ShopPage() {
     const [purchasing, setPurchasing] = useState<string | null>(null);
     const [purchased, setPurchased] = useState<Set<string>>(new Set());
 
-    const coins = meData?.stats.coins ?? 0;
+    const coins = meData?.coin ?? 0;
 
     const handlePurchase = async (item: ShopItem) => {
         if (purchasing) return;

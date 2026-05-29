@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ProfileHeader } from '@/features/profile/components/ProfileHeader';
 import { ProfileStats } from '@/features/profile/components/ProfileStats';
 import { useMe } from '@/hooks/use-me';
+import { useAuthStore } from '@/store/auth.store';
 import { getMyQuizHistory } from '@/lib/api/quiz';
 import type { UserProfile } from '@/types/user';
 import type { ExamHistory } from '@/features/profile/types';
@@ -34,6 +35,7 @@ function mapHistoryToExamHistory(items: UserQuizHistoryDto[]): ExamHistory[] {
 
 export default function ProfilePage() {
     const { data: meData, loading } = useMe();
+    const authUser = useAuthStore((s) => s.user);
     const [history, setHistory] = useState<ExamHistory[]>([]);
     const [historyLoading, setHistoryLoading] = useState(true);
 
@@ -53,16 +55,15 @@ export default function ProfilePage() {
     }
 
     const profile: UserProfile | null = meData ? {
-        id: meData.user.id,
-        name: meData.user.name,
-        email: meData.user.email,
-        createdAt: meData.user.createdAt,
-        xp: meData.stats.xp,
+        id: String(meData.id),
+        name: meData.name,
+        email: authUser?.email ?? '',
+        createdAt: '',
+        xp: meData.totalXp,
         level: 1,
-        streak: meData.stats.streak,
-        totalQuestions: meData.stats.totalQuestions,
-        correctAnswers: meData.stats.correctAnswers,
-        rank: meData.stats.rank,
+        streak: meData.streak,
+        totalQuestions: 0,
+        correctAnswers: 0,
         badges: [],
     } : null;
 

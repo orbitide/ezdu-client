@@ -24,7 +24,7 @@ export default function ProgressPage() {
         }).finally(() => setLoading(false));
     }, []);
 
-    const stats = meData?.stats;
+    const stats = meData ? { xp: meData.totalXp, streak: meData.streak, accuracy: 0, totalQuizzes: 0 } : null;
 
     return (
         <div className="mx-auto max-w-3xl px-4 py-6 space-y-5 lg:px-6">

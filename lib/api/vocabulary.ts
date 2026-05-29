@@ -7,5 +7,5 @@ export async function getVocabulary(difficulty?: VocabDifficulty, page = 1, page
     const res = await apiClient.get('/vocabulary', {
         params: { difficulty, pageNumber: page, pageSize },
     });
-    return res.data;
+    return res.data?.data ?? res.data;
 }

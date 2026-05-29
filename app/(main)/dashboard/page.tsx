@@ -1,24 +1,20 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Loader2 } from 'lucide-react';
-import { useMe } from '@/hooks/use-me';
-import { getMyQuizHistory, getMySubjectMastery } from '@/lib/api/users';
-import { getActivePlan, markItemComplete, createPlan } from '@/lib/api/study-plan';
-import { getRecommendations } from '@/lib/api/recommendations';
-import { getLeaderboard } from '@/lib/api/leaderboard';
+import { markItemComplete, createPlan, getActivePlan } from '@/lib/api/study-plan';
 import { HomeGrid } from '@/features/dashboard/components/HomeGrid';
 import { RecentActivity } from '@/features/dashboard/components/RecentActivity';
 import { DashboardStats } from '@/features/dashboard/components/DashboardStats';
 import { DashboardPlanPanel } from '@/features/dashboard/components/DashboardPlanPanel';
 import { MiniLeaderboard } from '@/features/dashboard/components/MiniLeaderboard';
 import { useAuthStore } from '@/store/auth.store';
+import { useAppDataStore } from '@/store/app-data.store';
 import type { ActivityItem, ExamProgress } from '@/features/dashboard/types';
 import type { ExamId } from '@/config/exams';
 import type { UserQuizHistoryDto, SubjectMasteryDto, StudyPlanDto } from '@/types/api';
 import type { RecommendationsDto } from '@/lib/api/recommendations';
-import type { LeaderboardEntry } from '@/features/leaderboard/types';
-import { ExamProgressList } from "@/app/(main)/dashboard/ExamProgress";
+import { ExamProgressList } from '@/app/(main)/dashboard/ExamProgress';
 
 function guessExamId(subjectName: string): ExamId {
     const s = subjectName.toLowerCase();
@@ -60,92 +56,65 @@ function mapMasteryToProgress(items: SubjectMasteryDto[]): ExamProgress[] {
 }
 
 export default function DashboardPage() {
-    const { data: meData, loading: meLoading } = useMe();
+    const {
+        userSummary,
+        recommendations,
+        leaderboard,
+        studyPlan: storePlan,
+        quizHistory,
+        subjectMastery,
+        isPreloaded,
+        setStudyPlan,
+    } = useAppDataStore();
     const user = useAuthStore((s) => s.user);
 
-    const [activity, setActivity] = useState<ActivityItem[]>([]);
-    const [progress, setProgress] = useState<ExamProgress[]>([]);
-    const [recommendations, setRecommendations] = useState<RecommendationsDto | null>(null);
-    const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-    const [dataLoading, setDataLoading] = useState(true);
-
-    const [plan, setPlan] = useState<StudyPlanDto | null>(null);
-    const [planLoading, setPlanLoading] = useState(true);
+    const [plan, setPlan] = useState<StudyPlanDto | null>(storePlan);
     const [creating, setCreating] = useState(false);
 
-    const fetchPlan = useCallback(() => {
-        setPlanLoading(true);
-        getActivePlan()
-            .then(setPlan)
-            .catch(() => setPlan(null))
-            .finally(() => setPlanLoading(false));
-    }, []);
-
     useEffect(() => {
-        let cancelled = false;
-        Promise.all([
-            getMyQuizHistory(1, 5).catch(() => null),
-            getMySubjectMastery().catch(() => null),
-            getRecommendations().catch(() => null),
-            getLeaderboard().catch(() => [] as typeof leaderboard),
-        ]).then(([history, mastery, recs, lb]) => {
-            if (cancelled) return;
-            if (history?.items) setActivity(mapHistoryToActivity(history.items));
-            if (mastery?.items) setProgress(mapMasteryToProgress(mastery.items));
-            if (recs) setRecommendations(recs);
-            if (lb && lb.length > 0) {
-                setLeaderboard(lb.map((e) => ({
-                    rank: e.rank,
-                    userId: e.userId,
-                    name: e.name,
-                    xp: e.xp,
-                    level: 1,
-                    streak: e.streak,
-                    accuracy: 0,
-                    isCurrentUser: user ? e.userId === user.id : (e.isCurrentUser ?? false),
-                })));
-            }
-        }).finally(() => { if (!cancelled) setDataLoading(false); });
-        return () => { cancelled = true; };
-    }, []);
+        setPlan(storePlan);
+    }, [storePlan]);
 
-    useEffect(() => { fetchPlan(); }, [fetchPlan]);
+    const activity = useMemo(() => mapHistoryToActivity(quizHistory), [quizHistory]);
+    const progress = useMemo(() => mapMasteryToProgress(subjectMastery), [subjectMastery]);
 
     const handleComplete = useCallback(async (itemId: string) => {
         if (!plan) return;
-        setPlan((p) => {
-            if (!p) return p;
-            return {
-                ...p,
-                completedItems: p.completedItems + 1,
-                days: p.days.map((day) => ({
-                    ...day,
-                    items: day.items.map((item) =>
-                        item.id === itemId ? { ...item, isCompleted: true } : item
-                    ),
-                })),
-            };
-        });
+        const updated: StudyPlanDto = {
+            ...plan,
+            completedItems: plan.completedItems + 1,
+            days: plan.days.map((day) => ({
+                ...day,
+                items: day.items.map((item) =>
+                    item.id === itemId ? { ...item, isCompleted: true } : item
+                ),
+            })),
+        };
+        setPlan(updated);
+        setStudyPlan(updated);
         try {
             await markItemComplete(plan.id, itemId);
         } catch {
-            fetchPlan();
+            const fresh = await getActivePlan().catch(() => null);
+            setPlan(fresh);
+            setStudyPlan(fresh);
         }
-    }, [plan, fetchPlan]);
+    }, [plan, setStudyPlan]);
 
     const handleCreatePlan = useCallback(async () => {
         setCreating(true);
         try {
             const newPlan = await createPlan({ mode: 'auto', durationDays: 7, dailyMinutes: 30 });
             setPlan(newPlan);
+            setStudyPlan(newPlan);
         } catch {
             // silently fail — user can retry from study-plan page
         } finally {
             setCreating(false);
         }
-    }, []);
+    }, [setStudyPlan]);
 
-    if (meLoading) {
+    if (!isPreloaded) {
         return (
             <div className="flex min-h-[60vh] items-center justify-center">
                 <Loader2 size={32} className="animate-spin text-emerald-500" />
@@ -153,7 +122,15 @@ export default function DashboardPage() {
         );
     }
 
-    const stats = meData?.stats;
+    const stats = userSummary ? {
+        xp: userSummary.totalXp,
+        streak: userSummary.streak,
+        coins: userSummary.coin,
+        totalQuizzes: 0,
+        totalQuestions: 0,
+        correctAnswers: 0,
+        accuracy: 0,
+    } : undefined;
 
     return (
         <div className="mx-auto max-w-7xl px-4 py-6 lg:px-6">
@@ -175,7 +152,7 @@ export default function DashboardPage() {
                     <DashboardStats stats={stats} plan={plan} />
                     <DashboardPlanPanel
                         plan={plan}
-                        planLoading={planLoading}
+                        planLoading={false}
                         onComplete={handleComplete}
                         onCreatePlan={handleCreatePlan}
                         creating={creating}
@@ -190,33 +167,27 @@ export default function DashboardPage() {
                         <RecommendationSection data={recommendations} />
                     )}
 
-                    {dataLoading ? (
-                        <div className="flex items-center justify-center py-8">
-                            <Loader2 size={24} className="animate-spin text-zinc-600" />
+                    <div className="grid gap-4 lg:grid-cols-2">
+                        {activity.length > 0 ? (
+                            <RecentActivity items={activity} />
+                        ) : (
+                            <EmptyCard
+                                title="এখনো কোনো প্র্যাকটিস নেই"
+                                sub="প্রথম কুইজটি শুরু করো!"
+                            />
+                        )}
+                        {progress.length > 0 ? (
+                            <ExamProgressList items={progress} />
+                        ) : (
+                            <EmptyCard
+                                title="কোনো অগ্রগতি নেই"
+                                sub="কুইজ দিলে তোমার অগ্রগতি এখানে দেখাবে"
+                            />
+                        )}
+                        <div className="lg:col-span-2">
+                            <MiniLeaderboard entries={leaderboard} />
                         </div>
-                    ) : (
-                        <div className="grid gap-4 lg:grid-cols-2">
-                            {activity.length > 0 ? (
-                                <RecentActivity items={activity} />
-                            ) : (
-                                <EmptyCard
-                                    title="এখনো কোনো প্র্যাকটিস নেই"
-                                    sub="প্রথম কুইজটি শুরু করো!"
-                                />
-                            )}
-                            {progress.length > 0 ? (
-                                <ExamProgressList items={progress} />
-                            ) : (
-                                <EmptyCard
-                                    title="কোনো অগ্রগতি নেই"
-                                    sub="কুইজ দিলে তোমার অগ্রগতি এখানে দেখাবে"
-                                />
-                            )}
-                            <div className="lg:col-span-2">
-                                <MiniLeaderboard entries={leaderboard} />
-                            </div>
-                        </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>

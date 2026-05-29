@@ -1,7 +1,6 @@
 'use client';
 
-import { Menu, Bell, Flame, Zap } from 'lucide-react';
-import { useUIStore } from '@/store/ui.store';
+import { Bell, Flame, Zap } from 'lucide-react';
 import { useAuthStore } from '@/store/auth.store';
 
 interface AppHeaderProps {
@@ -9,7 +8,6 @@ interface AppHeaderProps {
 }
 
 export function AppHeader({ title }: AppHeaderProps) {
-    const { toggleSidebar } = useUIStore();
     const user = useAuthStore((s) => s.user);
 
     const streak = user?.streak ?? 0;
@@ -18,12 +16,6 @@ export function AppHeader({ title }: AppHeaderProps) {
     return (
         <header className="flex h-14 items-center justify-between border-b border-zinc-800 bg-zinc-950/80 px-4 backdrop-blur-sm lg:px-6">
             <div className="flex items-center gap-3">
-                <button
-                    className="text-zinc-400 hover:text-zinc-100 lg:hidden"
-                    onClick={toggleSidebar}
-                >
-                    <Menu size={20} />
-                </button>
                 {title && (
                     <h1 className="text-sm font-semibold text-zinc-100 lg:text-base">{title}</h1>
                 )}

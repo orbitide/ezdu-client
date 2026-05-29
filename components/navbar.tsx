@@ -27,11 +27,19 @@ export const Navbar = () => {
                     </motion.div>
                 </Link>
 
-                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                    <Button asChild variant="secondary" size="sm">
-                        <Link href="/register">শুরু করো</Link>
-                    </Button>
-                </motion.div>
+                <div className="flex items-center gap-3">
+                    <Link
+                        href="/login"
+                        className="text-sm font-medium text-zinc-400 hover:text-zinc-100 transition-colors"
+                    >
+                        লগইন
+                    </Link>
+                    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                        <Button asChild variant="secondary" size="sm">
+                            <Link href="/register">শুরু করো</Link>
+                        </Button>
+                    </motion.div>
+                </div>
             </div>
         </motion.nav>
     );

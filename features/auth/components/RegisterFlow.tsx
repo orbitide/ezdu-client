@@ -12,6 +12,7 @@ import { EXAMS } from '@/config/exams';
 import { cn } from '@/lib/utils';
 import { register, verifyOtpAndRegister, resendOtp } from '@/lib/api/auth';
 import { useAuthStore } from '@/store/auth.store';
+import { useAppDataStore } from '@/store/app-data.store';
 import type { UserProfile } from '@/types/user';
 
 type Segment = 'student' | 'job';
@@ -33,6 +34,7 @@ const TOTAL_STEPS = 6;
 export function RegisterFlow() {
     const router = useRouter();
     const { login: storeLogin } = useAuthStore();
+    const { reset, preload } = useAppDataStore();
 
     const [step, setStep] = useState(1);
     const [form, setForm] = useState<FormData>({
@@ -73,7 +75,9 @@ export function RegisterFlow() {
                 xp: 0, level: 1, streak: 0, totalQuestions: 0,
                 correctAnswers: 0, badges: [], createdAt: '',
             };
-            storeLogin(res.token, user);
+            storeLogin(user);
+            reset();
+            preload();
             router.push('/dashboard');
         } catch (err: unknown) {
             const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;

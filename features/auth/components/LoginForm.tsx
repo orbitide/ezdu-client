@@ -8,12 +8,14 @@ import { Eye, EyeOff, Loader2, Mail, Lock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { login } from '@/lib/api/auth';
 import { useAuthStore } from '@/store/auth.store';
+import { useAppDataStore } from '@/store/app-data.store';
 import type { UserProfile } from '@/types/user';
 
 export function LoginForm() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { login: storeLogin } = useAuthStore();
+    const { reset, preload } = useAppDataStore();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -39,7 +41,9 @@ export function LoginForm() {
                 badges: [],
                 createdAt: '',
             };
-            storeLogin(res.token, user);
+            storeLogin(user);
+            reset();
+            preload();
             const redirect = searchParams.get('redirect') || '/dashboard';
             router.push(redirect);
         } catch (err: unknown) {

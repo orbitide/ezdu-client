@@ -1,12 +1,14 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useAuthStore } from '@/store/auth.store';
+import { useAppDataStore } from '@/store/app-data.store';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const hydrate = useAuthStore((s) => s.hydrate);
+    const preload = useAppDataStore((s) => s.preload);
+
     useEffect(() => {
-        hydrate();
-    }, [hydrate]);
+        preload();
+    }, []);
+
     return <>{children}</>;
 }

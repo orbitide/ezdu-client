@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import { getMe } from '@/lib/api/users';
 import { useAuthStore } from '@/store/auth.store';
-import type { UserSummary } from '@/lib/api/users';
+import type { UserHomeSummaryDto } from '@/lib/api/users';
 
 export function useMe() {
     const { isAuthenticated, setUser } = useAuthStore();
-    const [data, setData] = useState<UserSummary | null>(null);
+    const [data, setData] = useState<UserHomeSummaryDto | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -19,18 +19,17 @@ export function useMe() {
             .then((res) => {
                 if (cancelled) return;
                 setData(res);
-                // Sync user into auth store so it's available globally
                 setUser({
-                    id: res.user.id,
-                    name: res.user.name,
-                    email: res.user.email,
-                    xp: res.stats.xp,
+                    id: String(res.id),
+                    name: res.name,
+                    email: useAuthStore.getState().user?.email ?? '',
+                    xp: res.totalXp,
                     level: 1,
-                    streak: res.stats.streak,
-                    totalQuestions: res.stats.totalQuestions,
-                    correctAnswers: res.stats.correctAnswers,
+                    streak: res.streak,
+                    totalQuestions: 0,
+                    correctAnswers: 0,
                     badges: [],
-                    createdAt: res.user.createdAt,
+                    createdAt: '',
                 });
             })
             .catch(() => { if (!cancelled) setError('ডেটা লোড হয়নি'); })

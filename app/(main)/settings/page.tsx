@@ -45,8 +45,10 @@ export default function SettingsPage() {
         router.push('/login');
     };
 
-    const user = meData?.user;
-    const initials = user?.name?.split(' ').map((n) => n[0]).slice(0, 2).join('') || '?';
+    const authUser = useAuthStore((s) => s.user);
+    const displayName = meData?.name ?? authUser?.name ?? '';
+    const displayEmail = authUser?.email ?? '';
+    const initials = displayName.split(' ').map((n) => n[0]).slice(0, 2).join('') || '?';
 
     return (
         <div className="mx-auto max-w-2xl px-4 py-6 space-y-5 lg:px-6">
@@ -69,8 +71,8 @@ export default function SettingsPage() {
                         {initials}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <p className="font-medium text-zinc-100 truncate">{user?.name || 'নাম নেই'}</p>
-                        <p className="text-sm text-zinc-500 truncate">{user?.email}</p>
+                        <p className="font-medium text-zinc-100 truncate">{displayName || 'নাম নেই'}</p>
+                        <p className="text-sm text-zinc-500 truncate">{displayEmail}</p>
                     </div>
                     <ChevronRight size={16} className="text-zinc-600 shrink-0" />
                 </Link>

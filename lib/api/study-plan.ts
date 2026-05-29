@@ -3,12 +3,12 @@ import type { StudyPlanDto, CreateStudyPlanDto } from '@/types/api';
 
 export async function getActivePlan(): Promise<StudyPlanDto | null> {
     const res = await apiClient.get('/study-plans');
-    return res.data ?? null;
+    return res.data?.data ?? res.data ?? null;
 }
 
 export async function createPlan(dto: CreateStudyPlanDto): Promise<StudyPlanDto> {
     const res = await apiClient.post('/study-plans', dto);
-    return res.data;
+    return res.data?.data ?? res.data;
 }
 
 export async function markItemComplete(planId: string, itemId: string): Promise<void> {
