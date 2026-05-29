@@ -354,14 +354,22 @@ export interface VocabularyDto {
 // ─── User Config ─────────────────────────────────────────────────────────────
 
 export interface UserConfigDto {
-    classId?: string;
-    groupId?: string;
-    isOnboarded: boolean;
-    notifyStreak: boolean;
-    notifyDailyPractice: boolean;
-    notifyAchievements: boolean;
-    soundEnabled: boolean;
-    language: 'en' | 'bn';
+    segment?: number;
+    classId?: number;
+    className?: string;
+    groupId?: number;
+    groupName?: string;
+    enableNotifications?: boolean;
+    notifyStreakReminder?: boolean;
+    notifyDailyPractice?: boolean;
+    notifyQuizAvailable?: boolean;
+    notifyAchievements?: boolean;
+    notifyNewContent?: boolean;
+    preferredNotificationHour?: number;
+    soundEnabled?: boolean;
+    soundCorrectVariant?: number;
+    soundWrongVariant?: number;
+    soundCelebrationVariant?: number;
 }
 
 // ─── Recommendations ─────────────────────────────────────────────────────────
