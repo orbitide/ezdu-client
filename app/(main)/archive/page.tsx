@@ -1,28 +1,52 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Archive, Loader2, BookOpen, ChevronRight } from 'lucide-react';
-import apiClient from '@/lib/api-client';
-
-interface ArchiveExam {
-    id: string;
-    title: string;
-    year?: number;
-    subject?: string;
-    questionCount?: number;
-}
+import { useEffect, useMemo, useState } from 'react';
+import { Archive, Loader2, Search } from 'lucide-react';
+import { ArchiveSubjectCard } from '@/components/archive/ArchiveSubjectCard';
+import { getSubjects } from '@/lib/api/classes';
+import { getMe } from '@/lib/api/users';
+import type { SubjectDto } from '@/types/api';
 
 export default function ArchivePage() {
-    const [exams, setExams] = useState<ArchiveExam[]>([]);
+    const [subjects, setSubjects] = useState<SubjectDto[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        apiClient.get('/archive-exams')
-            .then((res) => setExams(res.data))
-            .catch(() => {})
-            .finally(() => setLoading(false));
+        let cancelled = false;
+
+        getMe()
+            .then((me) => {
+                const classId = me.userConfig?.classId;
+                const groupId = me.userConfig?.groupId;
+                return getSubjects(
+                    classId != null ? String(classId) : undefined,
+                    groupId != null ? String(groupId) : undefined,
+                );
+            })
+            .then((data) => {
+                if (!cancelled) setSubjects(data);
+            })
+            .catch(() => {
+                if (!cancelled) setError('সাবজেক্ট লোড হয়নি। আবার চেষ্টা করো।');
+            })
+            .finally(() => {
+                if (!cancelled) setLoading(false);
+            });
+
+        return () => { cancelled = true; };
     }, []);
+
+    const filteredSubjects = useMemo(() => {
+        const q = searchQuery.trim().toLowerCase();
+        if (!q) return subjects;
+        return subjects.filter(
+            (s) =>
+                s.name.toLowerCase().includes(q) ||
+                (s.subTitle?.toLowerCase().includes(q) ?? false),
+        );
+    }, [subjects, searchQuery]);
 
     return (
         <div className="mx-auto max-w-3xl px-4 py-6 space-y-5 lg:px-6">
@@ -31,42 +55,50 @@ export default function ArchivePage() {
                     <Archive size={20} className="text-zinc-400" />
                 </div>
                 <div>
-                    <h1 className="text-lg font-bold text-zinc-100">আর্কাইভ</h1>
+                    <h1 className="text-lg font-bold text-zinc-100">প্রশ্নব্যাংক</h1>
                     <p className="text-xs text-zinc-500">পূর্ববর্তী বোর্ড পরীক্ষার প্রশ্নপত্র</p>
                 </div>
             </div>
+
+            {!loading && !error && subjects.length > 0 && (
+                <div className="relative">
+                    <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                    <input
+                        type="search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="সাবজেক্ট খোঁজো..."
+                        className="w-full rounded-xl border border-zinc-800 bg-zinc-900 py-2.5 pl-9 pr-4 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600 focus:outline-none"
+                    />
+                </div>
+            )}
 
             {loading ? (
                 <div className="flex items-center justify-center py-16">
                     <Loader2 size={28} className="animate-spin text-zinc-500" />
                 </div>
-            ) : exams.length === 0 ? (
+            ) : error ? (
+                <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-10 text-center">
+                    <p className="text-sm text-zinc-400">{error}</p>
+                </div>
+            ) : filteredSubjects.length === 0 ? (
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-10 text-center">
                     <Archive size={36} className="mx-auto text-zinc-700 mb-3" />
-                    <p className="text-sm text-zinc-400">কোনো আর্কাইভ পরীক্ষা নেই</p>
+                    <p className="text-sm text-zinc-400">কোনো সাবজেক্ট নেই</p>
                 </div>
             ) : (
-                <div className="space-y-2">
-                    {exams.map((exam) => (
-                        <Link
-                            key={exam.id}
-                            href={`/quiz/${exam.id}`}
-                            className="flex items-center gap-4 rounded-xl border border-zinc-800 bg-zinc-900 p-4 hover:border-zinc-700 hover:bg-zinc-800 transition-colors"
-                        >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-zinc-800">
-                                <BookOpen size={18} className="text-zinc-400" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="font-medium text-zinc-100 truncate">{exam.title}</p>
-                                <div className="flex items-center gap-2 text-xs text-zinc-500 mt-0.5">
-                                    {exam.year && <span>{exam.year}</span>}
-                                    {exam.subject && <span>· {exam.subject}</span>}
-                                    {exam.questionCount && <span>· {exam.questionCount} প্রশ্ন</span>}
-                                </div>
-                            </div>
-                            <ChevronRight size={16} className="text-zinc-600 shrink-0" />
-                        </Link>
-                    ))}
+                <div className="space-y-3">
+                    <p className="text-sm font-semibold text-zinc-300">সাবজেক্ট দেখো</p>
+                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+                        {filteredSubjects.map((subject, i) => (
+                            <ArchiveSubjectCard
+                                key={subject.id}
+                                subject={subject}
+                                index={i}
+                                href={`/archive/subject/${subject.id}`}
+                            />
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

@@ -27,6 +27,6 @@ export interface RecommendationsDto {
 }
 
 export async function getRecommendations(): Promise<RecommendationsDto> {
-    const res = await apiClient.get('/recommendations');
+    const res = await apiClient.get('/recommendation');
     return res.data?.data ?? res.data;
 }

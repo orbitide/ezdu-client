@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Loader2 } from 'lucide-react';
-import { markItemComplete, createPlan, getActivePlan } from '@/lib/api/study-plan';
+import { getActivePlan } from '@/lib/api/study-plan';
+import { completePlanItem } from '@/lib/study-plan/study-plan-items';
 import { HomeGrid } from '@/features/dashboard/components/HomeGrid';
 import { RecentActivity } from '@/features/dashboard/components/RecentActivity';
 import { DashboardStats } from '@/features/dashboard/components/DashboardStats';
@@ -69,50 +70,49 @@ export default function DashboardPage() {
     const user = useAuthStore((s) => s.user);
 
     const [plan, setPlan] = useState<StudyPlanDto | null>(storePlan);
-    const [creating, setCreating] = useState(false);
+    const [planLoading, setPlanLoading] = useState(false);
 
     useEffect(() => {
         setPlan(storePlan);
     }, [storePlan]);
 
+    useEffect(() => {
+        if (!isPreloaded || storePlan !== null) return;
+
+        let cancelled = false;
+        setPlanLoading(true);
+        getActivePlan()
+            .then((fresh) => {
+                if (cancelled) return;
+                setPlan(fresh);
+                setStudyPlan(fresh);
+            })
+            .catch(() => {
+                if (!cancelled) {
+                    setPlan(null);
+                }
+            })
+            .finally(() => {
+                if (!cancelled) setPlanLoading(false);
+            });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [isPreloaded, storePlan, setStudyPlan]);
+
     const activity = useMemo(() => mapHistoryToActivity(quizHistory), [quizHistory]);
     const progress = useMemo(() => mapMasteryToProgress(subjectMastery), [subjectMastery]);
 
-    const handleComplete = useCallback(async (itemId: string) => {
-        if (!plan) return;
-        const updated: StudyPlanDto = {
-            ...plan,
-            completedItems: plan.completedItems + 1,
-            days: plan.days.map((day) => ({
-                ...day,
-                items: day.items.map((item) =>
-                    item.id === itemId ? { ...item, isCompleted: true } : item
-                ),
-            })),
-        };
-        setPlan(updated);
-        setStudyPlan(updated);
-        try {
-            await markItemComplete(plan.id, itemId);
-        } catch {
-            const fresh = await getActivePlan().catch(() => null);
-            setPlan(fresh);
-            setStudyPlan(fresh);
-        }
-    }, [plan, setStudyPlan]);
-
-    const handleCreatePlan = useCallback(async () => {
-        setCreating(true);
-        try {
-            const newPlan = await createPlan({ mode: 'auto', durationDays: 7, dailyMinutes: 30 });
-            setPlan(newPlan);
-            setStudyPlan(newPlan);
-        } catch {
-            // silently fail — user can retry from study-plan page
-        } finally {
-            setCreating(false);
-        }
-    }, [setStudyPlan]);
+    const handleComplete = useCallback(
+        (itemId: string) => {
+            if (!plan) return;
+            const updated = completePlanItem(plan, itemId);
+            setPlan(updated);
+            setStudyPlan(updated);
+        },
+        [plan, setStudyPlan],
+    );
 
     if (!isPreloaded) {
         return (
@@ -152,10 +152,8 @@ export default function DashboardPage() {
                     <DashboardStats stats={stats} plan={plan} />
                     <DashboardPlanPanel
                         plan={plan}
-                        planLoading={false}
+                        planLoading={planLoading}
                         onComplete={handleComplete}
-                        onCreatePlan={handleCreatePlan}
-                        creating={creating}
                     />
                 </aside>
 

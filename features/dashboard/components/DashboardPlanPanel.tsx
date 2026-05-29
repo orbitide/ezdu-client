@@ -1,22 +1,22 @@
 import Link from 'next/link';
 import { BookOpen, ChevronRight, CheckCircle2, Circle, Plus, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { localDateKey } from '@/lib/study-plan/map-study-plan';
 import type { StudyPlanDto, StudyPlanItemDto } from '@/types/api';
 
 interface Props {
     plan: StudyPlanDto | null;
     planLoading: boolean;
     onComplete: (itemId: string) => void;
-    onCreatePlan: () => void;
-    creating: boolean;
 }
 
-export function DashboardPlanPanel({ plan, planLoading, onComplete, onCreatePlan, creating }: Props) {
-    const today = new Date().toISOString().slice(0, 10);
+export function DashboardPlanPanel({ plan, planLoading, onComplete }: Props) {
+    const today = localDateKey(new Date());
     const todayItems =
-        plan?.days.find((d) => d.date.slice(0, 10) === today)?.items ??
+        plan?.days.find((d) => localDateKey(d.date) === today)?.items ??
         plan?.days[0]?.items ??
         [];
+    const segmentCount = Math.min(plan?.totalItems ?? 0, 12);
 
     return (
         <div className="rounded-xl border border-zinc-800 bg-zinc-900">
@@ -40,25 +40,18 @@ export function DashboardPlanPanel({ plan, planLoading, onComplete, onCreatePlan
                     <Loader2 size={18} className="animate-spin text-zinc-600" />
                 </div>
             ) : !plan ? (
-                /* No plan state */
                 <div className="flex flex-col items-center gap-3 p-5 text-center">
                     <p className="text-sm text-zinc-400">কোনো সক্রিয় প্ল্যান নেই</p>
-                    <button
-                        onClick={onCreatePlan}
-                        disabled={creating}
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-purple-500/10 px-3 py-2 text-xs font-semibold text-purple-400 transition-colors hover:bg-purple-500/20 disabled:opacity-60"
+                    <Link
+                        href="/study-plan"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-purple-500/10 px-3 py-2 text-xs font-semibold text-purple-400 transition-colors hover:bg-purple-500/20"
                     >
-                        {creating ? (
-                            <Loader2 size={12} className="animate-spin" />
-                        ) : (
-                            <Plus size={12} />
-                        )}
-                        AI প্ল্যান তৈরি করো
-                    </button>
+                        <Plus size={12} />
+                        স্টাডি প্ল্যান দেখো
+                    </Link>
                 </div>
             ) : (
                 <div className="space-y-3 p-3">
-                    {/* Segmented progress bar */}
                     <div>
                         <div className="mb-1.5 flex items-center justify-between text-xs">
                             <span className="text-zinc-500">সামগ্রিক অগ্রগতি</span>
@@ -66,20 +59,21 @@ export function DashboardPlanPanel({ plan, planLoading, onComplete, onCreatePlan
                                 {plan.completedItems}/{plan.totalItems}
                             </span>
                         </div>
-                        <div className="flex gap-0.5">
-                            {Array.from({ length: Math.min(plan.totalItems, 12) }, (_, i) => (
-                                <div
-                                    key={i}
-                                    className={cn(
-                                        'h-1.5 flex-1 rounded-full',
-                                        i < plan.completedItems ? 'bg-emerald-500' : 'bg-zinc-700'
-                                    )}
-                                />
-                            ))}
-                        </div>
+                        {segmentCount > 0 && (
+                            <div className="flex gap-0.5">
+                                {Array.from({ length: segmentCount }, (_, i) => (
+                                    <div
+                                        key={i}
+                                        className={cn(
+                                            'h-1.5 flex-1 rounded-full',
+                                            i < plan.completedItems ? 'bg-emerald-500' : 'bg-zinc-700',
+                                        )}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
 
-                    {/* Today's items */}
                     {todayItems.length > 0 ? (
                         <div className="space-y-0.5">
                             <p className="px-1 text-xs font-semibold text-zinc-400">আজকের পরিকল্পনা</p>
@@ -112,7 +106,7 @@ function PlanItem({
         <div
             className={cn(
                 'flex items-center gap-2 rounded-lg px-1 py-1.5 transition-colors',
-                item.isCompleted ? 'opacity-50' : 'hover:bg-zinc-800/50'
+                item.isCompleted ? 'opacity-50' : 'hover:bg-zinc-800/50',
             )}
         >
             <button
@@ -120,7 +114,7 @@ function PlanItem({
                 disabled={item.isCompleted}
                 className={cn(
                     'shrink-0 transition-colors',
-                    item.isCompleted ? 'text-emerald-500' : 'text-zinc-600 hover:text-zinc-400'
+                    item.isCompleted ? 'text-emerald-500' : 'text-zinc-600 hover:text-zinc-400',
                 )}
             >
                 {item.isCompleted ? <CheckCircle2 size={15} /> : <Circle size={15} />}
@@ -129,7 +123,7 @@ function PlanItem({
                 <p
                     className={cn(
                         'truncate text-xs font-medium',
-                        item.isCompleted ? 'line-through text-zinc-500' : 'text-zinc-200'
+                        item.isCompleted ? 'line-through text-zinc-500' : 'text-zinc-200',
                     )}
                 >
                     {item.lessonName}

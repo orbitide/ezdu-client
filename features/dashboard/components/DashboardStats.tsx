@@ -53,29 +53,26 @@ export function DashboardStats({ stats, plan }: Props) {
     ] as const;
 
     return (
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-4 gap-1.5">
             {STATS.map((stat) => (
                 <Link
                     key={stat.label}
                     href={stat.href}
-                    className="flex items-center gap-2.5 rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-3 transition-colors hover:border-zinc-700 hover:bg-zinc-800/50"
+                    className="flex flex-col items-center justify-center gap-1 rounded-xl border border-zinc-800 bg-zinc-900 px-2 py-2.5 transition-colors hover:border-zinc-700 hover:bg-zinc-800/50"
                 >
                     <Image
                         src={stat.icon}
                         alt={stat.label}
-                        width={22}
-                        height={22}
+                        width={20}
+                        height={20}
                         className="shrink-0 object-contain"
                     />
-                    <div className="min-w-0">
-                        <p className={cn('text-sm font-bold leading-none', stat.color)}>
-                            {stat.value}
-                            {stat.unit && (
-                                <span className="ml-0.5 text-[11px] font-medium">{stat.unit}</span>
-                            )}
-                        </p>
-                        <p className="mt-0.5 text-[11px] text-zinc-500">{stat.label}</p>
-                    </div>
+                    <p className={cn('text-xs font-bold leading-none tabular-nums', stat.color)}>
+                        {stat.value}
+                        {stat.unit && (
+                            <span className="ml-0.5 text-[10px] font-medium">{stat.unit}</span>
+                        )}
+                    </p>
                 </Link>
             ))}
         </div>

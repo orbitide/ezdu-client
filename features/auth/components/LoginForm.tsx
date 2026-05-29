@@ -15,10 +15,10 @@ export function LoginForm() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { login: storeLogin } = useAuthStore();
-    const { reset, preload } = useAppDataStore();
+    const { reset } = useAppDataStore();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('h.r.shuvo9@gmail.com');
+    const [password, setPassword] = useState('Password123#');
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -43,7 +43,6 @@ export function LoginForm() {
             };
             storeLogin(user);
             reset();
-            preload();
             const redirect = searchParams.get('redirect') || '/dashboard';
             router.push(redirect);
         } catch (err: unknown) {

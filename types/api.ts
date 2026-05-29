@@ -141,6 +141,9 @@ export interface SubjectDto {
     name: string;
     classId: string;
     groupId?: string;
+    subTitle?: string;
+    imageUrl?: string;
+    iconUrl?: string;
     lessonCount?: number;
     questionCount?: number;
 }
@@ -219,6 +222,67 @@ export interface SubmittedAnswerDto {
     questionId: string;
     selectedOptionId: string | null;
     isCorrect: boolean;
+}
+
+export const QuizType = {
+    Mock: 1,
+    Quiz: 2,
+    Archive: 3,
+    Plan: 4,
+} as const;
+
+export type QuizTypeValue = (typeof QuizType)[keyof typeof QuizType];
+
+export interface QuizSubmissionItemDto {
+    qId: string;
+    opId: string;
+}
+
+export interface UserQuizSubmissionDto {
+    quizType: QuizTypeValue;
+    quizId: string;
+    subjectId: string;
+    durationSeconds: number;
+    submissions: QuizSubmissionItemDto[];
+    lessonId?: string;
+}
+
+export interface UserQuizResultDto {
+    totalXp: number;
+    earnedXp: number;
+    totalQuestions: number;
+    correctAnswer: number;
+    percentage: number;
+    streak: number;
+}
+
+// ─── Archive ─────────────────────────────────────────────────────────────────
+
+export interface ArchiveExamListItem {
+    id: string;
+    name: string;
+    classId: string;
+    subjectId: string;
+    instituteId: string;
+    year: number;
+}
+
+export interface ArchiveOptionDto {
+    id: string;
+    name: string;
+    isCorrect: boolean;
+}
+
+export interface ArchiveQuestionDto {
+    id: string;
+    name: string;
+    passage?: string;
+    explanation?: string;
+    options: ArchiveOptionDto[];
+}
+
+export interface ArchiveExamDto extends ArchiveExamListItem {
+    questions: ArchiveQuestionDto[];
 }
 
 export interface UserQuizHistoryDto {
@@ -319,6 +383,7 @@ export interface StudyPlanDto {
 export interface StudyPlanDayDto {
     dayNumber: number;
     date: string;
+    dailyMinutes?: number;
     items: StudyPlanItemDto[];
 }
 
@@ -326,16 +391,22 @@ export interface StudyPlanItemDto {
     id: string;
     lessonId: string;
     lessonName: string;
+    subjectId?: number;
     subjectName?: string;
+    dayNumber?: number;
+    order?: number;
+    status?: number;
     estimatedMinutes: number;
     isCompleted: boolean;
 }
 
-export interface CreateStudyPlanDto {
-    mode: 'manual' | 'auto';
-    durationDays: number;
+/** Payload item for POST /study-plans/save (matches backend CreateStudyPlanVm). */
+export interface SaveStudyPlanItemDto {
+    lessonId: number;
+    subjectId: number;
+    dayNumber: number;
     dailyMinutes: number;
-    lessonIds?: string[];
+    order: number;
 }
 
 // ─── Vocabulary ───────────────────────────────────────────────────────────────

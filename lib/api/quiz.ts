@@ -5,6 +5,8 @@ import type {
     SaveUserQuizDto,
     UserQuizHistoryDto,
     UserQuizReviewDto,
+    UserQuizSubmissionDto,
+    UserQuizResultDto,
     PagedList,
 } from '@/types/api';
 
@@ -34,6 +36,21 @@ export async function getUpcomingQuiz(classId: string): Promise<QuizListDto | nu
 export async function saveQuizResult(dto: SaveUserQuizDto): Promise<{ id: string; xpEarned: number }> {
     const res = await apiClient.post('/userquiz/save', dto);
     return res.data;
+}
+
+export async function submitUserQuiz(dto: UserQuizSubmissionDto): Promise<UserQuizResultDto> {
+    const res = await apiClient.post('/userquiz/save', {
+        quizType: dto.quizType,
+        quizId: Number(dto.quizId),
+        subjectId: Number(dto.subjectId),
+        durationSeconds: dto.durationSeconds,
+        submissions: dto.submissions.map((s) => ({
+            qId: Number(s.qId),
+            opId: Number(s.opId),
+        })),
+        lessonId: dto.lessonId ? Number(dto.lessonId) : 0,
+    });
+    return res.data?.data ?? res.data;
 }
 
 export async function getQuizReview(userQuizId: string): Promise<UserQuizReviewDto> {

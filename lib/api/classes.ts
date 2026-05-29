@@ -15,7 +15,9 @@ export async function getOnboardingGroups(classId?: string): Promise<GroupDto[]>
 
 export async function getSubjects(classId?: string, groupId?: string): Promise<SubjectDto[]> {
     const res = await apiClient.get('/subjects', { params: { classId, groupId } });
-    return res.data?.data ?? res.data;
+    const result = res.data?.data ?? res.data;
+    const list = result?.items ?? result;
+    return Array.isArray(list) ? list : [];
 }
 
 export async function getLessonsWithTopics(subjectId: string): Promise<LessonWithTopicsDto[]> {

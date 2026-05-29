@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import { create } from 'zustand';
 import { getMe, getMyQuizHistory, getMySubjectMastery } from '@/lib/api/users';
 import { getRecommendations } from '@/lib/api/recommendations';
@@ -67,7 +68,13 @@ export const useAppDataStore = create<AppDataStore>((set, get) => ({
                 await Promise.all([
                     getMePromise,
                     getRecommendations().catch(() => null),
-                    getActivePlan().catch(() => null),
+                    getActivePlan().catch((err) => {
+                        if (axios.isAxiosError(err) && err.response?.status === 404) {
+                            return null;
+                        }
+                        console.error('study plan preload failed', err);
+                        return null;
+                    }),
                     getLeaderboard().catch(() => []),
                     getMyQuizHistory(1, 5).catch(() => null),
                     getMySubjectMastery().catch(() => null),
