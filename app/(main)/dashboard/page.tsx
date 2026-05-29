@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { Loader2 } from 'lucide-react';
 import { getActivePlan } from '@/lib/api/study-plan';
 import { HomeGrid } from '@/features/dashboard/components/HomeGrid';
@@ -70,13 +70,17 @@ export default function DashboardPage() {
 
     const [plan, setPlan] = useState<StudyPlanDto | null>(storePlan);
     const [planLoading, setPlanLoading] = useState(false);
+    // Capture storePlan at mount so the secondary-fetch effect doesn't list
+    // storePlan as a dep — that would cause cleanup to fire mid-fetch and
+    // leave planLoading=true when setStudyPlan triggers a re-render.
+    const storePlanAtMount = useRef(storePlan);
 
     useEffect(() => {
         setPlan(storePlan);
     }, [storePlan]);
 
     useEffect(() => {
-        if (!isPreloaded || storePlan !== null) return;
+        if (!isPreloaded || storePlanAtMount.current !== null) return;
 
         let cancelled = false;
         setPlanLoading(true);
@@ -87,18 +91,14 @@ export default function DashboardPage() {
                 setStudyPlan(fresh);
             })
             .catch(() => {
-                if (!cancelled) {
-                    setPlan(null);
-                }
+                if (!cancelled) setPlan(null);
             })
             .finally(() => {
                 if (!cancelled) setPlanLoading(false);
             });
 
-        return () => {
-            cancelled = true;
-        };
-    }, [isPreloaded, storePlan, setStudyPlan]);
+        return () => { cancelled = true; };
+    }, [isPreloaded, setStudyPlan]);
 
     const activity = useMemo(() => mapHistoryToActivity(quizHistory), [quizHistory]);
     const progress = useMemo(() => mapMasteryToProgress(subjectMastery), [subjectMastery]);

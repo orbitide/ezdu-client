@@ -263,6 +263,22 @@ function PlanNodeCircle({
         <div className="relative flex flex-col items-center gap-2">
             {/* SVG ring */}
             <div className="relative">
+                {/* Pulsing glow for the current/next-to-do node */}
+                {isNextToDo && (
+                    <motion.div
+                        className="absolute rounded-full"
+                        style={{
+                            width: outerSize + 10,
+                            height: outerSize + 10,
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            border: `2px solid ${colors.ring}`,
+                        }}
+                        animate={{ scale: [1, 1.18, 1], opacity: [0.55, 0, 0.55] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                )}
                 <svg
                     width={outerSize}
                     height={outerSize}

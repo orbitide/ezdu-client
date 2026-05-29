@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { useQuizStore } from '@/features/quiz/quiz.store';
 import { QuizHeader } from '@/features/quiz/components/QuizHeader';
 import { QuestionCard } from '@/features/quiz/components/QuestionCard';
-import { ResultScreen } from '@/features/quiz/components/ResultScreen';
+import { CongratulationsScreen } from '@/features/quiz/components/CongratulationsScreen';
 import { submitUserQuiz } from '@/lib/api/quiz';
 import { QuizType } from '@/types/api';
 
@@ -80,18 +80,17 @@ export default function MockTestSessionPage() {
     // Result screen
     if (result) {
         return (
-            <ResultScreen
+            <CongratulationsScreen
                 result={result}
                 saving={saving}
                 onRetry={() => {
-                    // Restart with same questions in lockOnce mode
                     const qs = session?.questions ?? [];
                     const tl = session?.timeLimit ?? 20;
                     resetQuiz();
-                    useQuizStore.getState().startQuiz('ssc', qs, tl, 'lockOnce');
+                    useQuizStore.getState().startQuiz('ssc', qs, tl, 'editable');
                     setTimeRemaining(tl * 60);
                 }}
-                onReview={undefined}
+                onHome={() => { resetQuiz(); router.push('/mock-tests'); }}
             />
         );
     }

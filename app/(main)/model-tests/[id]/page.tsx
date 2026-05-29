@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Loader2, AlertCircle } from 'lucide-react';
 import { QuizHeader } from '@/features/quiz/components/QuizHeader';
 import { QuestionCard } from '@/features/quiz/components/QuestionCard';
-import { ResultScreen } from '@/features/quiz/components/ResultScreen';
+import { CongratulationsScreen } from '@/features/quiz/components/CongratulationsScreen';
 import { useQuizStore } from '@/features/quiz/quiz.store';
 import { getQuizDetails, submitUserQuiz } from '@/lib/api/quiz';
 import { QuizType } from '@/types/api';
@@ -22,6 +22,7 @@ export default function QuizSessionPage() {
     const [error, setError] = useState<string | null>(null);
     const [saving, setSaving] = useState(false);
     const [savedUserQuizId, setSavedUserQuizId] = useState<string | null>(null);
+    const [serverResult, setServerResult] = useState<import('@/types/api').UserQuizResultDto | null>(null);
 
     // Load quiz — always fetch metadata; resume existing session on refresh
     useEffect(() => {
@@ -95,7 +96,7 @@ export default function QuizSessionPage() {
                 opId: session.answers[q.id] ?? '0',
             })),
         })
-            .then((res) => setSavedUserQuizId(res.userQuizId ?? null))
+            .then((res) => { setSavedUserQuizId(res.userQuizId ?? null); setServerResult(res); })
             .catch(() => {})
             .finally(() => setSaving(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -123,12 +124,14 @@ export default function QuizSessionPage() {
 
     if (result) {
         return (
-            <ResultScreen
+            <CongratulationsScreen
                 result={result}
+                serverResult={serverResult}
                 saving={saving}
                 onReview={savedUserQuizId ? () => router.push(`/model-tests/${id}/review/${savedUserQuizId}`) : undefined}
                 onRetry={() => {
                     resetQuiz();
+                    setServerResult(null);
                     if (quiz) {
                         const questions = quiz.questions.map((q) => ({
                             id: q.id,
@@ -136,16 +139,17 @@ export default function QuizSessionPage() {
                             options: q.options.map((o) => ({ id: o.id, text: o.text, isCorrect: o.isCorrect })),
                             explanation: q.explanation,
                             subjectId: q.subjectId,
-                    subject: q.subjectName,
+                            subject: q.subjectName,
                             topic: q.topicName,
                             difficulty: (q.difficulty as 'easy' | 'medium' | 'hard') ?? undefined,
                         }));
                         const durationMinutes = quiz.duration ?? 30;
-                        startQuiz('ssc', questions, durationMinutes, 'editable');
+                        startQuiz('ssc', questions, durationMinutes, 'editable', id);
                         setTimeRemaining(durationMinutes * 60);
                     }
                     setSavedUserQuizId(null);
                 }}
+                onHome={() => router.push('/model-tests')}
             />
         );
     }
