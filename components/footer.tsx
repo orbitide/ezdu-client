@@ -6,11 +6,11 @@ import Link from "next/link";
 
 export const Footer = () => {
     const footerLinks = {
-        Features: [
-            { title: 'Question Bank', link: '/#features' },
-            { title: 'Mock Tests', link: '/#features' },
-            { title: 'Daily Tests', link: '/#features' },
-            { title: 'Leaderboard', link: '/#features' },
+        Exams: [
+            { title: 'SSC প্রস্তুতি', link: '/ssc' },
+            { title: 'HSC প্রস্তুতি', link: '/hsc' },
+            { title: 'BCS প্রস্তুতি', link: '/bcs' },
+            { title: 'IELTS প্রস্তুতি', link: '/ielts' },
         ],
         Support: [
             { title: 'Help Center', link: '/contact' },

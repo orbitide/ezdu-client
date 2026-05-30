@@ -26,6 +26,7 @@ export function useMe() {
                     xp: res.totalXp,
                     level: 1,
                     streak: res.streak,
+                    coin: res.coin,
                     totalQuestions: 0,
                     correctAnswers: 0,
                     badges: [],

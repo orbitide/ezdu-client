@@ -24,7 +24,7 @@ export function DashboardStats({ stats, plan }: Props) {
             unit: 'দিন',
             label: 'স্ট্রিক',
             color: streak > 0 ? 'text-orange-400' : 'text-zinc-500',
-            href: '/progress',
+            href: '/streak',
         },
         {
             icon: xp > 0 ? '/icons/bolt.svg' : '/icons/bolt_outline.svg',
@@ -32,7 +32,7 @@ export function DashboardStats({ stats, plan }: Props) {
             unit: 'XP',
             label: 'অভিজ্ঞতা',
             color: xp > 0 ? 'text-yellow-400' : 'text-zinc-500',
-            href: '/progress',
+            href: '/streak-freeze',
         },
         {
             icon: coins > 0 ? '/icons/coin.svg' : '/icons/coin_outline.svg',
@@ -40,7 +40,7 @@ export function DashboardStats({ stats, plan }: Props) {
             unit: '',
             label: 'কয়েন',
             color: coins > 0 ? 'text-amber-400' : 'text-zinc-500',
-            href: '/shop',
+            href: '/coins',
         },
         {
             icon: plan ? '/icons/plan.svg' : '/icons/plan_outline.svg',

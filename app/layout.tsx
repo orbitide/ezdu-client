@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
     title: 'Ezdu — Pocket Learning Companion',
 
-    description: 'The best platform to learn and practice. AI-powered exam prep, mock tests, and study tools.',
+    description: 'AI-powered exam prep for SSC, HSC, BCS, and IELTS — built for Bangladeshi students. Practice MCQs, take model tests, and track your progress. Free to start.',
     alternates: {
         canonical: 'https://ezdu.net',
     },
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Ezdu — Pocket Learning Companion',
-        description: 'The best platform to learn and practice. AI-powered exam prep, mock tests, and study tools.',
+        description: 'AI-powered exam prep for SSC, HSC, BCS, and IELTS — built for Bangladeshi students. Practice MCQs, take model tests, and track your progress.',
         images: ['https://ezdu.net/opengraph-image'],
     },
     metadataBase: new URL('https://ezdu.net'),

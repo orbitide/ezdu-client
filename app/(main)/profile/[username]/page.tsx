@@ -2,17 +2,20 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Loader2, AlertCircle, Zap, Flame, UserPlus, UserMinus } from 'lucide-react';
-import { getUserByUsername } from '@/lib/api/users';
+import { ArrowLeft, Loader2, AlertCircle, UserPlus, UserMinus } from 'lucide-react';
+import { getUserByUsername, getUserDetails } from '@/lib/api/users';
 import { followUser, unfollowUser } from '@/lib/api/social';
 import { useAuthStore } from '@/store/auth.store';
-import type { UserDto } from '@/types/api';
+import { ProfileHeader } from '@/features/profile/components/ProfileHeader';
+import { UserRankCard } from '@/features/profile/components/UserRankCard';
+import { WeeklyChart } from '@/features/profile/components/WeeklyChart';
+import type { UserDetailsDto } from '@/types/api';
 
 export default function PublicProfilePage() {
     const { username } = useParams<{ username: string }>();
     const router = useRouter();
     const currentUser = useAuthStore((s) => s.user);
-    const [profile, setProfile] = useState<UserDto | null>(null);
+    const [profile, setProfile] = useState<UserDetailsDto | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [following, setFollowing] = useState(false);
@@ -20,7 +23,11 @@ export default function PublicProfilePage() {
 
     useEffect(() => {
         getUserByUsername(username)
-            .then(setProfile)
+            .then((basic) => getUserDetails(basic.id))
+            .then((details) => {
+                setProfile(details);
+                setFollowing(details.isFollowing);
+            })
             .catch(() => setError('প্রোফাইল পাওয়া যায়নি'))
             .finally(() => setLoading(false));
     }, [username]);
@@ -42,62 +49,86 @@ export default function PublicProfilePage() {
         finally { setFollowLoading(false); }
     };
 
-    if (loading) return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-emerald-500" /></div>;
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[60vh]">
+                <Loader2 size={28} className="animate-spin text-emerald-500" />
+            </div>
+        );
+    }
+
     if (error || !profile) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 px-4">
                 <AlertCircle size={32} className="text-rose-400" />
                 <p className="text-sm text-zinc-400">{error || 'প্রোফাইল পাওয়া যায়নি'}</p>
-                <button onClick={() => router.back()} className="text-sm text-emerald-400 hover:text-emerald-300">ফিরে যাও</button>
+                <button
+                    onClick={() => router.back()}
+                    className="text-sm text-emerald-400 hover:text-emerald-300"
+                >
+                    ফিরে যাও
+                </button>
             </div>
         );
     }
 
-    const initials = profile.name.split(' ').map((n) => n[0]).slice(0, 2).join('');
+    const hasCompareData = (profile.weeklyXp?.friend?.length ?? 0) > 0;
 
     return (
-        <div className="mx-auto max-w-2xl px-4 py-6 space-y-5 lg:px-6">
+        <div className="mx-auto max-w-2xl px-4 py-6 space-y-4 lg:px-6">
+            {/* Page header */}
             <div className="flex items-center gap-3">
-                <button onClick={() => router.back()} className="text-zinc-400 hover:text-zinc-100 transition-colors">
+                <button
+                    onClick={() => router.back()}
+                    className="text-zinc-400 hover:text-zinc-100 transition-colors"
+                >
                     <ArrowLeft size={20} />
                 </button>
-                <h1 className="text-lg font-bold text-zinc-100">প্রোফাইল</h1>
+                <h1 className="text-base font-bold text-zinc-100">{profile.name}</h1>
             </div>
 
-            {/* Profile card */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 text-center space-y-4">
-                <div className="flex justify-center">
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 text-2xl font-bold text-white">
-                        {initials}
-                    </div>
-                </div>
-                <div>
-                    <h2 className="text-xl font-bold text-zinc-100">{profile.name}</h2>
-                    {profile.username && <p className="text-sm text-zinc-500">@{profile.username}</p>}
-                    {profile.bio && <p className="text-sm text-zinc-400 mt-2">{profile.bio}</p>}
-                    {profile.className && (
-                        <p className="text-xs text-zinc-600 mt-1">{profile.className}{profile.groupName ? ` · ${profile.groupName}` : ''}</p>
+            <ProfileHeader user={profile} linkToAvatarEditor={false} />
+
+            {/* Follow / Unfollow */}
+            {!isOwnProfile && (
+                <button
+                    onClick={handleFollow}
+                    disabled={followLoading}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-zinc-700 py-2.5 text-sm font-semibold text-zinc-300 hover:border-zinc-600 hover:text-zinc-100 transition-colors disabled:opacity-60"
+                >
+                    {followLoading ? (
+                        <Loader2 size={14} className="animate-spin" />
+                    ) : following ? (
+                        <UserMinus size={14} />
+                    ) : (
+                        <UserPlus size={14} />
                     )}
-                </div>
-                {!isOwnProfile && (
-                    <button
-                        onClick={handleFollow}
-                        disabled={followLoading}
-                        className="flex items-center gap-2 mx-auto rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-2 text-sm font-semibold text-emerald-400 hover:bg-emerald-500/20 transition-colors disabled:opacity-60"
-                    >
-                        {followLoading ? <Loader2 size={14} className="animate-spin" /> :
-                         following ? <UserMinus size={14} /> : <UserPlus size={14} />}
-                        {following ? 'আনফলো' : 'ফলো করো'}
-                    </button>
-                )}
-            </div>
+                    {following ? 'আনফলো' : 'ফলো করো'}
+                </button>
+            )}
 
-            {/* Member since */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4">
-                <p className="text-xs text-zinc-500">সদস্য হয়েছেন:</p>
-                <p className="text-sm text-zinc-300 mt-0.5">
-                    {new Date(profile.createdAt).toLocaleDateString('bn-BD', { year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
+            {/* Overview */}
+            <p className="text-sm font-semibold text-zinc-100">সংক্ষিপ্ত বিবরণ</p>
+
+            <UserRankCard
+                streak={profile.streak}
+                coin={profile.coin}
+                leagueName={profile.leagueName}
+                totalXp={profile.totalXp}
+            />
+
+            {/* Weekly activity */}
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 space-y-3">
+                <h3 className="text-sm font-semibold text-zinc-100">সাপ্তাহিক কার্যক্রম</h3>
+                {hasCompareData ? (
+                    <WeeklyChart
+                        data={profile.weeklyXp.friend}
+                        compareData={profile.weeklyXp.me}
+                        otherLabel={profile.name}
+                    />
+                ) : (
+                    <WeeklyChart data={profile.weeklyXp?.me ?? []} />
+                )}
             </div>
         </div>
     );

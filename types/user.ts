@@ -18,6 +18,7 @@ export interface UserProfile extends User {
     totalQuestions: number;
     correctAnswers: number;
     rank?: number;
+    coin?: number;
     badges: Badge[];
 }
 

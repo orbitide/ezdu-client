@@ -2,9 +2,7 @@
 
 import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { Brain, Clock, BookOpen, ChevronRight, Loader2 } from 'lucide-react';
-import { EXAMS } from '@/config/exams';
 import { cn } from '@/lib/utils';
 import { getQuizzes } from '@/lib/api/quiz';
 import type { QuizListDto } from '@/types/api';
@@ -22,9 +20,6 @@ const DIFFICULTY_COLORS: Record<string, string> = {
 };
 
 function QuizListContent() {
-    const searchParams = useSearchParams();
-    const examFilter = searchParams.get('exam');
-    const [selectedExam, setSelectedExam] = useState<string | null>(examFilter);
     const [quizzes, setQuizzes] = useState<QuizListDto[]>([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
@@ -54,34 +49,6 @@ function QuizListContent() {
                     <h1 className="text-lg font-bold text-zinc-100">কুইজ</h1>
                     <p className="text-xs text-zinc-500">বিষয় বেছে প্র্যাকটিস শুরু করো</p>
                 </div>
-            </div>
-
-            {/* Exam filter chips */}
-            <div className="flex flex-wrap gap-2">
-                <button
-                    onClick={() => setSelectedExam(null)}
-                    className={cn(
-                        'rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
-                        !selectedExam ? 'bg-zinc-100 text-zinc-900' : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
-                    )}
-                >
-                    সব
-                </button>
-                {EXAMS.map((exam) => (
-                    <button
-                        key={exam.id}
-                        onClick={() => setSelectedExam(selectedExam === exam.id ? null : exam.id)}
-                        className={cn(
-                            'flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors',
-                            selectedExam === exam.id
-                                ? `${exam.borderClass} ${exam.textClass} ${exam.bgClass}`
-                                : 'border-zinc-800 bg-zinc-900 text-zinc-400 hover:border-zinc-700'
-                        )}
-                    >
-                        <span>{exam.icon}</span>
-                        {exam.name}
-                    </button>
-                ))}
             </div>
 
             {loading && page === 1 ? (

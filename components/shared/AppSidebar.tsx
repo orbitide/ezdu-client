@@ -1,54 +1,66 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import {
-    LayoutDashboard, BookOpen, Brain, Trophy, User, Settings, Flame, Zap,
-    TrendingUp, BookMarked, Bell, Users, ShoppingBag, Award, Shield, Archive, ClipboardList,
-} from 'lucide-react';
+import { Flame, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/auth.store';
 
-const NAV_SECTIONS = [
+type NavItem = {
+    href: string;
+    label: string;
+    svgSrc: string;
+    svgOutline?: string;
+};
+
+function NavIcon({ item, active }: { item: NavItem; active: boolean }) {
+    const src = (!active && item.svgOutline) ? item.svgOutline : item.svgSrc;
+    return (
+        <Image
+            src={src}
+            width={28}
+            height={28}
+            alt=""
+            aria-hidden
+            className={cn('shrink-0', !active && !item.svgOutline && 'opacity-50 grayscale')}
+        />
+    );
+}
+
+const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
     {
         label: 'মূল',
         items: [
-            { href: '/dashboard', icon: LayoutDashboard, label: 'ড্যাশবোর্ড' },
-            { href: '/progress', icon: TrendingUp, label: 'অগ্রগতি' },
-            { href: '/study-plan', icon: BookOpen, label: 'স্টাডি প্ল্যান' },
+            { href: '/dashboard', svgSrc: '/icons/home.svg', svgOutline: '/icons/home_outline.svg', label: 'ড্যাশবোর্ড' },
+            { href: '/progress', svgSrc: '/icons/progress.svg', svgOutline: '/icons/progress_outline.svg', label: 'অগ্রগতি' },
+            { href: '/study-plan', svgSrc: '/icons/plan.svg', svgOutline: '/icons/plan_outline.svg', label: 'স্টাডি প্ল্যান' },
         ],
     },
     {
         label: 'প্র্যাকটিস',
         items: [
-            { href: '/model-tests', icon: Brain, label: 'মডেল টেস্ট' },
-            { href: '/mock-tests', icon: ClipboardList, label: 'মক টেস্ট' },
-            { href: '/challenge', icon: Zap, label: 'দ্রুত চ্যালেঞ্জ' },
-            { href: '/vocabulary', icon: BookMarked, label: 'ভোকাবুলারি' },
-            { href: '/archive', icon: Archive, label: 'আর্কাইভ' },
+            { href: '/model-tests', svgSrc: '/icons/quiz.svg', label: 'মডেল টেস্ট' },
+            { href: '/mock-tests', svgSrc: '/icons/mock_test.svg', label: 'মক টেস্ট' },
+            { href: '/challenge', svgSrc: '/icons/challenge.svg', label: 'দ্রুত চ্যালেঞ্জ' },
+            { href: '/vocabulary', svgSrc: '/icons/vocabs.svg', label: 'ভোকাবুলারি' },
+            { href: '/archive', svgSrc: '/icons/archive.svg', label: 'আর্কাইভ' },
         ],
     },
     {
         label: 'সামাজিক',
         items: [
-            { href: '/leaderboard', icon: Trophy, label: 'লিডারবোর্ড' },
-            { href: '/leagues', icon: Shield, label: 'লিগ' },
-            { href: '/feed', icon: Bell, label: 'ফিড' },
-            { href: '/friends', icon: Users, label: 'বন্ধু' },
-        ],
-    },
-    {
-        label: 'পুরস্কার',
-        items: [
-            { href: '/achievements', icon: Award, label: 'অ্যাচিভমেন্ট' },
-            { href: '/shop', icon: ShoppingBag, label: 'শপ' },
+            { href: '/leaderboard', svgSrc: '/icons/leaderboard.svg', label: 'লিডারবোর্ড' },
+            { href: '/leagues', svgSrc: '/icons/leagues.svg', svgOutline: '/icons/leagues_outline.svg', label: 'লিগ' },
+            { href: '/feed', svgSrc: '/icons/feed.svg', svgOutline: '/icons/feed_outline.svg', label: 'ফিড' },
+            { href: '/friends', svgSrc: '/icons/friends.svg', svgOutline: '/icons/friends_outline.svg', label: 'বন্ধু' },
         ],
     },
     {
         label: 'অ্যাকাউন্ট',
         items: [
-            { href: '/profile', icon: User, label: 'প্রোফাইল' },
-            { href: '/settings', icon: Settings, label: 'সেটিংস' },
+            { href: '/profile', svgSrc: '/icons/profile.svg', svgOutline: '/icons/profile_outline.svg', label: 'প্রোফাইল' },
+            { href: '/settings', svgSrc: '/icons/settings.svg', svgOutline: '/icons/settings_outline.svg', label: 'সেটিংস' },
         ],
     },
 ];
@@ -60,7 +72,7 @@ export function AppSidebar() {
     const initials = user?.name?.split(' ').map((n) => n[0]).slice(0, 2).join('') || '?';
 
     return (
-        <aside className="flex w-14 shrink-0 flex-col bg-zinc-900 border-r border-zinc-800 lg:w-64">
+        <aside className="flex w-16 shrink-0 flex-col bg-zinc-900 border-r border-zinc-800 lg:w-64">
             {/* Logo */}
             <div className="flex h-16 items-center justify-center border-b border-zinc-800 shrink-0 lg:justify-start lg:px-5">
                 <Link href="/dashboard" className="flex items-center gap-2">
@@ -79,25 +91,28 @@ export function AppSidebar() {
                             {section.label}
                         </p>
                         <div className="space-y-0.5">
-                            {section.items.map(({ href, icon: Icon, label }) => {
+                            {section.items.map((item) => {
                                 const active =
-                                    pathname === href ||
-                                    (href !== '/profile' && pathname.startsWith(href + '/')) ||
-                                    (href === '/profile' && pathname === '/profile');
+                                    pathname === item.href ||
+                                    (item.href !== '/profile' && pathname.startsWith(item.href + '/')) ||
+                                    (item.href === '/profile' && pathname === '/profile');
                                 return (
                                     <Link
-                                        key={href}
-                                        href={href}
+                                        key={item.href}
+                                        href={item.href}
                                         className={cn(
-                                            'flex items-center justify-center rounded-lg py-2 text-sm font-medium transition-colors',
+                                            'flex items-center justify-center rounded-lg py-2.5 text-sm font-medium transition-colors',
                                             'lg:justify-start lg:gap-3 lg:px-3',
                                             active
-                                                ? 'bg-emerald-500/10 text-emerald-400'
-                                                : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100'
+                                                ? 'bg-emerald-500/10'
+                                                : 'hover:bg-zinc-800'
                                         )}
                                     >
-                                        <Icon size={16} className="shrink-0" />
-                                        <span className="hidden truncate lg:block">{label}</span>
+                                        <NavIcon item={item} active={active} />
+                                        <span className={cn(
+                                            'hidden truncate lg:block',
+                                            active ? 'text-emerald-400' : 'text-zinc-400'
+                                        )}>{item.label}</span>
                                     </Link>
                                 );
                             })}

@@ -1,40 +1,20 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { buildMetadata } from "@/lib/metadata";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { buildMetadata } from '@/lib/metadata';
+import { blogPosts } from '@/lib/blog-posts';
 
-export const metadata: Metadata = buildMetadata("blog", {
-    title: "Blog",
+export const metadata: Metadata = buildMetadata('blog', {
+    title: 'Blog',
     description:
-        "Study tips, exam prep ideas, and EzDu product updates for students and parents in Bangladesh.",
-    keywords: ["EzDu blog", "SSC study tips", "exam preparation Bangladesh"],
+        'SSC, HSC, BCS ও IELTS প্রস্তুতির টিপস, পরীক্ষার কৌশল এবং EzDu পণ্য আপডেট — বাংলাদেশের শিক্ষার্থীদের জন্য।',
+    keywords: [
+        'EzDu blog',
+        'SSC study tips Bangladesh',
+        'BCS preparation guide',
+        'IELTS tips Bangladesh',
+        'exam preparation Bangladesh blog',
+    ],
 });
-
-const posts = [
-    {
-        slug: "ssc-math-practice-routine",
-        title: "Building a realistic SSC math practice routine",
-        date: "February 12, 2026",
-        category: "Study tips",
-        excerpt:
-            "Short daily sessions beat marathon cramming. We break down a 30-minute structure that pairs EzDu daily tests with review of mistakes, based on how successful students use the app in Bangladesh.",
-    },
-    {
-        slug: "mock-tests-before-board-exams",
-        title: "How to use mock tests in the last 4 weeks before board exams",
-        date: "January 28, 2026",
-        category: "Exam prep",
-        excerpt:
-            "Mock tests are most useful when they mirror exam conditions. Learn when to switch from topic practice to full papers, and how to read your EzDu analytics to plug gaps instead of repeating what you already know.",
-    },
-    {
-        slug: "ai-explanations-how-we-think-about-them",
-        title: "Behind EzDu: how we think about AI explanations",
-        date: "January 8, 2026",
-        category: "Product",
-        excerpt:
-            "Our goal is not to replace teachers but to give you step-by-step reasoning when you are studying alone. Here is how we prompt and review explanation quality for national curriculum–aligned questions.",
-    },
-];
 
 export default function BlogPage() {
     return (
@@ -44,31 +24,33 @@ export default function BlogPage() {
                     EzDu <span className="text-emerald-400">blog</span>
                 </h1>
                 <p className="text-lg text-zinc-400 mb-12 max-w-2xl">
-                    Practical study ideas, exam prep notes, and product updates for students and parents in Bangladesh.
+                    SSC, HSC, BCS ও IELTS প্রস্তুতির ব্যবহারিক টিপস, পরীক্ষার কৌশল এবং পণ্য আপডেট।
                 </p>
 
-                <ul className="space-y-10">
-                    {posts.map((post) => (
+                <ul className="space-y-8">
+                    {blogPosts.map((post) => (
                         <li key={post.slug}>
-                            <article
-                                id={post.slug}
-                                className="scroll-mt-ez-nav rounded-xl surface-raised surface-raised-hover p-6 md:p-8"
-                            >
+                            <article className="scroll-mt-ez-nav rounded-xl surface-raised surface-raised-hover p-6 md:p-8">
                                 <div className="flex flex-wrap items-center gap-2 text-sm text-zinc-500 mb-3">
                                     <span className="rounded-full border border-zinc-700 bg-zinc-800/80 px-2.5 py-0.5 text-emerald-400">
                                         {post.category}
                                     </span>
                                     <span>{post.date}</span>
+                                    <span className="text-zinc-600">·</span>
+                                    <span>{post.readTime}</span>
                                 </div>
                                 <h2 className="text-xl md:text-2xl font-semibold text-white mb-3">
                                     {post.title}
                                 </h2>
-                                <p className="text-zinc-400 leading-relaxed mb-4">{post.excerpt}</p>
+                                <p className="text-zinc-400 leading-relaxed mb-5">{post.excerpt}</p>
                                 <Link
-                                    href={`/blog#${post.slug}`}
-                                    className="text-sm font-medium text-emerald-400 hover:text-emerald-300"
+                                    href={`/blog/${post.slug}`}
+                                    className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
                                 >
-                                    Read more (full article coming soon)
+                                    পড়ো
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                                        <path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
                                 </Link>
                             </article>
                         </li>

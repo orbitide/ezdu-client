@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ShoppingBag, Coins, Zap, Loader2, CheckCircle2 } from 'lucide-react';
+import { ShoppingBag, Coins, Zap, Loader2, CheckCircle2, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { useMe } from '@/hooks/use-me';
 import apiClient from '@/lib/api-client';
@@ -88,6 +90,21 @@ export default function ShopPage() {
                     ))}
                 </div>
             </div>
+
+            {/* Streak Freeze quick link */}
+            <Link
+                href="/streak-freeze"
+                className="flex items-center gap-4 rounded-xl border border-zinc-800 bg-zinc-900 p-4 hover:bg-zinc-800/60 transition-colors"
+            >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-500/10">
+                    <Image src="/icons/streak_freeze.svg" alt="" width={26} height={26} />
+                </div>
+                <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-zinc-100">স্ট্রিক ফ্রিজ</p>
+                    <p className="text-xs text-zinc-500 mt-0.5">১০ বা ২০ EC দিয়ে স্ট্রিক বাঁচাও</p>
+                </div>
+                <ChevronRight size={18} className="text-zinc-600 shrink-0" />
+            </Link>
 
             {/* Shop items */}
             <div className="space-y-3">

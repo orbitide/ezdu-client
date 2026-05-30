@@ -1,6 +1,7 @@
 import apiClient from '@/lib/api-client';
 import type {
     UserDto,
+    UserDetailsDto,
     UserStatsDto,
     SubjectMasteryDto,
     UpdateUserDto,
@@ -57,7 +58,7 @@ export async function getUserByUsername(username: string): Promise<UserDto> {
     return res.data?.data ?? res.data;
 }
 
-export async function getUserDetails(userId: string): Promise<UserDto> {
+export async function getUserDetails(userId: string): Promise<UserDetailsDto> {
     const res = await apiClient.get(`/users/details/${userId}`);
     return res.data?.data ?? res.data;
 }

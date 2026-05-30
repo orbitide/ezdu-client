@@ -54,6 +54,7 @@ export const useAppDataStore = create<AppDataStore>((set, get) => ({
                             xp: summary.totalXp,
                             level: 1,
                             streak: summary.streak,
+                            coin: summary.coin,
                             totalQuestions: 0,
                             correctAnswers: 0,
                             badges: [],

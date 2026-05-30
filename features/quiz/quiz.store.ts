@@ -24,7 +24,7 @@ export const useQuizStore = create<QuizStore>()(
             result: null,
             quizApiId: null,
 
-            startQuiz: (examId, questions, timeLimit, answerMode = 'editable', quizApiId = null) =>
+            startQuiz: (examId, questions, timeLimit, answerMode = 'editable', quizApiId = undefined) =>
                 set({
                     session: {
                         id: Date.now().toString(),

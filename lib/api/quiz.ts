@@ -8,6 +8,7 @@ import type {
     UserQuizSubmissionDto,
     UserQuizResultDto,
     PagedList,
+    PresetDto,
 } from '@/types/api';
 
 export interface QuizListParams {
@@ -132,12 +133,29 @@ export async function getQuestionsByTopicIds(topicIds: string[], limit?: number)
     };
 }
 
-export async function getPresets(): Promise<QuizListDto[]> {
-    const res = await apiClient.get('/presets');
+export async function getPresets(params?: { classId?: number; groupId?: number }): Promise<PresetDto[]> {
+    const query: Record<string, string> = { pageSize: '50' };
+    if (params?.classId) query.classId = String(params.classId);
+    if (params?.groupId) query.groupId = String(params.groupId);
+    const res = await apiClient.get('/presets', { params: query });
+    const raw = res.data?.data ?? res.data;
+    return raw?.items ?? raw ?? [];
+}
+
+export async function getPresetDetail(presetId: number): Promise<PresetDto> {
+    const res = await apiClient.get(`/presets/${presetId}`);
     return res.data?.data ?? res.data;
 }
 
-export async function getPresetDetails(presetId: string): Promise<QuizDetailsDto> {
-    const res = await apiClient.get(`/presets/${presetId}`);
-    return res.data?.data ?? res.data;
+export async function getQuestionsBySubjectIds(
+    subjectCounts: Array<{ subjectId: number; count: number }>,
+): Promise<QuizDetailsDto> {
+    const res = await apiClient.post('/questions/by-subject-ids', subjectCounts);
+    const raw = res.data?.data ?? res.data;
+    const items = raw?.items ?? raw ?? [];
+    return {
+        id: 'preset',
+        title: 'প্রিসেট কুইজ',
+        questions: items.map(normalizeQuestion),
+    };
 }

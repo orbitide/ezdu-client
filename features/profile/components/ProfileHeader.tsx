@@ -1,73 +1,63 @@
-import Image from 'next/image';
-import type { UserProfile } from '../types';
-import { EXAM_MAP } from '@/config/exams';
-import { Flame, Zap, Trophy } from 'lucide-react';
-import { cn } from '@/lib/utils';
+'use client';
+
+import Link from 'next/link';
+import { AvatarSvg } from '@/features/avatar/AvatarSvg';
+import type { UserDetailsDto } from '@/types/api';
 
 interface ProfileHeaderProps {
-    profile: UserProfile;
+    user: UserDetailsDto;
+    linkToAvatarEditor?: boolean;
 }
 
-export function ProfileHeader({ profile }: ProfileHeaderProps) {
-    const exam = profile.targetExam ? EXAM_MAP[profile.targetExam] : null;
-    const accuracy = profile.totalQuestions > 0
-        ? Math.round((profile.correctAnswers / profile.totalQuestions) * 100)
-        : 0;
-    const levelProgress = ((profile.xp % 500) / 500) * 100;
+export function ProfileHeader({ user, linkToAvatarEditor = false }: ProfileHeaderProps) {
+    const joinedDate = user.createdAt
+        ? new Date(user.createdAt).toLocaleDateString('bn-BD', { year: 'numeric', month: 'long' })
+        : '';
+
+    const initials = user.name
+        .split(' ')
+        .map((n) => n[0])
+        .slice(0, 2)
+        .join('');
+
+    const avatarEl = user.avatarConfig ? (
+        <AvatarSvg config={user.avatarConfig} size={96} />
+    ) : (
+        <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 text-2xl font-bold text-white">
+            {initials}
+        </div>
+    );
 
     return (
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
-            <div className="flex items-start gap-4">
-                {/* Avatar */}
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 text-2xl font-bold text-white">
-                    {profile.name.slice(0, 1)}
-                </div>
+        <div className="flex flex-col items-center gap-3 py-2">
+            {/* Avatar */}
+            {linkToAvatarEditor ? (
+                <Link
+                    href="/settings/avatar"
+                    className="rounded-full ring-2 ring-zinc-700 ring-offset-2 ring-offset-zinc-950 hover:ring-emerald-500/60 transition-all"
+                >
+                    {avatarEl}
+                </Link>
+            ) : (
+                avatarEl
+            )}
 
-                <div className="flex-1 min-w-0">
-                    <h1 className="text-xl font-bold text-zinc-100">{profile.name}</h1>
-                    <p className="text-sm text-zinc-500">{profile.email}</p>
-                    {profile.class && (
-                        <p className="mt-0.5 text-xs text-zinc-500">{profile.class}</p>
-                    )}
-                    {exam && (
-                        <span className={cn(
-                            'mt-1.5 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium',
-                            exam.bgClass, exam.textClass
-                        )}>
-                            <Image src={exam.iconSrc} alt={exam.name} width={12} height={12} className="object-contain" />
-                            লক্ষ্য: {exam.name}
-                        </span>
-                    )}
-                </div>
-            </div>
+            {/* @username · joined date */}
+            <p className="text-xs font-bold tracking-wide text-zinc-400 uppercase text-center">
+                {user.username ? `@${user.username}` : `@${user.name.toLowerCase().replace(/\s+/g, '')}`}
+                {joinedDate && ` · ${joinedDate} থেকে`}
+            </p>
 
-            {/* XP / Level */}
-            <div className="mt-4 space-y-1.5">
-                <div className="flex justify-between text-xs text-zinc-500">
-                    <span>Level {profile.level}</span>
-                    <span>{profile.xp % 500} / 500 XP</span>
+            {/* Following / Followers */}
+            <div className="flex gap-8">
+                <div className="text-center">
+                    <p className="text-base font-bold text-zinc-100">{user.following ?? 0}</p>
+                    <p className="text-xs text-zinc-500">ফলো করছি</p>
                 </div>
-                <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-800">
-                    <div
-                        className="h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all"
-                        style={{ width: `${levelProgress}%` }}
-                    />
+                <div className="text-center">
+                    <p className="text-base font-bold text-zinc-100">{user.followers ?? 0}</p>
+                    <p className="text-xs text-zinc-500">ফলোয়ার</p>
                 </div>
-            </div>
-
-            {/* Quick stats */}
-            <div className="mt-4 grid grid-cols-3 gap-3">
-                {[
-                    { icon: <Flame size={14} className="text-orange-400" />, label: 'স্ট্রিক', value: `${profile.streak}d` },
-                    { icon: <Zap size={14} className="text-yellow-400" />, label: 'মোট XP', value: profile.xp.toLocaleString() },
-                    { icon: <Trophy size={14} className="text-purple-400" />, label: 'র‍্যাংক', value: `#${profile.rank}` },
-                ].map(({ icon, label, value }) => (
-                    <div key={label} className="flex flex-col items-center gap-1 rounded-lg bg-zinc-800 py-2.5">
-                        {icon}
-                        <p className="text-sm font-bold text-zinc-100">{value}</p>
-                        <p className="text-xs text-zinc-500">{label}</p>
-                    </div>
-                ))}
             </div>
         </div>
     );

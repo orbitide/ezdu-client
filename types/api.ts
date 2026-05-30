@@ -73,24 +73,23 @@ export interface UserDto {
 }
 
 export interface AvatarConfig {
-    hair?: string;
+    avatarStyle?: string;
+    hairType?: string;
     hairColor?: string;
-    eyes?: string;
-    eyebrows?: string;
-    nose?: string;
-    mouth?: string;
-    beard?: string;
-    glasses?: string;
-    hat?: string;
-    top?: string;
-    topColor?: string;
-    pants?: string;
-    pantsColor?: string;
-    shoes?: string;
-    shoesColor?: string;
-    skin?: string;
-    bg?: string;
-    bgColor?: string;
+    headwearType?: string;
+    hatColor?: string;
+    accessoriesType?: string;
+    glassesColor?: string;
+    facialHairType?: string;
+    facialHairColor?: string;
+    clotheType?: string;
+    clotheColor?: string;
+    graphicType?: string;
+    eyeType?: string;
+    eyebrowType?: string;
+    mouthType?: string;
+    skinColor?: string;
+    backgroundColor?: string;
 }
 
 export interface UserStatsDto {
@@ -166,6 +165,22 @@ export interface TopicDto {
     name: string;
     lessonId: string;
     questionCount?: number;
+}
+
+// ─── Presets ─────────────────────────────────────────────────────────────────
+
+export interface PresetSubjectDto {
+    id: number;
+    name: string;
+    marks: number;
+}
+
+export interface PresetDto {
+    id: number;
+    name: string;
+    order?: number;
+    durationInMinutes: number;
+    subjects: PresetSubjectDto[];
 }
 
 // ─── Quiz ────────────────────────────────────────────────────────────────────
@@ -294,6 +309,7 @@ export interface UserQuizHistoryDto {
     quizId?: string;
     quizTitle?: string;
     subjectName?: string;
+    quizType?: string;
     totalQuestions: number;
     correctAnswers: number;
     accuracy: number;
@@ -343,7 +359,15 @@ export interface RecentActivityDto {
 export interface MonthlyStreakDto {
     year: number;
     month: number;
-    days: StreakDayDto[];
+    // Rich fields from mobile MonthlyStreakModel
+    activeDays: number[];
+    frozenDays: number[];
+    longestStreak: number;
+    totalActiveDays: number;
+    weekActiveDays: number;
+    activeStreak: number;
+    // Legacy flat-array format (kept for backward compat)
+    days?: StreakDayDto[];
 }
 
 export interface StreakDayDto {
@@ -492,4 +516,35 @@ export interface AchievementDto {
     earnedAt?: string;
     progress?: number;
     target?: number;
+}
+
+// ─── Profile / User Details ───────────────────────────────────────────────────
+
+export interface DailyProgressDto {
+    day: string;
+    xp: number;
+}
+
+export interface CompareProgressDto {
+    me: DailyProgressDto[];
+    friend: DailyProgressDto[];
+}
+
+export interface UserDetailsDto extends UserDto {
+    username: string;
+    following: number;
+    followers: number;
+    streak: number;
+    totalXp: number;
+    weekXp: number;
+    streakActive: boolean;
+    percentage: number;
+    quizCount: number;
+    weeklyXp: CompareProgressDto;
+    isPremium: boolean;
+    coin: number;
+    leagueId: number;
+    leagueName: string;
+    leagueImageUrl?: string;
+    isFollowing: boolean;
 }
