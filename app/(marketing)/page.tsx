@@ -7,7 +7,7 @@ import { classes } from "@/lib/mock/data"
 import { BookOpen, PenTool, Trophy, Star, Zap, ArrowRight, Users, Video, CheckCircle2, Flame, Play } from "lucide-react"
 import { motion } from "framer-motion"
 
-const previewCourses = classes.filter(c => c.entitlement === "preview" || c.entitlement === "locked").slice(0, 3)
+const previewCourses = classes.filter(c => c.entitlement === "preview" || c.entitlement === "locked").slice(0, 6)
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -206,7 +206,7 @@ export default function LandingPage() {
             </Link>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-5">
             {previewCourses.map((course, i) => (
               <motion.div
                 key={course.id}
