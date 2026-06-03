@@ -20,7 +20,7 @@ export default function RegisterPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    router.push("/student/dashboard")
+    router.push("/learn")
   }
 
   return (

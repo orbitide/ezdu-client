@@ -12,7 +12,7 @@ export function ModeSwitcher() {
 
   function switchTo(next: "student" | "parent") {
     setMode(next)
-    router.push(next === "student" ? "/dashboard" : "/parent/dashboard")
+    router.push(next === "student" ? "/learn" : "/parent/dashboard")
   }
 
   return (

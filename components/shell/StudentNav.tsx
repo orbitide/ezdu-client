@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import {
-  LayoutDashboard, BookOpen, Play, PenTool,
+  BookOpen, Play, PenTool,
   MessageCircle, Bell, CreditCard, User, Zap
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
@@ -17,11 +17,9 @@ import { Menu } from "lucide-react"
 import { useState } from "react"
 
 const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/catalog", label: "Catalog", icon: BookOpen },
   { href: "/learn/les-004", label: "My Learning", icon: Play },
   { href: "/practice", label: "Practice", icon: PenTool },
-  { href: "/discussions", label: "Discussions", icon: MessageCircle },
   { href: "/subscribe", label: "Subscribe", icon: CreditCard },
 ]
 
@@ -38,7 +36,7 @@ function NavLinks({ onClick }: { onClick?: () => void }) {
           onClick={onClick}
           className={cn(
             "flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-            pathname === href || (href !== "/dashboard" && pathname.startsWith(href))
+            pathname === href || pathname.startsWith(href)
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           )}
@@ -57,7 +55,7 @@ export function StudentNav() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-4 px-4 sm:px-6">
-        <Link href="/dashboard" className="flex items-center gap-2 font-bold text-lg shrink-0">
+        <Link href="/learn" className="flex items-center gap-2 font-bold text-lg shrink-0">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Zap className="h-4 w-4" />
           </div>

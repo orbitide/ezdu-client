@@ -36,7 +36,7 @@ export default function SubscribePage() {
         </Card>
         <div className="flex gap-3 justify-center">
           <Link href="/subscribe/my-plans"><Button variant="outline">My Plans</Button></Link>
-          <Link href="/dashboard"><Button>Dashboard</Button></Link>
+          <Link href="/learn"><Button>Home</Button></Link>
         </div>
       </div>
     )
