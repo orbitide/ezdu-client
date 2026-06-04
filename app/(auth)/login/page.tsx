@@ -8,16 +8,38 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Zap, Eye, EyeOff } from "lucide-react"
+import { saveSession, getOnboarding } from "@/lib/storage"
+import { currentUser } from "@/lib/mock/data"
+
+const DEMO_EMAIL = "rafiq@example.com"
+const DEMO_PASSWORD = "demo123"
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState(DEMO_EMAIL)
+  const [password, setPassword] = useState(DEMO_PASSWORD)
   const [showPw, setShowPw] = useState(false)
+  const [error, setError] = useState("")
   const router = useRouter()
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    router.push("/learn")
+    setError("")
+
+    if (password.length < 6) {
+      setError("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।")
+      return
+    }
+    if (email === DEMO_EMAIL && password !== DEMO_PASSWORD) {
+      setError("পাসওয়ার্ড সঠিক নয়।")
+      return
+    }
+
+    const user = email === currentUser.email
+      ? currentUser
+      : { id: "usr-new", name: email.split("@")[0], email, avatar: `https://api.dicebear.com/9.x/avataaars/svg?seed=${email}`, role: "student", xp: 0, streak: 0, joinedAt: new Date().toISOString() }
+    saveSession({ isLoggedIn: true, user })
+    const onboarding = getOnboarding()
+    router.push(onboarding?.completed ? "/learn" : "/onboarding")
   }
 
   return (
@@ -102,6 +124,7 @@ export default function LoginPage() {
                   {showPw ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
+              {error && <p className="text-xs text-destructive">{error}</p>}
             </div>
             <Button type="submit" className="w-full" size="lg">
               লগইন করুন
@@ -116,22 +139,6 @@ export default function LoginPage() {
               রেজিস্ট্রেশন করুন
             </Link>
           </p>
-
-          {/* Demo shortcut */}
-          <div className="rounded-lg bg-muted p-3 text-xs text-muted-foreground space-y-2">
-            <p className="font-medium text-center">Demo Credentials</p>
-            <div className="space-y-0.5">
-              <p><span className="font-medium">Email:</span> rafiq@example.com</p>
-              <p><span className="font-medium">Password:</span> যেকোনো পাসওয়ার্ড</p>
-            </div>
-            <button
-              type="button"
-              onClick={() => { setEmail("rafiq@example.com"); setPassword("demo123") }}
-              className="w-full text-center text-primary hover:underline font-medium"
-            >
-              Auto-fill করুন
-            </button>
-          </div>
         </div>
       </div>
     </div>

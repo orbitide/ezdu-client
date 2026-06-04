@@ -4,25 +4,25 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import {
   Bell, CreditCard, User, Zap, ChevronDown,
   BookOpen, GraduationCap, Trophy, Globe, Briefcase,
   FlaskConical, Calculator, Leaf, Languages, Atom,
   ClipboardList, History, Zap as QuizIcon,
-  Search, Play, PenTool,
+  Play, PenTool, Search,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { ModeSwitcher } from "./ModeSwitcher"
 import { currentUser, notifications } from "@/lib/mock/data"
+import { clearSession } from "@/lib/storage"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent,
   DropdownMenuItem, DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 import { Menu, LogOut } from "lucide-react"
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 
 const unreadCount = notifications.filter(n => !n.read).length
 
@@ -116,61 +116,14 @@ function NavDropdown({
   )
 }
 
-// ─── Search box ─────────────────────────────────────────────────────────────
-
-function SearchBox() {
-  const [expanded, setExpanded] = useState(false)
-  const [query, setQuery] = useState("")
-  const inputRef = useRef<HTMLInputElement>(null)
-  const router = useRouter()
-
-  useEffect(() => {
-    if (expanded) inputRef.current?.focus()
-  }, [expanded])
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (query.trim()) {
-      router.push(`/catalog?q=${encodeURIComponent(query.trim())}`)
-      setExpanded(false)
-      setQuery("")
-    }
-  }
-
-  return expanded ? (
-    <form onSubmit={handleSubmit} className="flex items-center">
-      <Input
-        ref={inputRef}
-        value={query}
-        onChange={e => setQuery(e.target.value)}
-        onBlur={() => { if (!query) setExpanded(false) }}
-        placeholder="কোর্স খুঁজুন..."
-        className="h-8 w-44 text-sm"
-      />
-    </form>
-  ) : (
-    <button
-      onClick={() => setExpanded(true)}
-      className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "h-8 w-8")}
-      aria-label="অনুসন্ধান"
-    >
-      <Search className="h-4 w-4" />
-    </button>
-  )
-}
-
 // ─── Mobile nav links ────────────────────────────────────────────────────────
 
 function MobileNav({ onClose }: { onClose: () => void }) {
   const pathname = usePathname()
   const sections = [
     {
-      label: "কোর্সসমূহ",
+      label: "এক্সপ্লোর",
       items: catalogItems.map(i => ({ href: i.href, label: i.label, icon: i.icon })),
-    },
-    {
-      label: "মডিউলসমূহ",
-      items: moduleItems.map(i => ({ href: i.href, label: i.label, icon: i.icon })),
     },
     {
       label: "অনুশীলন",
@@ -180,7 +133,6 @@ function MobileNav({ onClose }: { onClose: () => void }) {
 
   const directLinks = [
     { href: "/learn/les-004", label: "আমার শিক্ষা", icon: Play },
-    { href: "/subscribe", label: "সাবস্ক্রাইব", icon: CreditCard },
     { href: "/profile", label: "প্রোফাইল", icon: User },
   ]
 
@@ -228,6 +180,7 @@ function MobileNav({ onClose }: { onClose: () => void }) {
 export function StudentNav() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-lg">
@@ -239,9 +192,8 @@ export function StudentNav() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-0.5 flex-1">
-          <NavDropdown label="কোর্সসমূহ" items={catalogItems} wide />
-          <NavDropdown label="মডিউলসমূহ" items={moduleItems} />
+        <nav className="hidden md:flex items-center gap-0.5">
+          <NavDropdown label="এক্সপ্লোর" items={catalogItems} wide />
           <Link
             href="/learn/les-004"
             className={cn(
@@ -255,23 +207,22 @@ export function StudentNav() {
             আমার শিক্ষা
           </Link>
           <NavDropdown label="অনুশীলন" items={practiceItems} wide />
-          <Link
-            href="/subscribe"
-            className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
-              pathname.startsWith("/subscribe")
-                ? "bg-primary/10 text-primary"
-                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-            )}
-          >
-            <CreditCard className="h-3.5 w-3.5" />
-            সাবস্ক্রাইব
-          </Link>
         </nav>
+
+        {/* Search box */}
+        <div className="hidden md:flex flex-1 max-w-sm mx-4">
+          <div className="relative w-full">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+            <input
+              type="search"
+              placeholder="কোর্স, বিষয় বা টপিক খুঁজুন..."
+              className="w-full h-9 rounded-lg bg-accent/60 border border-border/60 pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:bg-background transition-all"
+            />
+          </div>
+        </div>
 
         {/* Right actions */}
         <div className="ml-auto flex items-center gap-1.5">
-          <SearchBox />
           <ModeSwitcher />
           <Link
             href="/notifications"
@@ -305,10 +256,13 @@ export function StudentNav() {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="p-0">
-                <Link href="/login" className="flex items-center gap-2 w-full px-2 py-1.5 rounded-md text-destructive">
+                <button
+                  onClick={() => { clearSession(); router.push("/login") }}
+                  className="flex items-center gap-2 w-full px-2 py-1.5 rounded-md text-destructive"
+                >
                   <LogOut className="h-4 w-4" />
                   লগআউট
-                </Link>
+                </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

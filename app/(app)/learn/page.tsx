@@ -1,38 +1,56 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Separator } from "@/components/ui/separator"
-import { currentUser, classes, inProgressLessons, badges, notifications } from "@/lib/mock/data"
-import { Play, Flame, Zap, Trophy, Bell, BookOpen, ArrowRight, Clock, CheckCircle2 } from "lucide-react"
+import { classes, inProgressLessons, badges, notifications } from "@/lib/mock/data"
+import { getSession, getOnboarding, getStudyGoal, type StudyGoalState } from "@/lib/storage"
+import { Play, Trophy, Bell, BookOpen, ArrowRight, Clock, CheckCircle2 } from "lucide-react"
 
 const earnedBadges = badges.filter(b => !b.locked)
 const unread = notifications.filter(n => !n.read)
 const enrolledClasses = classes.filter(c => ["subscribed", "free"].includes(c.entitlement))
 
 export default function StudentDashboard() {
+  const router = useRouter()
+  const [userName, setUserName] = useState("")
+  const [goal, setGoal] = useState<StudyGoalState | null>(null)
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    const onboarding = getOnboarding()
+    if (!onboarding?.completed) {
+      router.replace("/onboarding")
+      return
+    }
+    const session = getSession()
+    const firstName = session?.user.name.split(" ")[0] ?? ""
+    setUserName(firstName)
+    setGoal(getStudyGoal())
+    setReady(true)
+  }, [router])
+
+  if (!ready) return null
+
   return (
     <div className="space-y-8">
       {/* Welcome */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">স্বাগতম, {currentUser.name.split(" ")[0]}! 👋</h1>
-          <p className="text-muted-foreground text-sm mt-1">আজকেও কিছু শেখা যাক।</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="gap-1.5 px-3 py-1.5 text-sm">
-            <Flame className="h-3.5 w-3.5 text-orange-500" />
-            {currentUser.streak} day streak
-          </Badge>
-          <Badge variant="secondary" className="gap-1.5 px-3 py-1.5 text-sm">
-            <Zap className="h-3.5 w-3.5 text-purple-500" />
-            {currentUser.xp.toLocaleString()} XP
-          </Badge>
+          <h1 className="text-2xl font-bold">স্বাগতম, {userName}!</h1>
+          {goal?.hasGoal ? (
+            <p className="text-muted-foreground text-sm mt-1">{goal.goalText}</p>
+          ) : (
+            <Link href="/goals/new" className="text-sm text-primary underline-offset-4 hover:underline mt-1 inline-block">
+              তোমার শেখার লক্ষ্য তৈরি করো
+            </Link>
+          )}
         </div>
       </div>
 
@@ -52,12 +70,10 @@ export default function StudentDashboard() {
       )}
 
       {/* Stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2">
         {[
           { icon: CheckCircle2, color: "text-blue-500 bg-blue-50", value: classes.flatMap(c => c.modules.flatMap(m => m.subjects.flatMap(s => s.lessons))).filter(l => l.completed).length, label: "পাঠ সম্পন্ন" },
           { icon: Trophy, color: "text-yellow-500 bg-yellow-50", value: earnedBadges.length, label: "ব্যাজ অর্জিত" },
-          { icon: Flame, color: "text-orange-500 bg-orange-50", value: currentUser.streak, label: "দিনের streak" },
-          { icon: Zap, color: "text-purple-500 bg-purple-50", value: currentUser.xp.toLocaleString(), label: "মোট XP" },
         ].map(({ icon: Icon, color, value, label }) => (
           <Card key={label}>
             <CardContent className="p-4 flex items-center gap-3">

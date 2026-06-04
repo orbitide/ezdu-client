@@ -5,11 +5,12 @@ import { cn } from "@/lib/utils"
 import {
   Play, CheckCircle2, Lock, BookOpen, Video, PenTool,
   ClipboardList, StickyNote, ChevronRight, Clock,
-  Bold, List, Save, Circle,
+  Bold, List, Save, Circle, GraduationCap, Building2,
+  Layers, Trophy,
 } from "lucide-react"
 
 const TABS = [
-  { id: "classes",  label: "ক্লাস",        icon: BookOpen },
+  { id: "modules",  label: "মডিউল",        icon: BookOpen },
   { id: "lecture",  label: "লেকচার",       icon: Video },
   { id: "practice", label: "অনুশীলন",      icon: PenTool },
   { id: "mock",     label: "মক টেস্ট",     icon: ClipboardList },
@@ -18,51 +19,71 @@ const TABS = [
 
 type TabId = (typeof TABS)[number]["id"]
 
-/* ── Classes screen ───────────────────────────────────────────────────── */
-function ClassesScreen() {
-  const modules = [
-    { title: "পদার্থবিজ্ঞান — অধ্যায় ১", chapters: 8, done: 6, locked: false },
-    { title: "রসায়ন — পরমাণু গঠন",       chapters: 7, done: 3, locked: false },
-    { title: "জীববিজ্ঞান — কোষ বিভাজন",  chapters: 6, done: 0, locked: false },
-    { title: "গণিত — ত্রিকোণমিতি",        chapters: 5, done: 0, locked: true },
-    { title: "ইংরেজি — Grammar & Writing", chapters: 9, done: 0, locked: true },
+/* ── Modules screen ───────────────────────────────────────────────────── */
+function ModulesScreen() {
+  const programs = [
+    {
+      label: "SSC",
+      sub: "৯ম–১০ম শ্রেণি",
+      meta: "১২ বিষয়",
+      icon: BookOpen,
+      color: "bg-blue-500/20 text-blue-400",
+    },
+    {
+      label: "HSC",
+      sub: "একাদশ–দ্বাদশ",
+      meta: "১০ বিষয়",
+      icon: GraduationCap,
+      color: "bg-violet-500/20 text-violet-400",
+    },
+    {
+      label: "Admission",
+      sub: "বিশ্ববিদ্যালয় ভর্তি",
+      meta: "৫ কোর্স",
+      icon: Building2,
+      color: "bg-amber-500/20 text-amber-400",
+    },
+    {
+      label: "Class 6–8",
+      sub: "মাধ্যমিক পূর্ব",
+      meta: "৮ কোর্স",
+      icon: Layers,
+      color: "bg-emerald-500/20 text-emerald-400",
+    },
   ]
+
   return (
     <div className="flex flex-col gap-1.5">
-      {modules.map((m) => {
-        const pct = m.chapters ? Math.round((m.done / m.chapters) * 100) : 0
-        return (
+      <div className="grid grid-cols-2 gap-1.5">
+        {programs.map((p) => (
           <div
-            key={m.title}
-            className={cn(
-              "flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs",
-              m.locked ? "opacity-50" : "bg-white/5 hover:bg-white/8",
-            )}
+            key={p.label}
+            className="flex items-center gap-2.5 rounded-xl bg-white/5 hover:bg-white/8 px-3 py-2.5 transition-colors"
           >
-            <div className={cn(
-              "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg",
-              m.locked ? "bg-white/8" : "bg-primary/20",
-            )}>
-              {m.locked
-                ? <Lock className="h-3 w-3 text-white/40" />
-                : <BookOpen className="h-3 w-3 text-primary" />}
+            <div className={cn("flex h-7 w-7 shrink-0 items-center justify-center rounded-lg", p.color)}>
+              <p.icon className="h-3.5 w-3.5" />
             </div>
-            <div className="flex-1 min-w-0">
-              <div className="font-medium text-white/85 truncate">{m.title}</div>
-              <div className="flex items-center gap-2 mt-1">
-                <div className="flex-1 h-1 rounded-full bg-white/10 overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-primary transition-all"
-                    style={{ width: `${pct}%` }}
-                  />
-                </div>
-                <span className="text-white/40 shrink-0">{m.done}/{m.chapters}</span>
-              </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-[11px] font-semibold text-white/85">{p.label}</div>
+              <div className="text-[9px] text-white/40 truncate">{p.sub}</div>
+              <div className="text-[9px] text-white/30">{p.meta}</div>
             </div>
-            <ChevronRight className="h-3.5 w-3.5 text-white/25 shrink-0" />
+            <ChevronRight className="h-3 w-3 shrink-0 text-white/20" />
           </div>
-        )
-      })}
+        ))}
+      </div>
+      <div className="flex items-center gap-2.5 rounded-xl ring-1 ring-dashed ring-white/10 px-3 py-2 transition-colors hover:bg-white/4">
+        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-rose-500/20">
+          <Trophy className="h-3.5 w-3.5 text-rose-400" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="text-[11px] font-semibold text-white/75">Olympiad & IELTS</div>
+          <div className="text-[9px] text-white/35">প্রতিযোগিতামূলক পরীক্ষা প্রস্তুতি</div>
+        </div>
+        <span className="shrink-0 rounded-full bg-white/8 px-2 py-0.5 text-[8px] font-medium text-white/40">
+          আসছে
+        </span>
+      </div>
     </div>
   )
 }
@@ -259,7 +280,7 @@ function NotesScreen() {
 }
 
 const SCREENS: Record<TabId, React.ReactNode> = {
-  classes:  <ClassesScreen />,
+  modules:  <ModulesScreen />,
   lecture:  <LectureScreen />,
   practice: <PracticeScreen />,
   mock:     <MockScreen />,
