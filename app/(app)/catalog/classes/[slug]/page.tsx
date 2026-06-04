@@ -1,6 +1,7 @@
 "use client"
 
-import { use, useState } from "react"
+import { use, useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { classes } from "@/lib/mock/data"
 import { notFound } from "next/navigation"
 import Link from "next/link"
@@ -8,10 +9,15 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChevronDown, ChevronRight, Play, FileText, HelpCircle, Users, Star, BookOpen, Clock, CheckCircle2, Lock } from "lucide-react"
+import {
+  ChevronDown, ChevronRight, Play, FileText, HelpCircle,
+  Users, Star, BookOpen, Clock, CheckCircle2, Lock, Heart, HeartOff,
+} from "lucide-react"
 import { cn } from "@/lib/utils"
+import { usePurchaseStore } from "@/lib/stores/purchaseStore"
+import { enrollFree, toggleSaved } from "@/lib/services/purchaseService"
+import { getSavedCourses } from "@/lib/storage"
 
 function LessonTypeIcon({ type }: { type: "video" | "reading" | "quiz" }) {
   if (type === "video") return <Play className="h-3.5 w-3.5 text-blue-500" />
@@ -21,20 +27,42 @@ function LessonTypeIcon({ type }: { type: "video" | "reading" | "quiz" }) {
 
 export default function ClassDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
-  const cls = classes.find(c => c.slug === slug)
+  const router = useRouter()
+  // notFound() throws, so hooks below run only when cls exists (Next.js pattern)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const cls = classes.find(c => c.slug === slug)!
   if (!cls) notFound()
 
-  const [expandedModules, setExpandedModules] = useState<string[]>([cls.modules[0]?.id].filter(Boolean))
+  const [expandedModules, setExpandedModules] = useState<string[]>([cls.modules[0]?.id].filter(Boolean) as string[])
   const [expandedSubjects, setExpandedSubjects] = useState<string[]>(cls.modules[0]?.subjects.map(s => s.id) ?? [])
+  const [savedLocally, setSavedLocally] = useState(false)
+
+  const { isEnrolled, hasActiveSubscriptionFor, addEnrollment } = usePurchaseStore()
+  const purchased = isEnrolled(cls.id) || hasActiveSubscriptionFor(cls.level)
+
+  useEffect(() => {
+    setSavedLocally(getSavedCourses().includes(cls.id))
+  }, [cls.id])
 
   const allLessons = cls.modules.flatMap(m => m.subjects.flatMap(s => s.lessons))
   const completed = allLessons.filter(l => l.completed).length
   const percent = allLessons.length > 0 ? Math.round((completed / allLessons.length) * 100) : 0
   const totalMinutes = allLessons.reduce((s, l) => s + l.duration, 0)
-  const canAccess = cls.entitlement === "subscribed" || cls.entitlement === "free"
 
   const toggle = (id: string, list: string[], setList: (v: string[]) => void) =>
     setList(list.includes(id) ? list.filter(x => x !== id) : [...list, id])
+
+  function handleEnrollFree() {
+    const enrollment = enrollFree(cls.id, cls.slug, cls.title)
+    addEnrollment(enrollment)
+    const firstLesson = allLessons[0]
+    if (firstLesson) router.push(`/learn/${firstLesson.id}`)
+  }
+
+  function handleToggleSaved() {
+    toggleSaved(cls.id)
+    setSavedLocally(prev => !prev)
+  }
 
   return (
     <div className="space-y-6">
@@ -45,9 +73,9 @@ export default function ClassDetailPage({ params }: { params: Promise<{ slug: st
         <div className="absolute bottom-0 left-0 p-6 text-white space-y-2">
           <div className="flex gap-2 flex-wrap">
             <Badge variant="secondary">{cls.level}</Badge>
-            {cls.entitlement === "subscribed" && <Badge className="bg-green-600">Subscribed</Badge>}
-            {cls.entitlement === "free" && <Badge className="bg-blue-600">Free</Badge>}
-            {cls.entitlement === "preview" && <Badge className="bg-amber-500">Preview</Badge>}
+            {purchased && <Badge className="bg-green-600">Enrolled</Badge>}
+            {!purchased && cls.price === 0 && <Badge className="bg-blue-600">Free</Badge>}
+            {!purchased && cls.price > 0 && <Badge className="bg-amber-500">Premium</Badge>}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold leading-tight">{cls.title}</h1>
           <div className="flex flex-wrap items-center gap-4 text-sm text-white/80">
@@ -57,6 +85,17 @@ export default function ClassDetailPage({ params }: { params: Promise<{ slug: st
             <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{Math.round(totalMinutes / 60)} ঘন্টা</span>
           </div>
         </div>
+        {/* Save button */}
+        <button
+          onClick={handleToggleSaved}
+          className="absolute top-4 right-4 h-9 w-9 rounded-full bg-black/40 hover:bg-black/60 flex items-center justify-center text-white transition-colors"
+          title={savedLocally ? "Saved" : "Save for later"}
+        >
+          {savedLocally
+            ? <Heart className="h-4 w-4 fill-red-500 text-red-500" />
+            : <HeartOff className="h-4 w-4" />
+          }
+        </button>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -112,7 +151,7 @@ export default function ClassDetailPage({ params }: { params: Promise<{ slug: st
                             {isSubOpen && (
                               <div className="pb-2">
                                 {subject.lessons.map(lesson => {
-                                  const accessible = canAccess || lesson.isFree
+                                  const accessible = purchased || lesson.isFree
                                   return (
                                     <div key={lesson.id} className={cn("flex items-center gap-3 px-12 py-2 text-sm", accessible ? "hover:bg-muted/50" : "opacity-60")}>
                                       {lesson.completed ? <CheckCircle2 className="h-3.5 w-3.5 text-green-500 shrink-0" />
@@ -122,7 +161,7 @@ export default function ClassDetailPage({ params }: { params: Promise<{ slug: st
                                         ? <Link href={`/learn/${lesson.id}`} className="flex-1 hover:text-primary transition-colors line-clamp-1">{lesson.title}</Link>
                                         : <span className="flex-1 line-clamp-1">{lesson.title}</span>}
                                       <span className="text-xs text-muted-foreground shrink-0">{lesson.duration}m</span>
-                                      {lesson.isFree && <Badge variant="outline" className="text-[10px] h-4 px-1">Free</Badge>}
+                                      {lesson.isFree && !purchased && <Badge variant="outline" className="text-[10px] h-4 px-1">Free</Badge>}
                                     </div>
                                   )
                                 })}
@@ -141,7 +180,7 @@ export default function ClassDetailPage({ params }: { params: Promise<{ slug: st
 
         {/* Sidebar */}
         <div className="space-y-4">
-          {canAccess && (
+          {purchased ? (
             <Card>
               <CardContent className="p-4 space-y-3">
                 <p className="font-semibold text-sm">আমার অগ্রগতি</p>
@@ -160,19 +199,44 @@ export default function ClassDetailPage({ params }: { params: Promise<{ slug: st
                 </Link>
               </CardContent>
             </Card>
-          )}
-
-          {!canAccess && (
+          ) : (
             <Card>
               <CardContent className="p-4 space-y-3">
-                {cls.price > 0
-                  ? <>
-                    <p className="text-2xl font-bold">৳{cls.price.toLocaleString()}<span className="text-sm font-normal text-muted-foreground">/মাস</span></p>
-                    <Link href="/subscribe"><Button className="w-full">Subscribe Now</Button></Link>
-                    {cls.entitlement === "preview" && <Button variant="outline" className="w-full">Free Preview</Button>}
+                {cls.price > 0 ? (
+                  <>
+                    <div className="space-y-1">
+                      <p className="text-3xl font-bold">৳{cls.price.toLocaleString()}</p>
+                      <p className="text-xs text-muted-foreground">এককালীন মূল্য — আজীবন অ্যাক্সেস</p>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {[
+                        "সকল ভিডিও লেকচার",
+                        "ডাউনলোডযোগ্য উপকরণ",
+                        "কুইজ ও মক টেস্ট",
+                        "লাইফটাইম অ্যাক্সেস",
+                      ].map(f => (
+                        <li key={f} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-green-500 shrink-0" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link href={`/checkout/${cls.id}`}>
+                      <Button className="w-full" size="lg">এখনই ভর্তি হন</Button>
+                    </Link>
+                    <Link href="/subscribe">
+                      <Button variant="outline" className="w-full text-xs">সাবস্ক্রিপশন প্ল্যান দেখুন</Button>
+                    </Link>
                   </>
-                  : <Button className="w-full">Enroll Free</Button>
-                }
+                ) : (
+                  <>
+                    <p className="text-xl font-bold text-green-600">বিনামূল্যে</p>
+                    <Button className="w-full" onClick={handleEnrollFree}>
+                      <Play className="h-4 w-4 mr-2" />
+                      শেখা শুরু করুন
+                    </Button>
+                  </>
+                )}
               </CardContent>
             </Card>
           )}
@@ -192,6 +256,7 @@ export default function ClassDetailPage({ params }: { params: Promise<{ slug: st
                 ["বিষয়", `${cls.subjectCount}টি`],
                 ["মোট পাঠ", `${allLessons.length}টি`],
                 ["মোট সময়", `${Math.round(totalMinutes / 60)} ঘন্টা`],
+                ["রেটিং", `${cls.rating} / 5`],
               ].map(([k, v], i) => (
                 <div key={k}>
                   {i > 0 && <Separator className="mb-3" />}

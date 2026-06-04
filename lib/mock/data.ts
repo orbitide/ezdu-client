@@ -41,6 +41,39 @@ export type Subject = {
   lessons: Lesson[]
 }
 
+export type FlashCard = { id: string; front: string; back: string }
+
+export type QuizQuestion = {
+  id: string
+  text: string
+  options: { id: string; text: string }[]
+  correctOptionId: string
+  explanation?: string
+}
+
+export type ContentItem = {
+  id: string
+  title: string
+  type: "video" | "file" | "reading" | "quiz" | "flashcard"
+  duration?: number
+  questionCount?: number
+  isFree: boolean
+  completed: boolean
+  videoUrl?: string
+  body?: string
+  fileName?: string
+  fileSize?: string
+  fileUrl?: string
+  questions?: QuizQuestion[]
+  cards?: FlashCard[]
+}
+
+export type Topic = {
+  id: string
+  title: string
+  contents: ContentItem[]
+}
+
 export type Lesson = {
   id: string
   title: string
@@ -52,6 +85,8 @@ export type Lesson = {
   progress: number
   videoUrl?: string
   thumbnail?: string
+  description?: string
+  topics?: Topic[]
 }
 
 export type Badge = {
@@ -183,10 +218,134 @@ export const parentUser: User = {
 // ─── LESSONS ────────────────────────────────────────────────────────────────
 
 const physicsLessons: Lesson[] = [
-  { id: "les-001", title: "পদার্থবিজ্ঞানের পরিচিতি ও পরিমাপ", type: "video", duration: 28, order: 1, isFree: true, completed: true, progress: 100 },
+  {
+    id: "les-001", title: "পদার্থবিজ্ঞানের পরিচিতি ও পরিমাপ", type: "video", duration: 28, order: 1, isFree: true, completed: true, progress: 100,
+    description: "পদার্থবিজ্ঞানের মূল ধারণা, পরিমাপ পদ্ধতি এবং SI একক সম্পর্কে বিস্তারিত আলোচনা।",
+    topics: [
+      {
+        id: "top-001-1", title: "পদার্থবিজ্ঞানের সংজ্ঞা ও শাখাসমূহ",
+        contents: [
+          { id: "cnt-001-1", title: "পদার্থবিজ্ঞান কী এবং কেন পড়ব", type: "video", duration: 8, isFree: true, completed: true },
+          { id: "cnt-001-2", title: "পদার্থবিজ্ঞানের প্রধান শাখাসমূহ", type: "reading", duration: 5, isFree: true, completed: true, body: "পদার্থবিজ্ঞান একটি বিশাল বিজ্ঞান, যা বহু শাখায় বিভক্ত। প্রতিটি শাখা প্রকৃতির ভিন্ন ভিন্ন দিক নিয়ে গবেষণা করে এবং আমাদের মহাবিশ্ব সম্পর্কে গভীর জ্ঞান প্রদান করে।\n\nবলবিদ্যা (Mechanics) হলো পদার্থবিজ্ঞানের সবচেয়ে প্রাচীন শাখা। এই শাখায় বস্তুর গতি, বল এবং শক্তি নিয়ে আলোচনা করা হয়। নিউটনের সূত্রগুলো এই শাখার মূল ভিত্তি।\n\nতাপগতিবিদ্যা (Thermodynamics) তাপ ও শক্তির পরিবর্তন নিয়ে কাজ করে। বিদ্যুৎচুম্বকতা (Electromagnetism) তড়িৎ ও চুম্বকের মধ্যকার সম্পর্ক ব্যাখ্যা করে। আধুনিক পদার্থবিজ্ঞানে কোয়ান্টাম মেকানিক্স ও আপেক্ষিকতা তত্ত্ব সবচেয়ে গুরুত্বপূর্ণ শাখা হিসেবে বিবেচিত হয়।\n\nপদার্থবিজ্ঞানের এই শাখাগুলো একে অপরের সাথে গভীরভাবে সংযুক্ত। একটি শাখার জ্ঞান অন্য শাখাকে আরও ভালোভাবে বুঝতে সাহায্য করে।" },
+          { id: "cnt-001-3", title: "অধ্যায় নোটস (PDF)", type: "file", isFree: true, completed: true, fileName: "অধ্যায়-১-পদার্থবিজ্ঞান-নোটস.pdf", fileSize: "1.2 MB", fileUrl: "#" },
+        ],
+      },
+      {
+        id: "top-001-2", title: "পরিমাপ ও একক",
+        contents: [
+          { id: "cnt-001-4", title: "SI একক পদ্ধতির পরিচিতি", type: "video", duration: 10, isFree: true, completed: true },
+          { id: "cnt-001-5", title: "মৌলিক ও লব্ধ একক", type: "video", duration: 7, isFree: true, completed: true },
+          {
+            id: "cnt-001-f1", title: "একক ও রাশি — ফ্ল্যাশকার্ড", type: "flashcard", isFree: true, completed: true,
+            cards: [
+              { id: "fc-1", front: "SI-তে দৈর্ঘ্যের একক কী?", back: "মিটার (m)" },
+              { id: "fc-2", front: "SI-তে ভরের একক কী?", back: "কিলোগ্রাম (kg)" },
+              { id: "fc-3", front: "SI-তে সময়ের একক কী?", back: "সেকেন্ড (s)" },
+              { id: "fc-4", front: "SI-তে তড়িৎ প্রবাহের একক কী?", back: "অ্যাম্পিয়ার (A)" },
+              { id: "fc-5", front: "SI-তে তাপমাত্রার একক কী?", back: "কেলভিন (K)" },
+              { id: "fc-6", front: "বেগের একক কী? (লব্ধ একক)", back: "মিটার/সেকেন্ড (m/s)" },
+            ],
+          },
+          { id: "cnt-001-6", title: "পরিমাপের ত্রুটি ও যথার্থতা", type: "reading", duration: 4, isFree: true, completed: true, body: "বাস্তব জীবনে যেকোনো পরিমাপ করার সময় কিছু না কিছু ত্রুটি হয়। এই ত্রুটিকে আমরা পরিমাপ ত্রুটি (Measurement Error) বলি। ত্রুটিকে সাধারণত দুটি ভাগে ভাগ করা হয়: নিয়মতান্ত্রিক ত্রুটি ও এলোমেলো ত্রুটি।\n\nনিয়মতান্ত্রিক ত্রুটি (Systematic Error) সবসময় একই দিকে হয়। যন্ত্রের ত্রুটি বা পরীক্ষার পদ্ধতির কারণে এই ত্রুটি হতে পারে। সঠিক যন্ত্র ব্যবহার এবং ক্যালিব্রেশনের মাধ্যমে এটি কমানো যায়।\n\nযথার্থতা (Accuracy) বলতে পরিমাপের ফলাফল আসল মানের কতটা কাছে সেটা বোঝায়। প্রিসিশন (Precision) বলতে একই পরিমাপ বারবার করলে কতটা একই ফলাফল পাওয়া যায় সেটা বোঝায়। একটি পরিমাপ যথার্থ হতে পারে কিন্তু প্রিসাইজ নাও হতে পারে।" },
+        ],
+      },
+      {
+        id: "top-001-3", title: "অনুশীলন",
+        contents: [
+          { id: "cnt-001-7", title: "অধ্যায় ১ — মিনি কুইজ", type: "quiz", questionCount: 10, isFree: true, completed: true },
+        ],
+      },
+    ],
+  },
   { id: "les-002", title: "ভেক্টর রাশি ও স্কেলার রাশি", type: "video", duration: 35, order: 2, isFree: true, completed: true, progress: 100 },
   { id: "les-003", title: "নিউটনের গতিসূত্র — প্রথম সূত্র", type: "video", duration: 42, order: 3, isFree: false, completed: true, progress: 100 },
-  { id: "les-004", title: "নিউটনের গতিসূত্র — দ্বিতীয় ও তৃতীয় সূত্র", type: "video", duration: 48, order: 4, isFree: false, completed: false, progress: 60 },
+  {
+    id: "les-004", title: "নিউটনের গতিসূত্র — দ্বিতীয় ও তৃতীয় সূত্র", type: "video", duration: 48, order: 4, isFree: false, completed: false, progress: 60,
+    description: "নিউটনের দ্বিতীয় ও তৃতীয় গতিসূত্রের বিস্তারিত ব্যাখ্যা, গাণিতিক প্রয়োগ এবং বাস্তব উদাহরণ।",
+    topics: [
+      {
+        id: "top-004-1", title: "নিউটনের দ্বিতীয় সূত্র",
+        contents: [
+          { id: "cnt-004-1", title: "F = ma সূত্রের ব্যাখ্যা", type: "video", duration: 12, isFree: false, completed: true },
+          { id: "cnt-004-2", title: "দ্বিতীয় সূত্রের গাণিতিক প্রয়োগ", type: "video", duration: 10, isFree: false, completed: true },
+          { id: "cnt-004-3", title: "সমস্যা সমাধান — সেট ১ (PDF)", type: "file", isFree: false, completed: true, fileName: "সমস্যা-সমাধান-সেট-১.pdf", fileSize: "876 KB", fileUrl: "/docs/somashya-samadhan-set-1.html" },
+        ],
+      },
+      {
+        id: "top-004-2", title: "নিউটনের তৃতীয় সূত্র",
+        contents: [
+          { id: "cnt-004-4", title: "ক্রিয়া ও প্রতিক্রিয়া বল", type: "video", duration: 11, isFree: false, completed: false },
+          { id: "cnt-004-5", title: "তৃতীয় সূত্রের বাস্তব উদাহরণ", type: "reading", duration: 6, isFree: false, completed: false, body: "নিউটনের তৃতীয় সূত্র আমাদের দৈনন্দিন জীবনে সর্বত্র দেখা যায়। এই সূত্রটি বলে: প্রতিটি ক্রিয়ার একটি সমান ও বিপরীত প্রতিক্রিয়া আছে।\n\nরকেটের উৎক্ষেপণ এই সূত্রের একটি চমৎকার উদাহরণ। রকেট নিচের দিকে গ্যাস ছুঁড়ে দেয়, আর সেই প্রতিক্রিয়ায় রকেট উপরের দিকে উঠে যায়। একইভাবে নৌকায় বৈঠা বাওয়ার সময় বৈঠা পানিকে পিছনে ঠেলে দেয়, আর পানি নৌকাকে সামনে এগিয়ে দেয়।\n\nহাঁটার সময়ও এই সূত্র কাজ করে। আমাদের পা মাটিকে পিছনের দিকে ধাক্কা দেয়, আর মাটির প্রতিক্রিয়া বল আমাদের সামনে এগিয়ে নিয়ে যায়। বন্দুক থেকে গুলি ছোড়ার সময় বন্দুক পিছনের দিকে ধাক্কা খায় — এটাও তৃতীয় সূত্রের কারণে।" },
+          { id: "cnt-004-6", title: "সমস্যা সমাধান — সেট ২ (PDF)", type: "file", isFree: false, completed: false, fileName: "সমস্যা-সমাধান-সেট-২.pdf", fileSize: "1.1 MB", fileUrl: "#" },
+        ],
+      },
+      {
+        id: "top-004-3", title: "মূল্যায়ন",
+        contents: [
+          {
+            id: "cnt-004-7", title: "দ্বিতীয় ও তৃতীয় সূত্র — কুইজ", type: "quiz", questionCount: 5, isFree: false, completed: false,
+            questions: [
+              {
+                id: "q1", text: "নিউটনের দ্বিতীয় সূত্র অনুযায়ী বল কীসের সমান?",
+                options: [
+                  { id: "a", text: "ভর × বেগ" },
+                  { id: "b", text: "ভর × ত্বরণ" },
+                  { id: "c", text: "ভর × দূরত্ব" },
+                  { id: "d", text: "ত্বরণ ÷ ভর" },
+                ],
+                correctOptionId: "b",
+                explanation: "F = ma। বল = ভর × ত্বরণ। এটি নিউটনের দ্বিতীয় সূত্রের মূল সমীকরণ।",
+              },
+              {
+                id: "q2", text: "5 kg ভরের একটি বস্তুতে 20 N বল প্রয়োগ করলে ত্বরণ কত?",
+                options: [
+                  { id: "a", text: "2 m/s²" },
+                  { id: "b", text: "4 m/s²" },
+                  { id: "c", text: "100 m/s²" },
+                  { id: "d", text: "25 m/s²" },
+                ],
+                correctOptionId: "b",
+                explanation: "a = F/m = 20/5 = 4 m/s²",
+              },
+              {
+                id: "q3", text: "নিউটনের তৃতীয় সূত্র অনুযায়ী ক্রিয়া ও প্রতিক্রিয়া বল—",
+                options: [
+                  { id: "a", text: "একই বস্তুতে প্রযুক্ত হয়" },
+                  { id: "b", text: "ভিন্ন বস্তুতে প্রযুক্ত হয়" },
+                  { id: "c", text: "একই দিকে ক্রিয়া করে" },
+                  { id: "d", text: "মানে সমান নয়" },
+                ],
+                correctOptionId: "b",
+                explanation: "ক্রিয়া ও প্রতিক্রিয়া সবসময় দুটি ভিন্ন বস্তুর উপর প্রযুক্ত হয়।",
+              },
+              {
+                id: "q4", text: "রকেট উপরে ওঠার সময় কোন সূত্র প্রযোজ্য?",
+                options: [
+                  { id: "a", text: "প্রথম সূত্র" },
+                  { id: "b", text: "দ্বিতীয় সূত্র" },
+                  { id: "c", text: "তৃতীয় সূত্র" },
+                  { id: "d", text: "প্রথম ও দ্বিতীয় সূত্র" },
+                ],
+                correctOptionId: "c",
+                explanation: "রকেট নিচে গ্যাস ছুঁড়ে দেয়, প্রতিক্রিয়ায় রকেট উপরে ওঠে — এটি তৃতীয় সূত্র।",
+              },
+              {
+                id: "q5", text: "বলের SI একক কী?",
+                options: [
+                  { id: "a", text: "জুল (J)" },
+                  { id: "b", text: "ওয়াট (W)" },
+                  { id: "c", text: "নিউটন (N)" },
+                  { id: "d", text: "পাস্কাল (Pa)" },
+                ],
+                correctOptionId: "c",
+                explanation: "বলের SI একক নিউটন (N)। 1 N = 1 kg·m/s²",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   { id: "les-005", title: "অধ্যায় ১ — অনুশীলনী MCQ", type: "quiz", duration: 15, order: 5, isFree: false, completed: false, progress: 0 },
   { id: "les-006", title: "কাজ, শক্তি ও ক্ষমতা", type: "video", duration: 50, order: 6, isFree: false, completed: false, progress: 0 },
   { id: "les-007", title: "তরঙ্গ গতি ও শব্দ", type: "video", duration: 44, order: 7, isFree: false, completed: false, progress: 0 },
@@ -206,7 +365,34 @@ const mathLessons: Lesson[] = [
   { id: "les-201", title: "বীজগাণিতিক রাশির সরলীকরণ", type: "video", duration: 30, order: 1, isFree: true, completed: true, progress: 100 },
   { id: "les-202", title: "সমীকরণ সমাধান", type: "video", duration: 35, order: 2, isFree: true, completed: true, progress: 100 },
   { id: "les-203", title: "অনুপাত ও সমানুপাত", type: "video", duration: 28, order: 3, isFree: false, completed: true, progress: 100 },
-  { id: "les-204", title: "ত্রিকোণমিতি — মূল ধারণা", type: "video", duration: 42, order: 4, isFree: false, completed: false, progress: 45 },
+  {
+    id: "les-204", title: "ত্রিকোণমিতি — মূল ধারণা", type: "video", duration: 42, order: 4, isFree: false, completed: false, progress: 45,
+    description: "ত্রিকোণমিতির মূল ধারণা, কোণ পরিমাপ, মূল অনুপাত এবং সর্বসমতা সম্পর্কে সম্পূর্ণ আলোচনা।",
+    topics: [
+      {
+        id: "top-204-1", title: "ত্রিকোণমিতির পরিচিতি",
+        contents: [
+          { id: "cnt-204-1", title: "কোণ পরিমাপ: ডিগ্রি ও রেডিয়ান", type: "video", duration: 9, isFree: false, completed: true },
+          { id: "cnt-204-2", title: "ত্রিকোণমিতির ইতিহাস ও ব্যবহার", type: "reading", duration: 4, isFree: false, completed: true },
+        ],
+      },
+      {
+        id: "top-204-2", title: "মূল ত্রিকোণমিতিক অনুপাত",
+        contents: [
+          { id: "cnt-204-3", title: "sin, cos, tan — সংজ্ঞা ও সম্পর্ক", type: "video", duration: 14, isFree: false, completed: false },
+          { id: "cnt-204-4", title: "বিশেষ কোণের মান (0°, 30°, 45°, 60°, 90°)", type: "video", duration: 10, isFree: false, completed: false },
+          { id: "cnt-204-5", title: "সূত্রাবলী চিটশিট (PDF)", type: "file", isFree: false, completed: false },
+        ],
+      },
+      {
+        id: "top-204-3", title: "সর্বসমতা ও অনুশীলন",
+        contents: [
+          { id: "cnt-204-6", title: "মৌলিক ত্রিকোণমিতিক সর্বসমতা", type: "reading", duration: 6, isFree: false, completed: false },
+          { id: "cnt-204-7", title: "অধ্যায় ৪ — MCQ কুইজ", type: "quiz", questionCount: 20, isFree: false, completed: false },
+        ],
+      },
+    ],
+  },
   { id: "les-205", title: "ত্রিকোণমিতিক অনুপাত", type: "video", duration: 48, order: 5, isFree: false, completed: false, progress: 0 },
   { id: "les-206", title: "বৃত্তের সমীকরণ", type: "video", duration: 40, order: 6, isFree: false, completed: false, progress: 0 },
   { id: "les-207", title: "পরিসংখ্যান ও সম্ভাবনা", type: "video", duration: 55, order: 7, isFree: false, completed: false, progress: 0 },
