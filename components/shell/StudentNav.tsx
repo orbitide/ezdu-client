@@ -19,9 +19,9 @@ import { currentUser, notifications } from "@/lib/mock/data"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent,
-  DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,
+  DropdownMenuItem, DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
-import { Menu } from "lucide-react"
+import { Menu, LogOut } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
 
 const unreadCount = notifications.filter(n => !n.read).length
@@ -284,12 +284,34 @@ export function StudentNav() {
               </Badge>
             )}
           </Link>
-          <Link href="/profile">
-            <Avatar className="h-8 w-8 cursor-pointer ring-2 ring-border hover:ring-primary/40 transition-all">
-              <AvatarImage src={currentUser.avatar} alt={currentUser.name} />
-              <AvatarFallback className="text-xs">{currentUser.name[0]}</AvatarFallback>
-            </Avatar>
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+              <Avatar className="h-8 w-8 cursor-pointer ring-2 ring-border hover:ring-primary/40 transition-all">
+                <AvatarImage src={currentUser.avatar} alt={currentUser.name} />
+                <AvatarFallback className="text-xs">{currentUser.name[0]}</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48" sideOffset={8}>
+              <div className="px-2 py-1.5">
+                <p className="text-sm font-medium">{currentUser.name}</p>
+                <p className="text-xs text-muted-foreground truncate">{currentUser.email}</p>
+              </div>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="p-0">
+                <Link href="/profile" className="flex items-center gap-2 w-full px-2 py-1.5 rounded-md">
+                  <User className="h-4 w-4" />
+                  প্রোফাইল
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="p-0">
+                <Link href="/login" className="flex items-center gap-2 w-full px-2 py-1.5 rounded-md text-destructive">
+                  <LogOut className="h-4 w-4" />
+                  লগআউট
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Mobile hamburger */}
           <Sheet open={open} onOpenChange={setOpen}>

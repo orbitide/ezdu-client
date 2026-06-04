@@ -118,9 +118,19 @@ export default function LoginPage() {
           </p>
 
           {/* Demo shortcut */}
-          <div className="rounded-lg bg-muted p-3 text-xs text-muted-foreground text-center space-y-1">
-            <p className="font-medium">Demo Access</p>
-            <p>যেকোনো তথ্য দিয়ে লগইন করুন</p>
+          <div className="rounded-lg bg-muted p-3 text-xs text-muted-foreground space-y-2">
+            <p className="font-medium text-center">Demo Credentials</p>
+            <div className="space-y-0.5">
+              <p><span className="font-medium">Email:</span> rafiq@example.com</p>
+              <p><span className="font-medium">Password:</span> যেকোনো পাসওয়ার্ড</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => { setEmail("rafiq@example.com"); setPassword("demo123") }}
+              className="w-full text-center text-primary hover:underline font-medium"
+            >
+              Auto-fill করুন
+            </button>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation"
 import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent,
-  DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,
+  DropdownMenuItem, DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 
 const classItems = [
@@ -84,9 +84,9 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
                 <ChevronDown className="h-3.5 w-3.5 opacity-60" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="min-w-[280px] p-2" sideOffset={8}>
-                <DropdownMenuLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-1 mb-1.5">
+                <div className="px-1 mb-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   একাডেমিক শ্রেণি
-                </DropdownMenuLabel>
+                </div>
                 <div className="flex flex-col gap-0.5">
                   {classItems.map(({ href, icon: Icon, bg, color, label, desc }) => (
                     <DropdownMenuItem key={href} className="p-0 rounded-xl">

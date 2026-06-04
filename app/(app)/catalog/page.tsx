@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { classes } from "@/lib/mock/data"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -12,7 +13,19 @@ import { Separator } from "@/components/ui/separator"
 import { Search, BookOpen, Users, Star, Lock, Play } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const levels = ["সব", "SSC", "HSC", "Admission"]
+const levels = ["সব", "SSC", "HSC", "Admission", "Class 6", "Class 7", "Class 8"]
+const urlLevelToDataLevel: Record<string, string> = {
+  hsc: "HSC",
+  ssc: "SSC",
+  admission: "Admission",
+  olympiad: "Olympiad",
+  ielts: "IELTS",
+  job: "Job Prep",
+  skills: "Skills",
+  "class-6": "Class 6",
+  "class-7": "Class 7",
+  "class-8": "Class 8",
+}
 const entitlementConfig = {
   subscribed: { label: "Subscribed", cls: "bg-green-600 text-white hover:bg-green-600" },
   free: { label: "Free", cls: "bg-blue-600 text-white hover:bg-blue-600" },
@@ -21,8 +34,11 @@ const entitlementConfig = {
 }
 
 export default function CatalogPage() {
-  const [search, setSearch] = useState("")
-  const [activeLevel, setActiveLevel] = useState("সব")
+  const searchParams = useSearchParams()
+  const levelParam = searchParams.get("level") ?? ""
+  const qParam = searchParams.get("q") ?? ""
+  const [search, setSearch] = useState(qParam)
+  const [activeLevel, setActiveLevel] = useState(urlLevelToDataLevel[levelParam] ?? "সব")
 
   const filtered = classes.filter(cls => {
     const matchSearch = cls.title.toLowerCase().includes(search.toLowerCase()) || cls.level.toLowerCase().includes(search.toLowerCase())
