@@ -103,56 +103,60 @@ export default function StudentDashboard() {
               {Object.entries(byModule).map(([moduleTitle, lessons]) => (
                 <div key={moduleTitle}>
                   <p className="text-sm font-bold mb-2">{moduleTitle}</p>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {lessons.map((lesson) => (
-                            <Link key={lesson.id} href={`/learn/${lesson.id}`}>
-                              <Card className="group hover:shadow-md transition-shadow cursor-pointer">
-                                <CardContent className="p-3 flex gap-3 items-start">
-                                  <div className={[
-                                    "mt-0.5 h-9 w-9 rounded-lg flex items-center justify-center shrink-0 transition-colors",
-                                    lesson.completed
-                                      ? "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400"
-                                      : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground",
-                                  ].join(" ")}>
-                                    {lesson.completed
-                                      ? <CheckCircle2 className="h-4 w-4" />
-                                      : lesson.type === "reading"
-                                      ? <BookOpen className="h-4 w-4" />
-                                      : <Play className="h-4 w-4" />
-                                    }
+                      <Card key={lesson.id} className="hover:shadow-md transition-shadow">
+                        <CardContent className="p-4 flex gap-3 items-start">
+                          <Link href={`/learn/${lesson.id}`} className="flex gap-3 items-start flex-1 min-w-0 group">
+                            <div className={[
+                              "mt-0.5 h-9 w-9 rounded-lg flex items-center justify-center shrink-0 transition-colors",
+                              lesson.completed
+                                ? "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400"
+                                : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground",
+                            ].join(" ")}>
+                              {lesson.completed
+                                ? <CheckCircle2 className="h-4 w-4" />
+                                : lesson.type === "reading"
+                                ? <BookOpen className="h-4 w-4" />
+                                : <Play className="h-4 w-4" />
+                              }
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs text-muted-foreground">
+                                {lesson.subject} · {TYPE_LABEL[lesson.type] ?? lesson.type}
+                              </p>
+                              <p className="text-sm font-semibold leading-snug mt-0.5 line-clamp-1">{lesson.title}</p>
+                              {lesson.completed ? (
+                                <p className="text-xs text-green-600 dark:text-green-400 mt-1">পাঠ সম্পন্ন</p>
+                              ) : (
+                                <div className="mt-1.5 space-y-1">
+                                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                    <span>পাঠ {lesson.order} / {lesson.totalLessons}</span>
+                                    <span>{lesson.progress}% সম্পন্ন</span>
                                   </div>
-                                  <div className="flex-1 min-w-0">
-                                    <p className="text-xs text-muted-foreground">
-                                      {lesson.subject} · {TYPE_LABEL[lesson.type] ?? lesson.type}
-                                    </p>
-                                    <p className="text-sm font-semibold leading-snug mt-0.5 line-clamp-1">{lesson.title}</p>
-                                    {lesson.completed ? (
-                                      <p className="text-xs text-green-600 dark:text-green-400 mt-1">পাঠ সম্পন্ন</p>
-                                    ) : (
-                                      <div className="mt-1.5 space-y-1">
-                                        <div className="flex items-center justify-between text-xs text-muted-foreground">
-                                          <span>পাঠ {lesson.order} / {lesson.totalLessons}</span>
-                                          <span>{lesson.progress}% সম্পন্ন</span>
-                                        </div>
-                                        <Progress value={lesson.progress} className="h-1" />
-                                        <p className="text-xs text-muted-foreground flex items-center gap-1">
-                                          <Clock className="h-2.5 w-2.5" />
-                                          {lesson.duration}m · ~{Math.max(1, Math.round(lesson.duration * (1 - lesson.progress / 100)))}m বাকি
-                                        </p>
-                                      </div>
-                                    )}
-                                  </div>
-                                  {!lesson.completed && (
-                                    <div className="shrink-0 mt-0.5">
-                                      <span className="inline-flex items-center gap-1 rounded-md border border-primary/40 bg-primary/5 px-2 py-1 text-xs font-medium text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-colors">
-                                        <Play className="h-2.5 w-2.5" />
-                                        Resume
-                                      </span>
-                                    </div>
-                                  )}
-                                </CardContent>
-                              </Card>
-                            </Link>
+                                  <Progress value={lesson.progress} className="h-1" />
+                                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                                    <Clock className="h-2.5 w-2.5" />
+                                    {lesson.duration}m · ~{Math.max(1, Math.round(lesson.duration * (1 - lesson.progress / 100)))}m বাকি
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          </Link>
+                          {!lesson.completed && (
+                            <div className="shrink-0 mt-0.5 flex flex-col gap-1.5">
+                              <Link href={`/learn/${lesson.id}`} className="inline-flex items-center gap-1 rounded-md border border-primary/40 bg-primary/5 px-2 py-1 text-xs font-medium text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors">
+                                <Play className="h-2.5 w-2.5" />
+                                Resume
+                              </Link>
+                              <Link href="/practice/mock-tests" className="inline-flex items-center gap-1 rounded-md border border-muted-foreground/30 bg-muted/40 px-2 py-1 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+                                <CheckCircle2 className="h-2.5 w-2.5" />
+                                Mock Test
+                              </Link>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
                     ))}
                   </div>
                 </div>
