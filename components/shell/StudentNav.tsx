@@ -38,11 +38,11 @@ const catalogItems = [
 ]
 
 const moduleItems = [
-  { href: "/catalog",  icon: Atom,        bg: "bg-blue-50 dark:bg-blue-950",    color: "text-blue-600",  label: "পদার্থবিজ্ঞান" },
-  { href: "/catalog",  icon: FlaskConical,bg: "bg-rose-50 dark:bg-rose-950",    color: "text-rose-500",  label: "রসায়নবিজ্ঞান" },
-  { href: "/catalog",  icon: Calculator,  bg: "bg-indigo-50 dark:bg-indigo-950",color: "text-indigo-600",label: "উচ্চতর গণিত" },
-  { href: "/catalog",  icon: Leaf,        bg: "bg-green-50 dark:bg-green-950",  color: "text-primary",   label: "জীববিজ্ঞান" },
-  { href: "/catalog",  icon: Languages,   bg: "bg-amber-50 dark:bg-amber-950",  color: "text-amber-600", label: "ইংরেজি" },
+  { href: "/catalog/classes/ssc-science-2025/modules/mod-001", icon: Atom,        bg: "bg-blue-50 dark:bg-blue-950",    color: "text-blue-600",  label: "পদার্থবিজ্ঞান" },
+  { href: "/catalog/classes/ssc-science-2025/modules/mod-002", icon: FlaskConical,bg: "bg-rose-50 dark:bg-rose-950",    color: "text-rose-500",  label: "রসায়নবিজ্ঞান" },
+  { href: "/catalog/classes/ssc-science-2025/modules/mod-003", icon: Calculator,  bg: "bg-indigo-50 dark:bg-indigo-950",color: "text-indigo-600",label: "উচ্চতর গণিত" },
+  { href: "/catalog/classes/ssc-science-2025/modules/mod-004", icon: Leaf,        bg: "bg-green-50 dark:bg-green-950",  color: "text-primary",   label: "জীববিজ্ঞান" },
+  { href: "/catalog/classes/ssc-science-2025/modules/mod-005", icon: Languages,   bg: "bg-amber-50 dark:bg-amber-950",  color: "text-amber-600", label: "ইংরেজি" },
 ]
 
 const practiceItems = [

@@ -475,31 +475,31 @@ export const classes: Class[] = [
 
 export const inProgressLessons = [
   // SSC 27 Science
-  { ...physicsLessons[3], level: "SSC", moduleTitle: "SSC 27 Science", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
-  { ...chemistryLessons[2], level: "SSC", moduleTitle: "SSC 27 Science", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
-  { ...mathLessons[3], level: "SSC", moduleTitle: "SSC 27 Science", subject: "উচ্চতর গণিত", totalLessons: mathLessons.length },
-  { ...biologyLessons[2], level: "SSC", moduleTitle: "SSC 27 Science", subject: "জীববিজ্ঞান", totalLessons: biologyLessons.length },
-  { ...englishLessons[3], level: "SSC", moduleTitle: "SSC 27 Science", subject: "ইংরেজি", totalLessons: englishLessons.length },
+  { ...physicsLessons[3], level: "SSC", moduleTitle: "SSC 27 Science", classSlug: "ssc-science-2025", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
+  { ...chemistryLessons[2], level: "SSC", moduleTitle: "SSC 27 Science", classSlug: "ssc-science-2025", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
+  { ...mathLessons[3], level: "SSC", moduleTitle: "SSC 27 Science", classSlug: "ssc-science-2025", subject: "উচ্চতর গণিত", totalLessons: mathLessons.length },
+  { ...biologyLessons[2], level: "SSC", moduleTitle: "SSC 27 Science", classSlug: "ssc-science-2025", subject: "জীববিজ্ঞান", totalLessons: biologyLessons.length },
+  { ...englishLessons[3], level: "SSC", moduleTitle: "SSC 27 Science", classSlug: "ssc-science-2025", subject: "ইংরেজি", totalLessons: englishLessons.length },
   // SSC 27 Revision
-  { ...mathLessons[3], level: "SSC", moduleTitle: "SSC 27 Revision", subject: "উচ্চতর গণিত", totalLessons: mathLessons.length },
-  { ...physicsLessons[4], level: "SSC", moduleTitle: "SSC 27 Revision", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
-  { ...chemistryLessons[3], level: "SSC", moduleTitle: "SSC 27 Revision", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
+  { ...mathLessons[3], level: "SSC", moduleTitle: "SSC 27 Revision", classSlug: "ssc-science-2025", subject: "উচ্চতর গণিত", totalLessons: mathLessons.length },
+  { ...physicsLessons[4], level: "SSC", moduleTitle: "SSC 27 Revision", classSlug: "ssc-science-2025", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
+  { ...chemistryLessons[3], level: "SSC", moduleTitle: "SSC 27 Revision", classSlug: "ssc-science-2025", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
   // SSC 27 Model Test
-  { ...chemistryLessons[2], level: "SSC", moduleTitle: "SSC 27 Model Test", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
-  { ...mathLessons[4], level: "SSC", moduleTitle: "SSC 27 Model Test", subject: "উচ্চতর গণিত", totalLessons: mathLessons.length },
-  { ...englishLessons[2], level: "SSC", moduleTitle: "SSC 27 Model Test", subject: "ইংরেজি", totalLessons: englishLessons.length },
+  { ...chemistryLessons[2], level: "SSC", moduleTitle: "SSC 27 Model Test", classSlug: "ssc-science-2025", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
+  { ...mathLessons[4], level: "SSC", moduleTitle: "SSC 27 Model Test", classSlug: "ssc-science-2025", subject: "উচ্চতর গণিত", totalLessons: mathLessons.length },
+  { ...englishLessons[2], level: "SSC", moduleTitle: "SSC 27 Model Test", classSlug: "ssc-science-2025", subject: "ইংরেজি", totalLessons: englishLessons.length },
   // HSC 27 Science
-  { ...englishLessons[3], level: "HSC", moduleTitle: "HSC 27 Science", subject: "ইংরেজি", totalLessons: englishLessons.length },
-  { ...chemistryLessons[3], level: "HSC", moduleTitle: "HSC 27 Science", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
-  { ...physicsLessons[3], level: "HSC", moduleTitle: "HSC 27 Science", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
+  { ...englishLessons[3], level: "HSC", moduleTitle: "HSC 27 Science", classSlug: "hsc-science-2025", subject: "ইংরেজি", totalLessons: englishLessons.length },
+  { ...chemistryLessons[3], level: "HSC", moduleTitle: "HSC 27 Science", classSlug: "hsc-science-2025", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
+  { ...physicsLessons[3], level: "HSC", moduleTitle: "HSC 27 Science", classSlug: "hsc-science-2025", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
   // HSC 27 Revision
-  { ...biologyLessons[2], level: "HSC", moduleTitle: "HSC 27 Revision", subject: "জীববিজ্ঞান", totalLessons: biologyLessons.length },
-  { ...mathLessons[3], level: "HSC", moduleTitle: "HSC 27 Revision", subject: "উচ্চতর গণিত", totalLessons: mathLessons.length },
-  { ...physicsLessons[4], level: "HSC", moduleTitle: "HSC 27 Revision", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
+  { ...biologyLessons[2], level: "HSC", moduleTitle: "HSC 27 Revision", classSlug: "hsc-science-2025", subject: "জীববিজ্ঞান", totalLessons: biologyLessons.length },
+  { ...mathLessons[3], level: "HSC", moduleTitle: "HSC 27 Revision", classSlug: "hsc-science-2025", subject: "উচ্চতর গণিত", totalLessons: mathLessons.length },
+  { ...physicsLessons[4], level: "HSC", moduleTitle: "HSC 27 Revision", classSlug: "hsc-science-2025", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
   // Medical Admission
-  { ...biologyLessons[2], level: "Admission", moduleTitle: "Medical Admission", subject: "জীববিজ্ঞান", totalLessons: biologyLessons.length },
-  { ...chemistryLessons[2], level: "Admission", moduleTitle: "Medical Admission", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
-  { ...physicsLessons[3], level: "Admission", moduleTitle: "Medical Admission", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
+  { ...biologyLessons[2], level: "Admission", moduleTitle: "Medical Admission", classSlug: "admission-medical-2025", subject: "জীববিজ্ঞান", totalLessons: biologyLessons.length },
+  { ...chemistryLessons[2], level: "Admission", moduleTitle: "Medical Admission", classSlug: "admission-medical-2025", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
+  { ...physicsLessons[3], level: "Admission", moduleTitle: "Medical Admission", classSlug: "admission-medical-2025", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
 ]
 
 // ─── BADGES ─────────────────────────────────────────────────────────────────

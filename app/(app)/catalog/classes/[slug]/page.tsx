@@ -74,19 +74,26 @@ export default function ClassDetailPage({ params }: { params: Promise<{ slug: st
               const isOpen = expandedModules.includes(module.id)
               return (
                 <div key={module.id}>
-                  <button
-                    onClick={() => toggle(module.id, expandedModules, setExpandedModules)}
-                    className="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/50 transition-colors text-left"
-                  >
-                    <div className="flex items-center gap-3">
-                      {isOpen ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
-                      <div>
-                        <p className="font-semibold text-sm">{module.title}</p>
+                  <div className="flex items-center justify-between px-4 py-3 hover:bg-muted/50 transition-colors">
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <button
+                        onClick={() => toggle(module.id, expandedModules, setExpandedModules)}
+                        className="shrink-0 outline-none"
+                      >
+                        {isOpen ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                      </button>
+                      <div className="min-w-0">
+                        <Link
+                          href={`/catalog/classes/${cls.slug}/modules/${module.id}`}
+                          className="font-semibold text-sm hover:text-primary transition-colors line-clamp-1"
+                        >
+                          {module.title}
+                        </Link>
                         <p className="text-xs text-muted-foreground">{mDone}/{mLessons.length} পাঠ</p>
                       </div>
                     </div>
-                    <Progress value={mLessons.length > 0 ? (mDone / mLessons.length) * 100 : 0} className="w-24 h-1.5" />
-                  </button>
+                    <Progress value={mLessons.length > 0 ? (mDone / mLessons.length) * 100 : 0} className="w-24 h-1.5 shrink-0" />
+                  </div>
 
                   {isOpen && (
                     <div className="bg-muted/20">

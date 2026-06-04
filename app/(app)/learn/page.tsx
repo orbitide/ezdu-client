@@ -22,6 +22,7 @@ const TYPE_LABEL: Record<string, string> = { video: "ভিডিও", reading: 
 type InProgressLesson = typeof inProgressLessons[number] & {
   level: string
   moduleTitle: string
+  classSlug: string
   totalLessons: number
 }
 
@@ -46,11 +47,10 @@ export default function StudentDashboard() {
 
   if (!ready) return null
 
-  // Group by moduleTitle only
-  const byModule = (inProgressLessons as InProgressLesson[]).reduce<Record<string, InProgressLesson[]>>(
+  const byModule = (inProgressLessons as InProgressLesson[]).reduce<Record<string, { classSlug: string; lessons: InProgressLesson[] }>>(
     (acc, lesson) => {
-      if (!acc[lesson.moduleTitle]) acc[lesson.moduleTitle] = []
-      acc[lesson.moduleTitle].push(lesson)
+      if (!acc[lesson.moduleTitle]) acc[lesson.moduleTitle] = { classSlug: lesson.classSlug, lessons: [] }
+      acc[lesson.moduleTitle].lessons.push(lesson)
       return acc
     },
     {}
@@ -100,9 +100,11 @@ export default function StudentDashboard() {
               </Link>
             </div>
             <div className="space-y-5">
-              {Object.entries(byModule).map(([moduleTitle, lessons]) => (
+              {Object.entries(byModule).map(([moduleTitle, { classSlug, lessons }]) => (
                 <div key={moduleTitle}>
-                  <p className="text-sm font-bold mb-2">{moduleTitle}</p>
+                  <Link href={`/catalog/classes/${classSlug}`} className="text-sm font-bold mb-2 hover:text-primary transition-colors inline-block">
+                    {moduleTitle}
+                  </Link>
                   <div className="space-y-3">
                     {lessons.map((lesson) => (
                       <Card key={lesson.id} className="hover:shadow-md transition-shadow">
