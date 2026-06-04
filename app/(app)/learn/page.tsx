@@ -9,13 +9,20 @@ import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Separator } from "@/components/ui/separator"
+import { StudyCalendar } from "@/components/learn/StudyCalendar"
 import { classes, inProgressLessons, badges, notifications } from "@/lib/mock/data"
 import { getSession, getOnboarding, getStudyGoal, type StudyGoalState } from "@/lib/storage"
-import { Play, Trophy, Bell, BookOpen, ArrowRight, Clock, CheckCircle2 } from "lucide-react"
+import { Play, Bell, BookOpen, ArrowRight, Clock, CheckCircle2 } from "lucide-react"
 
 const earnedBadges = badges.filter(b => !b.locked)
 const unread = notifications.filter(n => !n.read)
 const enrolledClasses = classes.filter(c => ["subscribed", "free"].includes(c.entitlement))
+
+const TYPE_LABEL: Record<string, string> = {
+  video: "ভিডিও",
+  reading: "পাঠ্য",
+  quiz: "কুইজ",
+}
 
 export default function StudentDashboard() {
   const router = useRouter()
@@ -47,8 +54,9 @@ export default function StudentDashboard() {
           {goal?.hasGoal ? (
             <p className="text-muted-foreground text-sm mt-1">{goal.goalText}</p>
           ) : (
-            <Link href="/goals/new" className="text-sm text-primary underline-offset-4 hover:underline mt-1 inline-block">
+            <Link href="/goals/new" className="inline-flex items-center gap-1 mt-1.5 text-sm font-medium text-primary underline underline-offset-4 hover:opacity-80 transition-opacity">
               তোমার শেখার লক্ষ্য তৈরি করো
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           )}
         </div>
@@ -69,59 +77,81 @@ export default function StudentDashboard() {
         </Alert>
       )}
 
-      {/* Stats */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        {[
-          { icon: CheckCircle2, color: "text-blue-500 bg-blue-50", value: classes.flatMap(c => c.modules.flatMap(m => m.subjects.flatMap(s => s.lessons))).filter(l => l.completed).length, label: "পাঠ সম্পন্ন" },
-          { icon: Trophy, color: "text-yellow-500 bg-yellow-50", value: earnedBadges.length, label: "ব্যাজ অর্জিত" },
-        ].map(({ icon: Icon, color, value, label }) => (
-          <Card key={label}>
-            <CardContent className="p-4 flex items-center gap-3">
-              <div className={`h-10 w-10 rounded-lg flex items-center justify-center ${color}`}>
-                <Icon className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{value}</p>
-                <p className="text-xs text-muted-foreground">{label}</p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Continue watching */}
+      {/* Continue watching — 2-col: lesson list + calendar */}
       <section>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">যেখানে ছেড়েছিলে</h2>
-          <Link href="/catalog" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
-            সব দেখুন <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {inProgressLessons.map((lesson) => (
-            <Link key={lesson.id} href={`/learn/${lesson.id}`}>
-              <Card className="group hover:shadow-md transition-shadow cursor-pointer h-full">
-                <CardContent className="p-4 space-y-3">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <p className="text-xs text-muted-foreground">{lesson.subject}</p>
-                      <p className="text-sm font-medium mt-0.5 leading-snug line-clamp-2">{lesson.title}</p>
-                    </div>
-                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                      <Play className="h-3.5 w-3.5" />
-                    </div>
-                  </div>
-                  <div className="space-y-1">
-                    <Progress value={lesson.progress} className="h-1.5" />
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span>{lesson.progress}% সম্পন্ন</span>
-                      <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{lesson.duration}m</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* Left: lesson list */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold">যেখানে ছেড়েছিলে</h2>
+              <Link href="/catalog" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+                সব দেখুন <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+            <div className="space-y-2">
+              {inProgressLessons.map((lesson) => (
+                <Link key={lesson.id} href={`/learn/${lesson.id}`}>
+                  <Card className="group hover:shadow-md transition-shadow cursor-pointer">
+                    <CardContent className="p-3 flex gap-3 items-start">
+                      {/* Icon */}
+                      <div className={[
+                        "mt-0.5 h-9 w-9 rounded-lg flex items-center justify-center shrink-0 transition-colors",
+                        lesson.completed
+                          ? "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400"
+                          : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground",
+                      ].join(" ")}>
+                        {lesson.completed
+                          ? <CheckCircle2 className="h-4 w-4" />
+                          : lesson.type === "reading"
+                          ? <BookOpen className="h-4 w-4" />
+                          : <Play className="h-4 w-4" />
+                        }
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-muted-foreground">
+                          {lesson.subject} · {TYPE_LABEL[lesson.type] ?? lesson.type}
+                        </p>
+                        <p className="text-sm font-medium leading-snug mt-0.5 line-clamp-1">
+                          {lesson.title}
+                        </p>
+
+                        {lesson.completed ? (
+                          <p className="text-xs text-green-600 dark:text-green-400 mt-1">পাঠ সম্পন্ন</p>
+                        ) : (
+                          <div className="mt-1.5 space-y-1">
+                            <div className="flex items-center justify-between text-xs text-muted-foreground">
+                              <span>পাঠ {lesson.order} / {(lesson as typeof lesson & { totalLessons: number }).totalLessons}</span>
+                              <span>{lesson.progress}% সম্পন্ন</span>
+                            </div>
+                            <Progress value={lesson.progress} className="h-1" />
+                            <p className="text-xs text-muted-foreground flex items-center gap-1">
+                              <Clock className="h-2.5 w-2.5" />
+                              {lesson.duration}m · ~{Math.max(1, Math.round(lesson.duration * (1 - lesson.progress / 100)))}m বাকি
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Resume badge */}
+                      {!lesson.completed && (
+                        <div className="shrink-0 mt-0.5">
+                          <span className="inline-flex items-center gap-1 rounded-md border border-primary/40 bg-primary/5 px-2 py-1 text-xs font-medium text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-colors">
+                            <Play className="h-2.5 w-2.5" />
+                            Resume
+                          </span>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: calendar */}
+          <StudyCalendar />
         </div>
       </section>
 

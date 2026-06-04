@@ -474,10 +474,10 @@ export const classes: Class[] = [
 // ─── IN-PROGRESS LESSONS (dashboard continue-watching) ──────────────────────
 
 export const inProgressLessons = [
-  { ...physicsLessons[3], classTitle: "SSC বিজ্ঞান", subject: "পদার্থবিজ্ঞান" },
-  { ...mathLessons[3], classTitle: "SSC বিজ্ঞান", subject: "উচ্চতর গণিত" },
-  { ...chemistryLessons[2], classTitle: "SSC বিজ্ঞান", subject: "রসায়নবিজ্ঞান" },
-  { ...englishLessons[3], classTitle: "SSC বিজ্ঞান", subject: "English" },
+  { ...physicsLessons[3], classTitle: "SSC বিজ্ঞান", subject: "পদার্থবিজ্ঞান", totalLessons: physicsLessons.length },
+  { ...mathLessons[3], classTitle: "SSC বিজ্ঞান", subject: "উচ্চতর গণিত", totalLessons: mathLessons.length },
+  { ...chemistryLessons[2], classTitle: "SSC বিজ্ঞান", subject: "রসায়নবিজ্ঞান", totalLessons: chemistryLessons.length },
+  { ...englishLessons[3], classTitle: "SSC বিজ্ঞান", subject: "English", totalLessons: englishLessons.length },
 ]
 
 // ─── BADGES ─────────────────────────────────────────────────────────────────
