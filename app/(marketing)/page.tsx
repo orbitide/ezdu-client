@@ -4,7 +4,7 @@ import Link from "next/link"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { classes } from "@/lib/mock/data"
-import { Star, ArrowRight, Users, Video, Flame, Layers, Search, BarChart2, GraduationCap, PenTool, Pause, CheckCircle2, RotateCcw, HelpCircle, Lightbulb } from "lucide-react"
+import { Star, ArrowRight, Video, Layers, Search, BarChart2, GraduationCap, PenTool } from "lucide-react"
 import { motion } from "framer-motion"
 import { StarField } from "@/components/landing/StarField"
 import { AppMockup } from "@/components/landing/AppMockup"
@@ -22,46 +22,31 @@ const fadeUp = {
 }
 
 
-const stats = [
-  { icon: Users, value: "৫০,০০০+", label: "সক্রিয় শিক্ষার্থী", color: "text-primary" },
-  { icon: Video, value: "২০০+",    label: "ভিডিও পাঠ",        color: "text-orange-400" },
-  { icon: Flame, value: "৯৮%",     label: "সাফল্যের হার",     color: "text-emerald-400" },
-]
-
 export default function LandingPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden min-h-[90vh] flex flex-col justify-center">
+      <section className="relative overflow-hidden">
         <StarField />
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 pt-32 pb-48 text-center">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 pt-40 text-center">
 
           <motion.h1
             variants={fadeUp}
             initial="hidden"
             animate="show"
             custom={0}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4 leading-[1.1] text-white"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-12 leading-[1.2] text-white"
+            style={{ textShadow: "2px 2px 0 rgba(0,0,0,0.35), 4px 4px 0 rgba(0,0,0,0.2), 6px 6px 0 rgba(0,0,0,0.1)" }}
           >
             সেরা প্রস্তুতি, সেরা ফলাফল।
           </motion.h1>
-
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={1}
-            className="text-white/55 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-          >
-            ভিডিও ক্লাস, মক টেস্ট ও স্মার্ট লার্নিং — যেকোনো পরীক্ষায় সফলতার জন্য সব এক জায়গায়।
-          </motion.p>
 
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            custom={2}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-20"
+            custom={1}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-16"
           >
             <Link
               href="/register"
@@ -77,43 +62,22 @@ export default function LandingPage() {
             </Link>
           </motion.div>
 
-          {/* Stats */}
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            custom={2}
+            className="text-white/50 text-lg max-w-xl mx-auto mb-16"
+          >
+            শিক্ষার্থীরা আসলে কীভাবে শেখে, সেটা মাথায় রেখে তৈরি — শুধু কন্টেন্টের স্তূপ নয়।
+          </motion.p>
+
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="show"
             custom={3}
-            className="inline-flex items-center gap-8 sm:gap-12 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md px-8 py-5"
-          >
-            {stats.map(({ icon: Icon, value, label, color }, i) => (
-              <div key={label} className={cn("flex flex-col items-center gap-1", i > 0 && "border-l border-white/12 pl-8 sm:pl-12")}>
-                <Icon className={cn("h-4 w-4 mb-0.5", color)} />
-                <span className="text-xl sm:text-2xl font-bold tracking-tight text-white">{value}</span>
-                <span className="text-xs text-white/50 whitespace-nowrap">{label}</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── App Preview ──────────────────────────────────────────────── */}
-      <section className="py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="text-center text-white/50 text-lg max-w-xl mx-auto mb-10"
-          >
-            শিক্ষার্থীরা আসলে কীভাবে শেখে, সেটা মাথায় রেখে তৈরি — শুধু কন্টেন্টের স্তূপ নয়।
-          </motion.p>
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            custom={1}
+            className="pb-24"
           >
             <AppMockup />
           </motion.div>
@@ -168,104 +132,6 @@ export default function LandingPage() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── Smart Checkpoint ─────────────────────────────────────────── */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="text-center mb-14"
-          >
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 border border-primary/25 px-3 py-1 text-xs font-medium text-primary mb-4">
-              <Lightbulb className="h-3 w-3" /> স্মার্ট লার্নিং
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 text-white">
-              ক্লাসের মাঝেই জানা যায় — বুঝেছ তো?
-            </h2>
-            <p className="text-white/50 text-lg max-w-xl mx-auto">
-              প্রাইভেট টিউটর যেমন পড়িয়ে জিজ্ঞেস করেন, Ezdu-ও ঠিক তেমনই করে।
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            custom={1}
-            className="mx-auto max-w-2xl"
-          >
-            <div className="rounded-2xl ring-1 ring-white/10 bg-white/4 overflow-hidden">
-              {/* fake player chrome */}
-              <div className="px-4 py-3 border-b border-white/8 flex items-center gap-2">
-                <div className="flex gap-1.5">
-                  <div className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                </div>
-                <span className="text-xs text-white/30 ml-2 truncate">পদার্থবিজ্ঞান — নিউটনের গতিসূত্র · ১৪:২৩</span>
-                <Pause className="h-3.5 w-3.5 text-primary ml-auto shrink-0" />
-              </div>
-              {/* progress bar */}
-              <div className="h-1 bg-white/8">
-                <div className="h-full w-[42%] bg-primary/60" />
-              </div>
-              {/* question body */}
-              <div className="p-6 sm:p-8">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/20">
-                    <HelpCircle className="h-3.5 w-3.5 text-primary" />
-                  </div>
-                  <span className="text-xs font-semibold text-primary tracking-wide">দ্রুত চেক</span>
-                </div>
-                <p className="text-white font-medium text-sm sm:text-base mb-6 leading-relaxed">
-                  কোনো বস্তুর উপর নেট বল শূন্য হলে বস্তুটি কী করবে?
-                </p>
-                <div className="grid grid-cols-2 gap-3 mb-6">
-                  {[
-                    { text: "স্থির থাকবে অথবা সমবেগে চলতে থাকবে", correct: true },
-                    { text: "ত্বরণপ্রাপ্ত হবে", correct: false },
-                    { text: "থেমে যাবে", correct: false },
-                    { text: "বৃত্তাকার পথে চলবে", correct: false },
-                  ].map(({ text, correct }, i) => (
-                    <div
-                      key={i}
-                      className={cn(
-                        "rounded-xl px-3 py-2.5 text-xs leading-snug ring-1",
-                        correct
-                          ? "ring-emerald-500/40 bg-emerald-500/10 text-emerald-300"
-                          : "ring-white/10 bg-white/4 text-white/50"
-                      )}
-                    >
-                      {text}
-                    </div>
-                  ))}
-                </div>
-                {/* two outcome paths */}
-                <div className="grid sm:grid-cols-2 gap-3 pt-5 border-t border-white/8">
-                  <div className="flex items-start gap-2.5 rounded-xl bg-emerald-500/8 ring-1 ring-emerald-500/20 p-3.5">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-semibold text-emerald-300 mb-1">সঠিক উত্তর</p>
-                      <p className="text-xs text-white/45 leading-relaxed">ভিডিও এগিয়ে যাবে।</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-2.5 rounded-xl bg-white/4 ring-1 ring-white/10 p-3.5">
-                    <RotateCcw className="h-4 w-4 text-orange-400 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs font-semibold text-white/65 mb-1">ভুল হলে?</p>
-                      <p className="text-xs text-white/45 leading-relaxed">লেকচার আবার দেখো বা আরও উদাহরণ দেখো।</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
