@@ -1,75 +1,277 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
-  BookOpen, Play, PenTool,
-  Bell, CreditCard, User, Zap
+  Bell, CreditCard, User, Zap, ChevronDown,
+  BookOpen, GraduationCap, Trophy, Globe, Briefcase,
+  FlaskConical, Calculator, Leaf, Languages, Atom,
+  ClipboardList, History, Zap as QuizIcon,
+  Search, Play, PenTool,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { ModeSwitcher } from "./ModeSwitcher"
 import { currentUser, notifications } from "@/lib/mock/data"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import {
+  DropdownMenu, DropdownMenuTrigger, DropdownMenuContent,
+  DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
 import { Menu } from "lucide-react"
-import { useState } from "react"
-
-const navItems = [
-  { href: "/catalog", label: "কোর্সসমূহ", icon: BookOpen },
-  { href: "/learn/les-004", label: "আমার শিক্ষা", icon: Play },
-  { href: "/practice", label: "অনুশীলন", icon: PenTool },
-  { href: "/subscribe", label: "সাবস্ক্রাইব", icon: CreditCard },
-]
+import { useState, useRef, useEffect } from "react"
 
 const unreadCount = notifications.filter(n => !n.read).length
 
-function NavLinks({ onClick }: { onClick?: () => void }) {
-  const pathname = usePathname()
+// ─── Mega-menu data ─────────────────────────────────────────────────────────
+
+const catalogItems = [
+  { href: "/catalog?level=ssc",       icon: BookOpen,       bg: "bg-blue-50 dark:bg-blue-950",    color: "text-blue-600",   label: "SSC কোর্স",            desc: "মাধ্যমিকের সব বিষয়" },
+  { href: "/catalog?level=hsc",       icon: GraduationCap,  bg: "bg-green-50 dark:bg-green-950",  color: "text-primary",    label: "HSC কোর্স",            desc: "উচ্চমাধ্যমিকের সব বিষয়" },
+  { href: "/catalog?level=olympiad",  icon: Trophy,         bg: "bg-yellow-50 dark:bg-yellow-950",color: "text-yellow-600", label: "অলিম্পিয়াড",          desc: "গণিত ও বিজ্ঞান প্রতিযোগিতা" },
+  { href: "/catalog?level=ielts",     icon: Globe,          bg: "bg-sky-50 dark:bg-sky-950",      color: "text-sky-600",    label: "IELTS প্রস্তুতি",      desc: "Band 7+ কৌশল ও প্র্যাকটিস" },
+  { href: "/catalog?level=job",       icon: Briefcase,      bg: "bg-orange-50 dark:bg-orange-950",color: "text-orange-500", label: "জব প্রস্তুতি",         desc: "BCS, ব্যাংক ও সরকারি চাকরি" },
+  { href: "/catalog?level=skills",    icon: Zap,            bg: "bg-purple-50 dark:bg-purple-950",color: "text-purple-600", label: "দক্ষতা উন্নয়ন",       desc: "ফ্রিল্যান্সিং ও প্রযুক্তি" },
+]
+
+const moduleItems = [
+  { href: "/catalog",  icon: Atom,        bg: "bg-blue-50 dark:bg-blue-950",    color: "text-blue-600",  label: "পদার্থবিজ্ঞান" },
+  { href: "/catalog",  icon: FlaskConical,bg: "bg-rose-50 dark:bg-rose-950",    color: "text-rose-500",  label: "রসায়নবিজ্ঞান" },
+  { href: "/catalog",  icon: Calculator,  bg: "bg-indigo-50 dark:bg-indigo-950",color: "text-indigo-600",label: "উচ্চতর গণিত" },
+  { href: "/catalog",  icon: Leaf,        bg: "bg-green-50 dark:bg-green-950",  color: "text-primary",   label: "জীববিজ্ঞান" },
+  { href: "/catalog",  icon: Languages,   bg: "bg-amber-50 dark:bg-amber-950",  color: "text-amber-600", label: "ইংরেজি" },
+]
+
+const practiceItems = [
+  { href: "/practice/mock-tests", icon: ClipboardList, bg: "bg-primary/10", color: "text-primary",    label: "মক টেস্ট",        desc: "পূর্ণাঙ্গ পরীক্ষার অনুশীলন" },
+  { href: "/practice",            icon: History,       bg: "bg-orange-50 dark:bg-orange-950",  color: "text-orange-500", label: "বিগত প্রশ্ন",     desc: "গত বছরের প্রশ্নপত্র বিশ্লেষণ" },
+  { href: "/practice",            icon: QuizIcon,      bg: "bg-violet-50 dark:bg-violet-950",  color: "text-violet-600", label: "দ্রুত কুইজ",      desc: "১০ মিনিটের দ্রুত পরীক্ষা" },
+]
+
+// ─── Nav item with dropdown ──────────────────────────────────────────────────
+
+function NavDropdown({
+  label,
+  items,
+  wide,
+}: {
+  label: string
+  items: { href: string; icon: React.ElementType; bg: string; color: string; label: string; desc?: string }[]
+  wide?: boolean
+}) {
   return (
-    <>
-      {navItems.map(({ href, label, icon: Icon }) => {
-        const active = pathname === href || pathname.startsWith(href)
-        return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        className={cn(
+          "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
+          "text-muted-foreground hover:bg-accent hover:text-accent-foreground outline-none"
+        )}
+      >
+        {label}
+        <ChevronDown className="h-3.5 w-3.5 opacity-60" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        className={cn("p-2", wide ? "min-w-[340px]" : "min-w-[220px]")}
+        sideOffset={8}
+      >
+        {wide ? (
+          <div className="grid grid-cols-2 gap-1">
+            {items.map(({ href, icon: Icon, bg, color, label: itemLabel, desc }) => (
+              <DropdownMenuItem key={href + itemLabel} className="p-0 rounded-lg">
+                <Link
+                  href={href}
+                  className="flex items-start gap-3 rounded-lg p-2.5 w-full hover:bg-accent transition-colors"
+                >
+                  <div className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-lg mt-0.5", bg)}>
+                    <Icon className={cn("h-4 w-4", color)} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium leading-none mb-1">{itemLabel}</p>
+                    {desc && <p className="text-xs text-muted-foreground leading-snug">{desc}</p>}
+                  </div>
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </div>
+        ) : (
+          items.map(({ href, icon: Icon, bg, color, label: itemLabel }) => (
+            <DropdownMenuItem key={href + itemLabel} className="p-0 rounded-lg">
+              <Link
+                href={href}
+                className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 w-full hover:bg-accent transition-colors"
+              >
+                <div className={cn("flex h-7 w-7 shrink-0 items-center justify-center rounded-md", bg)}>
+                  <Icon className={cn("h-3.5 w-3.5", color)} />
+                </div>
+                <span className="text-sm font-medium">{itemLabel}</span>
+              </Link>
+            </DropdownMenuItem>
+          ))
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+// ─── Search box ─────────────────────────────────────────────────────────────
+
+function SearchBox() {
+  const [expanded, setExpanded] = useState(false)
+  const [query, setQuery] = useState("")
+  const inputRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (expanded) inputRef.current?.focus()
+  }, [expanded])
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (query.trim()) {
+      router.push(`/catalog?q=${encodeURIComponent(query.trim())}`)
+      setExpanded(false)
+      setQuery("")
+    }
+  }
+
+  return expanded ? (
+    <form onSubmit={handleSubmit} className="flex items-center">
+      <Input
+        ref={inputRef}
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+        onBlur={() => { if (!query) setExpanded(false) }}
+        placeholder="কোর্স খুঁজুন..."
+        className="h-8 w-44 text-sm"
+      />
+    </form>
+  ) : (
+    <button
+      onClick={() => setExpanded(true)}
+      className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "h-8 w-8")}
+      aria-label="অনুসন্ধান"
+    >
+      <Search className="h-4 w-4" />
+    </button>
+  )
+}
+
+// ─── Mobile nav links ────────────────────────────────────────────────────────
+
+function MobileNav({ onClose }: { onClose: () => void }) {
+  const pathname = usePathname()
+  const sections = [
+    {
+      label: "কোর্সসমূহ",
+      items: catalogItems.map(i => ({ href: i.href, label: i.label, icon: i.icon })),
+    },
+    {
+      label: "মডিউলসমূহ",
+      items: moduleItems.map(i => ({ href: i.href, label: i.label, icon: i.icon })),
+    },
+    {
+      label: "অনুশীলন",
+      items: practiceItems.map(i => ({ href: i.href, label: i.label, icon: i.icon })),
+    },
+  ]
+
+  const directLinks = [
+    { href: "/learn/les-004", label: "আমার শিক্ষা", icon: Play },
+    { href: "/subscribe", label: "সাবস্ক্রাইব", icon: CreditCard },
+    { href: "/profile", label: "প্রোফাইল", icon: User },
+  ]
+
+  return (
+    <div className="flex flex-col gap-4">
+      {sections.map(section => (
+        <div key={section.label}>
+          <p className="px-3 mb-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            {section.label}
+          </p>
+          <div className="flex flex-col gap-0.5">
+            {section.items.map(({ href, label, icon: Icon }) => (
+              <Link
+                key={href + label}
+                href={href}
+                onClick={onClose}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div className="border-t border-border/60 pt-3 flex flex-col gap-0.5">
+        {directLinks.map(({ href, label, icon: Icon }) => (
           <Link
             key={href}
             href={href}
-            onClick={onClick}
+            onClick={onClose}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+          >
+            <Icon className="h-4 w-4 shrink-0" />
+            {label}
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Main nav ────────────────────────────────────────────────────────────────
+
+export function StudentNav() {
+  const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-lg">
+      <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
+        {/* Logo */}
+        <Link href="/learn" className="flex items-center gap-2.5 font-bold text-lg shrink-0 mr-1">
+          <img src="/logo.svg" alt="Ezdu" className="h-8 w-8 rounded-xl" />
+          <span className="tracking-tight">Ezdu</span>
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-0.5 flex-1">
+          <NavDropdown label="কোর্সসমূহ" items={catalogItems} wide />
+          <NavDropdown label="মডিউলসমূহ" items={moduleItems} />
+          <Link
+            href="/learn/les-004"
             className={cn(
-              "flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
-              active
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
+              pathname.startsWith("/learn")
                 ? "bg-primary/10 text-primary"
                 : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
             )}
           >
-            <Icon className={cn("h-4 w-4 shrink-0", active && "text-primary")} />
-            {label}
+            <Play className="h-3.5 w-3.5" />
+            আমার শিক্ষা
           </Link>
-        )
-      })}
-    </>
-  )
-}
-
-export function StudentNav() {
-  const [open, setOpen] = useState(false)
-
-  return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-lg">
-      <div className="mx-auto flex h-14 max-w-7xl items-center gap-4 px-4 sm:px-6">
-        <Link href="/learn" className="flex items-center gap-2.5 font-bold text-lg shrink-0">
-          <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm shadow-primary/30">
-            <Zap className="h-4 w-4" />
-          </div>
-          <span className="tracking-tight">Ezdu</span>
-        </Link>
-
-        <nav className="hidden md:flex items-center gap-0.5 flex-1">
-          <NavLinks />
+          <NavDropdown label="অনুশীলন" items={practiceItems} wide />
+          <Link
+            href="/subscribe"
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
+              pathname.startsWith("/subscribe")
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+            )}
+          >
+            <CreditCard className="h-3.5 w-3.5" />
+            সাবস্ক্রাইব
+          </Link>
         </nav>
 
+        {/* Right actions */}
         <div className="ml-auto flex items-center gap-1.5">
+          <SearchBox />
           <ModeSwitcher />
           <Link
             href="/notifications"
@@ -89,30 +291,19 @@ export function StudentNav() {
             </Avatar>
           </Link>
 
+          {/* Mobile hamburger */}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "h-8 w-8 md:hidden")}>
               <Menu className="h-4 w-4" />
             </SheetTrigger>
-            <SheetContent side="left" className="w-64 p-5">
-              <div className="flex items-center gap-2.5 font-bold text-lg mb-7">
+            <SheetContent side="left" className="w-72 p-5 overflow-y-auto">
+              <div className="flex items-center gap-2.5 font-bold text-lg mb-6">
                 <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm shadow-primary/30">
                   <Zap className="h-4 w-4" />
                 </div>
                 <span className="tracking-tight">Ezdu</span>
               </div>
-              <nav className="flex flex-col gap-0.5">
-                <NavLinks onClick={() => setOpen(false)} />
-              </nav>
-              <div className="mt-5 pt-5 border-t border-border/60">
-                <Link
-                  href="/profile"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                >
-                  <User className="h-4 w-4" />
-                  প্রোফাইল
-                </Link>
-              </div>
+              <MobileNav onClose={() => setOpen(false)} />
             </SheetContent>
           </Sheet>
         </div>
