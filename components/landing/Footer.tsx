@@ -2,15 +2,13 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { BookOpen, GraduationCap, Trophy, Globe, Briefcase, Zap } from "lucide-react"
-
 const courseLinks = [
-  { href: "/catalog?level=ssc",      icon: BookOpen,      label: "SSC কোর্স" },
-  { href: "/catalog?level=hsc",      icon: GraduationCap, label: "HSC কোর্স" },
-  { href: "/catalog?level=olympiad", icon: Trophy,        label: "অলিম্পিয়াড" },
-  { href: "/catalog?level=ielts",    icon: Globe,         label: "IELTS প্রস্তুতি" },
-  { href: "/catalog?level=job",      icon: Briefcase,     label: "জব প্রস্তুতি" },
-  { href: "/catalog?level=skills",   icon: Zap,           label: "দক্ষতা উন্নয়ন" },
+  { href: "/catalog?level=hsc",     label: "এইচএসসি" },
+  { href: "/catalog?level=ssc",     label: "এসএসসি" },
+  { href: "/catalog?level=class-8", label: "অষ্টম শ্রেণি" },
+  { href: "/catalog?level=class-7", label: "সপ্তম শ্রেণি" },
+  { href: "/catalog?level=class-6", label: "ষষ্ঠ শ্রেণি" },
+  { href: "/catalog?type=free",     label: "একাডেমিক ফ্রি কোর্সসমূহ" },
 ]
 
 const companyLinks = [
@@ -97,7 +95,7 @@ export function Footer() {
 
           {/* Courses column */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-xs font-semibold text-white/40 uppercase tracking-wider">কোর্সসমূহ</h3>
+            <h3 className="text-xs font-semibold text-white/40 uppercase tracking-wider">ক্লাস ৬-১২</h3>
             <ul className="flex flex-col gap-2.5">
               {courseLinks.map(({ href, label }) => (
                 <li key={href}>

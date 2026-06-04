@@ -5,8 +5,8 @@ import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 import {
-  Search, BookOpen, GraduationCap, Trophy,
-  Globe, Briefcase, Zap, ChevronDown,
+  Search, BookOpen, GraduationCap, BookMarked,
+  BookText, Book, ChevronDown, Sparkles,
 } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
 import { Input } from "@/components/ui/input"
@@ -16,13 +16,12 @@ import {
   DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 
-const catalogItems = [
-  { href: "/catalog?level=ssc",      icon: BookOpen,      bg: "bg-blue-50",   color: "text-blue-600",   label: "SSC কোর্স",       desc: "মাধ্যমিকের সব বিষয়" },
-  { href: "/catalog?level=hsc",      icon: GraduationCap, bg: "bg-green-50",  color: "text-primary",    label: "HSC কোর্স",       desc: "উচ্চমাধ্যমিকের সব বিষয়" },
-  { href: "/catalog?level=olympiad", icon: Trophy,        bg: "bg-yellow-50", color: "text-yellow-600", label: "অলিম্পিয়াড",     desc: "গণিত ও বিজ্ঞান প্রতিযোগিতা" },
-  { href: "/catalog?level=ielts",    icon: Globe,         bg: "bg-sky-50",    color: "text-sky-600",    label: "IELTS প্রস্তুতি", desc: "Band 7+ কৌশল ও প্র্যাকটিস" },
-  { href: "/catalog?level=job",      icon: Briefcase,     bg: "bg-orange-50", color: "text-orange-500", label: "জব প্রস্তুতি",    desc: "BCS, ব্যাংক ও সরকারি চাকরি" },
-  { href: "/catalog?level=skills",   icon: Zap,           bg: "bg-purple-50", color: "text-purple-600", label: "দক্ষতা উন্নয়ন",  desc: "ফ্রিল্যান্সিং ও প্রযুক্তি" },
+const classItems = [
+  { href: "/catalog?level=hsc",     icon: GraduationCap, bg: "bg-green-50",  color: "text-green-600",  label: "এইচএসসি",       desc: "একাদশ-দ্বাদশ শ্রেণির সব বিষয়" },
+  { href: "/catalog?level=ssc",     icon: BookOpen,      bg: "bg-blue-50",   color: "text-blue-600",   label: "এসএসসি",        desc: "নবম-দশম শ্রেণির সব বিষয়" },
+  { href: "/catalog?level=class-8", icon: BookMarked,    bg: "bg-orange-50", color: "text-orange-500", label: "অষ্টম শ্রেণি",  desc: "অষ্টম শ্রেণির সম্পূর্ণ সিলেবাস" },
+  { href: "/catalog?level=class-7", icon: BookText,      bg: "bg-violet-50", color: "text-violet-600", label: "সপ্তম শ্রেণি",  desc: "সপ্তম শ্রেণির সম্পূর্ণ সিলেবাস" },
+  { href: "/catalog?level=class-6", icon: Book,          bg: "bg-pink-50",   color: "text-pink-600",   label: "ষষ্ঠ শ্রেণি",   desc: "ষষ্ঠ শ্রেণির সম্পূর্ণ সিলেবাস" },
 ]
 
 function MarketingSearch() {
@@ -78,28 +77,28 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 flex-1">
-            {/* কোর্সসমূহ dropdown */}
+            {/* ক্লাস ৬-১২ dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors outline-none">
-                কোর্সসমূহ
+                ক্লাস ৬-১২
                 <ChevronDown className="h-3.5 w-3.5 opacity-60" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="min-w-[360px] p-3" sideOffset={8}>
-                <DropdownMenuLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-1 mb-2">
-                  বিভাগ অনুযায়ী কোর্স
+              <DropdownMenuContent className="min-w-[280px] p-2" sideOffset={8}>
+                <DropdownMenuLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-1 mb-1.5">
+                  একাডেমিক শ্রেণি
                 </DropdownMenuLabel>
-                <div className="grid grid-cols-2 gap-1">
-                  {catalogItems.map(({ href, icon: Icon, bg, color, label, desc }) => (
+                <div className="flex flex-col gap-0.5">
+                  {classItems.map(({ href, icon: Icon, bg, color, label, desc }) => (
                     <DropdownMenuItem key={href} className="p-0 rounded-xl">
                       <Link
                         href={href}
-                        className="flex items-start gap-3 w-full rounded-xl p-2.5 hover:bg-accent transition-colors"
+                        className="flex items-center gap-3 w-full rounded-xl p-2.5 hover:bg-accent transition-colors"
                       >
-                        <div className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-lg mt-0.5", bg)}>
+                        <div className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-lg", bg)}>
                           <Icon className={cn("h-4 w-4", color)} />
                         </div>
                         <div>
-                          <p className="text-sm font-medium leading-none mb-1">{label}</p>
+                          <p className="text-sm font-medium leading-none mb-0.5">{label}</p>
                           <p className="text-xs text-muted-foreground leading-snug">{desc}</p>
                         </div>
                       </Link>
@@ -119,13 +118,21 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             </DropdownMenu>
 
             <Link
+              href="/catalog?type=free"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-primary" />
+              একাডেমিক ফ্রি কোর্সসমূহ
+            </Link>
+
+            <Link
               href="/subscribe"
               className="px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             >
               মূল্য
             </Link>
             <Link
-              href="/login"
+              href="/about"
               className="px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             >
               সম্পর্কে

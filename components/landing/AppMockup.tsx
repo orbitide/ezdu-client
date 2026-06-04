@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { cn } from "@/lib/utils"
 import {
   Play, CheckCircle2, Lock, BookOpen, Video, PenTool,
@@ -267,18 +267,7 @@ const SCREENS: Record<TabId, React.ReactNode> = {
 }
 
 export function AppMockup() {
-  const [active, setActive] = useState<TabId>("classes")
-
-  useEffect(() => {
-    const ids = TABS.map((t) => t.id)
-    const timer = setInterval(() => {
-      setActive((cur) => {
-        const idx = ids.indexOf(cur)
-        return ids[(idx + 1) % ids.length]
-      })
-    }, 3000)
-    return () => clearInterval(timer)
-  }, [])
+  const [active, setActive] = useState<TabId>("lecture")
 
   return (
     /* Laptop frame */
