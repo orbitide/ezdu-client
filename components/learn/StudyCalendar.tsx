@@ -37,34 +37,11 @@ export function StudyCalendar() {
     : 0
 
   return (
-    <Card className="h-full">
+    <Card>
       <CardContent className="p-4">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <CalendarDays className="h-4 w-4 text-primary" />
-            <span className="text-sm font-semibold">পড়ার ক্যালেন্ডার</span>
-          </div>
-          <div className="flex items-center gap-0.5">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7"
-              onClick={() => setCurrent(new Date(year, month - 1, 1))}
-            >
-              <ChevronLeft className="h-3.5 w-3.5" />
-            </Button>
-            <span className="text-xs font-medium w-28 text-center">
-              {MONTH_NAMES[month]} {year}
-            </span>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7"
-              onClick={() => setCurrent(new Date(year, month + 1, 1))}
-            >
-              <ChevronRight className="h-3.5 w-3.5" />
-            </Button>
-          </div>
+        <div className="flex items-center gap-2 mb-4">
+          <CalendarDays className="h-4 w-4 text-primary" />
+          <span className="text-sm font-semibold">পড়ার ক্যালেন্ডার</span>
         </div>
 
         <div className="grid grid-cols-7 mb-1">
@@ -105,6 +82,26 @@ export function StudyCalendar() {
             পড়েছি
           </span>
           <span className="font-medium">{studiedCount} দিন পড়েছি এ মাসে</span>
+        </div>
+
+        <div className="mt-3 flex items-center justify-between">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7"
+            onClick={() => setCurrent(new Date(year, month - 1, 1))}
+          >
+            <ChevronLeft className="h-3.5 w-3.5" />
+          </Button>
+          <span className="text-xs font-medium">{MONTH_NAMES[month]} {year}</span>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7"
+            onClick={() => setCurrent(new Date(year, month + 1, 1))}
+          >
+            <ChevronRight className="h-3.5 w-3.5" />
+          </Button>
         </div>
       </CardContent>
     </Card>

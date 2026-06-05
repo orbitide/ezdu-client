@@ -9,7 +9,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <PurchaseHydrator />
       <div className="min-h-screen flex flex-col">
         <StudentNav />
-        <main className="flex-1 mx-auto w-full max-w-screen-2xl px-4 sm:px-8 py-6">
+        <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-8 py-6">
           {children}
         </main>
         <AppFooter />
