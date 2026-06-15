@@ -16,7 +16,7 @@ export function StreakBadge({
       )}
     >
       <Flame className="size-4" />
-      {days} day{days === 1 ? "" : "s"}
+      {days} দিন
     </span>
   )
 }

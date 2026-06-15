@@ -21,7 +21,7 @@ export function ProfileMenu() {
   const user = useAuthStore((s) => s.user)
   const logout = useAuthStore((s) => s.logout)
 
-  const name = user?.name ?? "Guest"
+  const name = user?.name ?? "গেস্ট"
   const initials = name
     .split(" ")
     .map((part) => part[0])
@@ -58,15 +58,15 @@ export function ProfileMenu() {
 
           <DropdownMenuItem className="px-3 py-2 gap-3" render={<Link href="/profile" />}>
             <User />
-            Profile
+            প্রোফাইল
           </DropdownMenuItem>
           <DropdownMenuItem className="px-3 py-2 gap-3" render={<Link href="/shop" />}>
             <ShoppingBag />
-            Shop
+            শপ
           </DropdownMenuItem>
           <DropdownMenuItem className="px-3 py-2 gap-3" render={<Link href="/settings" />}>
             <Settings />
-            Settings
+            সেটিংস
           </DropdownMenuItem>
         </DropdownMenuGroup>
 
@@ -74,7 +74,7 @@ export function ProfileMenu() {
 
         <DropdownMenuItem className="px-3 py-2 gap-3" variant="destructive" onClick={handleLogout}>
           <LogOut />
-          Log out
+          লগ আউট
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

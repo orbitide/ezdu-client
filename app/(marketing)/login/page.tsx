@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { BrandMark } from "@/components/layout/brand-mark"
 import { BrandName } from "@/components/layout/brand-name"
@@ -13,13 +14,19 @@ export default function LoginPage() {
             <BrandMark />
             <BrandName />
           </div>
-          <CardTitle>Welcome back</CardTitle>
-          <CardDescription>Demo build — sign in with a sample account.</CardDescription>
+          <CardTitle>আবার স্বাগতম</CardTitle>
+          <CardDescription>ডেমো ভার্সন — একটি নমুনা অ্যাকাউন্ট দিয়ে সাইন ইন করো।</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <Suspense>
             <LoginForm />
           </Suspense>
+          <p className="text-center text-sm text-muted-foreground">
+            অ্যাকাউন্ট নেই?{" "}
+            <Link href="/register" className="font-medium text-primary hover:underline">
+              একটি তৈরি করো
+            </Link>
+          </p>
         </CardContent>
       </Card>
     </div>

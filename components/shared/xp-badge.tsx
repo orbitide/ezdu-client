@@ -21,7 +21,7 @@ export function XpBadge({
       <Sparkles className="size-4" />
       {formatCompactNumber(xp)} XP
       {level !== undefined && (
-        <span className="text-muted-foreground">· Lv {level}</span>
+        <span className="text-muted-foreground">· লেভেল {level}</span>
       )}
     </span>
   )

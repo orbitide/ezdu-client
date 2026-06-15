@@ -10,9 +10,9 @@ const styles: Record<Difficulty, string> = {
 }
 
 const labels: Record<Difficulty, string> = {
-  easy: "Easy",
-  medium: "Medium",
-  hard: "Hard",
+  easy: "সহজ",
+  medium: "মাঝারি",
+  hard: "কঠিন",
 }
 
 export function DifficultyBadge({

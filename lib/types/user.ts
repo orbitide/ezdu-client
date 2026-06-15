@@ -10,12 +10,22 @@ export type RankTier =
   | "mythic"
 
 export interface AvatarConfig {
-  skinTone: string
-  hairStyle: string
+  hairType: string
   hairColor: string
-  outfit: string
-  accessory: string
-  background: string
+  headwearType: string
+  hatColor: string
+  accessoriesType: string
+  glassesColor: string
+  facialHairType: string
+  facialHairColor: string
+  clotheType: string
+  clotheColor: string
+  graphicType: string
+  eyeType: string
+  eyebrowType: string
+  mouthType: string
+  skinColor: string
+  backgroundColor: string
 }
 
 export interface User {

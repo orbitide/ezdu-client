@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "EZDU",
-  description: "Practice and learn for SSC, HSC, admission and job exams.",
+  description: "SSC, HSC, ভর্তি ও চাকরির পরীক্ষার প্রস্তুতি একসাথে।",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="bn"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >

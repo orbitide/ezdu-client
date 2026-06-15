@@ -53,10 +53,10 @@ export function AppSidebar({ className }: { className?: string }) {
       <div className="border-t border-sidebar-border p-3 shrink-0 space-y-2">
         <div className="flex items-center justify-between">
           <RankBadge tier={rankTier} />
-          <span className="text-xs text-muted-foreground">Lv {level}</span>
+          <span className="text-xs text-muted-foreground">লেভেল {level}</span>
         </div>
         <Progress value={xpProgress} />
-        <p className="text-xs text-muted-foreground">{xpIntoLevel} / 1000 XP to next level</p>
+        <p className="text-xs text-muted-foreground">পরবর্তী লেভেলের জন্য {xpIntoLevel} / 1000 XP</p>
       </div>
     </aside>
   )

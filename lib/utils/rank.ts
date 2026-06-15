@@ -13,15 +13,15 @@ export const RANK_TIERS: RankTier[] = [
 ]
 
 export const RANK_LABELS: Record<RankTier, string> = {
-  novice: "Novice",
-  apprentice: "Apprentice",
-  adept: "Adept",
-  expert: "Expert",
-  master: "Master",
-  grandmaster: "Grandmaster",
-  champion: "Champion",
-  legend: "Legend",
-  mythic: "Mythic",
+  novice: "নভিস",
+  apprentice: "অ্যাপ্রেন্টিস",
+  adept: "এডেপ্ট",
+  expert: "এক্সপার্ট",
+  master: "মাস্টার",
+  grandmaster: "গ্র্যান্ডমাস্টার",
+  champion: "চ্যাম্পিয়ন",
+  legend: "লিজেন্ড",
+  mythic: "মিথিক",
 }
 
 export function rankColorVar(tier: RankTier) {
