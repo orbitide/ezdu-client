@@ -1,17 +1,23 @@
 import Link from "next/link"
-import { Crown } from "lucide-react"
+import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
-export function GoProCard() {
+interface GoProCardProps {
+  title?: string
+  description?: string
+}
+
+export function GoProCard({
+  title = "আনলিমিটেড মক টেস্ট আনলক করো",
+  description = "প্রিমিয়ামে আপগ্রেড করে সব মডেল টেস্ট, ডিটেইল সলিউশন ও পারফরম্যান্স অ্যানালিটিক্স পাও।",
+}: GoProCardProps) {
   return (
     <Card className="border-primary/50 bg-gradient-to-br from-primary/10 to-transparent">
       <CardContent className="space-y-3 py-6 text-center">
-        <Crown className="mx-auto size-8 text-primary" />
-        <p className="text-base font-semibold">আনলিমিটেড মক টেস্ট আনলক করো</p>
-        <p className="text-sm text-muted-foreground">
-          প্রিমিয়ামে আপগ্রেড করে সব মডেল টেস্ট, ডিটেইল সলিউশন ও পারফরম্যান্স অ্যানালিটিক্স পাও।
-        </p>
+        <Image src="/icons/pro_badge.svg" alt="" width={64} height={64} className="mx-auto size-16" />
+        <p className="text-base font-semibold">{title}</p>
+        <p className="text-sm text-muted-foreground">{description}</p>
         <Button asChild className="w-full">
           <Link href="/shop/premium">প্রো নাও</Link>
         </Button>

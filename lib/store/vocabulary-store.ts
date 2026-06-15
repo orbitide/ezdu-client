@@ -1,5 +1,18 @@
 import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { persist, type PersistStorage } from "zustand/middleware"
+import { useProgressStore } from "@/lib/store/progress-store"
+
+const premiumOnlyStorage: PersistStorage<unknown> = {
+  getItem: (name) => {
+    const raw = localStorage.getItem(name)
+    return raw ? JSON.parse(raw) : null
+  },
+  setItem: (name, value) => {
+    if (!useProgressStore.getState().isPremium) return
+    localStorage.setItem(name, JSON.stringify(value))
+  },
+  removeItem: (name) => localStorage.removeItem(name),
+}
 
 interface VocabularyState {
   bookmarkedIds: string[]
@@ -36,6 +49,7 @@ export const useVocabularyStore = create<VocabularyState>()(
     }),
     {
       name: "ezdu-vocabulary",
+      storage: premiumOnlyStorage as PersistStorage<VocabularyState>,
     }
   )
 )

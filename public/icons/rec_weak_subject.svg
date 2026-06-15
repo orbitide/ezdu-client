@@ -1,0 +1,13 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Base axis line -->
+  <rect x="6" y="39" width="36" height="3" rx="1.5" fill="#F97316" opacity="0.5"/>
+  <!-- Bar 1 — left, medium height -->
+  <rect x="9" y="22" width="9" height="17" rx="3" fill="#FDBA74"/>
+  <!-- Bar 2 — middle, shortest (weak subject), darker shade -->
+  <rect x="21" y="30" width="9" height="9" rx="3" fill="#F97316"/>
+  <!-- Bar 3 — right, tallest -->
+  <rect x="33" y="14" width="9" height="25" rx="3" fill="#FDBA74"/>
+  <!-- Down-arrow above bar 2 indicating weakness -->
+  <path d="M23.5 25 L25.5 29 L27.5 25" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="25.5" y1="18" x2="25.5" y2="28.5" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round"/>
+</svg>

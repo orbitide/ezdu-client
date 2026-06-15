@@ -3,11 +3,11 @@ import { ArrowLeft } from "lucide-react"
 import { PageHeader } from "@/components/shared/page-header"
 import { VocabBank } from "@/components/vocabulary/vocab-bank"
 import { TwoColumnShell } from "@/components/layout/two-column-shell"
-import { DefaultRightRail } from "@/components/layout/default-right-rail"
+import { VocabularyRightRail } from "@/components/layout/vocabulary-right-rail"
 
 export default function VocabBankPage() {
   return (
-    <TwoColumnShell right={<DefaultRightRail />}>
+    <TwoColumnShell right={<VocabularyRightRail />}>
       <Link href="/vocabulary" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="size-4" />
         ভোকাবুলারি হাবে ফিরে যাও
