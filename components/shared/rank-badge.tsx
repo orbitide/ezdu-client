@@ -1,6 +1,6 @@
-import { Crown } from "lucide-react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { RANK_LABELS, rankColorVar } from "@/lib/utils/rank"
+import { RANK_LABELS, leagueIconUrl } from "@/lib/utils/rank"
 import type { RankTier } from "@/lib/types/user"
 
 export function RankBadge({
@@ -11,15 +11,8 @@ export function RankBadge({
   className?: string
 }) {
   return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-sm font-semibold text-white",
-        className
-      )}
-      style={{ backgroundColor: rankColorVar(tier) }}
-    >
-      <Crown className="size-4" />
-      {RANK_LABELS[tier]}
+    <span className={cn("inline-flex items-center justify-center", className)} title={RANK_LABELS[tier]}>
+      <Image src={leagueIconUrl(tier)} alt={RANK_LABELS[tier]} width={32} height={36} />
     </span>
   )
 }

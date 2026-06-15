@@ -1,4 +1,4 @@
-import type { RankTier } from "@/lib/types/user"
+import type { AvatarConfig, RankTier } from "@/lib/types/user"
 
 export interface LeaderboardUser {
   id: string
@@ -8,5 +8,6 @@ export interface LeaderboardUser {
   xp: number
   rankTier: RankTier
   level: number
+  avatar?: AvatarConfig
   isCurrentUser?: boolean
 }

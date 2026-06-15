@@ -63,6 +63,10 @@
   --color-pro: var(--pro);
   --color-pro-foreground: var(--pro-foreground);
 
+  /* Leaderboard promotion / demotion zones */
+  --color-promotion: var(--promotion);
+  --color-demotion: var(--demotion);
+
   /* Rank tier tokens */
   --color-rank-novice: var(--rank-novice);
   --color-rank-apprentice: var(--rank-apprentice);
@@ -92,33 +96,33 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.12 0.01 150);
   /* Emerald primary (#008d61) */
-  --primary: oklch(0.572 0.063 149.8);
+  --primary: oklch(0.569 0.124 162.6);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.96 0.01 150);
-  --secondary-foreground: oklch(0.25 0.02 150);
-  --muted: oklch(0.96 0.005 150);
-  --muted-foreground: oklch(0.50 0.02 150);
-  --accent: oklch(0.94 0.03 150);
-  --accent-foreground: oklch(0.25 0.02 150);
+  --secondary: oklch(0.95 0.025 155);
+  --secondary-foreground: oklch(0.25 0.03 155);
+  --muted: oklch(0.95 0.015 155);
+  --muted-foreground: oklch(0.48 0.03 155);
+  --accent: oklch(0.92 0.05 155);
+  --accent-foreground: oklch(0.25 0.03 155);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.90 0.01 150);
-  --input: oklch(0.90 0.01 150);
-  --ring: oklch(0.572 0.063 149.8);
+  --border: oklch(0.87 0.02 155);
+  --input: oklch(0.87 0.02 155);
+  --ring: oklch(0.569 0.124 162.6);
   /* Chart colors */
-  --chart-1: oklch(0.572 0.063 149.8);
+  --chart-1: oklch(0.569 0.124 162.6);
   --chart-2: oklch(0.65 0.18 200);
   --chart-3: oklch(0.773 0.086 149);
   --chart-4: oklch(0.72 0.18 48);
   --chart-5: oklch(0.65 0.22 330);
   --radius: 0.625rem;
-  --sidebar: oklch(0.97 0.01 150);
+  --sidebar: oklch(0.96 0.02 155);
   --sidebar-foreground: oklch(0.12 0.01 150);
-  --sidebar-primary: oklch(0.572 0.063 149.8);
+  --sidebar-primary: oklch(0.569 0.124 162.6);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.93 0.03 150);
-  --sidebar-accent-foreground: oklch(0.25 0.02 150);
-  --sidebar-border: oklch(0.90 0.01 150);
-  --sidebar-ring: oklch(0.572 0.063 149.8);
+  --sidebar-accent: oklch(0.91 0.06 155);
+  --sidebar-accent-foreground: oklch(0.25 0.03 155);
+  --sidebar-border: oklch(0.87 0.02 155);
+  --sidebar-ring: oklch(0.569 0.124 162.6);
 
   /* Gamification colors */
   --coin: oklch(0.78 0.15 80);
@@ -131,6 +135,10 @@
   /* Pro / premium (#AB47BC) */
   --pro: oklch(0.576 0.194 321.6);
   --pro-foreground: oklch(0.985 0 0);
+
+  /* Leaderboard promotion / demotion zones */
+  --promotion: oklch(0.65 0.15 155);
+  --demotion: oklch(0.62 0.19 25);
 
   /* Rank tier palette (Novice -> Mythic) */
   --rank-novice: oklch(0.70 0.01 150);
@@ -151,30 +159,30 @@
   --card-foreground: oklch(0.97 0 0);
   --popover: oklch(0.21 0.01 150);
   --popover-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.773 0.086 149);
-  --primary-foreground: oklch(0.12 0.02 150);
-  --secondary: oklch(0.26 0.02 150);
+  --primary: oklch(0.769 0.169 161.9);
+  --primary-foreground: oklch(0.14 0.02 160);
+  --secondary: oklch(0.28 0.035 155);
   --secondary-foreground: oklch(0.97 0 0);
-  --muted: oklch(0.26 0.02 150);
-  --muted-foreground: oklch(0.60 0.02 150);
-  --accent: oklch(0.28 0.03 150);
+  --muted: oklch(0.27 0.025 155);
+  --muted-foreground: oklch(0.66 0.03 155);
+  --accent: oklch(0.32 0.06 155);
   --accent-foreground: oklch(0.97 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.773 0.086 149);
-  --chart-1: oklch(0.773 0.086 149);
+  --border: oklch(1 0 0 / 14%);
+  --input: oklch(1 0 0 / 18%);
+  --ring: oklch(0.769 0.169 161.9);
+  --chart-1: oklch(0.769 0.169 161.9);
   --chart-2: oklch(0.72 0.16 200);
   --chart-3: oklch(0.76 0.16 150);
   --chart-4: oklch(0.78 0.16 48);
   --chart-5: oklch(0.72 0.20 330);
-  --sidebar: oklch(0.19 0.01 150);
+  --sidebar: oklch(0.20 0.025 155);
   --sidebar-foreground: oklch(0.97 0 0);
-  --sidebar-primary: oklch(0.773 0.086 149);
-  --sidebar-primary-foreground: oklch(0.12 0.02 150);
-  --sidebar-accent: oklch(0.26 0.03 150);
+  --sidebar-primary: oklch(0.769 0.169 161.9);
+  --sidebar-primary-foreground: oklch(0.14 0.02 160);
+  --sidebar-accent: oklch(0.30 0.06 155);
   --sidebar-accent-foreground: oklch(0.97 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-border: oklch(1 0 0 / 14%);
   --sidebar-ring: oklch(0.773 0.086 149);
 
   /* Gamification colors */
@@ -188,6 +196,10 @@
   /* Pro / premium (#AB47BC) */
   --pro: oklch(0.576 0.194 321.6);
   --pro-foreground: oklch(0.985 0 0);
+
+  /* Leaderboard promotion / demotion zones */
+  --promotion: oklch(0.72 0.16 155);
+  --demotion: oklch(0.70 0.18 25);
 
   /* Rank tier palette (Novice -> Mythic) */
   --rank-novice: oklch(0.65 0.01 150);
