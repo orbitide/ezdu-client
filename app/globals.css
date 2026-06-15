@@ -186,8 +186,8 @@
   --streak-foreground: oklch(0.12 0.02 150);
 
   /* Pro / premium (#AB47BC) */
-  --pro: oklch(0.713 0.114 318.8);
-  --pro-foreground: oklch(0.12 0.02 150);
+  --pro: oklch(0.576 0.194 321.6);
+  --pro-foreground: oklch(0.985 0 0);
 
   /* Rank tier palette (Novice -> Mythic) */
   --rank-novice: oklch(0.65 0.01 150);
