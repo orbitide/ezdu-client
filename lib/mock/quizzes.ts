@@ -1,4 +1,5 @@
 import type { QuizConfig } from "@/lib/types/quiz"
+import { questions } from "@/lib/mock/questions"
 
 export const quizzes: QuizConfig[] = [
   {
@@ -37,8 +38,71 @@ export const quizzes: QuizConfig[] = [
     xpReward: 200,
     coinReward: 100,
   },
+  {
+    id: "mt-2",
+    type: "model",
+    title: "এইচএসসি বিজ্ঞান মডেল টেস্ট - ০২",
+    questionIds: ["q2", "q4", "q6", "q8", "q10", "q1", "q3", "q5", "q7", "q9"],
+    durationSeconds: 30 * 60,
+    xpReward: 200,
+    coinReward: 100,
+  },
+  {
+    id: "mt-3",
+    type: "model",
+    title: "এইচএসসি বিজ্ঞান মডেল টেস্ট - ০১",
+    questionIds: ["q3", "q5", "q7", "q9", "q1", "q2", "q4", "q6", "q8", "q10"],
+    durationSeconds: 30 * 60,
+    xpReward: 200,
+    coinReward: 100,
+  },
+  {
+    id: "preset-1",
+    type: "preset",
+    title: "৭ দিনের রিভিশন চ্যালেঞ্জ - দিন ১",
+    questionIds: ["q1", "q3", "q5", "q7", "q9", "q11", "q13", "q2", "q4", "q6"],
+    durationSeconds: 30 * 60,
+    xpReward: 150,
+    coinReward: 80,
+  },
+  {
+    id: "preset-2",
+    type: "preset",
+    title: "দুর্বল টপিক রিভিশন সেট",
+    questionIds: ["q2", "q4", "q6", "q8", "q10", "q12", "q14", "q1", "q3", "q5"],
+    durationSeconds: 30 * 60,
+    xpReward: 150,
+    coinReward: 80,
+  },
 ]
 
 export function getQuizById(id: string): QuizConfig | undefined {
   return quizzes.find((q) => q.id === id)
+}
+
+const SUBJECT_NAME_BY_ID: Record<string, string> = {
+  physics: "পদার্থবিজ্ঞান",
+  chemistry: "রসায়ন",
+  biology: "জীববিজ্ঞান",
+  "higher-math": "উচ্চতর গণিত",
+  bangla: "বাংলা",
+  english: "ইংরেজি",
+}
+
+export function getQuickChallengeQuiz(subjectId: string): QuizConfig | undefined {
+  const subjectName = SUBJECT_NAME_BY_ID[subjectId]
+  if (!subjectName) return undefined
+
+  const subjectQuestions = questions.filter((q) => q.subject === subjectName)
+  if (subjectQuestions.length === 0) return undefined
+
+  return {
+    id: `quick-${subjectId}`,
+    type: "quick",
+    title: `${subjectName} - কুইক চ্যালেঞ্জ`,
+    questionIds: subjectQuestions.map((q) => q.id),
+    durationSeconds: subjectQuestions.length * 60,
+    xpReward: subjectQuestions.length * 10,
+    coinReward: subjectQuestions.length * 5,
+  }
 }

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { QuizResultsScreen } from "@/components/quiz/quiz-results-screen"
-import { getQuizById } from "@/lib/mock/quizzes"
+import { getQuizById, getQuickChallengeQuiz } from "@/lib/mock/quizzes"
 import type { QuizResult } from "@/lib/types/quiz"
 
 export default function QuizResultsPage() {
@@ -11,7 +11,9 @@ export default function QuizResultsPage() {
   const router = useRouter()
   const [result, setResult] = useState<QuizResult | null>(null)
 
-  const config = getQuizById(params.id)
+  const config =
+    getQuizById(params.id) ??
+    (params.id.startsWith("quick-") ? getQuickChallengeQuiz(params.id.replace("quick-", "")) : undefined)
 
   useEffect(() => {
     const raw = sessionStorage.getItem(`quiz-result-${params.id}`)
