@@ -16,7 +16,7 @@ export function StreakBadge({
       )}
     >
       <Image src="/icons/streak.svg" alt="" width={20} height={20} className="size-5" />
-      {days} দিন
+      {days}
     </span>
   )
 }

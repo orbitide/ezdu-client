@@ -59,6 +59,10 @@
   --color-streak: var(--streak);
   --color-streak-foreground: var(--streak-foreground);
 
+  /* Pro / premium tokens */
+  --color-pro: var(--pro);
+  --color-pro-foreground: var(--pro-foreground);
+
   /* Rank tier tokens */
   --color-rank-novice: var(--rank-novice);
   --color-rank-apprentice: var(--rank-apprentice);
@@ -124,6 +128,10 @@
   --streak: oklch(0.65 0.22 35);
   --streak-foreground: oklch(0.985 0 0);
 
+  /* Pro / premium (#AB47BC) */
+  --pro: oklch(0.576 0.194 321.6);
+  --pro-foreground: oklch(0.985 0 0);
+
   /* Rank tier palette (Novice -> Mythic) */
   --rank-novice: oklch(0.70 0.01 150);
   --rank-apprentice: oklch(0.70 0.12 145);
@@ -176,6 +184,10 @@
   --xp-foreground: oklch(0.12 0.02 150);
   --streak: oklch(0.68 0.20 35);
   --streak-foreground: oklch(0.12 0.02 150);
+
+  /* Pro / premium (#AB47BC) */
+  --pro: oklch(0.713 0.114 318.8);
+  --pro-foreground: oklch(0.12 0.02 150);
 
   /* Rank tier palette (Novice -> Mythic) */
   --rank-novice: oklch(0.65 0.01 150);
