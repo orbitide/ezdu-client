@@ -1,25 +1,31 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { CheckCircle2, XCircle, Trophy } from "lucide-react"
+import { CheckCircle2, XCircle } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { GameResultCard } from "@/components/vocabulary/game-result-card"
+import { useVocabularyStore } from "@/lib/store/vocabulary-store"
 import type { VocabWord } from "@/lib/types/vocabulary"
 
 interface WordMatchGameProps {
   words: VocabWord[]
+  difficulty: string
 }
+
+const LETTERS = ["A", "B", "C", "D"]
 
 function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5)
 }
 
-export function WordMatchGame({ words }: WordMatchGameProps) {
+export function WordMatchGame({ words, difficulty }: WordMatchGameProps) {
   const [index, setIndex] = useState(0)
   const [selected, setSelected] = useState<string | null>(null)
   const [score, setScore] = useState(0)
+  const recordAttempt = useVocabularyStore((s) => s.recordAttempt)
 
-  const word = words[index]
+  const word = words[index >= words.length ? 0 : index]
 
   const options = useMemo(() => {
     const distractors = shuffle(words.filter((w) => w.id !== word.id))
@@ -28,31 +34,32 @@ export function WordMatchGame({ words }: WordMatchGameProps) {
     return shuffle([word.meaning, ...distractors])
   }, [word, words])
 
+  if (index >= words.length) {
+    return (
+      <GameResultCard
+        score={score}
+        total={words.length}
+        difficulty={difficulty}
+        onRetry={() => {
+          setIndex(0)
+          setSelected(null)
+          setScore(0)
+        }}
+      />
+    )
+  }
+
   const handleSelect = (option: string) => {
     if (selected) return
     setSelected(option)
-    if (option === word.meaning) {
-      setScore((s) => s + 1)
-    }
+    const isCorrect = option === word.meaning
+    recordAttempt(word.id, isCorrect)
+    if (isCorrect) setScore((s) => s + 1)
   }
 
   const handleNext = () => {
     setSelected(null)
     setIndex((i) => i + 1)
-  }
-
-  if (index >= words.length) {
-    return (
-      <Card>
-        <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
-          <Trophy className="size-10 text-amber-500" />
-          <p className="text-xl font-bold">
-            স্কোর: {score} / {words.length}
-          </p>
-          <p className="text-sm text-muted-foreground">দারুণ অনুশীলন হলো!</p>
-        </CardContent>
-      </Card>
-    )
   }
 
   return (
@@ -67,7 +74,7 @@ export function WordMatchGame({ words }: WordMatchGameProps) {
         </CardContent>
       </Card>
       <div className="grid gap-3 sm:grid-cols-2">
-        {options.map((option) => {
+        {options.map((option, i) => {
           let extraClass = "border-border hover:border-primary/50"
           if (selected) {
             if (option === word.meaning) extraClass = "border-green-500 bg-green-500/10"
@@ -78,12 +85,15 @@ export function WordMatchGame({ words }: WordMatchGameProps) {
               key={option}
               type="button"
               onClick={() => handleSelect(option)}
-              className={`flex items-center justify-between rounded-lg border p-3 text-left text-sm transition-colors ${extraClass}`}
+              className={`flex items-center gap-3 rounded-lg border p-3 text-left text-sm transition-colors ${extraClass}`}
             >
-              {option}
-              {selected && option === word.meaning && <CheckCircle2 className="size-4 text-green-600" />}
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-current text-xs font-semibold">
+                {LETTERS[i]}
+              </span>
+              <span className="flex-1">{option}</span>
+              {selected && option === word.meaning && <CheckCircle2 className="size-4 shrink-0 text-green-600" />}
               {selected && option === selected && option !== word.meaning && (
-                <XCircle className="size-4 text-destructive" />
+                <XCircle className="size-4 shrink-0 text-destructive" />
               )}
             </button>
           )

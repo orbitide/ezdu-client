@@ -16,6 +16,14 @@ export interface VocabWord {
 export interface VocabModeInfo {
   id: "flashcards" | "word-match" | "fill-gaps" | "synonym-antonym"
   title: string
+  subtitle: string
   description: string
+  icon: string
+}
+
+export interface VocabDifficultyInfo {
+  id: VocabDifficulty
+  title: string
+  subtitle: string
   icon: string
 }

@@ -34,7 +34,7 @@ export function ChallengeLauncher() {
                 </div>
               </div>
               <Button asChild size="sm">
-                <Link href={`/practice/challenge/${subject.id}`}>শুরু করো</Link>
+                <Link href={`/challenge/subject/${subject.id}`}>শুরু করো</Link>
               </Button>
             </CardContent>
           </Card>

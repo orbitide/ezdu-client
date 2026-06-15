@@ -16,7 +16,7 @@ export default async function VocabDifficultyPage({ params }: { params: Promise<
   const label = vocabDifficultyLabels[difficulty as VocabDifficulty]
 
   return (
-    <div className="space-y-6 p-4 lg:p-6">
+    <div className="space-y-6">
       <Link href="/vocabulary" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="size-4" />
         ভোকাবুলারি হাবে ফিরে যাও

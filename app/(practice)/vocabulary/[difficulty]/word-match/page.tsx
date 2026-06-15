@@ -16,7 +16,7 @@ export default async function WordMatchPage({ params }: { params: Promise<{ diff
   const words = getWordsByDifficulty(difficulty as VocabDifficulty)
 
   return (
-    <div className="space-y-6 p-4 lg:p-6">
+    <div className="space-y-6">
       <Link
         href={`/vocabulary/${difficulty}`}
         className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
@@ -25,7 +25,7 @@ export default async function WordMatchPage({ params }: { params: Promise<{ diff
         মোড নির্বাচনে ফিরে যাও
       </Link>
       <PageHeader title="শব্দ মেলানো" description="শব্দের সাথে সঠিক অর্থ মেলাও।" />
-      <WordMatchGame words={words} />
+      <WordMatchGame words={words} difficulty={difficulty} />
     </div>
   )
 }

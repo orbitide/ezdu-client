@@ -6,10 +6,7 @@ import { cn } from "@/lib/utils"
 
 const tabs = [
   { href: "/practice/model-tests", label: "মডেল টেস্ট" },
-  { href: "/practice/mock-tests", label: "মক টেস্ট" },
   { href: "/practice/quick-challenge", label: "কুইক চ্যালেঞ্জ" },
-  { href: "/practice/challenge", label: "চ্যালেঞ্জ" },
-  { href: "/practice/presets", label: "প্রিসেট সেট" },
 ]
 
 export function PracticeTabs() {

@@ -4,10 +4,12 @@ import { ProfileHeader } from "@/components/profile/profile-header"
 import { ProfileStatsGrid } from "@/components/profile/profile-stats-grid"
 import { WeeklyActivityChart } from "@/components/profile/weekly-activity-chart"
 import { Button } from "@/components/ui/button"
+import { TwoColumnShell } from "@/components/layout/two-column-shell"
+import { DefaultRightRail } from "@/components/layout/default-right-rail"
 
 export default function ProfilePage() {
   return (
-    <div className="space-y-6 p-4 lg:p-6">
+    <TwoColumnShell right={<DefaultRightRail />}>
       <PageHeader
         title="প্রোফাইল"
         actions={
@@ -24,6 +26,6 @@ export default function ProfilePage() {
       <ProfileHeader />
       <ProfileStatsGrid />
       <WeeklyActivityChart />
-    </div>
+    </TwoColumnShell>
   )
 }

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Layers, Shuffle, PenLine, ArrowLeftRight, type LucideIcon } from "lucide-react"
+import { ChevronRight, Layers, Shuffle, PenLine, ArrowLeftRight, type LucideIcon } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { vocabModes } from "@/lib/mock/vocabulary"
 
@@ -16,20 +16,22 @@ interface VocabModeSelectorProps {
 
 export function VocabModeSelector({ difficulty }: VocabModeSelectorProps) {
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
+    <div className="space-y-3">
       {vocabModes.map((mode) => {
         const Icon = iconMap[mode.icon]
         return (
           <Link key={mode.id} href={`/vocabulary/${difficulty}/${mode.id}`}>
             <Card className="transition hover:bg-muted/50">
               <CardContent className="flex items-center gap-3 py-5">
-                <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
-                  <Icon className="size-5 text-primary" />
+                <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10">
+                  <Icon className="size-6 text-primary" />
                 </div>
-                <div>
-                  <p className="font-medium">{mode.title}</p>
+                <div className="flex-1">
+                  <p className="font-semibold">{mode.title}</p>
+                  <p className="text-xs font-medium text-primary">{mode.subtitle}</p>
                   <p className="text-xs text-muted-foreground">{mode.description}</p>
                 </div>
+                <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
               </CardContent>
             </Card>
           </Link>

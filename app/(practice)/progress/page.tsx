@@ -5,10 +5,12 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { weeklyActivity } from "@/lib/mock/progress"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { TwoColumnShell } from "@/components/layout/two-column-shell"
+import { DefaultRightRail } from "@/components/layout/default-right-rail"
 
 export default function ProgressOverviewPage() {
   return (
-    <div className="space-y-6 p-4 lg:p-6">
+    <TwoColumnShell right={<DefaultRightRail />}>
       <PageHeader
         title="অগ্রগতি"
         description="তোমার এক্সপি, স্ট্রিক, সঠিকতা ও র‍্যাঙ্ক এক নজরে দেখো।"
@@ -35,6 +37,6 @@ export default function ProgressOverviewPage() {
           <ActivityBarChart data={weeklyActivity} />
         </CardContent>
       </Card>
-    </div>
+    </TwoColumnShell>
   )
 }

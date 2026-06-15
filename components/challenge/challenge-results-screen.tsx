@@ -48,7 +48,7 @@ export function ChallengeResultsScreen({ result, topicName, subjectId }: Challen
       </Card>
 
       <Button asChild variant="outline">
-        <Link href={`/practice/challenge/${subjectId}`}>ফিরে যাও</Link>
+        <Link href={`/challenge/subject/${subjectId}`}>ফিরে যাও</Link>
       </Button>
     </div>
   )

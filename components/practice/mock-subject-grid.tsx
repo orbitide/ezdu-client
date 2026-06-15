@@ -18,7 +18,7 @@ export function MockSubjectGrid() {
       {subjects.map((subject) => {
         const Icon = iconMap[subject.icon]
         return (
-          <Link key={subject.id} href={`/practice/mock-tests/${subject.id}`}>
+          <Link key={subject.id} href={`/mock-test/${subject.id}`}>
             <Card className="transition hover:bg-muted/50">
               <CardContent className="flex flex-col items-center gap-2 py-5 text-center">
                 <Icon className="size-7 text-primary" />

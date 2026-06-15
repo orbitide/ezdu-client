@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button"
 import { EmptyState } from "@/components/shared/empty-state"
 import { mistakeQuestions } from "@/lib/mock/quiz-attempts"
 import { questions } from "@/lib/mock/questions"
+import { TwoColumnShell } from "@/components/layout/two-column-shell"
+import { DefaultRightRail } from "@/components/layout/default-right-rail"
 
 export default function MistakesPage() {
   return (
-    <div className="space-y-6 p-4 lg:p-6">
+    <TwoColumnShell right={<DefaultRightRail />}>
       <PageHeader title="ভুল প্রশ্ন রিভিশন" description="তুমি যেসব প্রশ্নে ভুল করেছ, সেগুলো এখানে রিভিশন করো।" />
       {mistakeQuestions.length === 0 ? (
         <EmptyState title="কোনো ভুল প্রশ্ন নেই" description="তুমি এখনো কোনো প্রশ্নে ভুল করোনি। চালিয়ে যাও!" />
@@ -41,6 +43,6 @@ export default function MistakesPage() {
           </div>
         </div>
       )}
-    </div>
+    </TwoColumnShell>
   )
 }

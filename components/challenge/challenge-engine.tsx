@@ -74,7 +74,7 @@ export function ChallengeEngine({ topicId, subjectId, questions }: ChallengeEngi
       <div className="flex items-center justify-between gap-3">
         <button
           type="button"
-          onClick={() => router.push(`/practice/challenge/${subjectId}`)}
+          onClick={() => router.push(`/challenge/subject/${subjectId}`)}
           className="flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           aria-label="বন্ধ করো"
         >

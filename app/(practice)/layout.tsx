@@ -4,7 +4,9 @@ import { AppShell } from "@/components/layout/app-shell"
 export default function PracticeLayout({ children }: { children: React.ReactNode }) {
   return (
     <AuthGate>
-      <AppShell>{children}</AppShell>
+      <AppShell>
+        <div className="p-4 lg:p-6">{children}</div>
+      </AppShell>
     </AuthGate>
   )
 }

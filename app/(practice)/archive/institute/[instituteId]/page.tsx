@@ -3,6 +3,8 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArchiveExamList } from "@/components/archive/archive-exam-list"
+import { ArchiveRightRail } from "@/components/archive/archive-right-rail"
+import { TwoColumnShell } from "@/components/layout/two-column-shell"
 import {
   archiveInstitutes,
   getArchiveExamsByInstitute,
@@ -54,13 +56,15 @@ export default async function ArchiveInstitutePage({
   }
 
   return (
-    <div className="space-y-4 p-4 lg:p-6">
-      <Link href={backHref} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
-        <ArrowLeft className="size-4" />
-        {backLabel}
-      </Link>
-      <h2 className="text-lg font-semibold">{title}</h2>
-      {content}
-    </div>
+    <TwoColumnShell right={<ArchiveRightRail />}>
+      <div className="space-y-4">
+        <Link href={backHref} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="size-4" />
+          {backLabel}
+        </Link>
+        <h2 className="text-lg font-semibold">{title}</h2>
+        {content}
+      </div>
+    </TwoColumnShell>
   )
 }

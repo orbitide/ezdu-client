@@ -142,3 +142,23 @@ export function getQuickChallengeQuiz(subjectId: string): QuizConfig | undefined
     coinReward: subjectQuestions.length * 5,
   }
 }
+
+export function getMockTestQuiz(subjectId: string, timeMinutes: number, maxQuestions: number): QuizConfig | undefined {
+  const subjectName = SUBJECT_NAME_BY_ID[subjectId]
+  if (!subjectName) return undefined
+
+  const subjectQuestions = questions.filter((q) => q.subject === subjectName)
+  if (subjectQuestions.length === 0) return undefined
+
+  const selected = subjectQuestions.slice(0, maxQuestions)
+
+  return {
+    id: `mock-${subjectId}-${timeMinutes}-${maxQuestions}`,
+    type: "mock",
+    title: `${subjectName} - মক টেস্ট`,
+    questionIds: selected.map((q) => q.id),
+    durationSeconds: timeMinutes * 60,
+    xpReward: selected.length * 10,
+    coinReward: selected.length * 5,
+  }
+}

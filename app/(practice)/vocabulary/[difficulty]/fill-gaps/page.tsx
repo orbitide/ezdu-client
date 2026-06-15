@@ -16,7 +16,7 @@ export default async function FillGapsPage({ params }: { params: Promise<{ diffi
   const words = getWordsByDifficulty(difficulty as VocabDifficulty)
 
   return (
-    <div className="space-y-6 p-4 lg:p-6">
+    <div className="space-y-6">
       <Link
         href={`/vocabulary/${difficulty}`}
         className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
@@ -25,7 +25,7 @@ export default async function FillGapsPage({ params }: { params: Promise<{ diffi
         মোড নির্বাচনে ফিরে যাও
       </Link>
       <PageHeader title="ফাঁকা পূরণ" description="বাক্যের ফাঁকা জায়গায় সঠিক শব্দ বসাও।" />
-      <FillGapsGame words={words} />
+      <FillGapsGame words={words} difficulty={difficulty} />
     </div>
   )
 }

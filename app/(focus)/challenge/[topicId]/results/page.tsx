@@ -11,7 +11,8 @@ export default function ChallengeResultsPage() {
   const router = useRouter()
   const [result, setResult] = useState<ChallengeResult | null>(null)
 
-  const topic = topics.find((t) => t.id === params.topicId)
+  const topicIds = params.topicId.split("+")
+  const selectedTopics = topicIds.map((id) => topics.find((t) => t.id === id)).filter((t) => t !== undefined)
 
   useEffect(() => {
     const raw = sessionStorage.getItem(`challenge-result-${params.topicId}`)
@@ -22,9 +23,11 @@ export default function ChallengeResultsPage() {
     setResult(JSON.parse(raw) as ChallengeResult)
   }, [params.topicId, router])
 
-  if (!result || !topic) {
+  if (!result || selectedTopics.length === 0) {
     return null
   }
 
-  return <ChallengeResultsScreen result={result} topicName={topic.name} subjectId={topic.subjectId} />
+  const topicName = selectedTopics.map((t) => t.name).join(", ")
+
+  return <ChallengeResultsScreen result={result} topicName={topicName} subjectId={selectedTopics[0].subjectId} />
 }

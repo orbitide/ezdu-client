@@ -1,10 +1,34 @@
-import type { VocabWord, VocabModeInfo, VocabDifficulty } from "@/lib/types/vocabulary"
+import type { VocabWord, VocabModeInfo, VocabDifficulty, VocabDifficultyInfo } from "@/lib/types/vocabulary"
 
 export const vocabModes: VocabModeInfo[] = [
-  { id: "flashcards", title: "ফ্ল্যাশকার্ড", description: "শব্দ ও অর্থ দেখে মনে রাখো", icon: "Layers" },
-  { id: "word-match", title: "শব্দ মেলানো", description: "শব্দের সাথে সঠিক অর্থ মেলাও", icon: "Shuffle" },
-  { id: "fill-gaps", title: "ফাঁকা পূরণ", description: "বাক্যের ফাঁকা জায়গায় সঠিক শব্দ বসাও", icon: "PenLine" },
-  { id: "synonym-antonym", title: "সমার্থক ও বিপরীত শব্দ", description: "সমার্থক ও বিপরীত শব্দ চেনার অনুশীলন", icon: "ArrowLeftRight" },
+  {
+    id: "flashcards",
+    title: "ফ্ল্যাশকার্ড",
+    subtitle: "মনে রাখার অনুশীলন",
+    description: "শব্দ ও অর্থ দেখে মনে রাখো এবং নিজেকে যাচাই করো",
+    icon: "Layers",
+  },
+  {
+    id: "word-match",
+    title: "শব্দ মেলানো",
+    subtitle: "মাল্টিপল চয়েস",
+    description: "শব্দের সাথে সঠিক অর্থ মেলাও",
+    icon: "Shuffle",
+  },
+  {
+    id: "fill-gaps",
+    title: "ফাঁকা পূরণ",
+    subtitle: "টাইপিং অনুশীলন",
+    description: "বাক্যের ফাঁকা জায়গায় সঠিক শব্দ বসাও",
+    icon: "PenLine",
+  },
+  {
+    id: "synonym-antonym",
+    title: "সমার্থক ও বিপরীত শব্দ",
+    subtitle: "শব্দভাণ্ডার সম্প্রসারণ",
+    description: "সমার্থক ও বিপরীত শব্দ চেনার অনুশীলন",
+    icon: "ArrowLeftRight",
+  },
 ]
 
 export const vocabDifficultyLabels: Record<VocabDifficulty, string> = {
@@ -12,6 +36,12 @@ export const vocabDifficultyLabels: Record<VocabDifficulty, string> = {
   medium: "মাঝারি",
   hard: "কঠিন",
 }
+
+export const vocabDifficulties: VocabDifficultyInfo[] = [
+  { id: "easy", title: "সহজ", subtitle: "দৈনন্দিন শব্দ", icon: "MessageCircle" },
+  { id: "medium", title: "মাঝারি", subtitle: "IELTS / TOEFL স্তর", icon: "Plane" },
+  { id: "hard", title: "কঠিন", subtitle: "GRE / SAT স্তর", icon: "Award" },
+]
 
 export const vocabWords: VocabWord[] = [
   {

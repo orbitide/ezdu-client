@@ -14,7 +14,7 @@ export default async function SubjectMasteryPage({ params }: { params: Promise<{
   }
 
   return (
-    <div className="space-y-6 p-4 lg:p-6">
+    <div className="space-y-6">
       <Link href="/progress/mastery" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="size-4" />
         বিষয় তালিকায় ফিরে যাও

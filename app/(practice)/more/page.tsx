@@ -20,6 +20,8 @@ import {
 import { PageHeader } from "@/components/shared/page-header"
 import { Card, CardContent } from "@/components/ui/card"
 import { useAuthStore } from "@/lib/store/auth-store"
+import { TwoColumnShell } from "@/components/layout/two-column-shell"
+import { DefaultRightRail } from "@/components/layout/default-right-rail"
 
 const links = [
   { href: "/leaderboard", label: "লিডারবোর্ড", icon: Trophy },
@@ -45,7 +47,7 @@ export default function MorePage() {
   }
 
   return (
-    <div className="space-y-6 p-4 lg:p-6">
+    <TwoColumnShell right={<DefaultRightRail />}>
       <PageHeader title="আরও" description="অতিরিক্ত ফিচার এবং সেটিংসে যাও।" />
       <Card>
         <CardContent className="divide-y p-0">
@@ -72,6 +74,6 @@ export default function MorePage() {
           </button>
         </CardContent>
       </Card>
-    </div>
+    </TwoColumnShell>
   )
 }

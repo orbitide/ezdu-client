@@ -16,7 +16,7 @@ export default async function FlashcardsPage({ params }: { params: Promise<{ dif
   const words = getWordsByDifficulty(difficulty as VocabDifficulty)
 
   return (
-    <div className="space-y-6 p-4 lg:p-6">
+    <div className="space-y-6">
       <Link
         href={`/vocabulary/${difficulty}`}
         className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
@@ -25,7 +25,7 @@ export default async function FlashcardsPage({ params }: { params: Promise<{ dif
         মোড নির্বাচনে ফিরে যাও
       </Link>
       <PageHeader title="ফ্ল্যাশকার্ড" description="শব্দ ও অর্থ দেখে মনে রাখো।" />
-      <FlashcardDeck words={words} />
+      <FlashcardDeck words={words} difficulty={difficulty} />
     </div>
   )
 }
