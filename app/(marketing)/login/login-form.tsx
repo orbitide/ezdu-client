@@ -34,7 +34,7 @@ export function LoginForm() {
 
   function redirectAfterLogin() {
     const redirect = searchParams.get("redirect")
-    router.replace(onboardingCompleted ? redirect || "/home" : "/onboarding")
+    router.replace(onboardingCompleted ? redirect || "/dashboard" : "/onboarding")
   }
 
   function handleSubmit(e: React.FormEvent) {

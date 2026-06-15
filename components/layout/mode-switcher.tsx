@@ -6,7 +6,7 @@ import { useUiStore, type AppMode } from "@/lib/store/ui-store"
 import { cn } from "@/lib/utils"
 
 const modes: { value: AppMode; label: string; icon: typeof Swords; href: string }[] = [
-  { value: "practice", label: "প্র্যাকটিস", icon: Swords, href: "/home" },
+  { value: "practice", label: "প্র্যাকটিস", icon: Swords, href: "/dashboard" },
   { value: "learn", label: "লার্ন", icon: GraduationCap, href: "/learn" },
 ]
 

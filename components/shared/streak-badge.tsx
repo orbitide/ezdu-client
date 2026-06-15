@@ -1,4 +1,4 @@
-import { Flame } from "lucide-react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 export function StreakBadge({
@@ -11,11 +11,11 @@ export function StreakBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full bg-streak/15 px-2.5 py-1 text-sm font-semibold text-streak",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-base font-bold text-streak transition-colors hover:bg-streak/15",
         className
       )}
     >
-      <Flame className="size-4" />
+      <Image src="/icons/streak.svg" alt="" width={20} height={20} className="size-5" />
       {days} দিন
     </span>
   )

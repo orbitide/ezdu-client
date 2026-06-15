@@ -11,7 +11,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <div className="flex flex-1 flex-col overflow-hidden">
         <AppHeader />
-        <main className="flex-1 overflow-y-auto">{children}</main>
+        <main className="flex-1 overflow-y-auto">
+          <div className="mx-auto w-full max-w-5xl">{children}</div>
+        </main>
         <BottomNav />
       </div>
     </div>

@@ -67,7 +67,7 @@ export function QuizResultsScreen({ result, title }: QuizResultsScreenProps) {
 
       <div className="flex justify-center gap-3">
         <Button asChild variant="outline">
-          <Link href="/home">হোমে যাও</Link>
+          <Link href="/dashboard">হোমে যাও</Link>
         </Button>
       </div>
 

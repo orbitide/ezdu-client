@@ -4,15 +4,12 @@ import {
   TrendingUp,
   Brain,
   Trophy,
-  User,
   ShoppingBag,
   Settings,
   Sparkles,
   Archive,
-  Bell,
   Newspaper,
   CalendarRange,
-  Globe2,
   MoreHorizontal,
   GraduationCap,
   BookOpen,
@@ -22,6 +19,7 @@ import {
   Video,
   ClipboardCheck,
   BarChart3,
+  FileCheck2,
 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 
@@ -41,25 +39,24 @@ export interface NavDivider {
 export type NavEntry = NavItem | NavDivider
 
 export const practiceSidebarNav: NavEntry[] = [
-  { href: "/home", label: "হোম", icon: LayoutDashboard },
-  { href: "/practice", label: "প্র্যাকটিস", icon: Swords, matchPaths: ["/practice", "/quiz"] },
-  { href: "/progress", label: "অগ্রগতি", icon: TrendingUp },
+  { href: "/dashboard", label: "হোম", icon: LayoutDashboard },
+  { href: "/archive", label: "আর্কাইভ", icon: Archive },
+  { href: "/challenge", label: "চ্যালেঞ্জ", icon: Swords, matchPaths: ["/challenge", "/quiz"] },
+  { href: "/mock-test", label: "মক টেস্ট", icon: FileCheck2 },
   { href: "/vocabulary", label: "ভোকাবুলারি", icon: Brain },
   { href: "/leaderboard", label: "লিডারবোর্ড", icon: Trophy },
-  { type: "divider", label: "অ্যাকাউন্ট" },
-  { href: "/profile", label: "প্রোফাইল", icon: User },
-  { href: "/archive", label: "আর্কাইভ", icon: Archive },
   { href: "/study-plan", label: "স্টাডি প্ল্যান", icon: CalendarRange },
-  { href: "/current-affairs", label: "কারেন্ট অ্যাফেয়ার্স", icon: Globe2 },
   { href: "/feed", label: "ফিড", icon: Newspaper },
-  { href: "/notifications", label: "নোটিফিকেশন", icon: Bell },
-  { type: "divider", label: "আরও" },
   { href: "/shop", label: "শপ", icon: ShoppingBag },
+]
+
+export const practiceMoreNav: NavItem[] = [
+  { href: "/help", label: "হেল্প", icon: HelpCircle },
   { href: "/settings", label: "সেটিংস", icon: Settings },
 ]
 
 export const practiceBottomNav: NavItem[] = [
-  { href: "/home", label: "হোম", icon: LayoutDashboard },
+  { href: "/dashboard", label: "হোম", icon: LayoutDashboard },
   { href: "/progress", label: "অগ্রগতি", icon: TrendingUp },
   { href: "/practice", label: "প্র্যাকটিস", icon: Swords, matchPaths: ["/practice", "/quiz"] },
   { href: "/vocabulary", label: "ভোকাব", icon: Brain },
@@ -78,7 +75,9 @@ export const learnSidebarNav: NavEntry[] = [
   { href: "/learn/assignments", label: "অ্যাসাইনমেন্ট", icon: ClipboardCheck },
   { type: "divider", label: "অ্যাকাউন্ট" },
   { href: "/learn/progress", label: "অগ্রগতি", icon: BarChart3 },
-  { href: "/profile", label: "প্রোফাইল", icon: User },
+]
+
+export const learnMoreNav: NavItem[] = [
   { href: "/settings", label: "সেটিংস", icon: Settings },
 ]
 

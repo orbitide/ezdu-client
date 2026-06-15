@@ -1,4 +1,4 @@
-import { Coins } from "lucide-react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { formatCompactNumber } from "@/lib/utils/format"
 
@@ -12,11 +12,11 @@ export function CoinBalance({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full bg-coin/15 px-2.5 py-1 text-sm font-semibold text-coin-foreground",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-base font-bold text-coin transition-colors hover:bg-coin/15",
         className
       )}
     >
-      <Coins className="size-4 text-coin" />
+      <Image src="/icons/coin.svg" alt="" width={20} height={20} className="size-5" />
       {formatCompactNumber(amount)}
     </span>
   )

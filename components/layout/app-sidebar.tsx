@@ -1,23 +1,18 @@
 "use client"
 
 import Link from "next/link"
+import { User } from "lucide-react"
 import { useUiStore } from "@/lib/store/ui-store"
-import { useProgressStore } from "@/lib/store/progress-store"
 import { BrandMark } from "./brand-mark"
 import { BrandName } from "./brand-name"
 import { SidebarNavLink } from "./sidebar-nav-link"
+import { SidebarMoreMenu } from "./sidebar-more-menu"
 import { practiceSidebarNav, learnSidebarNav } from "./nav-config"
-import { RankBadge } from "@/components/shared/rank-badge"
-import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 
 export function AppSidebar({ className }: { className?: string }) {
   const appMode = useUiStore((s) => s.appMode)
-  const { rankTier, xp, level } = useProgressStore((s) => s)
   const navItems = appMode === "practice" ? practiceSidebarNav : learnSidebarNav
-
-  const xpIntoLevel = xp % 1000
-  const xpProgress = (xpIntoLevel / 1000) * 100
 
   return (
     <aside className={cn("flex flex-col h-full", className)}>
@@ -48,16 +43,16 @@ export function AppSidebar({ className }: { className?: string }) {
             </SidebarNavLink>
           )
         })}
-      </nav>
 
-      <div className="border-t border-sidebar-border p-3 shrink-0 space-y-2">
-        <div className="flex items-center justify-between">
-          <RankBadge tier={rankTier} />
-          <span className="text-xs text-muted-foreground">লেভেল {level}</span>
+        <SidebarNavLink href="/profile">
+          <User />
+          <span>প্রোফাইল</span>
+        </SidebarNavLink>
+
+        <div className="pt-2">
+          <SidebarMoreMenu />
         </div>
-        <Progress value={xpProgress} />
-        <p className="text-xs text-muted-foreground">পরবর্তী লেভেলের জন্য {xpIntoLevel} / 1000 XP</p>
-      </div>
+      </nav>
     </aside>
   )
 }

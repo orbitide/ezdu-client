@@ -25,8 +25,8 @@ export function SidebarNavLink({ href, matchPaths, children }: SidebarNavLinkPro
         "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-200",
         "outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring/50",
         isActive
-          ? "bg-sidebar-primary/12 text-sidebar-primary font-medium ring-1 ring-sidebar-primary/20"
-          : "text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+          ? "bg-sidebar-primary/12 text-sidebar-primary font-medium border border-sidebar-primary/30"
+          : "text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground border border-transparent"
       )}
     >
       {isActive && (

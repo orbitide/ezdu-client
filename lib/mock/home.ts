@@ -31,10 +31,10 @@ export const miniLeaderboard: LeaderboardEntry[] = [
 ]
 
 export const homeGridItems: HomeGridItem[] = [
-  { id: "archive", label: "আর্কাইভ", href: "/archive", icon: "Archive" },
-  { id: "challenge", label: "চ্যালেঞ্জ", href: "/practice", icon: "Swords" },
-  { id: "quiz", label: "কুইজ", href: "/practice", icon: "BrainCircuit" },
-  { id: "mock", label: "মক টেস্ট", href: "/practice", icon: "ClipboardList" },
-  { id: "leaderboard", label: "লিডারবোর্ড", href: "/leaderboard", icon: "Trophy" },
-  { id: "vocab", label: "ভোকাবস", href: "/vocabulary", icon: "BookOpen" },
+  { id: "archive", label: "আর্কাইভ", href: "/archive", icon: "archive.svg" },
+  { id: "challenge", label: "চ্যালেঞ্জ", href: "/practice", icon: "challenge.svg" },
+  { id: "quiz", label: "কুইজ", href: "/practice", icon: "quiz.svg" },
+  { id: "mock", label: "মক টেস্ট", href: "/practice", icon: "mock_test.svg" },
+  { id: "leaderboard", label: "লিডারবোর্ড", href: "/leaderboard", icon: "leaderboard.svg" },
+  { id: "vocab", label: "ভোকাবস", href: "/vocabulary", icon: "vocabs.svg" },
 ]

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { DifficultyBadge } from "@/components/shared/difficulty-badge"
-import { Sparkles } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight } from "lucide-react"
 import { recommendedQuizzes } from "@/lib/mock/home"
 
 export function RecommendedQuizzesSection() {
@@ -15,20 +15,18 @@ export function RecommendedQuizzesSection() {
           <Link
             key={quiz.id}
             href={`/quiz/${quiz.id}`}
-            className="space-y-2 rounded-lg border p-3 transition-colors hover:border-primary/50"
+            className="group flex flex-col gap-3 rounded-xl border p-4 transition-all hover:border-primary/50 hover:shadow-sm"
           >
-            <div className="flex items-start justify-between gap-2">
-              <p className="text-sm font-medium">{quiz.title}</p>
-              <DifficultyBadge difficulty={quiz.difficulty} />
-            </div>
-            <p className="text-xs text-muted-foreground">{quiz.subject}</p>
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>{quiz.questionCount} প্রশ্ন</span>
-              <span className="inline-flex items-center gap-1 text-xp">
-                <Sparkles className="size-3.5" />
-                {quiz.xpReward} XP
-              </span>
-            </div>
+            <Badge variant="ghost" className="self-start bg-muted text-muted-foreground">
+              {quiz.subject}
+            </Badge>
+
+            <p className="text-sm font-semibold leading-snug line-clamp-2">{quiz.title}</p>
+
+            <span className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-primary opacity-0 transition-opacity group-hover:opacity-100">
+              শুরু করো
+              <ArrowRight className="size-3.5" />
+            </span>
           </Link>
         ))}
       </CardContent>

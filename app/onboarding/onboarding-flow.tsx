@@ -61,7 +61,7 @@ export function OnboardingFlow() {
     const group = selectedClass?.groups.find((g) => g.id === groupId)
     setSubjects(group ? [group.label] : [])
     complete()
-    router.replace("/home")
+    router.replace("/dashboard")
   }
 
   return (
