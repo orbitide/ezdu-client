@@ -44,4 +44,5 @@ export interface ProgressSummary {
   level: number
   streakDays: number
   rankTier: RankTier
+  isPremium: boolean
 }

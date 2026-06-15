@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle2, Circle, Clock } from "lucide-react"
@@ -7,14 +8,18 @@ import { todaysPlan } from "@/lib/mock/home"
 export function TodaysPlanCard() {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex-row items-center justify-between">
         <CardTitle>আজকের পরিকল্পনা</CardTitle>
+        <Link href="/study-plan" className="text-xs font-medium text-primary hover:underline">
+          সব দেখুন
+        </Link>
       </CardHeader>
       <CardContent className="space-y-2">
         {todaysPlan.map((item) => (
-          <div
+          <Link
             key={item.id}
-            className="flex items-center gap-3 rounded-lg border p-3"
+            href="/study-plan"
+            className="flex items-center gap-3 rounded-lg border p-3 transition-colors hover:bg-accent"
           >
             {item.completed ? (
               <CheckCircle2 className="size-5 shrink-0 text-primary" />
@@ -31,7 +36,7 @@ export function TodaysPlanCard() {
               <Clock className="size-3" />
               {item.durationMinutes} মিনিট
             </Badge>
-          </div>
+          </Link>
         ))}
       </CardContent>
     </Card>

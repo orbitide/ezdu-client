@@ -11,7 +11,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-fredoka);
   --font-mono: var(--font-geist-mono);
   --background-image-brand-gradient: var(--brand-gradient);
   --color-background: var(--background);
@@ -385,7 +385,7 @@
     font-size: 17px;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans font-medium antialiased;
   }
   h1 {
     @apply text-3xl font-bold tracking-tight md:text-4xl;

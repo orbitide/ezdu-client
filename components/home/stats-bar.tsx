@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { CoinBalance } from "@/components/shared/coin-balance"
 import { XpBadge } from "@/components/shared/xp-badge"
 import { StreakBadge } from "@/components/shared/streak-badge"
@@ -13,9 +14,15 @@ export function StatsBar() {
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <StreakBadge days={streakDays} />
-      <CoinBalance amount={coins} />
-      <XpBadge xp={xp} level={level} />
+      <Link href="/progress">
+        <StreakBadge days={streakDays} />
+      </Link>
+      <Link href="/shop">
+        <CoinBalance amount={coins} />
+      </Link>
+      <Link href="/profile">
+        <XpBadge xp={xp} level={level} />
+      </Link>
     </div>
   )
 }

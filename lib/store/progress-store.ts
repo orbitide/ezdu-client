@@ -15,6 +15,7 @@ export const useProgressStore = create<ProgressState>()(
       level: 12,
       streakDays: 7,
       rankTier: "adept",
+      isPremium: false,
       addCoins: (amount) => set((s) => ({ coins: s.coins + amount })),
       addXp: (amount) => set((s) => ({ xp: s.xp + amount })),
     }),
