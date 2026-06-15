@@ -1,26 +1,209 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  a, button {
+    cursor: pointer;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --background-image-brand-gradient: var(--brand-gradient);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+
+  /* Gamification tokens */
+  --color-coin: var(--coin);
+  --color-coin-foreground: var(--coin-foreground);
+  --color-xp: var(--xp);
+  --color-xp-foreground: var(--xp-foreground);
+  --color-streak: var(--streak);
+  --color-streak-foreground: var(--streak-foreground);
+
+  /* Rank tier tokens */
+  --color-rank-novice: var(--rank-novice);
+  --color-rank-apprentice: var(--rank-apprentice);
+  --color-rank-adept: var(--rank-adept);
+  --color-rank-expert: var(--rank-expert);
+  --color-rank-master: var(--rank-master);
+  --color-rank-grandmaster: var(--rank-grandmaster);
+  --color-rank-champion: var(--rank-champion);
+  --color-rank-legend: var(--rank-legend);
+  --color-rank-mythic: var(--rank-mythic);
+}
+
+:root {
+  /* Signature emerald gradient — purposeful, contained (app icon only) */
+  --brand-from: #00d492;
+  --brand-to: #008d61;
+  --brand-gradient: linear-gradient(135deg, var(--brand-from) 0%, var(--brand-to) 100%);
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.12 0.01 150);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0.01 150);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0.01 150);
+  /* Emerald primary (#008d61) */
+  --primary: oklch(0.572 0.063 149.8);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.96 0.01 150);
+  --secondary-foreground: oklch(0.25 0.02 150);
+  --muted: oklch(0.96 0.005 150);
+  --muted-foreground: oklch(0.50 0.02 150);
+  --accent: oklch(0.94 0.03 150);
+  --accent-foreground: oklch(0.25 0.02 150);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.90 0.01 150);
+  --input: oklch(0.90 0.01 150);
+  --ring: oklch(0.572 0.063 149.8);
+  /* Chart colors */
+  --chart-1: oklch(0.572 0.063 149.8);
+  --chart-2: oklch(0.65 0.18 200);
+  --chart-3: oklch(0.773 0.086 149);
+  --chart-4: oklch(0.72 0.18 48);
+  --chart-5: oklch(0.65 0.22 330);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.97 0.01 150);
+  --sidebar-foreground: oklch(0.12 0.01 150);
+  --sidebar-primary: oklch(0.572 0.063 149.8);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.93 0.03 150);
+  --sidebar-accent-foreground: oklch(0.25 0.02 150);
+  --sidebar-border: oklch(0.90 0.01 150);
+  --sidebar-ring: oklch(0.572 0.063 149.8);
+
+  /* Gamification colors */
+  --coin: oklch(0.78 0.15 80);
+  --coin-foreground: oklch(0.25 0.05 80);
+  --xp: oklch(0.65 0.18 260);
+  --xp-foreground: oklch(0.985 0 0);
+  --streak: oklch(0.65 0.22 35);
+  --streak-foreground: oklch(0.985 0 0);
+
+  /* Rank tier palette (Novice -> Mythic) */
+  --rank-novice: oklch(0.70 0.01 150);
+  --rank-apprentice: oklch(0.70 0.12 145);
+  --rank-adept: oklch(0.68 0.16 200);
+  --rank-expert: oklch(0.65 0.18 250);
+  --rank-master: oklch(0.62 0.20 290);
+  --rank-grandmaster: oklch(0.65 0.22 330);
+  --rank-champion: oklch(0.72 0.18 48);
+  --rank-legend: oklch(0.78 0.15 80);
+  --rank-mythic: oklch(0.68 0.24 10);
+}
+
+.dark {
+  --background: oklch(0.16 0.01 150);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.21 0.01 150);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.21 0.01 150);
+  --popover-foreground: oklch(0.97 0 0);
+  --primary: oklch(0.773 0.086 149);
+  --primary-foreground: oklch(0.12 0.02 150);
+  --secondary: oklch(0.26 0.02 150);
+  --secondary-foreground: oklch(0.97 0 0);
+  --muted: oklch(0.26 0.02 150);
+  --muted-foreground: oklch(0.60 0.02 150);
+  --accent: oklch(0.28 0.03 150);
+  --accent-foreground: oklch(0.97 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.773 0.086 149);
+  --chart-1: oklch(0.773 0.086 149);
+  --chart-2: oklch(0.72 0.16 200);
+  --chart-3: oklch(0.76 0.16 150);
+  --chart-4: oklch(0.78 0.16 48);
+  --chart-5: oklch(0.72 0.20 330);
+  --sidebar: oklch(0.19 0.01 150);
+  --sidebar-foreground: oklch(0.97 0 0);
+  --sidebar-primary: oklch(0.773 0.086 149);
+  --sidebar-primary-foreground: oklch(0.12 0.02 150);
+  --sidebar-accent: oklch(0.26 0.03 150);
+  --sidebar-accent-foreground: oklch(0.97 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.773 0.086 149);
+
+  /* Gamification colors */
+  --coin: oklch(0.80 0.15 85);
+  --coin-foreground: oklch(0.20 0.04 85);
+  --xp: oklch(0.70 0.18 260);
+  --xp-foreground: oklch(0.12 0.02 150);
+  --streak: oklch(0.68 0.20 35);
+  --streak-foreground: oklch(0.12 0.02 150);
+
+  /* Rank tier palette (Novice -> Mythic) */
+  --rank-novice: oklch(0.65 0.01 150);
+  --rank-apprentice: oklch(0.70 0.12 145);
+  --rank-adept: oklch(0.70 0.16 200);
+  --rank-expert: oklch(0.70 0.18 250);
+  --rank-master: oklch(0.68 0.20 290);
+  --rank-grandmaster: oklch(0.70 0.22 330);
+  --rank-champion: oklch(0.75 0.18 48);
+  --rank-legend: oklch(0.80 0.15 85);
+  --rank-mythic: oklch(0.72 0.24 10);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    font-size: 17px;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1 {
+    @apply text-3xl font-bold tracking-tight md:text-4xl;
+  }
+  h2 {
+    @apply text-2xl font-bold tracking-tight md:text-3xl;
+  }
+  h3 {
+    @apply text-xl font-semibold tracking-tight md:text-2xl;
+  }
+  h4 {
+    @apply text-lg font-semibold md:text-xl;
+  }
 }
