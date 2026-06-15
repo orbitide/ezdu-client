@@ -12,7 +12,7 @@ export function BottomNav() {
   const items = appMode === "practice" ? practiceBottomNav : learnBottomNav
 
   return (
-    <nav className="lg:hidden sticky bottom-0 z-40 grid grid-cols-5 border-t bg-background/95 backdrop-blur-sm">
+    <nav className="md:hidden sticky bottom-0 z-40 grid grid-cols-5 border-t bg-background/95 backdrop-blur-sm">
       {items.map(({ href, label, icon: Icon, matchPaths }) => {
         const prefixes = matchPaths ?? [href]
         const isActive = prefixes.some(

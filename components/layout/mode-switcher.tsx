@@ -10,13 +10,20 @@ const modes: { value: AppMode; label: string; icon: typeof Swords; href: string 
   { value: "learn", label: "লার্ন", icon: GraduationCap, href: "/learn" },
 ]
 
-export function ModeSwitcher({ className }: { className?: string }) {
+export function ModeSwitcher({ className, expanded = false }: { className?: string; expanded?: boolean }) {
   const appMode = useUiStore((s) => s.appMode)
   const setAppMode = useUiStore((s) => s.setAppMode)
   const router = useRouter()
+  const labelClass = expanded ? "" : "hidden lg:inline"
 
   return (
-    <div className={cn("inline-flex items-center rounded-full bg-muted p-1", className)}>
+    <div
+      className={cn(
+        "flex items-center rounded-full bg-muted p-1",
+        expanded ? "flex-row" : "flex-col gap-1 lg:flex-row lg:gap-0",
+        className
+      )}
+    >
       {modes.map(({ value, label, icon: Icon, href }) => (
         <button
           key={value}
@@ -26,14 +33,14 @@ export function ModeSwitcher({ className }: { className?: string }) {
             router.push(href)
           }}
           className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-all",
+            "inline-flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-all",
             appMode === value
               ? "bg-background text-foreground shadow-sm"
               : "text-muted-foreground hover:text-foreground"
           )}
         >
           <Icon className="size-4" />
-          {label}
+          <span className={labelClass}>{label}</span>
         </button>
       ))}
     </div>

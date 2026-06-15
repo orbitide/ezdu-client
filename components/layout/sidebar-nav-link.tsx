@@ -7,10 +7,11 @@ import { cn } from "@/lib/utils"
 interface SidebarNavLinkProps {
   href: string
   matchPaths?: string[]
+  className?: string
   children: React.ReactNode
 }
 
-export function SidebarNavLink({ href, matchPaths, children }: SidebarNavLinkProps) {
+export function SidebarNavLink({ href, matchPaths, className, children }: SidebarNavLinkProps) {
   const pathname = usePathname()
   const prefixes = matchPaths ?? [href]
   const isActive = prefixes.some(
@@ -26,7 +27,8 @@ export function SidebarNavLink({ href, matchPaths, children }: SidebarNavLinkPro
         "outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring/50",
         isActive
           ? "bg-sidebar-primary/12 text-sidebar-primary font-medium border border-sidebar-primary/30"
-          : "text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground border border-transparent"
+          : "text-sidebar-foreground/65 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground border border-transparent",
+        className
       )}
     >
       {isActive && (

@@ -230,7 +230,111 @@
   }
 }
 
+@keyframes challenge-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes challenge-rain-fall {
+  0% {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--rain-opacity, 0.6);
+  }
+  85% {
+    opacity: var(--rain-opacity, 0.6);
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+@keyframes challenge-lightning-flash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  8%,
+  16% {
+    opacity: 1;
+  }
+  12% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes challenge-screen-flash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.55;
+  }
+  20% {
+    opacity: 0;
+  }
+  58% {
+    opacity: 0.35;
+  }
+  66% {
+    opacity: 0;
+  }
+}
+
+@keyframes challenge-storm-text-in {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 @layer utilities {
+  .animate-challenge-shake {
+    animation: challenge-shake 0.4s ease-in-out;
+  }
+
+  .animate-challenge-rain {
+    animation: challenge-rain-fall linear infinite;
+  }
+
+  .animate-challenge-lightning {
+    animation: challenge-lightning-flash 2.4s ease-in-out;
+  }
+
+  .animate-challenge-screen-flash {
+    animation: challenge-screen-flash 2.4s ease-in-out;
+  }
+
+  .animate-challenge-storm-text {
+    animation: challenge-storm-text-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
   /* Live indicator — dot + soft ring (respect reduced motion below) */
   .live-dot {
     @apply relative flex h-2 w-2 shrink-0 items-center justify-center;
@@ -304,6 +408,13 @@
     }
     .live-dot::before {
       opacity: 0;
+    }
+    .animate-challenge-shake,
+    .animate-challenge-rain,
+    .animate-challenge-lightning,
+    .animate-challenge-screen-flash,
+    .animate-challenge-storm-text {
+      animation: none !important;
     }
   }
 }

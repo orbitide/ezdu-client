@@ -1,10 +1,17 @@
-import type { ArchiveExam, ArchiveInstitute, ArchiveNode } from "@/lib/types/archive"
+import type { ArchiveExam, ArchiveGlobalUnitSlug, ArchiveInstitute, ArchiveInstituteUnit, ArchiveNode } from "@/lib/types/archive"
 
 export const archiveInstitutes: ArchiveInstitute[] = [
-  { id: "notre-dame", name: "নটর ডেম কলেজ" },
-  { id: "viqarunnisa", name: "ভিকারুননিসা নূন স্কুল অ্যান্ড কলেজ" },
-  { id: "holy-cross", name: "হলি ক্রস কলেজ" },
-  { id: "dhaka-college", name: "ঢাকা কলেজ" },
+  { id: "notre-dame", name: "নটর ডেম কলেজ", type: "school_college" },
+  { id: "viqarunnisa", name: "ভিকারুননিসা নূন স্কুল অ্যান্ড কলেজ", type: "school_college" },
+  { id: "holy-cross", name: "হলি ক্রস কলেজ", type: "school_college" },
+  { id: "dhaka-college", name: "ঢাকা কলেজ", type: "school_college" },
+  { id: "dhaka-university", name: "ঢাকা বিশ্ববিদ্যালয়", type: "university" },
+]
+
+export const archiveInstituteUnits: ArchiveInstituteUnit[] = [
+  { id: "du-unit-a", instituteId: "dhaka-university", name: "ইউনিট এ", globalUnitSlug: "unit-a" },
+  { id: "du-unit-b", instituteId: "dhaka-university", name: "ইউনিট বি", globalUnitSlug: "unit-b" },
+  { id: "du-unit-c", instituteId: "dhaka-university", name: "ইউনিট সি", globalUnitSlug: "unit-c" },
 ]
 
 export const archiveNodes: ArchiveNode[] = [
@@ -20,7 +27,7 @@ export const archiveNodes: ArchiveNode[] = [
 
   { id: "phy-engineering", subjectId: "physics", name: "ইঞ্জিনিয়ারিং", examIds: ["arch-9"] },
   { id: "phy-medical", subjectId: "physics", name: "মেডিকেল", examIds: [] },
-  { id: "phy-unit-a", subjectId: "physics", name: "ইউনিট এ", examIds: [] },
+  { id: "phy-unit-a", subjectId: "physics", name: "ইউনিট এ", globalUnitSlug: "unit-a" },
 
   // bangla
   { id: "ban-mcq", subjectId: "bangla", name: "এমসিকিউ" },
@@ -141,6 +148,30 @@ export const archiveExams: ArchiveExam[] = [
     coinReward: 110,
     attempted: false,
   },
+  {
+    id: "arch-10",
+    title: "ইউনিট এ ভর্তি পরীক্ষা ২০২৩",
+    examGroup: "ভর্তি পরীক্ষা",
+    year: 2023,
+    board: "ঢাকা বিশ্ববিদ্যালয়",
+    questionCount: 20,
+    durationMinutes: 60,
+    xpReward: 250,
+    coinReward: 125,
+    attempted: false,
+  },
+  {
+    id: "arch-11",
+    title: "ইউনিট বি ভর্তি পরীক্ষা ২০২৩",
+    examGroup: "ভর্তি পরীক্ষা",
+    year: 2023,
+    board: "ঢাকা বিশ্ববিদ্যালয়",
+    questionCount: 20,
+    durationMinutes: 60,
+    xpReward: 250,
+    coinReward: 125,
+    attempted: false,
+  },
 ]
 
 export const archiveExamsBySubjectFallback: Record<string, string[]> = {
@@ -158,6 +189,13 @@ export const archiveExamInstitutes: Record<string, string> = {
   "arch-7": "viqarunnisa",
   "arch-8": "notre-dame",
   "arch-9": "dhaka-college",
+  "arch-10": "dhaka-university",
+  "arch-11": "dhaka-university",
+}
+
+export const archiveExamInstituteUnits: Record<string, string> = {
+  "arch-10": "du-unit-a",
+  "arch-11": "du-unit-b",
 }
 
 export function getArchiveExamById(id: string): ArchiveExam | undefined {
@@ -166,6 +204,24 @@ export function getArchiveExamById(id: string): ArchiveExam | undefined {
 
 export function getArchiveExamsByInstitute(instituteId: string): ArchiveExam[] {
   return archiveExams.filter((exam) => archiveExamInstitutes[exam.id] === instituteId)
+}
+
+export function getArchiveInstituteUnits(instituteId: string): ArchiveInstituteUnit[] {
+  return archiveInstituteUnits.filter((unit) => unit.instituteId === instituteId)
+}
+
+export function getArchiveExamsByInstituteUnit(unitId: string): ArchiveExam[] {
+  return archiveExams.filter((exam) => archiveExamInstituteUnits[exam.id] === unitId)
+}
+
+export function getArchiveExamsByGlobalUnitSlug(slug: ArchiveGlobalUnitSlug): ArchiveExam[] {
+  const unitIds = new Set(
+    archiveInstituteUnits.filter((unit) => unit.globalUnitSlug === slug).map((unit) => unit.id)
+  )
+  return archiveExams.filter((exam) => {
+    const unitId = archiveExamInstituteUnits[exam.id]
+    return unitId !== undefined && unitIds.has(unitId)
+  })
 }
 
 export function getArchiveNodeChildren(subjectId: string, parentId?: string): ArchiveNode[] {
@@ -177,6 +233,9 @@ export function getArchiveNodeById(nodeId: string): ArchiveNode | undefined {
 }
 
 export function getArchiveExamsForNode(node: ArchiveNode): ArchiveExam[] {
+  if (node.globalUnitSlug) {
+    return getArchiveExamsByGlobalUnitSlug(node.globalUnitSlug)
+  }
   return (node.examIds ?? []).map(getArchiveExamById).filter((exam): exam is ArchiveExam => !!exam)
 }
 

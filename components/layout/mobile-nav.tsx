@@ -13,13 +13,13 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
-        className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "lg:hidden")}
+        className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "md:hidden")}
         aria-label="মেনু খুলুন"
       >
         <Menu className="h-5 w-5" />
       </SheetTrigger>
       <SheetContent side="left" className="p-0 w-64">
-        <AppSidebar />
+        <AppSidebar expanded />
       </SheetContent>
     </Sheet>
   )
