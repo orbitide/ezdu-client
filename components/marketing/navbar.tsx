@@ -16,7 +16,7 @@ export const Navbar = () => {
             style={{ paddingTop: 'var(--ez-safe-top)' }}
             aria-label="Main"
         >
-            <div className="container mx-auto flex h-[var(--ez-marketing-nav-height)] items-center justify-between gap-6 px-4">
+            <div className="container mx-auto flex h-[var(--ez-marketing-nav-height)] items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
                 <Link href="/" className="flex shrink-0 items-center">
                     <motion.div
                         className="flex items-center gap-2"
@@ -29,7 +29,7 @@ export const Navbar = () => {
 
                 <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                     <Button asChild variant="secondary" size="sm">
-                        <Link href="/register">শুরু করো</Link>
+                        <Link href="/welcome">শুরু করো</Link>
                     </Button>
                 </motion.div>
             </div>

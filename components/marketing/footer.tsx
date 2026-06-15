@@ -46,7 +46,7 @@ export const Footer = () => {
 
     return (
         <footer className="border-t bg-background">
-            <div className="container mx-auto px-4 py-12">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid md:grid-cols-4 gap-8 mb-10">
                     <div>
                         <Link href="/" className="inline-flex items-center gap-2 mb-3">

@@ -89,7 +89,7 @@ export const FreeFunEffective = () => {
                 )
             )}
 
-            <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full" ref={ref}>
                 <div className="flex items-end justify-center gap-10 md:gap-14 mb-28">
                     {[
                         { src: '/illustrations/free.svg',      alt: 'বিনামূল্যে', label: 'বিনামূল্যে', color: 'text-emerald-400', delay: 0.1, lift: false },

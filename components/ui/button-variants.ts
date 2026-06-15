@@ -5,11 +5,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        default:
+          "border-b-4 border-[color-mix(in_oklch,var(--primary),black_20%)] bg-primary text-primary-foreground hover:bg-primary/80 active:not-aria-[haspopup]:border-b-2 active:not-aria-[haspopup]:translate-y-[2px]",
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border-b-4 border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 active:not-aria-[haspopup]:border-b-2 active:not-aria-[haspopup]:translate-y-[2px]",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "border-b-4 border-[color-mix(in_oklch,var(--secondary),black_15%)] bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground active:not-aria-[haspopup]:border-b-2 active:not-aria-[haspopup]:translate-y-[2px]",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:

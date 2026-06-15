@@ -137,7 +137,7 @@ export const PersonalizedLearning = () => {
         <section className="min-h-screen py-28 flex flex-col justify-center" ref={ref}>
 
             {/* Heading */}
-            <div className="max-w-2xl mx-auto px-6 text-center mb-24 md:mb-32">
+            <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-24 md:mb-32">
                 <motion.h2
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -162,7 +162,7 @@ export const PersonalizedLearning = () => {
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="w-full max-w-5xl mx-auto px-4 mb-28"
+                className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-28"
             >
                 <svg viewBox={`0 0 ${VW} ${VH}`} className="w-full h-auto" aria-hidden>
                     <defs>

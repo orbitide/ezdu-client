@@ -4,7 +4,7 @@ import { ForgotPasswordForm } from "./forgot-password-form"
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="flex flex-1 items-center justify-center px-4 py-12">
+    <div className="flex flex-1 items-center justify-center px-4 py-12 pt-ez-below-nav">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center space-y-2">
           <CardTitle>পাসওয়ার্ড রিসেট করো</CardTitle>

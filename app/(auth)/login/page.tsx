@@ -7,16 +7,16 @@ import { LoginForm } from "./login-form"
 
 export default function LoginPage() {
   return (
-    <div className="mx-auto w-full max-w-sm py-16 px-4">
-      <div className="flex flex-col items-center gap-2 mb-8">
+    <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-16 px-4 pt-ez-below-nav">
+      <Link href="/welcome" className="flex flex-col items-center gap-2 mb-8">
         <BrandMark />
         <BrandName />
-      </div>
+      </Link>
 
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">আবার স্বাগতম</CardTitle>
-          <CardDescription>তোমার পড়াশোনা চালিয়ে যাওয়ার জন্য সাইন ইন করো।</CardDescription>
+          <CardDescription>চালিয়ে যেতে সাইন ইন করো।</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Suspense>

@@ -17,7 +17,7 @@ export const StayMotivated = () => {
 
     return (
         <section className="min-h-screen py-28 flex items-center">
-            <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full" ref={ref}>
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}

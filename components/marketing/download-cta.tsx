@@ -11,7 +11,7 @@ export const DownloadCTA = () => {
 
     return (
         <section className="border-t border-primary/10 min-h-screen py-28 flex items-center overflow-hidden">
-            <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full" ref={ref}>
 
                 {/* Phone cluster */}
                 <div className="flex justify-center mb-28">

@@ -5,7 +5,7 @@ import { BrandName } from "@/components/layout/brand-name"
 
 export default function WelcomePage() {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-12 text-center">
+    <div className="flex min-h-[calc(100vh-var(--ez-chrome-row))] flex-1 flex-col items-center justify-center gap-8 px-6 py-12 pt-ez-below-nav text-center">
       <div className="flex flex-col items-center gap-4">
         <Image src="/logo-rounded.png" alt="EZDU" width={88} height={88} className="rounded-2xl" />
         <BrandName size="md" className="text-3xl" />

@@ -6,15 +6,16 @@ import { RegisterForm } from "./register-form"
 
 export default function RegisterPage() {
   return (
-    <div className="flex flex-1 items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-sm">
-        <CardHeader className="items-center text-center space-y-2">
-          <div className="flex items-center gap-2">
-            <BrandMark />
-            <BrandName />
-          </div>
-          <CardTitle>তোমার অ্যাকাউন্ট তৈরি করো</CardTitle>
-          <CardDescription>ডেমো ভার্সন — তোমার তথ্য ব্রাউজারের বাইরে যায় না।</CardDescription>
+    <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-16 px-4 pt-ez-below-nav">
+      <Link href="/welcome" className="flex flex-col items-center gap-2 mb-8">
+        <BrandMark />
+        <BrandName />
+      </Link>
+
+      <Card>
+        <CardHeader className="text-center">
+          <CardTitle className="text-xl">অ্যাকাউন্ট তৈরি করো</CardTitle>
+          <CardDescription>শেখা শুরু করতে সাইন আপ করো।</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <RegisterForm />

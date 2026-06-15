@@ -9,7 +9,7 @@ export const Hero = () => {
     const reduceMotion = useReducedMotion();
     return (
         <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-ez-below-nav">
-            <div className="container mx-auto xl:w-7xl px-4 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div className="container mx-auto xl:w-7xl px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center relative z-10">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}

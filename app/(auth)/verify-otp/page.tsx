@@ -4,7 +4,7 @@ import { OtpForm } from "./otp-form"
 
 export default function VerifyOtpPage() {
   return (
-    <div className="flex flex-1 items-center justify-center px-4 py-12">
+    <div className="flex flex-1 items-center justify-center px-4 py-12 pt-ez-below-nav">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center space-y-2">
           <CardTitle>ইমেইল ভেরিফাই করো</CardTitle>
