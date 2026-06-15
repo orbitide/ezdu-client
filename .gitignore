@@ -39,3 +39,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE / editor
+.idea
+.vscode
+*.swp
+*.swo
+
+# AI tooling local settings
+.claude/settings.local.json
+.cursor/
+.windsurf/
+.cursorignore
+.cursorrules
+.aider*
+
+# local certificates
+certificates/*.pem
