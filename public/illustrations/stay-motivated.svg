@@ -1,0 +1,120 @@
+<svg viewBox="0 0 420 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="drop">
+      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="softdrop">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Phone device -->
+  <g filter="url(#drop)">
+    <rect x="110" y="15" width="200" height="295" rx="30" fill="#141414"/>
+    <rect x="110" y="15" width="200" height="295" rx="30" stroke="#2d2d2d" stroke-width="2"/>
+    <rect x="120" y="26" width="180" height="273" rx="22" fill="#0d0d0d"/>
+    <!-- Notch -->
+    <rect x="175" y="23" width="70" height="12" rx="6" fill="#141414"/>
+  </g>
+
+  <!-- App header -->
+  <rect x="128" y="44" width="164" height="34" rx="10" fill="#1a1a1a"/>
+  <text x="210" y="66" text-anchor="middle" font-size="12" font-weight="700" fill="#f4f4f5" font-family="system-ui, -apple-system, sans-serif">স্ট্রিক ক্যালেন্ডার</text>
+
+  <!-- Day labels -->
+  <text x="136" y="94" font-size="8" fill="#52525b" font-family="system-ui, sans-serif">শ</text>
+  <text x="157" y="94" font-size="8" fill="#52525b" font-family="system-ui, sans-serif">র</text>
+  <text x="177" y="94" font-size="8" fill="#52525b" font-family="system-ui, sans-serif">ব</text>
+  <text x="198" y="94" font-size="8" fill="#52525b" font-family="system-ui, sans-serif">বৃ</text>
+  <text x="218" y="94" font-size="8" fill="#52525b" font-family="system-ui, sans-serif">শু</text>
+  <text x="239" y="94" font-size="8" fill="#52525b" font-family="system-ui, sans-serif">শ</text>
+  <text x="260" y="94" font-size="8" fill="#52525b" font-family="system-ui, sans-serif">র</text>
+
+  <!-- Week 1 — all complete with checkmarks -->
+  <rect x="128" y="100" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M131 109 L134 112 L141 105" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="149" y="100" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M152 109 L155 112 L162 105" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="170" y="100" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M173 109 L176 112 L183 105" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="191" y="100" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M194 109 L197 112 L204 105" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="212" y="100" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M215 109 L218 112 L225 105" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="233" y="100" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M236 109 L239 112 L246 105" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="254" y="100" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M257 109 L260 112 L267 105" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Week 2 — all complete -->
+  <rect x="128" y="122" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M131 131 L134 134 L141 127" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="149" y="122" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M152 131 L155 134 L162 127" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="170" y="122" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M173 131 L176 134 L183 127" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="191" y="122" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M194 131 L197 134 L204 127" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="212" y="122" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M215 131 L218 134 L225 127" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="233" y="122" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M236 131 L239 134 L246 127" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Last cell — orange streak indicator -->
+  <rect x="254" y="122" width="17" height="17" rx="5" fill="#7c2d12" stroke="#f97316" stroke-width="1.5"/>
+  <path d="M263 125 C259 128 258 132 261 135 C261 132 263 131 264 133 C265 131 266 128 263 125 Z" fill="#f97316"/>
+  <path d="M263 124 C259 128 258 133 262 136 C262 133 264 132 265 134 C266 131 266 128 263 124 Z" fill="#fbbf24" opacity="0.7"/>
+
+  <!-- Week 3 — partial -->
+  <rect x="128" y="144" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M131 153 L134 156 L141 149" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="149" y="144" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M152 153 L155 156 L162 149" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="170" y="144" width="17" height="17" rx="5" fill="#052e16"/>
+  <path d="M173 153 L176 156 L183 149" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="191" y="144" width="17" height="17" rx="5" fill="#1f1f1f" stroke="#2d2d2d" stroke-width="1"/>
+  <rect x="212" y="144" width="17" height="17" rx="5" fill="#1f1f1f" stroke="#2d2d2d" stroke-width="1"/>
+  <rect x="233" y="144" width="17" height="17" rx="5" fill="#1f1f1f" stroke="#2d2d2d" stroke-width="1"/>
+  <rect x="254" y="144" width="17" height="17" rx="5" fill="#1f1f1f" stroke="#2d2d2d" stroke-width="1"/>
+
+  <!-- Progress bar -->
+  <rect x="128" y="174" width="164" height="8" rx="4" fill="#1f1f1f"/>
+  <rect x="128" y="174" width="106" height="8" rx="4" fill="url(#progressGrad)"/>
+  <text x="128" y="193" font-size="8" fill="#52525b" font-family="system-ui, sans-serif">অগ্রগতি ৬৪%</text>
+  <text x="292" y="193" text-anchor="end" font-size="8" font-weight="600" fill="#34d399" font-family="system-ui, sans-serif">১৭/৩০ দিন</text>
+
+  <!-- Home indicator -->
+  <rect x="168" y="288" width="84" height="4" rx="2" fill="#2d2d2d"/>
+
+  <!-- Floating streak icon (left of phone) — real streak.svg paths, clean, no filter -->
+  <g transform="translate(14, 55)">
+    <!-- streak.svg paths scaled 3.6x, floating transparently -->
+    <g transform="scale(3.6)">
+      <path d="M12.72 22.08C7.92 22.08 4.56 18.72 4.56 14.64C4.56 12 6 10.08 7.44 8.64003C7.92 8.16003 7.92 9.60003 8.4 10.08C8.64 10.32 8.88 10.08 8.88 9.60003C8.88 7.68003 10.32 5.28003 12.72 3.84003C13.92 6.24003 14.16 8.16003 13.68 9.60003C13.44 10.32 14.16 11.04 14.64 10.56C16.08 9.12003 16.56 7.20003 16.08 5.28003C18 7.20003 20.88 10.56 20.88 14.64C20.88 18.72 17.52 22.08 12.72 22.08Z" fill="#A64646"/>
+      <path d="M12 21.12C7.2 21.12 3.84 17.76 3.84 13.68C3.84 11.04 5.28 9.12 6.72 7.68C7.2 7.2 7.2 8.64 7.68 9.12C7.92 9.36 8.16 9.12 8.16 8.64C8.16 6.72 9.6 4.32 12 2.88C13.2 5.28 13.44 7.2 12.96 8.64C12.72 9.36 13.44 10.08 13.92 9.6C15.36 8.16 15.84 6.24 15.36 4.32C17.28 6.24 20.16 9.60001 20.16 13.68C20.16 17.76 16.8 21.12 12 21.12Z" fill="#FF6B6B"/>
+      <path d="M12 18.24C10.08 18.24 8.64001 16.8 8.64001 14.88C8.64001 13.44 9.60001 12.48 10.56 11.76C10.8 11.52 10.8 12 11.04 12.24C11.28 12.48 11.52 12.24 11.52 12C11.52 11.04 12 10.08 12 10.08C12.48 11.04 13.44 12.48 13.44 14.4C13.44 16.56 12.84 18.24 12 18.24Z" fill="#FFC900"/>
+      <path opacity="0.5" d="M11.3195 14.4832C11.7036 14.3803 11.8898 13.8298 11.7355 13.2536C11.5811 12.6775 11.1446 12.2939 10.7605 12.3968C10.3764 12.4997 10.1901 13.0502 10.3445 13.6263C10.4989 14.2025 10.9354 14.5861 11.3195 14.4832Z" fill="#FFEB59"/>
+      <path opacity="0.95" d="M19.776 2.88H19.104C18.8919 2.88 18.72 3.05193 18.72 3.264V3.936C18.72 4.14808 18.8919 4.32 19.104 4.32H19.776C19.9881 4.32 20.16 4.14808 20.16 3.936V3.264C20.16 3.05193 19.9881 2.88 19.776 2.88Z" fill="#FF9F9F"/>
+      <path opacity="0.95" d="M21.36 5.87999C21.6914 5.87999 21.96 5.61136 21.96 5.27999C21.96 4.94862 21.6914 4.67999 21.36 4.67999C21.0286 4.67999 20.76 4.94862 20.76 5.27999C20.76 5.61136 21.0286 5.87999 21.36 5.87999Z" fill="#FF9F9F"/>
+    </g>
+    <text x="43" y="92" text-anchor="middle" font-size="10" font-weight="800" fill="#fb923c" font-family="system-ui, -apple-system, sans-serif">১৭ দিন</text>
+  </g>
+
+  <!-- XP bonus toast (right of phone) -->
+  <g transform="translate(318, 110)" filter="url(#softdrop)">
+    <rect width="90" height="52" rx="14" fill="#0a1a0f" fill-opacity="0.9" stroke="#34d399" stroke-width="1.5"/>
+    <text x="45" y="24" text-anchor="middle" font-size="8" fill="#86efac" font-family="system-ui, sans-serif">স্ট্রিক বোনাস!</text>
+    <text x="45" y="42" text-anchor="middle" font-size="15" font-weight="800" fill="#34d399" font-family="system-ui, sans-serif">+১০০ XP</text>
+  </g>
+
+  <!-- Sparkle accents -->
+  <path d="M375 50 L377 44 L379 50 L385 52 L379 54 L377 60 L375 54 L369 52 Z" fill="#fbbf24" opacity="0.45"/>
+  <path d="M35 268 L37 262 L39 268 L45 270 L39 272 L37 278 L35 272 L29 270 Z" fill="#34d399" opacity="0.4"/>
+  <circle cx="370" cy="200" r="5" fill="#f97316" opacity="0.35"/>
+  <circle cx="44" cy="308" r="4" fill="#34d399" opacity="0.3"/>
+  <circle cx="382" cy="290" r="3" fill="#fbbf24" opacity="0.3"/>
+  <circle cx="90" cy="170" r="3" fill="#f97316" opacity="0.25"/>
+</svg>

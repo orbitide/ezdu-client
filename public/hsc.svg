@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="HSC — Higher Secondary Certificate">
+
+  <g transform="translate(200 170)">
+    <path d="M-90 -40 Q-46 -52 -2 -40 L-2 40 Q-46 28 -90 40 Z" fill="#1e3a5f" stroke="#60a5fa" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M90 -40 Q46 -52 2 -40 L2 40 Q46 28 90 40 Z" fill="#1e3a5f" stroke="#60a5fa" stroke-width="3" stroke-linejoin="round"/>
+    <line x1="0" y1="-40" x2="0" y2="40" stroke="#60a5fa" stroke-width="3"/>
+    <line x1="-76" y1="-22" x2="-16" y2="-26" stroke="#93c5fd" stroke-width="2" opacity="0.6"/>
+    <line x1="-76" y1="-8"  x2="-16" y2="-12" stroke="#93c5fd" stroke-width="2" opacity="0.6"/>
+    <line x1="-76" y1="6"   x2="-16" y2="2"   stroke="#93c5fd" stroke-width="2" opacity="0.6"/>
+    <line x1="16"  y1="-26" x2="76"  y2="-22" stroke="#93c5fd" stroke-width="2" opacity="0.6"/>
+    <line x1="16"  y1="-12" x2="76"  y2="-8"  stroke="#93c5fd" stroke-width="2" opacity="0.6"/>
+    <line x1="16"  y1="2"   x2="76"  y2="6"   stroke="#93c5fd" stroke-width="2" opacity="0.6"/>
+    <path d="M50 -46 L50 -10 L58 -18 L66 -10 L66 -46 Z" fill="#f87171"/>
+  </g>
+
+  <text x="200" y="290" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="80" font-weight="800" fill="#60a5fa" letter-spacing="2">HSC</text>
+  <text x="200" y="322" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#60a5fa" opacity="0.5" letter-spacing="3">HIGHER SECONDARY</text>
+</svg>

@@ -76,6 +76,11 @@
   --brand-from: #00d492;
   --brand-to: #008d61;
   --brand-gradient: linear-gradient(135deg, var(--brand-from) 0%, var(--brand-to) 100%);
+
+  /* Fixed marketing navbar offsets */
+  --ez-marketing-nav-height: 3.5rem;
+  --ez-safe-top: env(safe-area-inset-top, 0px);
+  --ez-chrome-row: calc(var(--ez-safe-top) + var(--ez-marketing-nav-height));
   --background: oklch(0.99 0 0);
   --foreground: oklch(0.12 0.01 150);
   --card: oklch(1 0 0);
@@ -184,6 +189,90 @@
   --rank-mythic: oklch(0.72 0.24 10);
 }
 
+@keyframes live-soft-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  70% {
+    transform: scale(2.25);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.25);
+    opacity: 0;
+  }
+}
+
+@keyframes badge-live-shimmer {
+  0%,
+  100% {
+    border-color: var(--border);
+    box-shadow: 0 0 0 0 oklch(0.572 0.063 149.8 / 0);
+  }
+  50% {
+    border-color: var(--ring);
+    box-shadow: 0 0 20px -8px oklch(0.572 0.063 149.8 / 0.2);
+  }
+}
+
+@keyframes ribbon-emerald-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 10px 25px -10px oklch(0.572 0.063 149.8 / 0.45),
+      0 0 0 0 oklch(0.572 0.063 149.8 / 0);
+  }
+  50% {
+    box-shadow:
+      0 12px 32px -8px oklch(0.572 0.063 149.8 / 0.55),
+      0 0 0 1px oklch(0.773 0.086 149 / 0.25);
+  }
+}
+
+@layer utilities {
+  /* Live indicator — dot + soft ring (respect reduced motion below) */
+  .live-dot {
+    @apply relative flex h-2 w-2 shrink-0 items-center justify-center;
+  }
+  .live-dot::before {
+    content: "";
+    @apply absolute inline-flex h-full w-full rounded-full bg-primary/40;
+    animation: live-soft-ping 2.25s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  .live-dot-inner {
+    @apply relative z-[1] h-2 w-2 rounded-full bg-primary ring-2 ring-background;
+  }
+
+  .live-dot.live-dot-sm {
+    @apply h-1.5 w-1.5;
+  }
+  .live-dot.live-dot-sm .live-dot-inner {
+    @apply h-1.5 w-1.5 ring-1;
+  }
+
+  /* Pill / badge with gentle "active" glow */
+  .badge-live {
+    animation: badge-live-shimmer 3.5s ease-in-out infinite;
+  }
+
+  .ribbon-live {
+    animation: ribbon-emerald-pulse 2.5s ease-in-out infinite;
+  }
+
+  /* Clear fixed navbar + notch (max keeps desktop spacing when safe-area is 0) */
+  .pt-ez-below-nav {
+    padding-top: max(5rem, var(--ez-chrome-row));
+  }
+  .pt-ez-below-nav-lg {
+    padding-top: max(6rem, var(--ez-chrome-row));
+  }
+
+  .scroll-mt-ez-nav {
+    scroll-margin-top: calc(var(--ez-chrome-row) + 1rem);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -205,5 +294,16 @@
   }
   h4 {
     @apply text-lg font-semibold md:text-xl;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot::before,
+    .badge-live,
+    .ribbon-live {
+      animation: none !important;
+    }
+    .live-dot::before {
+      opacity: 0;
+    }
   }
 }
