@@ -4,11 +4,9 @@ import {
   TrendingUp,
   Brain,
   Trophy,
-  ShoppingBag,
   Settings,
   Sparkles,
   Archive,
-  Newspaper,
   CalendarRange,
   MoreHorizontal,
   GraduationCap,
@@ -46,8 +44,6 @@ export const practiceSidebarNav: NavEntry[] = [
   { href: "/vocabulary", label: "ভোকাবুলারি", icon: Brain },
   { href: "/leaderboard", label: "লিডারবোর্ড", icon: Trophy },
   { href: "/study-plan", label: "স্টাডি প্ল্যান", icon: CalendarRange },
-  { href: "/feed", label: "ফিড", icon: Newspaper },
-  { href: "/shop", label: "শপ", icon: ShoppingBag },
 ]
 
 export const practiceMoreNav: NavItem[] = [

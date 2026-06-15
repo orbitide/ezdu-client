@@ -11,6 +11,8 @@ export interface PremiumPlan {
   title: string
   price: number
   period: string
+  months: number
   features: string[]
   highlighted?: boolean
+  badge?: string
 }
