@@ -15,7 +15,7 @@ export default function WelcomePage() {
       </div>
       <div className="flex w-full max-w-xs flex-col gap-3">
         <Button asChild size="lg">
-          <Link href="/register">শুরু করো</Link>
+          <Link href="/onboarding">শুরু করো</Link>
         </Button>
         <Button asChild size="lg" variant="outline">
           <Link href="/login">আমার অ্যাকাউন্ট আছে</Link>

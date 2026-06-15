@@ -2,7 +2,7 @@ import { OnboardingFlow } from "./onboarding-flow"
 
 export default function OnboardingPage() {
   return (
-    <div className="flex flex-1 items-center justify-center px-4 py-12">
+    <div className="flex flex-1 flex-col px-4 pt-ez-below-nav">
       <OnboardingFlow />
     </div>
   )
