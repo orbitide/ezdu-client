@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo } from "react"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import { Coins, Sparkles } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { QuestionCounter } from "@/components/quiz/question-counter"
 import { QuizTimer } from "@/components/quiz/quiz-timer"
@@ -46,6 +48,21 @@ export function QuizEngine({ config }: QuizEngineProps) {
 
     addXp(result.xpEarned)
     addCoins(result.coinsEarned)
+
+    toast.success("কুইজ সম্পন্ন হয়েছে!", {
+      description: (
+        <span className="flex items-center gap-3">
+          <span className="flex items-center gap-1 text-xp">
+            <Sparkles className="size-3.5" />
+            +{result.xpEarned} XP
+          </span>
+          <span className="flex items-center gap-1 text-coin">
+            <Coins className="size-3.5" />
+            +{result.coinsEarned}
+          </span>
+        </span>
+      ),
+    })
 
     sessionStorage.setItem(`quiz-result-${config.id}`, JSON.stringify(result))
     router.push(`/quiz/${config.id}/results`)

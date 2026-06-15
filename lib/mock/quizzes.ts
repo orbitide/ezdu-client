@@ -74,6 +74,42 @@ export const quizzes: QuizConfig[] = [
     xpReward: 150,
     coinReward: 80,
   },
+  {
+    id: "arch-1",
+    type: "archive",
+    title: "এইচএসসি পরীক্ষা ২০২৪",
+    questionIds: ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10"],
+    durationSeconds: 30 * 60,
+    xpReward: 180,
+    coinReward: 90,
+  },
+  {
+    id: "arch-2",
+    type: "archive",
+    title: "এইচএসসি পরীক্ষা ২০২৩",
+    questionIds: ["q2", "q4", "q6", "q8", "q10", "q1", "q3", "q5", "q7", "q9"],
+    durationSeconds: 30 * 60,
+    xpReward: 180,
+    coinReward: 90,
+  },
+  {
+    id: "arch-3",
+    type: "archive",
+    title: "এইচএসসি পরীক্ষা ২০২২",
+    questionIds: ["q3", "q5", "q7", "q9", "q1", "q2", "q4", "q6", "q8", "q10"],
+    durationSeconds: 30 * 60,
+    xpReward: 180,
+    coinReward: 90,
+  },
+  {
+    id: "arch-4",
+    type: "archive",
+    title: "এসএসসি পরীক্ষা ২০২৪",
+    questionIds: ["q1", "q3", "q5", "q7", "q9", "q11", "q13", "q2", "q4", "q6"],
+    durationSeconds: 25 * 60,
+    xpReward: 150,
+    coinReward: 75,
+  },
 ]
 
 export function getQuizById(id: string): QuizConfig | undefined {

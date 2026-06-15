@@ -11,13 +11,11 @@ import { useProgressStore } from "@/lib/store/progress-store"
 
 export function ProfileSummaryCard() {
   const user = useAuthStore((s) => s.user)
-  const progress = useProgressStore((s) => ({
-    coins: s.coins,
-    xp: s.xp,
-    level: s.level,
-    streakDays: s.streakDays,
-    rankTier: s.rankTier,
-  }))
+  const coins = useProgressStore((s) => s.coins)
+  const xp = useProgressStore((s) => s.xp)
+  const level = useProgressStore((s) => s.level)
+  const streakDays = useProgressStore((s) => s.streakDays)
+  const rankTier = useProgressStore((s) => s.rankTier)
 
   return (
     <Card>
@@ -32,10 +30,10 @@ export function ProfileSummaryCard() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <CoinBalance amount={progress.coins} />
-          <XpBadge xp={progress.xp} level={progress.level} />
-          <StreakBadge days={progress.streakDays} />
-          <RankBadge tier={progress.rankTier} />
+          <CoinBalance amount={coins} />
+          <XpBadge xp={xp} level={level} />
+          <StreakBadge days={streakDays} />
+          <RankBadge tier={rankTier} />
         </div>
       </CardContent>
     </Card>
