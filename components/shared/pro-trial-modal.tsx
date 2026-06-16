@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Check, X, Unlock, Bell, RefreshCw } from "lucide-react"
+import { Check, Minus, Unlock, Bell, RefreshCw, X } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -28,7 +28,7 @@ const COMPARE_ROWS = [
 
 function CompareCell({ value }: { value: boolean | string }) {
   if (value === true) return <Check className="mx-auto size-5 text-primary" />
-  if (value === false) return <X className="mx-auto size-5 text-muted-foreground/30" />
+  if (value === false) return <Minus className="mx-auto size-5 text-muted-foreground/40" />
   return <span className="text-sm text-muted-foreground">{value}</span>
 }
 

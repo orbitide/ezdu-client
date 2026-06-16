@@ -23,7 +23,7 @@ export interface QuizAttempt {
   id: string
   quizId: string
   title: string
-  type: "model" | "mock" | "quick" | "archive" | "preset"
+  type: "model" | "mock" | "quick" | "archive" | "preset" | "plan"
   date: string
   total: number
   correct: number
@@ -32,6 +32,9 @@ export interface QuizAttempt {
   xpEarned: number
   coinsEarned: number
   timeTakenSeconds: number
+  subjectName?: string
+  scorePercentage?: number
+  accuracy?: number
 }
 
 export interface MistakeQuestion {

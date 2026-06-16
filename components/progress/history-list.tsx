@@ -10,6 +10,7 @@ const TYPE_LABELS: Record<string, string> = {
   quick: "কুইক চ্যালেঞ্জ",
   archive: "আর্কাইভ",
   preset: "প্রিসেট সেট",
+  plan: "স্টাডি প্ল্যান",
 }
 
 export function HistoryList() {

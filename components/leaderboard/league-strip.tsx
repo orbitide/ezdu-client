@@ -10,7 +10,7 @@ import type { RankTier } from "@/lib/types/user"
 export function LeagueStrip({ currentTier }: { currentTier: RankTier }) {
   const currentOrder = RANK_LEAGUE_ORDER[currentTier]
   const [selectedOrder, setSelectedOrder] = useState(currentOrder)
-  const selectedRef = useRef<HTMLDivElement>(null)
+  const selectedRef = useRef<HTMLButtonElement>(null)
   const didInitialScroll = useRef(false)
 
   useEffect(() => {

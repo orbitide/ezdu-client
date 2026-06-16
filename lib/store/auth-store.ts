@@ -8,6 +8,7 @@ interface AuthState {
   _hasHydrated: boolean
   login: (user: User) => void
   logout: () => void
+  updateAvatar: (avatar: User["avatar"]) => void
   setHasHydrated: (value: boolean) => void
 }
 
@@ -19,6 +20,8 @@ export const useAuthStore = create<AuthState>()(
       _hasHydrated: false,
       login: (user) => set({ user, isAuthenticated: true }),
       logout: () => set({ user: null, isAuthenticated: false }),
+      updateAvatar: (avatar) =>
+        set((state) => ({ user: state.user ? { ...state.user, avatar } : null })),
       setHasHydrated: (value) => set({ _hasHydrated: value }),
     }),
     {

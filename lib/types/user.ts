@@ -28,6 +28,11 @@ export interface AvatarConfig {
   backgroundColor: string
 }
 
+export interface SocialCounts {
+  following: number
+  followers: number
+}
+
 export interface User {
   id: string
   name: string
@@ -36,6 +41,10 @@ export interface User {
   examGroup: string
   className: string
   avatar: AvatarConfig
+  isPremium?: boolean
+  streakFreezeCount?: number
+  leagueName?: string
+  socialCounts?: SocialCounts
 }
 
 export interface ProgressSummary {

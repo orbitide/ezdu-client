@@ -61,7 +61,7 @@ export function MiniLeaderboardCard() {
               </p>
             </div>
 
-            <span className="text-sm font-semibold text-xp shrink-0">
+            <span className="text-sm font-semibold shrink-0">
               {formatCompactNumber(entry.xp)} XP
             </span>
           </div>

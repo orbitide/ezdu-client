@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { User, Lock, SlidersHorizontal, Bell } from "lucide-react"
+import { User, Lock, SlidersHorizontal, Bell, Heart } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const links = [
@@ -10,6 +10,7 @@ const links = [
   { href: "/settings/password", label: "পাসওয়ার্ড", icon: Lock },
   { href: "/settings/preferences", label: "পছন্দসমূহ", icon: SlidersHorizontal },
   { href: "/settings/notifications", label: "নোটিফিকেশন", icon: Bell },
+  { href: "/settings/follow-us", label: "আমাদের অনুসরণ করো", icon: Heart },
 ]
 
 export function SettingsNav() {

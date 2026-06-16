@@ -1,7 +1,7 @@
-import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { ProTrialModal } from "@/components/shared/pro-trial-modal"
 
 interface GoProCardProps {
   title?: string
@@ -18,9 +18,9 @@ export function GoProCard({
         <Image src="/icons/pro_badge.svg" alt="" width={64} height={64} className="mx-auto size-16" />
         <p className="text-base font-semibold">{title}</p>
         <p className="text-sm text-muted-foreground">{description}</p>
-        <Button asChild variant="pro" className="w-full">
-          <Link href="/shop/premium">প্রো নাও</Link>
-        </Button>
+        <ProTrialModal>
+          <Button variant="pro" className="w-full">প্রো নাও</Button>
+        </ProTrialModal>
       </CardContent>
     </Card>
   )
