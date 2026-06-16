@@ -18,7 +18,7 @@ export function MobileNav() {
       >
         <Menu className="h-5 w-5" />
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 w-64">
+      <SheetContent side="left" className="p-0 w-56">
         <AppSidebar expanded />
       </SheetContent>
     </Sheet>

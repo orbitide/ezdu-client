@@ -96,7 +96,7 @@ async function assembleAvatar(cfg: AvatarConfig): Promise<string> {
   const bgHex = canvasBackgroundHex[cfg.backgroundColor] ?? "#F8FAFC"
 
   return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 264 280" version="1.1">
-<rect width="264" height="280" rx="140" fill="${bgHex}"/>
+<rect width="264" height="280" fill="none"/>
 <g id="Avataaar-root" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 <g id="Mask"/>
 <g id="Avataaar-inner" stroke-width="1" fill-rule="evenodd">
@@ -145,7 +145,7 @@ export function AvatarSvg({ config, size = 120, className }: AvatarSvgProps) {
     return (
       <div
         style={{ width: size, height: size }}
-        className={`rounded-full bg-muted animate-pulse ${className ?? ""}`}
+        className={`bg-muted animate-pulse ${className ?? ""}`}
       />
     )
   }
@@ -153,7 +153,7 @@ export function AvatarSvg({ config, size = 120, className }: AvatarSvgProps) {
   return (
     <div
       style={{ width: size, height: size }}
-      className={`overflow-hidden rounded-full ${className ?? ""}`}
+      className={`overflow-hidden ${className ?? ""}`}
       dangerouslySetInnerHTML={{ __html: svgContent }}
     />
   )

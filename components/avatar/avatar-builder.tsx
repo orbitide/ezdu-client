@@ -32,22 +32,15 @@ export function AvatarBuilder({ onSave, saveLabel = "সংরক্ষণ ক�
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
-      <Card className="lg:order-2">
-        <CardContent className="flex flex-col items-center gap-4">
-          <AvatarSvg config={config} size={200} />
-          <div className="flex w-full gap-2">
-            <Button variant="outline" className="flex-1" onClick={() => reset()}>
-              রিসেট করো
-            </Button>
-            <Button className="flex-1" onClick={handleSave}>
-              {saveLabel}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+    <div className="flex flex-col gap-6">
+      <div className="grid gap-6 md:grid-cols-[1fr_280px]">
+        <Card className="md:order-2">
+          <CardContent className="flex justify-center">
+            <AvatarSvg config={config} size={220} />
+          </CardContent>
+        </Card>
 
-      <Card className="lg:order-1">
+        <Card className="md:order-1">
         <CardContent>
           <Tabs value={activePanel} onValueChange={(v) => setActivePanel(v as string)}>
             <TabsList className="h-auto w-full flex-wrap justify-start">
@@ -76,6 +69,16 @@ export function AvatarBuilder({ onSave, saveLabel = "সংরক্ষণ ক�
           </Tabs>
         </CardContent>
       </Card>
+      </div>
+
+      <div className="flex gap-2">
+        <Button variant="outline" className="flex-1" onClick={() => reset()}>
+          রিসেট করো
+        </Button>
+        <Button className="flex-1" onClick={handleSave}>
+          {saveLabel}
+        </Button>
+      </div>
     </div>
   )
 }
