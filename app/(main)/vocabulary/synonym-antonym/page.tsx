@@ -19,12 +19,12 @@ function buildQuestions(words: VocabularyDto[]): Question[] {
     for (const word of words) {
         if (word.synonyms.length > 0) {
             const correct = word.synonyms[0];
-            const others = words.filter((w) => w.id !== word.id).slice(0, 3).map((w) => w.word);
+            const others = words.filter((w) => w.id !== word.id).sort(() => Math.random() - 0.5).slice(0, 3).map((w) => w.word);
             qs.push({ word, type: 'synonym', correct, options: [correct, ...others].sort(() => Math.random() - 0.5) });
         }
         if (word.antonyms.length > 0) {
             const correct = word.antonyms[0];
-            const others = words.filter((w) => w.id !== word.id).slice(0, 3).map((w) => w.word);
+            const others = words.filter((w) => w.id !== word.id).sort(() => Math.random() - 0.5).slice(0, 3).map((w) => w.word);
             qs.push({ word, type: 'antonym', correct, options: [correct, ...others].sort(() => Math.random() - 0.5) });
         }
     }

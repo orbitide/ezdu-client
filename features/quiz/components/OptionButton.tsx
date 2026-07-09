@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import { MathText } from '@/components/ui/math-text';
 import { CheckCircle2, XCircle } from 'lucide-react';
 
 interface OptionButtonProps {
@@ -37,7 +38,7 @@ export function OptionButton({ id, text, index, selected, isCorrect, revealed, o
             <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-current text-xs font-bold">
                 {LABELS[index]}
             </span>
-            <span className="flex-1 leading-relaxed">{text}</span>
+            <span className="flex-1 leading-relaxed"><MathText text={text} /></span>
             {revealed && isCorrect && <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-emerald-400" />}
             {revealed && selected && !isCorrect && <XCircle size={16} className="mt-0.5 shrink-0 text-red-400" />}
         </button>

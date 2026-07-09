@@ -10,6 +10,7 @@ import type { VocabularyDto } from '@/types/api';
 export default function WordMatchPage() {
     const router = useRouter();
     const [words, setWords] = useState<VocabularyDto[]>([]);
+    const [shuffledDefs, setShuffledDefs] = useState<VocabularyDto[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedWord, setSelectedWord] = useState<string | null>(null);
     const [selectedDef, setSelectedDef] = useState<string | null>(null);
@@ -18,13 +19,17 @@ export default function WordMatchPage() {
 
     useEffect(() => {
         getVocabulary(undefined, 1, 20)
-            .then((w) => setWords(w.sort(() => Math.random() - 0.5).slice(0, 8)))
+            .then((w) => {
+                const picked = w.sort(() => Math.random() - 0.5).slice(0, 8);
+                setWords(picked);
+                setShuffledDefs([...picked].sort(() => Math.random() - 0.5));
+            })
             .catch(() => {})
             .finally(() => setLoading(false));
     }, []);
 
-    const shuffledDefs = [...words].sort(() => Math.random() - 0.5);
     const finished = matched.size === words.length && words.length > 0;
+    const pct = words.length > 0 ? Math.round((matched.size / words.length) * 100) : 0;
 
     const handleWordClick = (id: string) => {
         if (matched.has(id)) return;
@@ -55,7 +60,11 @@ export default function WordMatchPage() {
     };
 
     const restart = () => {
-        setWords((w) => [...w].sort(() => Math.random() - 0.5));
+        setWords((w) => {
+            const reshuffled = [...w].sort(() => Math.random() - 0.5);
+            setShuffledDefs([...reshuffled].sort(() => Math.random() - 0.5));
+            return reshuffled;
+        });
         setSelectedWord(null);
         setSelectedDef(null);
         setMatched(new Set());
@@ -78,6 +87,11 @@ export default function WordMatchPage() {
                     <RotateCcw size={14} />
                     রিসেট
                 </button>
+            </div>
+
+            {/* Progress bar */}
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-800">
+                <div className="h-full rounded-full bg-indigo-500 transition-all" style={{ width: `${pct}%` }} />
             </div>
 
             {finished ? (

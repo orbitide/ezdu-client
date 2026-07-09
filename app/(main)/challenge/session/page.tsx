@@ -7,6 +7,7 @@ import { Flame, ArrowLeft, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useChallengeStore } from '@/features/challenge/challenge.store';
 import { OptionButton } from '@/features/quiz/components/OptionButton';
+import { MathText } from '@/components/ui/math-text';
 
 const CELEBRATION: Record<number, { emoji: string; title: string; sub: string }> = {
     3:  { emoji: '🔥', title: 'স্ট্রিক ৩!',  sub: 'চমৎকার! চালিয়ে যাও' },
@@ -101,8 +102,13 @@ export default function ChallengeSessionPage() {
                     {question.topic && (
                         <p className="mb-2 text-xs text-zinc-500">{question.topic}</p>
                     )}
+                    {question.passage && (
+                        <div className="mb-2 rounded-lg border border-zinc-800 bg-zinc-900/50 p-3 text-sm leading-relaxed text-zinc-300">
+                            <MathText text={question.passage} block />
+                        </div>
+                    )}
                     <p className="text-base font-medium leading-relaxed text-zinc-100">
-                        {currentIndex + 1}. {question.text}
+                        {currentIndex + 1}. <MathText text={question.text} />
                     </p>
                 </motion.div>
 
@@ -136,7 +142,7 @@ export default function ChallengeSessionPage() {
                             className="flex gap-2 rounded-xl border border-blue-500/20 bg-blue-500/5 p-4"
                         >
                             <Lightbulb size={16} className="mt-0.5 shrink-0 text-blue-400" />
-                            <p className="text-sm leading-relaxed text-blue-300">{question.explanation}</p>
+                            <p className="text-sm leading-relaxed text-blue-300"><MathText text={question.explanation} /></p>
                         </motion.div>
                     )}
                 </AnimatePresence>

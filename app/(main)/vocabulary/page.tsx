@@ -48,10 +48,42 @@ const LEVELS = [
 ];
 
 const GAMES = [
-    { href: '/vocabulary/flashcards', icon: Layers, label: 'ফ্ল্যাশকার্ড', desc: 'শব্দ মুখস্থ করো' },
-    { href: '/vocabulary/fill-gaps', icon: CopyCheck, label: 'শূন্যস্থান পূরণ', desc: 'বাক্যে শব্দ বসাও' },
-    { href: '/vocabulary/synonym-antonym', icon: Shuffle, label: 'সমার্থক-বিপরীত', desc: 'মিল ও বিপরীত খোঁজো' },
-    { href: '/vocabulary/word-match', icon: Brain, label: 'শব্দ মিলাও', desc: 'অর্থের সাথে মিলাও' },
+    {
+        href: '/vocabulary/flashcards',
+        icon: Layers,
+        label: 'ফ্ল্যাশকার্ড',
+        desc: 'শব্দ মুখস্থ করো',
+        iconBg: 'bg-indigo-500/10',
+        iconCls: 'text-indigo-400',
+        border: 'border-indigo-500/15 hover:border-indigo-500/30',
+    },
+    {
+        href: '/vocabulary/fill-gaps',
+        icon: CopyCheck,
+        label: 'শূন্যস্থান পূরণ',
+        desc: 'বাক্যে শব্দ বসাও',
+        iconBg: 'bg-amber-500/10',
+        iconCls: 'text-amber-400',
+        border: 'border-amber-500/15 hover:border-amber-500/30',
+    },
+    {
+        href: '/vocabulary/synonym-antonym',
+        icon: Shuffle,
+        label: 'সমার্থক-বিপরীত',
+        desc: 'মিল ও বিপরীত খোঁজো',
+        iconBg: 'bg-violet-500/10',
+        iconCls: 'text-violet-400',
+        border: 'border-violet-500/15 hover:border-violet-500/30',
+    },
+    {
+        href: '/vocabulary/word-match',
+        icon: Brain,
+        label: 'শব্দ মিলাও',
+        desc: 'অর্থের সাথে মিলাও',
+        iconBg: 'bg-cyan-500/10',
+        iconCls: 'text-cyan-400',
+        border: 'border-cyan-500/15 hover:border-cyan-500/30',
+    },
 ];
 
 export default function VocabularyPage() {
@@ -100,10 +132,13 @@ export default function VocabularyPage() {
                         <Link
                             key={game.href}
                             href={game.href}
-                            className="flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900 p-4 hover:border-zinc-700 hover:bg-zinc-800 transition-colors"
+                            className={cn(
+                                'flex items-center gap-3 rounded-xl border bg-zinc-900 p-4 transition-colors',
+                                game.border
+                            )}
                         >
-                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-500/10">
-                                <game.icon size={18} className="text-indigo-400" />
+                            <div className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-xl', game.iconBg)}>
+                                <game.icon size={18} className={game.iconCls} />
                             </div>
                             <div className="flex-1">
                                 <p className="text-sm font-medium text-zinc-100">{game.label}</p>

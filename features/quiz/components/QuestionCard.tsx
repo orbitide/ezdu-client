@@ -1,10 +1,13 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import type { Question } from '../types';
 import { OptionButton } from './OptionButton';
-import { ChevronRight, ChevronLeft, Lightbulb } from 'lucide-react';
-import { useState } from 'react';
+import { ReportModal } from './ReportModal';
+import { useBookmarkStore } from '../bookmark.store';
+import { ChevronRight, ChevronLeft, Lightbulb, Bookmark, Flag } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { MathText } from '@/components/ui/math-text';
 
 interface QuestionCardProps {
     question: Question;
@@ -32,6 +35,16 @@ export function QuestionCard({
     examMode = false,
 }: QuestionCardProps) {
     const [revealed, setRevealed] = useState(false);
+    const [reportOpen, setReportOpen] = useState(false);
+
+    const bookmarked = useBookmarkStore((s) => s.bookmarkedIds.includes(question.id));
+    const toggleBm = useBookmarkStore((s) => s.toggle);
+    const loadBookmarks = useBookmarkStore((s) => s.loadBookmarks);
+
+    useEffect(() => {
+        loadBookmarks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleOption = (optionId: string) => {
         if (revealed) return;
@@ -49,23 +62,55 @@ export function QuestionCard({
         <div className="flex flex-col gap-5 px-4 py-6 max-w-2xl mx-auto w-full">
             {/* Question */}
             <div>
-                <div className="mb-1 flex items-center gap-2">
-                    {question.difficulty && (
-                        <span className={cn(
-                            'rounded-full px-2 py-0.5 text-[10px] font-semibold',
-                            question.difficulty === 'easy' ? 'bg-emerald-500/10 text-emerald-400' :
-                            question.difficulty === 'medium' ? 'bg-yellow-500/10 text-yellow-400' :
-                            'bg-rose-500/10 text-rose-400'
-                        )}>
-                            {question.difficulty === 'easy' ? 'সহজ' : question.difficulty === 'medium' ? 'মধ্যম' : 'কঠিন'}
-                        </span>
-                    )}
-                    {question.topic && (
-                        <span className="text-xs text-zinc-500">{question.topic}</span>
-                    )}
+                <div className="mb-1 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                        {question.difficulty && (
+                            <span className={cn(
+                                'shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold',
+                                question.difficulty === 'easy' ? 'bg-emerald-500/10 text-emerald-400' :
+                                question.difficulty === 'medium' ? 'bg-yellow-500/10 text-yellow-400' :
+                                'bg-rose-500/10 text-rose-400'
+                            )}>
+                                {question.difficulty === 'easy' ? 'সহজ' : question.difficulty === 'medium' ? 'মধ্যম' : 'কঠিন'}
+                            </span>
+                        )}
+                        {question.topic && (
+                            <span className="truncate text-xs text-zinc-500">{question.topic}</span>
+                        )}
+                    </div>
+
+                    {/* Bookmark & Flag */}
+                    <div className="flex shrink-0 items-center gap-0.5">
+                        <button
+                            onClick={() => toggleBm(question.id)}
+                            className={cn(
+                                'rounded-lg p-1.5 transition-colors',
+                                bookmarked
+                                    ? 'text-amber-400 hover:text-amber-300'
+                                    : 'text-zinc-500 hover:text-zinc-300'
+                            )}
+                            title={bookmarked ? 'বুকমার্ক সরাও' : 'বুকমার্ক করো'}
+                        >
+                            <Bookmark size={15} fill={bookmarked ? 'currentColor' : 'none'} />
+                        </button>
+                        <button
+                            onClick={() => setReportOpen(true)}
+                            className="rounded-lg p-1.5 text-zinc-500 transition-colors hover:text-zinc-300"
+                            title="রিপোর্ট করো"
+                        >
+                            <Flag size={15} />
+                        </button>
+                    </div>
                 </div>
+
+                {question.passage && (
+                    <div className="mb-2 rounded-lg border border-zinc-800 bg-zinc-900/50 p-3 text-sm leading-relaxed text-zinc-300">
+                        <MathText text={question.passage} block />
+                    </div>
+                )}
+
                 <p className="text-base font-medium leading-relaxed text-zinc-100">
-                    {index}. {question.text}
+                    {index}. <MathText text={question.text} />
                 </p>
             </div>
 
@@ -89,7 +134,7 @@ export function QuestionCard({
             {revealed && question.explanation && (
                 <div className="flex gap-2 rounded-xl border border-blue-500/20 bg-blue-500/5 p-4">
                     <Lightbulb size={16} className="mt-0.5 shrink-0 text-blue-400" />
-                    <p className="text-sm leading-relaxed text-blue-300">{question.explanation}</p>
+                    <p className="text-sm leading-relaxed text-blue-300"><MathText text={question.explanation} /></p>
                 </div>
             )}
 
@@ -120,6 +165,12 @@ export function QuestionCard({
                     <ChevronRight size={16} />
                 </button>
             </div>
+
+            <ReportModal
+                open={reportOpen}
+                onClose={() => setReportOpen(false)}
+                questionId={question.id}
+            />
         </div>
     );
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, Loader2, Search } from 'lucide-react';
+import { ArrowLeft, Loader2, Search, ChevronUp, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getVocabulary, type VocabDifficulty } from '@/lib/api/vocabulary';
 import type { VocabularyDto } from '@/types/api';
@@ -73,7 +73,9 @@ export default function VocabularyLevelPage() {
                                     <p className="font-semibold text-zinc-100">{word.word}</p>
                                     <p className="text-sm text-zinc-400 line-clamp-1">{word.definition}</p>
                                 </div>
-                                <span className="text-xs text-zinc-600">{expanded === word.id ? '▲' : '▼'}</span>
+                                {expanded === word.id
+                                    ? <ChevronUp size={16} className="text-zinc-600 shrink-0" />
+                                    : <ChevronDown size={16} className="text-zinc-600 shrink-0" />}
                             </button>
                             {expanded === word.id && (
                                 <div className="border-t border-zinc-800 p-4 space-y-3">

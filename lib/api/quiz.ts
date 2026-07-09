@@ -62,14 +62,14 @@ export async function saveQuizResult(dto: SaveUserQuizDto): Promise<{ id: string
 export async function submitUserQuiz(dto: UserQuizSubmissionDto): Promise<UserQuizResultDto> {
     const res = await apiClient.post('/userquiz/save', {
         quizType: dto.quizType,
-        quizId: Number(dto.quizId),
-        subjectId: Number(dto.subjectId),
+        quizId: dto.quizId,
+        subjectId: dto.subjectId,
         durationSeconds: dto.durationSeconds,
         submissions: dto.submissions.map((s) => ({
-            qId: Number(s.qId),
-            opId: Number(s.opId),
+            qId: s.qId,
+            opId: s.opId,
         })),
-        lessonId: dto.lessonId ? Number(dto.lessonId) : 0,
+        lessonId: dto.lessonId ?? '',
     });
     return res.data?.data ?? res.data;
 }
@@ -90,8 +90,18 @@ export async function getMyQuizHistory(page = 1, pageSize = 20): Promise<PagedLi
 }
 
 export async function getQuestionsByLesson(lessonId: string): Promise<QuizDetailsDto> {
-    const res = await apiClient.post('/questions/by-lesson-id', { lessonId });
-    return res.data;
+    // Backend binds `[FromBody] Guid lessonId` — send the raw string as a JSON body,
+    // not an object. Axios won't auto-serialize a bare primitive, so set the header.
+    const res = await apiClient.post('/questions/by-lesson-id', JSON.stringify(lessonId), {
+        headers: { 'Content-Type': 'application/json' },
+    });
+    const raw = res.data?.data ?? res.data;
+    const items = raw?.questions ?? raw?.items ?? (Array.isArray(raw) ? raw : []);
+    return {
+        id: 'challenge',
+        title: 'চ্যালেঞ্জ',
+        questions: Array.isArray(items) ? items.map(normalizeQuestion) : [],
+    };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -113,7 +123,7 @@ function normalizeQuestion(q: any) {
 }
 
 export async function getQuestionCountByTopicIds(topicIds: string[]): Promise<number> {
-    const res = await apiClient.post('/questions/count-by-topic-ids', topicIds.map(Number));
+    const res = await apiClient.post('/questions/count-by-topic-ids', topicIds);
     const raw = res.data?.data ?? res.data;
     return raw?.count ?? raw ?? 0;
 }
@@ -121,7 +131,7 @@ export async function getQuestionCountByTopicIds(topicIds: string[]): Promise<nu
 export async function getQuestionsByTopicIds(topicIds: string[], limit?: number): Promise<QuizDetailsDto> {
     const res = await apiClient.post(
         '/questions/by-topic-ids',
-        topicIds.map(Number),
+        topicIds,
         { params: limit ? { limit } : undefined },
     );
     const raw = res.data?.data ?? res.data;
@@ -133,22 +143,22 @@ export async function getQuestionsByTopicIds(topicIds: string[], limit?: number)
     };
 }
 
-export async function getPresets(params?: { classId?: number; groupId?: number }): Promise<PresetDto[]> {
+export async function getPresets(params?: { classId?: string; groupId?: string }): Promise<PresetDto[]> {
     const query: Record<string, string> = { pageSize: '50' };
-    if (params?.classId) query.classId = String(params.classId);
-    if (params?.groupId) query.groupId = String(params.groupId);
+    if (params?.classId) query.classId = params.classId;
+    if (params?.groupId) query.groupId = params.groupId;
     const res = await apiClient.get('/presets', { params: query });
     const raw = res.data?.data ?? res.data;
     return raw?.items ?? raw ?? [];
 }
 
-export async function getPresetDetail(presetId: number): Promise<PresetDto> {
+export async function getPresetDetail(presetId: string): Promise<PresetDto> {
     const res = await apiClient.get(`/presets/${presetId}`);
     return res.data?.data ?? res.data;
 }
 
 export async function getQuestionsBySubjectIds(
-    subjectCounts: Array<{ subjectId: number; count: number }>,
+    subjectCounts: Array<{ subjectId: string; count: number }>,
 ): Promise<QuizDetailsDto> {
     const res = await apiClient.post('/questions/by-subject-ids', subjectCounts);
     const raw = res.data?.data ?? res.data;
@@ -158,4 +168,25 @@ export async function getQuestionsBySubjectIds(
         title: 'প্রিসেট কুইজ',
         questions: items.map(normalizeQuestion),
     };
+}
+
+export async function getBookmarkedIds(): Promise<string[]> {
+    const res = await apiClient.get('/questions/bookmarks');
+    const raw = res.data?.data ?? res.data;
+    const ids = Array.isArray(raw) ? raw : (raw?.ids ?? raw?.items ?? []);
+    return ids.map(String);
+}
+
+export async function toggleBookmark(questionId: string): Promise<{ bookmarked: boolean }> {
+    const res = await apiClient.post(`/questions/${questionId}/bookmark`);
+    return res.data?.data ?? res.data ?? { bookmarked: true };
+}
+
+export async function reportQuestion(questionId: string, reason: number, comment?: string): Promise<void> {
+    await apiClient.post('/reports', {
+        type: 'question',
+        entityId: questionId,
+        reason,
+        comment: comment ?? null,
+    });
 }

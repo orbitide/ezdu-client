@@ -51,9 +51,6 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
         label: 'সামাজিক',
         items: [
             { href: '/leaderboard', svgSrc: '/icons/leaderboard.svg', label: 'লিডারবোর্ড' },
-            { href: '/leagues', svgSrc: '/icons/leagues.svg', svgOutline: '/icons/leagues_outline.svg', label: 'লিগ' },
-            { href: '/feed', svgSrc: '/icons/feed.svg', svgOutline: '/icons/feed_outline.svg', label: 'ফিড' },
-            { href: '/friends', svgSrc: '/icons/friends.svg', svgOutline: '/icons/friends_outline.svg', label: 'বন্ধু' },
         ],
     },
     {

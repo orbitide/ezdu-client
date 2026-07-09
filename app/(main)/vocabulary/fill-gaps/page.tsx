@@ -20,8 +20,8 @@ function buildQuestions(words: VocabularyDto[]): Question[] {
         .slice(0, 10)
         .map((word) => {
             const sentence = word.exampleSentence!.replace(new RegExp(word.word, 'gi'), '______');
-            // Pick 3 wrong options from other words
-            const others = words.filter((w) => w.id !== word.id).slice(0, 3).map((w) => w.word);
+            // Pick 3 random wrong options from other words
+            const others = words.filter((w) => w.id !== word.id).sort(() => Math.random() - 0.5).slice(0, 3).map((w) => w.word);
             const options = [word.word, ...others].sort(() => Math.random() - 0.5);
             return { word, sentence, blank: word.word, options };
         });

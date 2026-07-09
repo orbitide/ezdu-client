@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ShoppingBag, Coins, Zap, Loader2, CheckCircle2, ChevronRight } from 'lucide-react';
+import { ShoppingBag, Loader2, CheckCircle2, ChevronRight, Smartphone } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -88,6 +88,37 @@ export default function ShopPage() {
                             <p className="text-xs font-bold text-amber-400">{item.coins}</p>
                         </div>
                     ))}
+                </div>
+            </div>
+
+            {/* Mobile app download banner */}
+            <div className="rounded-xl border border-violet-500/30 bg-gradient-to-br from-violet-500/10 to-indigo-500/10 p-4">
+                <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-500/15">
+                        <Smartphone size={20} className="text-violet-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-zinc-100">মোবাইল অ্যাপে আরও বেশি কয়েন পাও!</p>
+                        <p className="text-xs text-zinc-400 mt-0.5">অ্যাপে প্র্যাকটিস করো, এক্সট্রা বোনাস কয়েন জিতো — যেকোনো সময়, যেকোনো জায়গায়।</p>
+                        <div className="flex flex-wrap gap-2 mt-3">
+                            <a
+                                href="https://play.google.com/store/apps/details?id=net.ezdu.app"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 rounded-lg bg-violet-600 hover:bg-violet-500 transition-colors px-3 py-1.5 text-xs font-semibold text-white"
+                            >
+                                ▶ Google Play
+                            </a>
+                            <a
+                                href="https://apps.apple.com/app/ezdu/id6740085500"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-700 hover:bg-zinc-600 transition-colors px-3 py-1.5 text-xs font-semibold text-zinc-100"
+                            >
+                                  App Store
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 

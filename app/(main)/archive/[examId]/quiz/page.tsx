@@ -17,6 +17,7 @@ function toQuizQuestion(q: ArchiveExamDto['questions'][number]): Question {
     return {
         id: String(q.id),
         text: q.name,
+        passage: q.passage,
         options: (q.options ?? []).map((o) => ({
             id: String(o.id),
             text: o.name,

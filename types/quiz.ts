@@ -9,6 +9,7 @@ export interface Option {
 export interface Question {
     id: string;
     text: string;
+    passage?: string;
     options: Option[];
     explanation?: string;
     subjectId?: string;

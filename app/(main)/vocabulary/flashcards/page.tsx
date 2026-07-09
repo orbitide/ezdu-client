@@ -67,30 +67,45 @@ export default function FlashcardsPage() {
             </div>
 
             {/* Card */}
-            <button
+            <div
+                style={{ perspective: '1200px' }}
+                className="w-full cursor-pointer"
                 onClick={() => setFlipped((f) => !f)}
-                className={cn(
-                    'relative w-full min-h-[220px] rounded-2xl border-2 p-6 transition-all duration-300 cursor-pointer text-left',
-                    done.has(word.id)
-                        ? 'border-emerald-500/40 bg-emerald-500/5'
-                        : 'border-zinc-700 bg-zinc-900 hover:border-zinc-600'
-                )}
             >
-                <div className={cn('transition-all duration-300', flipped ? 'opacity-0 scale-95' : 'opacity-100 scale-100')}>
-                    <p className="text-xs font-medium text-zinc-500 mb-4 uppercase tracking-wider">
-                        {flipped ? 'অর্থ' : 'শব্দ'} — ট্যাপ করো
-                    </p>
-                    {!flipped && (
-                        <>
-                            <p className="text-3xl font-bold text-zinc-100 mb-2">{word.word}</p>
-                            {word.exampleSentence && (
-                                <p className="text-sm text-zinc-500 italic">{word.exampleSentence}</p>
-                            )}
-                        </>
-                    )}
-                </div>
-                {flipped && (
-                    <div className="absolute inset-6">
+                <div
+                    style={{
+                        transformStyle: 'preserve-3d',
+                        transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                        transition: 'transform 0.45s ease',
+                    }}
+                    className="relative w-full h-56"
+                >
+                    {/* Front face — word */}
+                    <div
+                        style={{ backfaceVisibility: 'hidden' }}
+                        className={cn(
+                            'absolute inset-0 rounded-2xl border-2 p-6 flex flex-col',
+                            done.has(word.id)
+                                ? 'border-emerald-500/40 bg-emerald-500/5'
+                                : 'border-zinc-700 bg-zinc-900'
+                        )}
+                    >
+                        <p className="text-xs font-medium text-zinc-500 mb-4 uppercase tracking-wider">শব্দ — ট্যাপ করো</p>
+                        <p className="text-3xl font-bold text-zinc-100 mb-2">{word.word}</p>
+                        {word.exampleSentence && (
+                            <p className="text-sm text-zinc-500 italic">{word.exampleSentence}</p>
+                        )}
+                    </div>
+                    {/* Back face — definition */}
+                    <div
+                        style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                        className={cn(
+                            'absolute inset-0 rounded-2xl border-2 p-6 flex flex-col',
+                            done.has(word.id)
+                                ? 'border-emerald-500/40 bg-emerald-500/5'
+                                : 'border-indigo-500/50 bg-zinc-900'
+                        )}
+                    >
                         <p className="text-xs font-medium text-zinc-500 mb-4 uppercase tracking-wider">অর্থ</p>
                         <p className="text-xl font-semibold text-zinc-100 mb-2">{word.definition}</p>
                         {word.banglaDefinition && (
@@ -104,8 +119,8 @@ export default function FlashcardsPage() {
                             </div>
                         )}
                     </div>
-                )}
-            </button>
+                </div>
+            </div>
 
             {/* Navigation */}
             <div className="flex items-center gap-3">

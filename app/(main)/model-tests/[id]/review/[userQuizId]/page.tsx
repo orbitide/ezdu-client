@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Loader2, AlertCircle, ArrowLeft, CheckCircle2, XCircle, MinusCircle, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { MathText } from '@/components/ui/math-text';
 import { getQuizReview } from '@/lib/api/quiz';
 import type { UserQuizReviewDto, ReviewQuestionDto } from '@/types/api';
 
@@ -115,7 +116,7 @@ function QuestionReviewCard({
                 <StatusIcon size={18} className={cn('shrink-0 mt-0.5', statusColor)} />
                 <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium text-zinc-500 mb-1">প্রশ্ন {index}</p>
-                    <p className="text-sm text-zinc-100 line-clamp-2">{question.text}</p>
+                    <p className="text-sm text-zinc-100 line-clamp-2"><MathText text={question.text} /></p>
                 </div>
                 <span className={cn('text-xs font-medium shrink-0', statusColor)}>
                     {isExpanded ? '▲' : '▼'}
@@ -144,7 +145,7 @@ function QuestionReviewCard({
                                     <span className="shrink-0 font-semibold">
                                         {isCorrect ? '✓' : isSelected ? '✗' : '○'}
                                     </span>
-                                    {opt.text}
+                                    <MathText text={opt.text} />
                                 </div>
                             );
                         })}
@@ -154,7 +155,7 @@ function QuestionReviewCard({
                     {question.explanation && (
                         <div className="flex gap-2 rounded-lg bg-zinc-800/50 p-3">
                             <BookOpen size={14} className="text-blue-400 shrink-0 mt-0.5" />
-                            <p className="text-xs text-zinc-400 leading-relaxed">{question.explanation}</p>
+                            <p className="text-xs text-zinc-400 leading-relaxed"><MathText text={question.explanation} /></p>
                         </div>
                     )}
                 </div>
