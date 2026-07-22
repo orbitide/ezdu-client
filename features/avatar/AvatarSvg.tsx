@@ -143,7 +143,7 @@ export function AvatarSvg({ config, size = 120, className }: AvatarSvgProps) {
         return (
             <div
                 style={{ width: size, height: size }}
-                className={`rounded-full bg-zinc-800 animate-pulse ${className ?? ''}`}
+                className={`rounded-full bg-muted animate-pulse ${className ?? ''}`}
             />
         );
     }

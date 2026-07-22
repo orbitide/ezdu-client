@@ -20,10 +20,17 @@ export interface LoginDto {
     password: string;
 }
 
+/** Mirrors mobile's `RegisterProfileRequestModel` — sent as `config`. */
+export interface RegisterConfigDto {
+    classId: string;
+    groupId?: string;
+}
+
 export interface RegisterDto {
     name: string;
     email: string;
     password: string;
+    config?: RegisterConfigDto;
 }
 
 export interface GoogleLoginDto {
@@ -106,9 +113,15 @@ export interface UserStatsDto {
 export interface SubjectMasteryDto {
     subjectId: string;
     subjectName: string;
-    masteryPercent: number;
-    totalLessons: number;
-    masteredLessons: number;
+    iconUrl?: string;
+    masteredCount: number;
+    totalQuestions: number;
+}
+
+export function subjectMasteryPercent(item: SubjectMasteryDto): number {
+    return item.totalQuestions > 0
+        ? Math.round((item.masteredCount / item.totalQuestions) * 100)
+        : 0;
 }
 
 export interface UpdateUserDto {

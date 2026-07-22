@@ -21,26 +21,26 @@ export function QuizHeader({ current, total, subject, elapsed, onExit, countdown
     const isLowTime = countdown && timeRemaining <= 300;
 
     return (
-        <div className="sticky top-0 z-10 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur-sm">
+        <div className="sticky top-0 z-10 border-b border-border bg-background/95 backdrop-blur-sm">
             <div className="flex items-center justify-between px-4 py-3">
-                <button onClick={onExit} className="text-zinc-400 hover:text-zinc-100">
+                <button onClick={onExit} className="text-muted-foreground hover:text-foreground">
                     <X size={20} />
                 </button>
                 <div className="text-center">
-                    <p className="text-xs text-zinc-500">{subject}</p>
-                    <p className="text-sm font-semibold text-zinc-100">{current} / {total}</p>
+                    <p className="text-xs text-muted-foreground">{subject}</p>
+                    <p className="text-sm font-semibold text-foreground">{current} / {total}</p>
                 </div>
                 <div className={cn(
                     'flex items-center gap-1.5 text-sm font-medium font-mono',
-                    isLowTime ? 'text-red-400' : elapsed > 1200 && !countdown ? 'text-rose-400' : 'text-zinc-400'
+                    isLowTime ? 'text-red-400' : elapsed > 1200 && !countdown ? 'text-rose-400' : 'text-muted-foreground'
                 )}>
                     <Clock size={14} />
                     <span>{minutes}:{seconds.toString().padStart(2, '0')}</span>
                 </div>
             </div>
-            <div className="h-1 w-full bg-zinc-800">
+            <div className="h-1 w-full bg-muted">
                 <div
-                    className={cn('h-full transition-all duration-300', isLowTime ? 'bg-red-500' : 'bg-emerald-500')}
+                    className={cn('h-full transition-all duration-300', isLowTime ? 'bg-red-500' : 'bg-primary')}
                     style={{ width: `${progress}%` }}
                 />
             </div>

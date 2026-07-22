@@ -20,10 +20,10 @@ export default function BlogPage() {
     return (
         <div className="min-h-screen surface-page px-4 pb-20 pt-ez-below-nav-lg">
             <div className="max-w-3xl mx-auto">
-                <h1 className="text-4xl font-bold text-white tracking-tight mb-3">
-                    EzDu <span className="text-emerald-400">blog</span>
+                <h1 className="text-4xl font-bold text-foreground tracking-tight mb-3">
+                    EzDu <span className="text-primary">blog</span>
                 </h1>
-                <p className="text-lg text-zinc-400 mb-12 max-w-2xl">
+                <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
                     SSC, HSC, BCS ও IELTS প্রস্তুতির ব্যবহারিক টিপস, পরীক্ষার কৌশল এবং পণ্য আপডেট।
                 </p>
 
@@ -31,21 +31,21 @@ export default function BlogPage() {
                     {blogPosts.map((post) => (
                         <li key={post.slug}>
                             <article className="scroll-mt-ez-nav rounded-xl surface-raised surface-raised-hover p-6 md:p-8">
-                                <div className="flex flex-wrap items-center gap-2 text-sm text-zinc-500 mb-3">
-                                    <span className="rounded-full border border-zinc-700 bg-zinc-800/80 px-2.5 py-0.5 text-emerald-400">
+                                <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground mb-3">
+                                    <span className="rounded-full border border-border bg-muted/80 px-2.5 py-0.5 text-primary">
                                         {post.category}
                                     </span>
                                     <span>{post.date}</span>
-                                    <span className="text-zinc-600">·</span>
+                                    <span className="text-muted-foreground">·</span>
                                     <span>{post.readTime}</span>
                                 </div>
-                                <h2 className="text-xl md:text-2xl font-semibold text-white mb-3">
+                                <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-3">
                                     {post.title}
                                 </h2>
-                                <p className="text-zinc-400 leading-relaxed mb-5">{post.excerpt}</p>
+                                <p className="text-muted-foreground leading-relaxed mb-5">{post.excerpt}</p>
                                 <Link
                                     href={`/blog/${post.slug}`}
-                                    className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
+                                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary transition-colors"
                                 >
                                     পড়ো
                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>

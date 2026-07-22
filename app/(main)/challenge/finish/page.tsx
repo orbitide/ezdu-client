@@ -77,7 +77,7 @@ export default function ChallengeFinishPage() {
     };
 
     return (
-        <div className="flex min-h-dvh flex-col items-center justify-center px-4 py-12 bg-zinc-950">
+        <div className="flex min-h-dvh flex-col items-center justify-center px-4 py-12 bg-background">
             <div className="w-full max-w-sm space-y-8">
 
                 {/* Trophy — amber warning color matching mobile */}
@@ -94,10 +94,10 @@ export default function ChallengeFinishPage() {
 
                 {/* Title */}
                 <motion.div {...fadeUp(0.2)} className="text-center">
-                    <h1 className="text-2xl font-extrabold text-zinc-100">{title}</h1>
-                    <p className="mt-1 text-sm text-zinc-400">{sub}</p>
+                    <h1 className="text-2xl font-extrabold text-foreground">{title}</h1>
+                    <p className="mt-1 text-sm text-muted-foreground">{sub}</p>
                     {(subjectName || lessonName) && (
-                        <p className="mt-1.5 text-xs text-zinc-600 truncate">
+                        <p className="mt-1.5 text-xs text-muted-foreground truncate">
                             {subjectName}{lessonName ? ` · ${lessonName}` : ''}
                         </p>
                     )}
@@ -109,18 +109,18 @@ export default function ChallengeFinishPage() {
                     <div className="flex flex-col items-center gap-2 rounded-2xl border border-amber-500/25 bg-amber-500/8 p-5">
                         <Flame size={22} className="text-amber-400" />
                         <p className="text-3xl font-extrabold text-amber-400">{maxStreak}</p>
-                        <p className="text-xs text-zinc-500">সর্বোচ্চ স্ট্রিক</p>
+                        <p className="text-xs text-muted-foreground">সর্বোচ্চ স্ট্রিক</p>
                     </div>
                     {/* Total Time — emerald (mobile success #4CAF50) */}
-                    <div className="flex flex-col items-center gap-2 rounded-2xl border border-emerald-500/25 bg-emerald-500/8 p-5">
-                        <Clock size={22} className="text-emerald-400" />
-                        <p className="text-2xl font-extrabold text-emerald-400">{formatTime(time)}</p>
-                        <p className="text-xs text-zinc-500">মোট সময়</p>
+                    <div className="flex flex-col items-center gap-2 rounded-2xl border border-primary/25 bg-primary/8 p-5">
+                        <Clock size={22} className="text-primary" />
+                        <p className="text-2xl font-extrabold text-primary">{formatTime(time)}</p>
+                        <p className="text-xs text-muted-foreground">মোট সময়</p>
                     </div>
                 </motion.div>
 
                 {/* Accuracy */}
-                <motion.p {...fadeUp(0.42)} className="text-center text-sm text-zinc-500">
+                <motion.p {...fadeUp(0.42)} className="text-center text-sm text-muted-foreground">
                     {total}টি প্রশ্নে {correct}টি সঠিক &nbsp;·&nbsp; {accuracy}% নির্ভুলতা
                 </motion.p>
 
@@ -147,7 +147,7 @@ export default function ChallengeFinishPage() {
                     )}
                     <button
                         onClick={() => router.push('/dashboard')}
-                        className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900 py-3.5 text-sm font-medium text-zinc-300 hover:bg-zinc-800 transition-colors"
+                        className="flex items-center justify-center gap-2 rounded-xl border border-border bg-card py-3.5 text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
                     >
                         <Home size={16} />
                         হোমে ফিরে যাও

@@ -6,7 +6,7 @@ Web client + marketing site for **Ezdu — Pocket Learning Companion** (https://
 
 - **Next.js 16** App Router, **React 19**, **TypeScript** strict, target ES2017, `moduleResolution: bundler`
 - **Tailwind CSS v4** via `@tailwindcss/postcss` — there is **no `tailwind.config.{js,ts}`**. Tokens, custom variants, keyframes, and utility layers all live in [app/globals.css](app/globals.css) under `@theme inline` / `@layer utilities`. The empty `tailwind.config` field in [components.json](components.json) is intentional.
-- **shadcn/ui** (new-york style, neutral base, `lucide-react` icons)
+- **shadcn/ui** on **`@base-ui/react`** (`lucide-react` icons), plus `sonner` for toasts and `cmdk` for the command palette. Also imports `shadcn/tailwind.css` for the custom variants (`data-open`, `data-closed`, …) the primitives rely on.
 - **framer-motion** for animations; **@vercel/analytics** mounted in [components/marketing-shell.tsx](components/marketing-shell.tsx)
 - **Zustand** for client state (auth store, quiz store, UI store)
 - **Axios** for API calls — configured in [lib/api-client.ts](lib/api-client.ts) with `withCredentials: true`
@@ -31,9 +31,46 @@ There is **no test setup**. Don't claim a feature works on the basis of "tests p
 - Auth: JWT + httpOnly cookies (`withCredentials: true` handles this automatically)
 - API service modules live in `lib/api/` — one file per domain (auth, users, quiz, progress, etc.)
 
-## Dark-only theme — important
+## Design system — token-driven, dark-only
 
-The site is **permanently dark**. [app/layout.tsx](app/layout.tsx) hard-sets `<html className="h-full bg-zinc-950">` and the body resolves to `bg-zinc-950 text-zinc-100`. The shadcn light/dark CSS variables exist in [app/globals.css](app/globals.css), but `.dark` is **never toggled** and there is no theme switcher. Don't author light-mode variants, don't read `prefers-color-scheme`, and don't introduce light surfaces — match the existing zinc-900/950 palette.
+The palette was ported from the Orbitide `ezdu-client` reference. Its **dark** token values are promoted directly onto `:root` in [app/globals.css](app/globals.css) — there is **no `.dark` class**, no `next-themes`, and no theme switcher. Don't author light-mode variants, don't read `prefers-color-scheme`, and don't reintroduce a `.dark` block.
+
+**Never hardcode palette colours.** There are zero `zinc-*` and zero `emerald-*` classes in the codebase, and it must stay that way. Always use the semantic tokens:
+
+| Role | Token |
+|---|---|
+| Page background | `bg-background` |
+| Raised surface / cards | `bg-card` |
+| Secondary surface | `bg-muted` |
+| Primary text | `text-foreground` |
+| Secondary text | `text-muted-foreground` |
+| Brand accent (was emerald) | `text-primary` / `bg-primary` / `border-primary` |
+| Text on a solid `bg-primary` | `text-primary-foreground` |
+| Hairlines | `border-border` (already carries alpha — don't add `/50`) |
+
+Domain tokens also exist and should be preferred over raw colours: `coin` (gold), `xp` (blue), `streak` (orange), `pro` (purple), and `rank-{novice…mythic}` for league tiers.
+
+`text-white` is allowed **only** on a solid coloured surface (e.g. a `bg-primary` button or a red badge), where the foreground token would be unreadable. Everywhere else use `text-foreground`.
+
+Typography: **Fredoka** (`--font-sans`), `17px` root font size, and global `h1`–`h4` styles in the `@layer base` block — prefer a bare `<h1>` over restating size classes.
+
+## Page layout — two-column shell
+
+Content routes use the reference's 2/3 + 1/3 layout. The standard shape is:
+
+```tsx
+<PageContainer>
+    <TwoColumnShell right={<DefaultRightRail />}>
+        {/* main content */}
+    </TwoColumnShell>
+</PageContainer>
+```
+
+- **[PageContainer](components/layout/page-container.tsx)** — `max-w-5xl` + padding. The reference puts this in its AppShell, but our immersive routes own their own full-height scroll containers, so pages opt in instead.
+- **[TwoColumnShell](components/layout/two-column-shell.tsx)** — `lg:grid-cols-3` with the main column at `lg:col-span-2`; stacks on mobile.
+- **[DefaultRightRail](components/layout/default-right-rail.tsx)** — stats + study plan + upcoming model tests. **Self-contained**: it reads the app-data store itself, so pages don't thread props. Unlike the reference (which renders hardcoded `lib/mock/home.ts`), ours is backed by the live API.
+
+**Immersive routes stay single-column** — a right rail would break them: the quiz engine (`/quiz/session`), challenge and mock-test sessions, archive quiz, the vocabulary game modes, and `/archive/[examId]` (fixed bottom CTA).
 
 ## Routing layout
 
@@ -82,8 +119,8 @@ Every marketing exam page renders [components/ExamPageTemplate.tsx](components/E
 ## Components & styling conventions
 
 - **[components/](components/)** — marketing section components + shared `ExamPageTemplate`
-- **[components/shared/](components/shared/)** — `AppHeader`, `AppSidebar` for authenticated pages
-- **[components/ui/](components/ui/)** — shadcn primitives. Add new shadcn parts via CLI.
+- **[components/shared/](components/shared/)** — `AppHeader` / `AppSidebar` plus token-driven presentational primitives ported from the reference: `CoinBalance`, `XpBadge`, `StreakBadge`, `RankBadge`, `ProgressRing`, `PageHeader`, `EmptyState`, `DifficultyBadge`, `OnlineDot`, `LoadingSkeleton`. Compose these rather than re-inlining badge/stat markup.
+- **[components/ui/](components/ui/)** — shadcn primitives built on **`@base-ui/react`** (not Radix). 34 primitives are available. `form.tsx` was intentionally omitted — it needs `react-hook-form`, which isn't a dependency.
 - **[features/](features/)** — feature-specific components, hooks, and types grouped by domain
 - **`cn()`** lives in [lib/utils.ts](lib/utils.ts) — use it for class-merging
 - **Server Components by default.** Only add `'use client'` for interactivity, framer-motion, or hooks.
@@ -93,7 +130,8 @@ Every marketing exam page renders [components/ExamPageTemplate.tsx](components/E
 [app/globals.css](app/globals.css) defines a small design system on top of Tailwind:
 
 - **Chrome offsets** — `pt-ez-below-nav`, `pt-ez-below-nav-lg`, `scroll-mt-ez-nav`
-- **Surfaces** — `.surface-page`, `.surface-section-muted`, `.surface-raised`, `.surface-raised-hover`, `.surface-chrome`
+- **Surfaces** — `.surface-page`, `.surface-section-muted`, `.surface-raised`, `.surface-raised-hover`, `.surface-chrome` (all token-backed)
 - **Live indicators** — `.live-dot`, `.badge-live`, `.ribbon-live`
+- **Bengali numerals** — `toBangla()` plus `bnDin`/`bnGhonta`/`bnMinute`/`bnSecond`/`bnMas` in [lib/utils.ts](lib/utils.ts). User-facing numbers render in Bengali digits, matching the mobile app.
 
 Existing files use **4-space indentation** — match it.

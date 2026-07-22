@@ -10,8 +10,10 @@ import {
 import { cn } from '@/lib/utils';
 import { getSubjects, getLessonsWithTopics } from '@/lib/api/classes';
 import { getQuestionCountByTopicIds, getQuestionsByTopicIds, getPresets, getPresetDetail, getQuestionsBySubjectIds } from '@/lib/api/quiz';
-import { useQuizStore } from '@/features/quiz/quiz.store';
-import { MockTestSettingsDialog } from '@/features/mock-test/components/MockTestSettingsDialog';
+import { useLaunchStore } from '@/features/quiz/engine/launch.store';
+import { QuizSettingsDialog } from '@/features/quiz/engine/QuizSettingsDialog';
+import type { QuizPlaySettings } from '@/features/quiz/engine/types';
+import { QuizType } from '@/types/api';
 import type { SubjectDto, LessonWithTopicsDto, TopicDto } from '@/types/api';
 import type { PresetDto } from '@/types/api';
 
@@ -23,7 +25,7 @@ function SectionHeader({ title }: { title: string }) {
     return (
         <div className="flex items-center gap-2 mb-3">
             <div className="w-0.5 h-4 rounded-full bg-teal-400 shrink-0" />
-            <h2 className="text-sm font-bold text-zinc-100">{title}</h2>
+            <h2 className="text-sm font-bold text-foreground">{title}</h2>
         </div>
     );
 }
@@ -38,7 +40,7 @@ function PresetDetailSheet({
     onClose: () => void;
 }) {
     const router = useRouter();
-    const { startQuiz } = useQuizStore();
+    const launch = useLaunchStore((s) => s.launch);
     const [loadingDetail, setLoadingDetail] = useState(true);
     const [detail, setDetail] = useState<PresetDto | null>(null);
     const [usePresetTime, setUsePresetTime] = useState(true);
@@ -46,7 +48,7 @@ function PresetDetailSheet({
     const [starting, setStarting] = useState(false);
 
     useEffect(() => {
-        getPresetDetail(preset.id)
+        getPresetDetail(String(preset.id))
             .then(setDetail)
             .catch(() => setDetail(preset))
             .finally(() => setLoadingDetail(false));
@@ -59,23 +61,38 @@ function PresetDetailSheet({
             : Math.max(1, Math.min(180, parseInt(customMinutes) || src.durationInMinutes));
         setStarting(true);
         try {
-            const subjectCounts = src.subjects.map((s) => ({ subjectId: s.id, count: s.marks }));
+            const subjectCounts = src.subjects.map((s) => ({ subjectId: String(s.id), count: s.marks }));
             const quiz = await getQuestionsBySubjectIds(subjectCounts);
             const questions = quiz.questions.map((q) => ({
                 id: q.id,
                 text: q.text,
                 options: q.options.map((o) => ({ id: o.id, text: o.text, isCorrect: o.isCorrect })),
                 explanation: q.explanation,
+                subjectId: q.subjectId,
                 subject: q.subjectName,
                 topic: q.topicName,
                 difficulty: q.difficulty as 'easy' | 'medium' | 'hard' | undefined,
             }));
-            startQuiz('ssc', questions, timeMin, 'editable');
-            router.push('/mock-tests/session');
+            // Matches mobile's preset config in `preset_bottom_sheet.dart`.
+            launch(
+                {
+                    quizType: QuizType.Mock,
+                    quizId: String(src.id),
+                    title: src.name,
+                    timeInMinutes: timeMin,
+                    layout: 'allInList',
+                    answerMode: 'lockOnce',
+                    negativeMarkValue: 0.25,
+                    showInfoBar: true,
+                },
+                questions,
+                '/mock-tests',
+            );
+            router.push('/quiz/session');
         } catch {
             setStarting(false);
         }
-    }, [detail, preset, usePresetTime, customMinutes, startQuiz, router]);
+    }, [detail, preset, usePresetTime, customMinutes, launch, router]);
 
     const src = detail ?? preset;
 
@@ -92,15 +109,15 @@ function PresetDetailSheet({
                 animate={{ y: 0 }}
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                className="w-full max-w-lg rounded-t-2xl bg-zinc-900 border border-zinc-800 border-b-0 px-5 pb-8 pt-4"
+                className="w-full max-w-lg rounded-t-2xl bg-card border border-border border-b-0 px-5 pb-8 pt-4"
             >
                 {/* Handle */}
-                <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-zinc-700" />
+                <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-muted" />
 
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-base font-bold text-zinc-100 pr-4">{preset.name}</h3>
-                    <button onClick={onClose} className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300 transition-colors">
+                    <h3 className="text-base font-bold text-foreground pr-4">{preset.name}</h3>
+                    <button onClick={onClose} className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-muted-foreground transition-colors">
                         <X size={15} />
                     </button>
                 </div>
@@ -112,22 +129,22 @@ function PresetDetailSheet({
                 ) : (
                     <div className="space-y-3">
                         {/* Subject rows */}
-                        <div className="space-y-0 rounded-xl border border-zinc-800 overflow-hidden">
+                        <div className="space-y-0 rounded-xl border border-border overflow-hidden">
                             {src.subjects?.map((s, i) => (
-                                <div key={s.id} className={cn('flex items-center justify-between px-4 py-3 text-sm', i > 0 && 'border-t border-zinc-800')}>
-                                    <span className="text-zinc-300">{s.name}</span>
-                                    <span className="text-zinc-500 font-medium tabular-nums">{s.marks} প্রশ্ন</span>
+                                <div key={s.id} className={cn('flex items-center justify-between px-4 py-3 text-sm', i > 0 && 'border-t border-border')}>
+                                    <span className="text-muted-foreground">{s.name}</span>
+                                    <span className="text-muted-foreground font-medium tabular-nums">{s.marks} প্রশ্ন</span>
                                 </div>
                             ))}
                         </div>
 
                         {/* Time toggle */}
-                        <div className="flex items-center justify-between rounded-xl border border-zinc-800 px-4 py-3">
-                            <div className="flex items-center gap-1.5 text-sm text-zinc-400">
+                        <div className="flex items-center justify-between rounded-xl border border-border px-4 py-3">
+                            <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                                 <Clock size={14} />
                                 <span>সময়</span>
                             </div>
-                            <div className="flex overflow-hidden rounded-lg border border-zinc-700">
+                            <div className="flex overflow-hidden rounded-lg border border-border">
                                 {([['নির্ধারিত', true], ['কাস্টম', false]] as [string, boolean][]).map(([label, val]) => (
                                     <button
                                         key={String(val)}
@@ -136,7 +153,7 @@ function PresetDetailSheet({
                                             'px-3 py-1.5 text-xs font-semibold transition-colors',
                                             usePresetTime === val
                                                 ? 'bg-teal-500 text-black'
-                                                : 'text-zinc-500 hover:text-zinc-300'
+                                                : 'text-muted-foreground hover:text-muted-foreground'
                                         )}
                                     >
                                         {label}
@@ -157,7 +174,7 @@ function PresetDetailSheet({
                                 placeholder="১–১৮০"
                                 value={customMinutes}
                                 onChange={(e) => setCustomMinutes(e.target.value)}
-                                className="w-full rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-teal-500 focus:outline-none"
+                                className="w-full rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-teal-500 focus:outline-none"
                             />
                         )}
 
@@ -209,7 +226,7 @@ function PresetSection() {
                     <button
                         key={p.id}
                         onClick={() => setActivePreset(p)}
-                        className="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-2.5 text-sm font-semibold text-zinc-200 hover:border-teal-500/40 hover:bg-teal-500/5 hover:text-teal-300 transition-colors"
+                        className="rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground hover:border-teal-500/40 hover:bg-teal-500/5 hover:text-teal-300 transition-colors"
                     >
                         {p.name}
                     </button>
@@ -232,7 +249,7 @@ function PresetSection() {
 
 export default function MockTestsPage() {
     const router = useRouter();
-    const { startQuiz } = useQuizStore();
+    const launch = useLaunchStore((s) => s.launch);
 
     const [step, setStep] = useState<Step>('subject');
     const [subjects, setSubjects] = useState<SubjectDto[]>([]);
@@ -318,35 +335,46 @@ export default function MockTestsPage() {
         finally { setFetchingCount(false); }
     }, [selectedTopicIds]);
 
-    const handleDialogConfirm = useCallback(async (timeMinutes: number, maxQuestions: number) => {
+    const handleDialogConfirm = useCallback(async (settings: QuizPlaySettings) => {
         setShowDialog(false);
         setStarting(true);
         try {
-            const quizData = await getQuestionsByTopicIds([...selectedTopicIds], maxQuestions);
+            const quizData = await getQuestionsByTopicIds([...selectedTopicIds], settings.maxQuestions);
             const questions = quizData.questions.map((q) => ({
                 id: q.id,
                 text: q.text,
                 options: q.options.map((o) => ({ id: o.id, text: o.text, isCorrect: o.isCorrect })),
                 explanation: q.explanation,
+                subjectId: q.subjectId,
                 subject: q.subjectName,
                 topic: q.topicName,
                 difficulty: q.difficulty as 'easy' | 'medium' | 'hard' | undefined,
             }));
-            startQuiz('ssc', questions, timeMinutes, 'editable');
-            router.push('/mock-tests/session');
+            // Matches mobile's `mock_review_selection_page.dart` config.
+            launch(
+                {
+                    quizType: QuizType.Mock,
+                    quizId: '',
+                    title: 'মক কুইজ',
+                    timeInMinutes: settings.timeInMinutes,
+                },
+                questions,
+                '/mock-tests',
+            );
+            router.push('/quiz/session');
         } catch { setStarting(false); }
-    }, [selectedTopicIds, startQuiz, router]);
+    }, [selectedTopicIds, launch, router]);
 
     const selectedCount = selectedTopicIds.size;
 
     return (
-        <div className="flex flex-col min-h-dvh bg-zinc-950">
+        <div className="flex flex-col min-h-dvh bg-background">
             {/* Header */}
-            <div className="flex items-center gap-3 border-b border-zinc-800/60 px-4 py-3 shrink-0">
+            <div className="flex items-center gap-3 border-b border-border px-4 py-3 shrink-0">
                 {step === 'lessons' ? (
                     <button
                         onClick={() => setStep('subject')}
-                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                     >
                         <ArrowLeft size={18} />
                     </button>
@@ -356,10 +384,10 @@ export default function MockTestsPage() {
                     </div>
                 )}
                 <div className="flex-1 min-w-0">
-                    <h1 className="text-sm font-bold text-zinc-100">
+                    <h1 className="text-sm font-bold text-foreground">
                         {step === 'lessons' ? selectedSubject?.name ?? 'মক টেস্ট' : 'মক টেস্ট'}
                     </h1>
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-muted-foreground">
                         {step === 'lessons' ? 'টপিক বেছে নাও' : 'বিষয় বা প্রিসেট বেছে নাও'}
                     </p>
                 </div>
@@ -379,9 +407,9 @@ export default function MockTestsPage() {
                                     <Loader2 size={24} className="animate-spin text-teal-400" />
                                 </div>
                             ) : subjects.length === 0 ? (
-                                <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-10 text-center">
-                                    <BookOpen size={32} className="mx-auto text-zinc-700 mb-3" />
-                                    <p className="text-sm text-zinc-400">কোনো বিষয় পাওয়া যায়নি</p>
+                                <div className="rounded-xl border border-border bg-card p-10 text-center">
+                                    <BookOpen size={32} className="mx-auto text-muted-foreground mb-3" />
+                                    <p className="text-sm text-muted-foreground">কোনো বিষয় পাওয়া যায়নি</p>
                                 </div>
                             ) : (
                                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -390,14 +418,14 @@ export default function MockTestsPage() {
                                             key={sub.id}
                                             onClick={() => handleSubjectSelect(sub)}
                                             className={cn(
-                                                'flex items-center gap-2.5 rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-3',
-                                                'text-left text-sm font-medium text-zinc-300',
+                                                'flex items-center gap-2.5 rounded-xl border border-border bg-card px-3 py-3',
+                                                'text-left text-sm font-medium text-muted-foreground',
                                                 'hover:border-teal-500/50 hover:bg-teal-500/5 hover:text-teal-300 transition-colors'
                                             )}
                                         >
-                                            <BookOpen size={15} className="shrink-0 text-zinc-500" />
+                                            <BookOpen size={15} className="shrink-0 text-muted-foreground" />
                                             <span className="flex-1 truncate">{sub.name}</span>
-                                            <ChevronRight size={14} className="shrink-0 text-zinc-600" />
+                                            <ChevronRight size={14} className="shrink-0 text-muted-foreground" />
                                         </button>
                                     ))}
                                 </div>
@@ -417,7 +445,7 @@ export default function MockTestsPage() {
                                 <Loader2 size={28} className="animate-spin text-teal-400" />
                             </div>
                         ) : lessons.length === 0 ? (
-                            <p className="py-12 text-center text-sm text-zinc-600">কোনো লেসন পাওয়া যায়নি।</p>
+                            <p className="py-12 text-center text-sm text-muted-foreground">কোনো লেসন পাওয়া যায়নি।</p>
                         ) : (
                             <div className="space-y-2">
                                 {lessons.map((lesson, idx) => {
@@ -427,7 +455,7 @@ export default function MockTestsPage() {
                                     const selectedInLesson = countSelectedInLesson(lesson);
 
                                     return (
-                                        <div key={lesson.id} className="rounded-xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
+                                        <div key={lesson.id} className="rounded-xl border border-border bg-card/60 overflow-hidden">
                                             <div className="flex items-center gap-3 px-3.5 py-3">
                                                 <button
                                                     onClick={() => toggleLesson(lesson)}
@@ -437,7 +465,7 @@ export default function MockTestsPage() {
                                                             ? 'border-teal-500 bg-teal-500'
                                                             : partiallySelected
                                                             ? 'border-teal-500/60 bg-teal-500/20'
-                                                            : 'border-zinc-600 bg-transparent hover:border-zinc-400'
+                                                            : 'border-ring/40 bg-transparent hover:border-ring/60'
                                                     )}
                                                 >
                                                     {(fullySelected || partiallySelected) && (
@@ -448,12 +476,12 @@ export default function MockTestsPage() {
                                                     onClick={() => toggleExpand(lesson.id)}
                                                     className="flex flex-1 items-center gap-2 text-left"
                                                 >
-                                                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-zinc-800 text-[10px] font-bold text-zinc-500">
+                                                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-[10px] font-bold text-muted-foreground">
                                                         {idx + 1}
                                                     </span>
-                                                    <span className="flex-1 text-sm font-medium text-zinc-100 truncate">{lesson.name}</span>
+                                                    <span className="flex-1 text-sm font-medium text-foreground truncate">{lesson.name}</span>
                                                     {lesson.topics.length > 0 && (
-                                                        <span className="shrink-0 text-xs text-zinc-600">
+                                                        <span className="shrink-0 text-xs text-muted-foreground">
                                                             {selectedInLesson > 0 && <span className="text-teal-400">{selectedInLesson}/</span>}
                                                             {lesson.topics.length} টপিক
                                                         </span>
@@ -462,7 +490,7 @@ export default function MockTestsPage() {
                                                 {lesson.topics.length > 0 && (
                                                     <button
                                                         onClick={() => toggleExpand(lesson.id)}
-                                                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
+                                                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                                                     >
                                                         <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
                                                             <ChevronDown size={14} />
@@ -479,18 +507,18 @@ export default function MockTestsPage() {
                                                         transition={{ duration: 0.2, ease: 'easeInOut' }}
                                                         className="overflow-hidden"
                                                     >
-                                                        <div className="border-t border-zinc-800/60 pl-10 pr-3.5 py-2 space-y-1">
+                                                        <div className="border-t border-border pl-10 pr-3.5 py-2 space-y-1">
                                                             {lesson.topics.map((topic: TopicDto) => {
                                                                 const checked = selectedTopicIds.has(topic.id);
                                                                 return (
                                                                     <button
                                                                         key={topic.id}
                                                                         onClick={() => toggleTopic(topic.id)}
-                                                                        className="flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left hover:bg-zinc-800/50 transition-colors"
+                                                                        className="flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left hover:bg-muted/50 transition-colors"
                                                                     >
                                                                         <span className={cn(
                                                                             'flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors',
-                                                                            checked ? 'border-teal-500 bg-teal-500' : 'border-zinc-600 bg-transparent'
+                                                                            checked ? 'border-teal-500 bg-teal-500' : 'border-ring/40 bg-transparent'
                                                                         )}>
                                                                             {checked && (
                                                                                 <svg viewBox="0 0 10 8" className="w-2.5 h-2 fill-black">
@@ -498,11 +526,11 @@ export default function MockTestsPage() {
                                                                                 </svg>
                                                                             )}
                                                                         </span>
-                                                                        <span className={cn('text-xs transition-colors', checked ? 'text-zinc-100' : 'text-zinc-400')}>
+                                                                        <span className={cn('text-xs transition-colors', checked ? 'text-foreground' : 'text-muted-foreground')}>
                                                                             {topic.name}
                                                                         </span>
                                                                         {topic.questionCount != null && topic.questionCount > 0 && (
-                                                                            <span className="ml-auto text-[10px] text-zinc-600 shrink-0">
+                                                                            <span className="ml-auto text-[10px] text-muted-foreground shrink-0">
                                                                                 {topic.questionCount}টি
                                                                             </span>
                                                                         )}
@@ -534,7 +562,7 @@ export default function MockTestsPage() {
                                     animate={{ y: 0, opacity: 1 }}
                                     exit={{ y: 60, opacity: 0 }}
                                     transition={{ duration: 0.2 }}
-                                    className="sticky bottom-0 -mx-4 border-t border-zinc-800/60 bg-zinc-950/95 backdrop-blur-sm px-4 py-4"
+                                    className="sticky bottom-0 -mx-4 border-t border-border bg-background/95 backdrop-blur-sm px-4 py-4"
                                 >
                                     <button
                                         onClick={handleStartPress}
@@ -550,8 +578,9 @@ export default function MockTestsPage() {
 
                         <AnimatePresence>
                             {showDialog && availableCount !== null && (
-                                <MockTestSettingsDialog
-                                    availableCount={availableCount}
+                                <QuizSettingsDialog
+                                    questionCount={availableCount}
+                                    isMock
                                     onConfirm={handleDialogConfirm}
                                     onCancel={() => setShowDialog(false)}
                                 />

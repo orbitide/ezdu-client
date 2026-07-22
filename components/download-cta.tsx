@@ -12,7 +12,7 @@ export const DownloadCTA = () => {
     const isInView = useInView(ref, { once: true, margin: '-80px' });
 
     return (
-        <section className="surface-section-muted border-t border-emerald-400/10 min-h-screen py-28 flex items-center overflow-hidden">
+        <section className="surface-section-muted border-t border-primary/10 min-h-screen py-28 flex items-center overflow-hidden">
             <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
 
                 {/* Phone cluster */}
@@ -74,17 +74,17 @@ export const DownloadCTA = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-3xl md:text-4xl font-bold text-zinc-100 leading-tight mb-6"
+                    className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-6"
                 >
                     যেকোনো সময়,{' '}
-                    <span className="text-emerald-400">যেকোনো জায়গায়</span> প্র্যাকটিস করো
+                    <span className="text-primary">যেকোনো জায়গায়</span> প্র্যাকটিস করো
                 </motion.h2>
 
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.35 }}
-                    className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed mb-6"
+                    className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed mb-6"
                 >
                     যানজটে, বিরতিতে, বা ঘুমানোর আগে — Ezdu সবসময় তোমার পকেটে। iOS ও Android — দুটোতেই পাওয়া যায়।
                 </motion.p>

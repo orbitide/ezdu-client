@@ -4,11 +4,13 @@ import { AppHeader } from '@/components/shared/AppHeader';
 
 export default function MainLayout({ children }: { children: ReactNode }) {
     return (
-        <div className="flex h-screen overflow-hidden bg-zinc-950">
+        <div className="flex h-screen overflow-hidden bg-background">
             <AppSidebar />
             <div className="flex flex-1 flex-col overflow-hidden">
                 <AppHeader className="block md:hidden"/>
-                <main className="flex-1 overflow-y-auto">
+                {/* `min-h-0` lets immersive routes (quiz/challenge sessions)
+                    own the full height with their own `flex-1 overflow-y-auto`. */}
+                <main className="min-h-0 flex-1 overflow-y-auto">
                     {children}
                 </main>
             </div>

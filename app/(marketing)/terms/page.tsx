@@ -13,14 +13,14 @@ export default function TermsPage() {
     return (
         <div className="min-h-screen surface-page px-4 pb-20 pt-ez-below-nav-lg">
             <div className="max-w-3xl mx-auto">
-                <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Terms of Service</h1>
-                <p className="text-sm text-zinc-500 mb-10">
+                <h1 className="text-4xl font-bold text-foreground tracking-tight mb-2">Terms of Service</h1>
+                <p className="text-sm text-muted-foreground mb-10">
                     Effective date: April 30, 2026 · These Terms govern your use of EzDu&apos;s Services.
                 </p>
 
-                <div className="space-y-8 text-zinc-400 leading-relaxed">
+                <div className="space-y-8 text-muted-foreground leading-relaxed">
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">1. Acceptance</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">1. Acceptance</h2>
                         <p>
                             By creating an account, downloading our apps, or using ezdu.net and related properties, you
                             agree to these Terms and our Privacy Policy. EzDu&apos;s Services are intended for users in Bangladesh.
@@ -28,7 +28,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">2. The Services</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">2. The Services</h2>
                         <p>
                             EzDu provides educational software including practice questions, mock tests, analytics, and
                             optional AI-generated explanations. Features may vary by platform, region, or subscription
@@ -38,7 +38,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">3. Accounts</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">3. Accounts</h2>
                         <p>
                             You must provide accurate registration information and keep your credentials confidential.
                             You are responsible for activity under your account. Notify us immediately at hello@ezdu.net
@@ -48,7 +48,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">4. Subscriptions and fees</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">4. Subscriptions and fees</h2>
                         <p>
                             Some features require payment. Prices, billing cycles, and taxes are shown at checkout.
                             Subscriptions renew automatically until cancelled in accordance with the store or payment
@@ -58,7 +58,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">5. Acceptable use</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">5. Acceptable use</h2>
                         <p className="mb-2">You agree not to:</p>
                         <ul className="list-disc pl-5 space-y-2">
                             <li>Copy, scrape, resell, or redistribute our content or software except as expressly allowed.</li>
@@ -69,7 +69,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">6. Intellectual property</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">6. Intellectual property</h2>
                         <p>
                             EzDu and its licensors own the Services, branding, question banks, software, and documentation.
                             You receive a limited, non-exclusive, non-transferable license to use the Services for
@@ -79,7 +79,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">7. Third-party content</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">7. Third-party content</h2>
                         <p>
                             The Services may link to third-party sites or rely on curriculum materials aligned to public
                             exam syllabi. We are not responsible for third-party content or stores&apos; terms.
@@ -87,7 +87,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">8. Disclaimers</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">8. Disclaimers</h2>
                         <p>
                             THE SERVICES ARE PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE.&quot; TO THE MAXIMUM
                             EXTENT PERMITTED BY LAW, EZDU DISCLAIMS WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
@@ -97,7 +97,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">9. Limitation of liability</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">9. Limitation of liability</h2>
                         <p>
                             TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, EZDU AND ITS AFFILIATES WILL NOT BE LIABLE
                             FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR LOSS OF PROFITS,
@@ -110,7 +110,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">10. Indemnity</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">10. Indemnity</h2>
                         <p>
                             You will defend and indemnify EzDu against claims arising from your misuse of the Services or
                             violation of these Terms, to the extent permitted by law.
@@ -118,7 +118,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">11. Termination</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">11. Termination</h2>
                         <p>
                             You may stop using the Services at any time. We may suspend or terminate access if you breach
                             these Terms or if we discontinue the product. Provisions that by nature should survive
@@ -127,7 +127,7 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">12. Governing law and disputes</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">12. Governing law and disputes</h2>
                         <p>
                             These Terms are governed by the laws of Bangladesh, without regard to conflict-of-law
                             principles. Courts in Dhaka, Bangladesh, shall have exclusive jurisdiction, subject to
@@ -136,9 +136,9 @@ export default function TermsPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-semibold text-white mb-3">13. Contact</h2>
+                        <h2 className="text-lg font-semibold text-foreground mb-3">13. Contact</h2>
                         <p>
-                            <a href="mailto:hello@ezdu.net" className="text-emerald-400 hover:text-emerald-300">
+                            <a href="mailto:hello@ezdu.net" className="text-primary hover:text-primary">
                                 hello@ezdu.net
                             </a>
                         </p>

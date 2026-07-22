@@ -23,9 +23,9 @@ const GRID_ITEMS = [
         icon: '/icons/quiz.svg',
         label: 'মডেল টেস্ট',
         href: '/model-tests',
-        border: 'border-emerald-500/25',
-        hover: 'hover:border-emerald-500/50 hover:bg-emerald-500/5',
-        text: 'text-emerald-300',
+        border: 'border-primary/25',
+        hover: 'hover:border-primary/50 hover:bg-primary/5',
+        text: 'text-primary',
     },
     {
         icon: '/icons/mock_test.svg',
@@ -61,7 +61,7 @@ export function HomeGrid() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                        'flex flex-col items-center justify-center gap-2.5 rounded-xl border bg-zinc-900 py-5 px-2 text-center transition-colors',
+                        'flex flex-col items-center justify-center gap-2.5 rounded-xl border bg-card py-5 px-2 text-center transition-colors',
                         item.border,
                         item.hover
                     )}

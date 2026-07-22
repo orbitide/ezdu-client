@@ -7,7 +7,7 @@ import React from 'react';
 
 const habits = [
     { icon: Flame,        title: 'ডেইলি স্ট্রিক',     desc: 'প্রতিদিন পড়লে স্ট্রিক বাড়তে থাকে — একদিনও মিস করো না', color: 'text-orange-400' },
-    { icon: CalendarDays, title: 'দৈনিক লক্ষ্য',      desc: 'ছোট ছোট টার্গেট সেট করো, প্রতিদিন পূরণ করো',           color: 'text-emerald-400' },
+    { icon: CalendarDays, title: 'দৈনিক লক্ষ্য',      desc: 'ছোট ছোট টার্গেট সেট করো, প্রতিদিন পূরণ করো',           color: 'text-primary' },
     { icon: Bell,         title: 'স্মার্ট রিমাইন্ডার', desc: 'তোমার সময়মতো নোটিফিকেশন পাঠাবে Ezdu',               color: 'text-sky-400' },
 ];
 
@@ -37,7 +37,7 @@ export const StayMotivated = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-3xl md:text-4xl font-bold text-zinc-100 leading-tight mb-6"
+                    className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-6"
                 >
                     প্রতিদিন প্র্যাকটিস করো,{' '}
                     <span className="text-orange-400">এগিয়ে যাও</span>
@@ -47,7 +47,7 @@ export const StayMotivated = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.35 }}
-                    className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed mb-14"
+                    className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed mb-14"
                 >
                     স্ট্রিক সিস্টেম, দৈনিক চ্যালেঞ্জ আর স্মার্ট রিমাইন্ডার দিয়ে পড়ার অভ্যাস গড়ে তোলো। Ezdu তোমার পড়ার সঙ্গী — প্রতিটি দিন।
                 </motion.p>
@@ -61,8 +61,8 @@ export const StayMotivated = () => {
                     {habits.map(({ icon: Icon, title, desc, color }, i) => (
                         <div key={i} className="surface-raised rounded-2xl p-6 text-left">
                             <Icon className={`${color} mb-3`} size={28} />
-                            <div className="text-base font-bold text-zinc-100 mb-2">{title}</div>
-                            <div className="text-sm text-zinc-500 leading-relaxed">{desc}</div>
+                            <div className="text-base font-bold text-foreground mb-2">{title}</div>
+                            <div className="text-sm text-muted-foreground leading-relaxed">{desc}</div>
                         </div>
                     ))}
                 </motion.div>

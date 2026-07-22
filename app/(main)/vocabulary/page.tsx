@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import { BookOpen, ChevronRight, Layers, Zap, Star, Trophy, Brain, CopyCheck, Shuffle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { TwoColumnShell } from '@/components/layout/two-column-shell';
+import { DefaultRightRail } from '@/components/layout/default-right-rail';
+import { PageContainer } from '@/components/layout/page-container';
 
 const LEVELS = [
     {
@@ -11,9 +14,9 @@ const LEVELS = [
         labelEn: 'Easy',
         desc: 'নবীনদের জন্য বেসিক শব্দভান্ডার',
         icon: '⭐',
-        color: 'text-emerald-400',
-        bg: 'bg-emerald-500/10',
-        border: 'border-emerald-500/20',
+        color: 'text-primary',
+        bg: 'bg-primary/10',
+        border: 'border-primary/20',
     },
     {
         id: 'medium',
@@ -88,67 +91,71 @@ const GAMES = [
 
 export default function VocabularyPage() {
     return (
-        <div className="mx-auto max-w-3xl px-4 py-6 space-y-6 lg:px-6">
-            {/* Header */}
-            <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10">
-                    <BookOpen size={20} className="text-indigo-400" />
-                </div>
-                <div>
-                    <h1 className="text-lg font-bold text-zinc-100">ভোকাবুলারি</h1>
-                    <p className="text-xs text-zinc-500">ইংরেজি শব্দভান্ডার শেখো</p>
-                </div>
-            </div>
+        <PageContainer>
+            <TwoColumnShell right={<DefaultRightRail />}>
+                <div className="space-y-6">
+                    {/* Header */}
+                    <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10">
+                            <BookOpen size={20} className="text-indigo-400" />
+                        </div>
+                        <div>
+                            <h1 className="text-lg font-bold text-foreground">ভোকাবুলারি</h1>
+                            <p className="text-xs text-muted-foreground">ইংরেজি শব্দভান্ডার শেখো</p>
+                        </div>
+                    </div>
 
-            {/* Difficulty levels */}
-            <div>
-                <p className="text-sm font-semibold text-zinc-300 mb-3">কঠিনতার স্তর</p>
-                <div className="grid gap-2 sm:grid-cols-2">
-                    {LEVELS.map((level) => (
-                        <Link
-                            key={level.id}
-                            href={`/vocabulary/${level.id}`}
-                            className={cn(
-                                'flex items-center gap-3 rounded-xl border p-4 transition-colors hover:opacity-80',
-                                level.bg, level.border
-                            )}
-                        >
-                            <span className="text-2xl">{level.icon}</span>
-                            <div className="flex-1">
-                                <p className={cn('font-semibold text-sm', level.color)}>{level.label}</p>
-                                <p className="text-xs text-zinc-500">{level.desc}</p>
-                            </div>
-                            <ChevronRight size={14} className="text-zinc-600" />
-                        </Link>
-                    ))}
-                </div>
-            </div>
+                    {/* Difficulty levels */}
+                    <div>
+                        <p className="text-sm font-semibold text-muted-foreground mb-3">কঠিনতার স্তর</p>
+                        <div className="grid gap-2 sm:grid-cols-2">
+                            {LEVELS.map((level) => (
+                                <Link
+                                    key={level.id}
+                                    href={`/vocabulary/${level.id}`}
+                                    className={cn(
+                                        'flex items-center gap-3 rounded-xl border p-4 transition-colors hover:opacity-80',
+                                        level.bg, level.border
+                                    )}
+                                >
+                                    <span className="text-2xl">{level.icon}</span>
+                                    <div className="flex-1">
+                                        <p className={cn('font-semibold text-sm', level.color)}>{level.label}</p>
+                                        <p className="text-xs text-muted-foreground">{level.desc}</p>
+                                    </div>
+                                    <ChevronRight size={14} className="text-muted-foreground" />
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
 
-            {/* Game modes */}
-            <div>
-                <p className="text-sm font-semibold text-zinc-300 mb-3">গেম মোড</p>
-                <div className="grid gap-2 sm:grid-cols-2">
-                    {GAMES.map((game) => (
-                        <Link
-                            key={game.href}
-                            href={game.href}
-                            className={cn(
-                                'flex items-center gap-3 rounded-xl border bg-zinc-900 p-4 transition-colors',
-                                game.border
-                            )}
-                        >
-                            <div className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-xl', game.iconBg)}>
-                                <game.icon size={18} className={game.iconCls} />
-                            </div>
-                            <div className="flex-1">
-                                <p className="text-sm font-medium text-zinc-100">{game.label}</p>
-                                <p className="text-xs text-zinc-500">{game.desc}</p>
-                            </div>
-                            <ChevronRight size={14} className="text-zinc-600" />
-                        </Link>
-                    ))}
+                    {/* Game modes */}
+                    <div>
+                        <p className="text-sm font-semibold text-muted-foreground mb-3">গেম মোড</p>
+                        <div className="grid gap-2 sm:grid-cols-2">
+                            {GAMES.map((game) => (
+                                <Link
+                                    key={game.href}
+                                    href={game.href}
+                                    className={cn(
+                                        'flex items-center gap-3 rounded-xl border bg-card p-4 transition-colors',
+                                        game.border
+                                    )}
+                                >
+                                    <div className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-xl', game.iconBg)}>
+                                        <game.icon size={18} className={game.iconCls} />
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-medium text-foreground">{game.label}</p>
+                                        <p className="text-xs text-muted-foreground">{game.desc}</p>
+                                    </div>
+                                    <ChevronRight size={14} className="text-muted-foreground" />
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </TwoColumnShell>
+        </PageContainer>
     );
 }

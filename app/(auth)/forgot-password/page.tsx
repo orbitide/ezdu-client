@@ -35,14 +35,14 @@ export default function ForgotPasswordPage() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12">
             <div className="w-full max-w-sm space-y-6">
-                <Link href="/login" className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors">
+                <Link href="/login" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                     <ArrowLeft size={16} />
                     লগইনে ফিরে যাও
                 </Link>
 
                 <div>
-                    <h1 className="text-2xl font-extrabold tracking-tight text-zinc-100">পাসওয়ার্ড ভুলে গেছো?</h1>
-                    <p className="mt-1 text-sm text-zinc-500">তোমার ইমেইলে একটি রিসেট কোড পাঠানো হবে</p>
+                    <h1 className="text-2xl font-extrabold tracking-tight text-foreground">পাসওয়ার্ড ভুলে গেছো?</h1>
+                    <p className="mt-1 text-sm text-muted-foreground">তোমার ইমেইলে একটি রিসেট কোড পাঠানো হবে</p>
                 </div>
 
                 {error && (
@@ -53,7 +53,7 @@ export default function ForgotPasswordPage() {
                 )}
 
                 {sent && (
-                    <div className="flex items-center gap-2 rounded-xl border border-emerald-900/50 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-400">
+                    <div className="flex items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-primary">
                         <CheckCircle2 size={16} className="shrink-0" />
                         কোড পাঠানো হয়েছে! রিসেট পেজে যাচ্ছো...
                     </div>
@@ -61,9 +61,9 @@ export default function ForgotPasswordPage() {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-zinc-400">ইমেইল</label>
+                        <label className="text-xs font-semibold text-muted-foreground">ইমেইল</label>
                         <div className="relative">
-                            <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
+                            <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                             <input
                                 type="email"
                                 placeholder="তোমার ইমেইল দাও"
@@ -71,7 +71,7 @@ export default function ForgotPasswordPage() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                                 autoFocus
-                                className="w-full rounded-xl border border-zinc-800 bg-zinc-900 py-3 pl-10 pr-4 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500"
+                                className="w-full rounded-xl border border-border bg-card py-3 pl-10 pr-4 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-primary"
                             />
                         </div>
                     </div>

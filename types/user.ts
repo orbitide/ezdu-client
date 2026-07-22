@@ -28,3 +28,15 @@ export interface Badge {
     icon: string;
     earnedAt: string;
 }
+
+/** Rank tiers — ported from the Orbitide reference (`lib/types/user.ts`). */
+export type RankTier =
+    | 'novice'
+    | 'apprentice'
+    | 'adept'
+    | 'expert'
+    | 'master'
+    | 'grandmaster'
+    | 'champion'
+    | 'legend'
+    | 'mythic';

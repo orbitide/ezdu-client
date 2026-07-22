@@ -1,0 +1,13 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="lnBody" x1="30" y1="8" x2="30" y2="51" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#f2f6ff"/></linearGradient>
+<linearGradient id="lnGloss" x1="30" y1="10" x2="30" y2="28" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity="1"/><stop offset="1" stop-opacity="0"/></linearGradient>
+<linearGradient id="lnTab" x1="59" y1="21" x2="59" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#d5deff"/><stop offset="1" stop-color="#bcc8ff"/></linearGradient>
+</defs>
+<path d="M10.8 21.38L33.3 11.25L55.8 21.38V43.88L33.3 54L10.8 43.88V21.38Z" fill="#d5deff"/>
+<path d="M8.1 18.68L30.6 8.55L53.1 18.68V41.18L30.6 51.3L8.1 41.18V18.68Z" fill="url(#lnBody)" stroke="#a2aafe" stroke-width="4.5" stroke-linejoin="round"/>
+<path d="M30.6 51.3V30.6L8.1 18.68" stroke="#8c8efa" stroke-width="4.5" stroke-linejoin="round"/>
+<path d="M30.6 30.6L53.1 18.68" stroke="#8c8efa" stroke-width="4.5" stroke-linejoin="round"/>
+<path d="M55.8 21.38V43.88L63.68 48.38V25.88L55.8 21.38Z" fill="url(#lnTab)" stroke="#8c8efa" stroke-width="3.6" stroke-linejoin="round"/>
+<ellipse cx="30" cy="16" rx="14" ry="8" fill="url(#lnGloss)"/>
+</svg>

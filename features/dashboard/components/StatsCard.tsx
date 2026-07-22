@@ -10,20 +10,20 @@ interface StatsCardProps {
     colorClass?: string;
 }
 
-export function StatsCard({ label, value, icon, trend, trendUp, colorClass = 'text-emerald-400' }: StatsCardProps) {
+export function StatsCard({ label, value, icon, trend, trendUp, colorClass = 'text-primary' }: StatsCardProps) {
     return (
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4">
+        <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-start justify-between">
                 <div>
-                    <p className="text-xs text-zinc-500 font-medium">{label}</p>
+                    <p className="text-xs text-muted-foreground font-medium">{label}</p>
                     <p className={cn('mt-1 text-2xl font-bold', colorClass)}>{value}</p>
                     {trend && (
-                        <p className={cn('mt-1 text-xs', trendUp ? 'text-emerald-400' : 'text-rose-400')}>
+                        <p className={cn('mt-1 text-xs', trendUp ? 'text-primary' : 'text-rose-400')}>
                             {trendUp ? '↑' : '↓'} {trend}
                         </p>
                     )}
                 </div>
-                <div className={cn('rounded-lg p-2 bg-zinc-800', colorClass)}>
+                <div className={cn('rounded-lg p-2 bg-muted', colorClass)}>
                     {icon}
                 </div>
             </div>

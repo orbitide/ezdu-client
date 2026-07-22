@@ -67,7 +67,7 @@ export function QuestionCard({
                         {question.difficulty && (
                             <span className={cn(
                                 'shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold',
-                                question.difficulty === 'easy' ? 'bg-emerald-500/10 text-emerald-400' :
+                                question.difficulty === 'easy' ? 'bg-primary/10 text-primary' :
                                 question.difficulty === 'medium' ? 'bg-yellow-500/10 text-yellow-400' :
                                 'bg-rose-500/10 text-rose-400'
                             )}>
@@ -75,7 +75,7 @@ export function QuestionCard({
                             </span>
                         )}
                         {question.topic && (
-                            <span className="truncate text-xs text-zinc-500">{question.topic}</span>
+                            <span className="truncate text-xs text-muted-foreground">{question.topic}</span>
                         )}
                     </div>
 
@@ -87,7 +87,7 @@ export function QuestionCard({
                                 'rounded-lg p-1.5 transition-colors',
                                 bookmarked
                                     ? 'text-amber-400 hover:text-amber-300'
-                                    : 'text-zinc-500 hover:text-zinc-300'
+                                    : 'text-muted-foreground hover:text-muted-foreground'
                             )}
                             title={bookmarked ? 'বুকমার্ক সরাও' : 'বুকমার্ক করো'}
                         >
@@ -95,7 +95,7 @@ export function QuestionCard({
                         </button>
                         <button
                             onClick={() => setReportOpen(true)}
-                            className="rounded-lg p-1.5 text-zinc-500 transition-colors hover:text-zinc-300"
+                            className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:text-muted-foreground"
                             title="রিপোর্ট করো"
                         >
                             <Flag size={15} />
@@ -104,12 +104,12 @@ export function QuestionCard({
                 </div>
 
                 {question.passage && (
-                    <div className="mb-2 rounded-lg border border-zinc-800 bg-zinc-900/50 p-3 text-sm leading-relaxed text-zinc-300">
+                    <div className="mb-2 rounded-lg border border-border bg-card/50 p-3 text-sm leading-relaxed text-muted-foreground">
                         <MathText text={question.passage} block />
                     </div>
                 )}
 
-                <p className="text-base font-medium leading-relaxed text-zinc-100">
+                <p className="text-base font-medium leading-relaxed text-foreground">
                     {index}. <MathText text={question.text} />
                 </p>
             </div>
@@ -143,13 +143,13 @@ export function QuestionCard({
                 <button
                     onClick={onPrev}
                     disabled={index === 1}
-                    className="flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 disabled:opacity-30 transition-colors"
+                    className="flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-30 transition-colors"
                 >
                     <ChevronLeft size={16} />
                     আগে
                 </button>
 
-                <span className="text-xs text-zinc-600">{index} / {total}</span>
+                <span className="text-xs text-muted-foreground">{index} / {total}</span>
 
                 <button
                     onClick={handleNext}
@@ -157,8 +157,8 @@ export function QuestionCard({
                     className={cn(
                         'flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold transition-colors',
                         isLast
-                            ? 'bg-emerald-500 text-black hover:bg-emerald-400 disabled:opacity-50'
-                            : 'bg-zinc-800 text-zinc-100 hover:bg-zinc-700 disabled:opacity-40'
+                            ? 'bg-primary text-black hover:bg-primary disabled:opacity-50'
+                            : 'bg-muted text-foreground hover:bg-muted disabled:opacity-40'
                     )}
                 >
                     {isLast ? 'শেষ করো' : 'পরের প্রশ্ন'}

@@ -10,12 +10,12 @@ type Spark =
 
 // same distribution as CoinRewards, FreeFunEffective color palette
 const sparks: Spark[] = [
-    { type: 'star', x: '3%',  y: '8%',  size: 14, color: 'text-emerald-400', opacity: 0.6,  rotate: 15  },
-    { type: 'dot',  x: '10%', y: '70%', size: 7,  color: 'bg-emerald-400',   opacity: 0.45 },
-    { type: 'star', x: '6%',  y: '40%', size: 10, color: 'text-emerald-400', opacity: 0.4,  rotate: -25 },
+    { type: 'star', x: '3%',  y: '8%',  size: 14, color: 'text-primary', opacity: 0.6,  rotate: 15  },
+    { type: 'dot',  x: '10%', y: '70%', size: 7,  color: 'bg-primary',   opacity: 0.45 },
+    { type: 'star', x: '6%',  y: '40%', size: 10, color: 'text-primary', opacity: 0.4,  rotate: -25 },
     { type: 'dot',  x: '18%', y: '90%', size: 9,  color: 'bg-amber-400',     opacity: 0.5  },
     { type: 'star', x: '30%', y: '4%',  size: 11, color: 'text-amber-400',   opacity: 0.5,  rotate: 30  },
-    { type: 'dot',  x: '46%', y: '94%', size: 6,  color: 'bg-emerald-400',   opacity: 0.4  },
+    { type: 'dot',  x: '46%', y: '94%', size: 6,  color: 'bg-primary',   opacity: 0.4  },
     { type: 'star', x: '64%', y: '5%',  size: 9,  color: 'text-sky-400',     opacity: 0.45, rotate: -18 },
     { type: 'dot',  x: '75%', y: '90%', size: 8,  color: 'bg-amber-400',     opacity: 0.45 },
     { type: 'star', x: '85%', y: '10%', size: 14, color: 'text-sky-400',     opacity: 0.6,  rotate: 22  },
@@ -23,7 +23,7 @@ const sparks: Spark[] = [
     { type: 'star', x: '96%', y: '26%', size: 9,  color: 'text-amber-400',   opacity: 0.45, rotate: -40 },
     { type: 'star', x: '88%', y: '78%', size: 13, color: 'text-sky-400',     opacity: 0.5,  rotate: 12  },
     { type: 'dot',  x: '22%', y: '16%', size: 5,  color: 'bg-amber-400',     opacity: 0.35 },
-    { type: 'dot',  x: '55%', y: '8%',  size: 7,  color: 'bg-emerald-400',   opacity: 0.35 },
+    { type: 'dot',  x: '55%', y: '8%',  size: 7,  color: 'bg-primary',   opacity: 0.35 },
 ];
 
 const StarSparkle = ({ size, color, opacity, rotate }: { size: number; color: string; opacity: number; rotate: number }) => (
@@ -93,7 +93,7 @@ export const FreeFunEffective = () => {
             <div className="max-w-3xl mx-auto px-6 text-center w-full" ref={ref}>
                 <div className="flex items-end justify-center gap-10 md:gap-14 mb-28">
                     {[
-                        { src: '/illustrations/free.svg',      alt: 'বিনামূল্যে', label: 'বিনামূল্যে', color: 'text-emerald-400', delay: 0.1, lift: false },
+                        { src: '/illustrations/free.svg',      alt: 'বিনামূল্যে', label: 'বিনামূল্যে', color: 'text-primary', delay: 0.1, lift: false },
                         { src: '/illustrations/fun.svg',       alt: 'মজাদার',     label: 'মজাদার',     color: 'text-amber-400',   delay: 0.2, lift: true  },
                         { src: '/illustrations/effective.svg', alt: 'কার্যকর',    label: 'কার্যকর',    color: 'text-sky-400',     delay: 0.3, lift: false },
                     ].map((item) => (
@@ -122,7 +122,7 @@ export const FreeFunEffective = () => {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="text-3xl md:text-4xl font-bold leading-tight mb-6"
                 >
-                    <span className="text-emerald-400">বিনামূল্যে।</span>{' '}
+                    <span className="text-primary">বিনামূল্যে।</span>{' '}
                     <span className="text-amber-400">মজাদার।</span>{' '}
                     <span className="text-sky-400">কার্যকর।</span>
                 </motion.h2>
@@ -131,7 +131,7 @@ export const FreeFunEffective = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.35 }}
-                    className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed"
+                    className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed"
                 >
                     Ezdu-তে শেখা মানে গেমের মতো অভিজ্ঞতা — ছোট ছোট সেশন, তাৎক্ষণিক ফিডব্যাক, আর বাস্তব পরীক্ষার প্রস্তুতি। সবই বিনামূল্যে শুরু করো।
                 </motion.p>

@@ -1,0 +1,12 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="rsShadow" x1="30" y1="10" x2="30" y2="58" gradientUnits="userSpaceOnUse"><stop stop-color="#cbeeff"/><stop offset="1" stop-color="#9de0ff"/></linearGradient>
+<linearGradient id="rsBody" x1="30" y1="10" x2="30" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#f3fbff"/></linearGradient>
+<linearGradient id="rsGloss" x1="28" y1="13" x2="28" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity="1"/><stop offset="1" stop-opacity="0"/></linearGradient>
+</defs>
+<rect x="10.8" y="13.5" width="45" height="45" rx="4.5" fill="url(#rsShadow)"/>
+<rect x="7.88" y="10.58" width="45" height="45" rx="4.5" fill="url(#rsBody)" stroke="#69d1ff" stroke-width="4.5"/>
+<path d="M18 27.68H45.9M18 36H40.05M18 44.33H43.2" stroke="#4ac0f5" stroke-width="4.5" stroke-linecap="round"/>
+<path d="M52.88 10.58V55.58C52.88 57.38 51.75 58.5 49.95 58.5H18" stroke="#69d1ff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="28" cy="18" rx="14" ry="8" fill="url(#rsGloss)"/>
+</svg>

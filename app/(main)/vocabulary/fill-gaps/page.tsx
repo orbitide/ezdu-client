@@ -70,13 +70,13 @@ export default function FillGapsPage() {
             <div className="flex flex-col items-center justify-center min-h-[60vh] px-6 space-y-5">
                 <div className="text-center">
                     <p className="text-4xl font-bold text-indigo-400">{score}/{total}</p>
-                    <p className="text-sm text-zinc-500 mt-1">সঠিক উত্তর</p>
+                    <p className="text-sm text-muted-foreground mt-1">সঠিক উত্তর</p>
                 </div>
                 <button onClick={restart} className="flex items-center gap-2 rounded-xl bg-indigo-500 px-6 py-3 text-sm font-semibold text-white hover:bg-indigo-400 transition-colors">
                     <RotateCcw size={16} />
                     আবার খেলো
                 </button>
-                <button onClick={() => router.back()} className="text-sm text-zinc-400 hover:text-zinc-100 transition-colors">ফিরে যাও</button>
+                <button onClick={() => router.back()} className="text-sm text-muted-foreground hover:text-foreground transition-colors">ফিরে যাও</button>
             </div>
         );
     }
@@ -86,23 +86,23 @@ export default function FillGapsPage() {
     return (
         <div className="mx-auto max-w-md px-4 py-6 space-y-5">
             <div className="flex items-center gap-3">
-                <button onClick={() => router.back()} className="text-zinc-400 hover:text-zinc-100 transition-colors">
+                <button onClick={() => router.back()} className="text-muted-foreground hover:text-foreground transition-colors">
                     <ArrowLeft size={20} />
                 </button>
                 <div className="flex-1">
-                    <h1 className="text-base font-bold text-zinc-100">শূন্যস্থান পূরণ</h1>
-                    <p className="text-xs text-zinc-500">{index + 1}/{total} প্রশ্ন</p>
+                    <h1 className="text-base font-bold text-foreground">শূন্যস্থান পূরণ</h1>
+                    <p className="text-xs text-muted-foreground">{index + 1}/{total} প্রশ্ন</p>
                 </div>
-                <span className="text-sm font-bold text-emerald-400">{score} সঠিক</span>
+                <span className="text-sm font-bold text-primary">{score} সঠিক</span>
             </div>
 
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-800">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
                 <div className="h-full rounded-full bg-indigo-500 transition-all" style={{ width: `${(index / total) * 100}%` }} />
             </div>
 
-            <div className="rounded-2xl border border-zinc-700 bg-zinc-900 p-6">
-                <p className="text-xs text-zinc-500 mb-3">শূন্যস্থানে সঠিক শব্দটি বসাও</p>
-                <p className="text-lg font-medium text-zinc-100 leading-relaxed">{question.sentence}</p>
+            <div className="rounded-2xl border border-border bg-card p-6">
+                <p className="text-xs text-muted-foreground mb-3">শূন্যস্থানে সঠিক শব্দটি বসাও</p>
+                <p className="text-lg font-medium text-foreground leading-relaxed">{question.sentence}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
@@ -116,10 +116,10 @@ export default function FillGapsPage() {
                             disabled={!!selected}
                             className={cn(
                                 'rounded-xl border px-4 py-3 text-sm font-medium transition-all',
-                                !selected ? 'border-zinc-700 bg-zinc-900 text-zinc-100 hover:border-zinc-600' :
-                                correct ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400' :
+                                !selected ? 'border-border bg-card text-foreground hover:border-ring/40' :
+                                correct ? 'border-primary bg-primary/10 text-primary' :
                                 isThis && !correct ? 'border-rose-500 bg-rose-500/10 text-rose-400' :
-                                'border-zinc-800 bg-zinc-900 text-zinc-600'
+                                'border-border bg-card text-muted-foreground'
                             )}
                         >
                             {opt}

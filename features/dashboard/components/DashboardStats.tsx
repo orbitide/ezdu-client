@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import { cn, toBangla } from '@/lib/utils';
 import type { UserStatsDto, StudyPlanDto } from '@/types/api';
 
 interface Props {
@@ -20,34 +20,34 @@ export function DashboardStats({ stats, plan }: Props) {
     const STATS = [
         {
             icon: streak > 0 ? '/icons/streak.svg' : '/icons/streak_outline.svg',
-            value: streak.toString(),
+            value: toBangla(streak),
             unit: 'দিন',
             label: 'স্ট্রিক',
-            color: streak > 0 ? 'text-orange-400' : 'text-zinc-500',
+            color: streak > 0 ? 'text-orange-400' : 'text-muted-foreground',
             href: '/streak',
         },
         {
             icon: xp > 0 ? '/icons/bolt.svg' : '/icons/bolt_outline.svg',
-            value: xp >= 1000 ? `${(xp / 1000).toFixed(1)}k` : xp.toString(),
+            value: xp >= 1000 ? `${toBangla((xp / 1000).toFixed(1))}k` : toBangla(xp),
             unit: 'XP',
             label: 'অভিজ্ঞতা',
-            color: xp > 0 ? 'text-yellow-400' : 'text-zinc-500',
+            color: xp > 0 ? 'text-yellow-400' : 'text-muted-foreground',
             href: '/streak-freeze',
         },
         {
             icon: coins > 0 ? '/icons/coin.svg' : '/icons/coin_outline.svg',
-            value: coins.toString(),
+            value: toBangla(coins),
             unit: '',
             label: 'কয়েন',
-            color: coins > 0 ? 'text-amber-400' : 'text-zinc-500',
+            color: coins > 0 ? 'text-amber-400' : 'text-muted-foreground',
             href: '/coins',
         },
         {
             icon: plan ? '/icons/plan.svg' : '/icons/plan_outline.svg',
-            value: plan ? daysLeft.toString() : '—',
+            value: plan ? toBangla(daysLeft) : '—',
             unit: plan ? 'দিন' : '',
             label: 'প্ল্যান',
-            color: plan ? 'text-purple-400' : 'text-zinc-500',
+            color: plan ? 'text-purple-400' : 'text-muted-foreground',
             href: '/study-plan',
         },
     ] as const;
@@ -58,7 +58,7 @@ export function DashboardStats({ stats, plan }: Props) {
                 <Link
                     key={stat.label}
                     href={stat.href}
-                    className="flex flex-col items-center justify-center gap-1 rounded-xl border border-zinc-800 bg-zinc-900 px-2 py-2.5 transition-colors hover:border-zinc-700 hover:bg-zinc-800/50"
+                    className="flex flex-col items-center justify-center gap-1 rounded-xl border border-border bg-card px-2 py-2.5 transition-colors hover:border-border hover:bg-muted/50"
                 >
                     <Image
                         src={stat.icon}

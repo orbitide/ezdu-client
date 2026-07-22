@@ -1,0 +1,11 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="coShadow" x1="33" y1="11" x2="33" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#e6e1ff"/><stop offset="1" stop-color="#d4c8ff"/></linearGradient>
+<linearGradient id="coBody" x1="33" y1="11" x2="33" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#f8f6ff"/></linearGradient>
+<linearGradient id="coGloss" x1="33" y1="14" x2="33" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity="1"/><stop offset="1" stop-opacity="0"/></linearGradient>
+</defs>
+<path d="M15.75 16.88V55.13C15.75 57.38 16.88 58.5 19.13 58.5H52.88C55.13 58.5 56.25 57.38 56.25 55.13V16.88C56.25 14.63 55.13 13.5 52.88 13.5H19.13C16.88 13.5 15.75 14.63 15.75 16.88Z" fill="url(#coShadow)"/>
+<path d="M13.5 14.63V52.88C13.5 55.13 14.63 56.25 16.88 56.25H50.63C52.88 56.25 54 55.13 54 52.88V14.63C54 12.38 52.88 11.25 50.63 11.25H16.88C14.63 11.25 13.5 12.38 13.5 14.63Z" fill="url(#coBody)" stroke="#bfa9ff" stroke-width="4.5" stroke-linejoin="round"/>
+<path d="M22.5 27H49.5M22.5 36H49.5M22.5 45H40.5" stroke="#aa86fe" stroke-width="4.5" stroke-linecap="round"/>
+<ellipse cx="33" cy="22" rx="12" ry="7" fill="url(#coGloss)"/>
+</svg>

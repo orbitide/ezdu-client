@@ -1,6 +1,6 @@
 import type { LeaderboardEntry } from '../types';
 import { Flame, Star, Trophy } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, toBangla } from '@/lib/utils';
 
 interface LeaderboardTableProps {
     entries: LeaderboardEntry[];
@@ -37,10 +37,10 @@ function getPromotionTokens(status: PromotionStatus) {
 
 function getRankTokens(rank: number) {
     if (rank === 1) return { text: 'text-yellow-400', bg: 'bg-yellow-400/15', pill: 'bg-yellow-400/12' };
-    if (rank === 2) return { text: 'text-zinc-300', bg: 'bg-zinc-300/15', pill: 'bg-zinc-300/12' };
+    if (rank === 2) return { text: 'text-muted-foreground', bg: 'bg-muted-foreground/15', pill: 'bg-muted-foreground/12' };
     if (rank === 3) return { text: 'text-amber-500', bg: 'bg-amber-500/15', pill: 'bg-amber-500/12' };
-    if (rank <= 12) return { text: 'text-emerald-400', bg: 'bg-emerald-400/15', pill: 'bg-emerald-400/12' };
-    return { text: 'text-zinc-400', bg: 'bg-zinc-700/40', pill: 'bg-zinc-700/40' };
+    if (rank <= 12) return { text: 'text-primary', bg: 'bg-primary/15', pill: 'bg-primary/12' };
+    return { text: 'text-muted-foreground', bg: 'bg-muted/40', pill: 'bg-muted/40' };
 }
 
 export function LeaderboardTable({ entries }: LeaderboardTableProps) {
@@ -64,9 +64,9 @@ export function LeaderboardTable({ entries }: LeaderboardTableProps) {
 
             {showSeparator && (
                 <>
-                    <div className="flex items-center justify-center gap-1.5 py-2 text-xs text-zinc-600">
+                    <div className="flex items-center justify-center gap-1.5 py-2 text-xs text-muted-foreground">
                         <span>· · ·</span>
-                        <span>{me.rank - 10} জন</span>
+                        <span>{toBangla(me.rank - 10)} জন</span>
                         <span>· · ·</span>
                     </div>
                     <LeaderboardTile
@@ -118,13 +118,13 @@ function LeaderboardTile({
                         <Trophy size={18} className={rankTokens.text} />
                     ) : (
                         <span className={cn('text-sm font-bold tabular-nums', rankTokens.text)}>
-                            {entry.rank}
+                            {toBangla(entry.rank)}
                         </span>
                     )}
                 </div>
 
                 {/* Avatar */}
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-zinc-800 text-sm font-bold text-zinc-300 ring-2 ring-zinc-700/60">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-bold text-muted-foreground ring-2 ring-border">
                     {entry.name.slice(0, 1)}
                 </div>
 
@@ -132,16 +132,16 @@ function LeaderboardTile({
                 <div className="flex-1 min-w-0">
                     <p className={cn(
                         'text-sm font-semibold truncate leading-snug',
-                        entry.isCurrentUser ? 'text-emerald-300' : 'text-zinc-100',
+                        entry.isCurrentUser ? 'text-primary' : 'text-foreground',
                     )}>
                         {entry.name}
                         {entry.isCurrentUser && (
-                            <span className="ml-1.5 text-xs font-normal text-zinc-500">(তুমি)</span>
+                            <span className="ml-1.5 text-xs font-normal text-muted-foreground">(তুমি)</span>
                         )}
                     </p>
                     <div className="flex items-center gap-1 mt-0.5">
                         <Flame size={11} className="text-orange-400 shrink-0" />
-                        <span className="text-xs text-zinc-500">{entry.streak} day streak</span>
+                        <span className="text-xs text-muted-foreground">{toBangla(entry.streak)} দিন স্ট্রিক</span>
                     </div>
                 </div>
 
@@ -154,7 +154,7 @@ function LeaderboardTile({
                 >
                     <Star size={12} className={rankTokens.text} />
                     <span className={cn('text-sm font-semibold tabular-nums', rankTokens.text)}>
-                        {entry.xp.toLocaleString()}
+                        {toBangla(entry.xp.toLocaleString())}
                     </span>
                 </div>
             </div>

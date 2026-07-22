@@ -189,7 +189,7 @@ export default function CareerPage() {
                 className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
                 aria-hidden
             >
-                <div className="absolute top-1/2 left-1/2 h-[min(100vw,640px)] w-[min(100vw,640px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/[0.04] blur-3xl" />
+                <div className="absolute top-1/2 left-1/2 h-[min(100vw,640px)] w-[min(100vw,640px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.04] blur-3xl" />
             </div>
 
             {/* Hero Section */}
@@ -199,16 +199,16 @@ export default function CareerPage() {
                         initial={{opacity: 0, y: 30}}
                         animate={{opacity: 1, y: 0}}
                         transition={{duration: 0.8}}
-                        className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-white tracking-tight"
+                        className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-foreground tracking-tight"
                     >
-                        Join our <span className="text-emerald-400">team</span>
+                        Join our <span className="text-primary">team</span>
                     </motion.h1>
 
                     <motion.p
                         initial={{opacity: 0, y: 20}}
                         animate={{opacity: 1, y: 0}}
                         transition={{duration: 0.8, delay: 0.2}}
-                        className="text-lg sm:text-xl text-zinc-400 max-w-3xl mx-auto mb-8"
+                        className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
                     >
                         At ezdu, we’re rethinking how people grow and achieve. If you enjoy creating meaningful products
                         that solve real challenges, you’ll find your place here.
@@ -222,12 +222,12 @@ export default function CareerPage() {
                     >
                         <button
                             onClick={handleExploreClick}
-                            className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold transition-all border border-emerald-500/30 hover:border-emerald-500/60 group hover:shadow-lg hover:shadow-emerald-500/20 cursor-pointer"
+                            className="px-8 py-3 bg-primary hover:bg-primary text-white rounded-lg font-semibold transition-all border border-primary/30 hover:border-primary/60 group hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
                         >
                             Explore Positions
                         </button>
                         <button
-                            className="px-8 py-3 border-2 border-emerald-500/30 text-emerald-400 rounded-lg font-semibold hover:border-emerald-500/60 hover:bg-emerald-500/10 transition-all">
+                            className="px-8 py-3 border-2 border-primary/30 text-primary rounded-lg font-semibold hover:border-primary/60 hover:bg-primary/10 transition-all">
                             Learn More
                         </button>
                     </motion.div>
@@ -242,9 +242,9 @@ export default function CareerPage() {
                         whileInView={{opacity: 1, y: 0}}
                         transition={{duration: 0.8}}
                         viewport={{once: true}}
-                        className="text-3xl font-bold mb-12 text-center text-white"
+                        className="text-3xl font-bold mb-12 text-center text-foreground"
                     >
-                        Why join <span className="text-emerald-400">us</span>?
+                        Why join <span className="text-primary">us</span>?
                     </motion.h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -259,11 +259,11 @@ export default function CareerPage() {
                                     viewport={{once: true}}
                                     className="p-8 rounded-xl surface-raised surface-raised-hover"
                                 >
-                                    <Icon className="w-12 h-12 text-emerald-400 mb-4"/>
-                                    <h3 className="text-xl font-semibold text-white mb-3">
+                                    <Icon className="w-12 h-12 text-primary mb-4"/>
+                                    <h3 className="text-xl font-semibold text-foreground mb-3">
                                         {benefit.title}
                                     </h3>
-                                    <p className="text-zinc-400">
+                                    <p className="text-muted-foreground">
                                         {benefit.description}
                                     </p>
                                 </motion.div>
@@ -281,9 +281,9 @@ export default function CareerPage() {
                         whileInView={{opacity: 1, y: 0}}
                         transition={{duration: 0.8}}
                         viewport={{once: true}}
-                        className="text-3xl font-bold mb-8 text-white"
+                        className="text-3xl font-bold mb-8 text-foreground"
                     >
-                        Open <span className="text-emerald-400">positions</span>
+                        Open <span className="text-primary">positions</span>
                     </motion.h2>
 
                     {/* Filters */}
@@ -300,8 +300,8 @@ export default function CareerPage() {
                                 onClick={() => setSelectedDepartment(null)}
                                 className={`px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
                                     selectedDepartment === null
-                                        ? 'bg-emerald-600 text-white border border-emerald-500'
-                                        : 'bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-zinc-600'
+                                        ? 'bg-primary text-white border border-primary'
+                                        : 'bg-card text-muted-foreground border border-border hover:border-ring/40'
                                 }`}
                             >
                                 All Departments
@@ -312,8 +312,8 @@ export default function CareerPage() {
                                     onClick={() => setSelectedDepartment(dept)}
                                     className={`px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
                                         selectedDepartment === dept
-                                            ? 'bg-emerald-600 text-white border border-emerald-500'
-                                            : 'bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-zinc-600'
+                                            ? 'bg-primary text-white border border-primary'
+                                            : 'bg-card text-muted-foreground border border-border hover:border-ring/40'
                                     }`}
                                 >
                                     {dept}
@@ -327,8 +327,8 @@ export default function CareerPage() {
                                 onClick={() => setSelectedLevel(null)}
                                 className={`px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
                                     selectedLevel === null
-                                        ? 'bg-emerald-600 text-white border border-emerald-500'
-                                        : 'bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-zinc-600'
+                                        ? 'bg-primary text-white border border-primary'
+                                        : 'bg-card text-muted-foreground border border-border hover:border-ring/40'
                                 }`}
                             >
                                 All Levels
@@ -339,8 +339,8 @@ export default function CareerPage() {
                                     onClick={() => setSelectedLevel(level)}
                                     className={`px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
                                         selectedLevel === level
-                                            ? 'bg-emerald-600 text-white border border-emerald-500'
-                                            : 'bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-zinc-600'
+                                            ? 'bg-primary text-white border border-primary'
+                                            : 'bg-card text-muted-foreground border border-border hover:border-ring/40'
                                     }`}
                                 >
                                     {level}
@@ -365,39 +365,39 @@ export default function CareerPage() {
                                             className="group p-6 surface-raised surface-raised-hover cursor-pointer">
                                             <div className="flex items-start justify-between mb-4">
                                                 <div className="flex-1">
-                                                    <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                                                    <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                                                         {job.title}
                                                     </h3>
                                                     <div className="flex flex-wrap gap-2 mb-3">
                                                         <span
-                                                            className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-sm font-medium border border-emerald-500/30">
+                                                            className="inline-flex items-center gap-1 px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-medium border border-primary/30">
                                                             <Briefcase className="w-4 h-4"/>
                                                             {job.type}
                                                         </span>
                                                         <span
-                                                            className="inline-flex items-center gap-1 px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-sm font-medium border border-zinc-700">
+                                                            className="inline-flex items-center gap-1 px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm font-medium border border-border">
                                                             {job.level}
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <ChevronRight
-                                                    className="w-6 h-6 text-zinc-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all"/>
+                                                    className="w-6 h-6 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all"/>
                                             </div>
 
-                                            <p className="text-zinc-400 mb-4">
+                                            <p className="text-muted-foreground mb-4">
                                                 {job.description}
                                             </p>
 
-                                            <div className="flex flex-wrap gap-4 text-sm text-zinc-500">
+                                            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                                                 <div className="flex items-center gap-2">
-                                                    <MapPin className="w-4 h-4 text-emerald-400"/>
+                                                    <MapPin className="w-4 h-4 text-primary"/>
                                                     {job.location}
                                                 </div>
                                                 <div className="flex items-center gap-2">
                                                     {job.salary && (
                                                         <>
                                                             <span>•</span>
-                                                            <span className="text-emerald-400">{job.salary}</span>
+                                                            <span className="text-primary">{job.salary}</span>
                                                         </>
                                                     )}
                                                 </div>
@@ -412,7 +412,7 @@ export default function CareerPage() {
                                 animate={{opacity: 1}}
                                 className="text-center py-12"
                             >
-                                <p className="text-lg text-zinc-500">
+                                <p className="text-lg text-muted-foreground">
                                     No positions match your filters. Please try adjusting your selection.
                                 </p>
                             </motion.div>
@@ -429,16 +429,16 @@ export default function CareerPage() {
                         whileInView={{opacity: 1, y: 0}}
                         transition={{duration: 0.8}}
                         viewport={{once: true}}
-                        className="text-center p-12 rounded-xl surface-raised border-emerald-600/20"
+                        className="text-center p-12 rounded-xl surface-raised border-primary/20"
                     >
-                        <h2 className="text-3xl font-bold text-white mb-4">
+                        <h2 className="text-3xl font-bold text-foreground mb-4">
                             Don&apos;t see the right position?
                         </h2>
-                        <p className="text-lg text-zinc-400 mb-6">
+                        <p className="text-lg text-muted-foreground mb-6">
                             Send us your resume and let us know how you&apos;d like to contribute to our team.
                         </p>
                         <button
-                            className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold transition-all border border-emerald-500/30 hover:border-emerald-500/60 hover:shadow-lg hover:shadow-emerald-500/20">
+                            className="px-8 py-3 bg-primary hover:bg-primary text-white rounded-lg font-semibold transition-all border border-primary/30 hover:border-primary/60 hover:shadow-lg hover:shadow-primary/20">
                             Submit Your Profile
                         </button>
                     </motion.div>

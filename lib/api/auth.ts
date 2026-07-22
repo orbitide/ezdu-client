@@ -16,7 +16,21 @@ export async function login(dto: LoginDto): Promise<AuthResponseDto> {
 }
 
 export async function register(dto: RegisterDto): Promise<{ message: string }> {
-    const res = await apiClient.post('/auth/register', dto);
+    // Mobile omits `groupId` entirely when empty (register_request.dart), so a
+    // class without groups doesn't post a null the backend has to interpret.
+    const config = dto.config
+        ? {
+            classId: dto.config.classId,
+            ...(dto.config.groupId ? { groupId: dto.config.groupId } : {}),
+        }
+        : undefined;
+
+    const res = await apiClient.post('/auth/register', {
+        name: dto.name,
+        email: dto.email,
+        password: dto.password,
+        ...(config ? { config } : {}),
+    });
     return res.data;
 }
 

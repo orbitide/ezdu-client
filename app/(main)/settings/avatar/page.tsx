@@ -106,27 +106,27 @@ export default function AvatarSettingsPage() {
     const currentPanel = studioPanels.find((p) => p.id === activePanel) ?? studioPanels[0];
 
     return (
-        <div className="flex flex-col min-h-dvh bg-zinc-950">
+        <div className="flex flex-col min-h-dvh bg-background">
             {/* Header */}
-            <div className="flex items-center gap-3 border-b border-zinc-800/60 px-4 py-3 shrink-0">
+            <div className="flex items-center gap-3 border-b border-border px-4 py-3 shrink-0">
                 <Link
                     href="/settings"
-                    className="flex h-8 w-8 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                 >
                     <ArrowLeft size={18} />
                 </Link>
-                <h1 className="flex-1 text-sm font-bold text-zinc-100">অ্যাভাটার বিল্ডার</h1>
+                <h1 className="flex-1 text-sm font-bold text-foreground">অ্যাভাটার বিল্ডার</h1>
                 <button
                     onClick={handleShuffle}
                     title="র‍্যান্ডম"
-                    className="flex h-8 w-8 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                 >
                     <Shuffle size={16} />
                 </button>
                 <button
                     onClick={handleReset}
                     title="রিসেট"
-                    className="flex h-8 w-8 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                 >
                     <RefreshCw size={16} />
                 </button>
@@ -140,7 +140,7 @@ export default function AvatarSettingsPage() {
             </div>
 
             {/* Panel tabs */}
-            <div className="shrink-0 overflow-x-auto scrollbar-none border-y border-zinc-800/60">
+            <div className="shrink-0 overflow-x-auto scrollbar-none border-y border-border">
                 <div className="flex gap-1 px-3 py-2 min-w-max">
                     {studioPanels.map((panel) => (
                         <button
@@ -150,7 +150,7 @@ export default function AvatarSettingsPage() {
                                 'px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors',
                                 activePanel === panel.id
                                     ? 'bg-violet-500/20 text-violet-300 border border-violet-500/30'
-                                    : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/60'
+                                    : 'text-muted-foreground hover:text-muted-foreground hover:bg-muted/60'
                             )}
                         >
                             {panel.label}
@@ -165,14 +165,14 @@ export default function AvatarSettingsPage() {
             </div>
 
             {/* Save footer */}
-            <div className="shrink-0 border-t border-zinc-800/60 bg-zinc-950/95 backdrop-blur-sm px-4 py-4">
+            <div className="shrink-0 border-t border-border bg-background/95 backdrop-blur-sm px-4 py-4">
                 <button
                     onClick={handleSave}
                     disabled={saving || saved}
                     className={cn(
                         'flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-semibold transition-colors',
                         saved
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            ? 'bg-primary/20 text-primary border border-primary/30'
                             : 'bg-violet-600 text-white hover:bg-violet-500 disabled:opacity-60'
                     )}
                 >
@@ -205,7 +205,7 @@ function PanelContent({
                 return (
                     <div key={cat.id}>
                         {row.title && (
-                            <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-2">
+                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                                 {row.title}
                             </p>
                         )}
@@ -224,7 +224,7 @@ function PanelContent({
                                                 'relative h-9 w-9 rounded-full border-2 transition-all',
                                                 isSelected
                                                     ? 'border-violet-400 scale-110 shadow-lg shadow-violet-500/20'
-                                                    : 'border-zinc-700 hover:border-zinc-500 hover:scale-105'
+                                                    : 'border-border hover:border-ring/50 hover:scale-105'
                                             )}
                                             style={{ backgroundColor: hex ?? '#888' }}
                                         >
@@ -234,8 +234,8 @@ function PanelContent({
                                                         size={14}
                                                         className={
                                                             isLightColor(hex)
-                                                                ? 'text-zinc-900'
-                                                                : 'text-white'
+                                                                ? 'text-background'
+                                                                : 'text-foreground'
                                                         }
                                                         strokeWidth={3}
                                                     />
@@ -258,7 +258,7 @@ function PanelContent({
                                                 'rounded-lg border px-2 py-2 text-center text-xs font-medium transition-all',
                                                 isSelected
                                                     ? 'border-violet-500/60 bg-violet-500/15 text-violet-300'
-                                                    : 'border-zinc-800 bg-zinc-900 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200'
+                                                    : 'border-border bg-card text-muted-foreground hover:border-ring/40 hover:text-foreground'
                                             )}
                                         >
                                             {formatChoiceLabel(val) || 'None'}

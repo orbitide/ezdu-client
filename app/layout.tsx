@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fredoka, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import { getRootJsonLd } from "@/lib/jsonld";
 import { AuthProvider } from "@/components/auth-provider";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+const fredoka = Fredoka({
+    variable: "--font-fredoka",
     subsets: ["latin"],
+    weight: ["500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -74,7 +75,8 @@ export const viewport: Viewport = {
     width: 'device-width',
     initialScale: 1,
     viewportFit: 'cover',
-    themeColor: '#09090b',
+    // Matches `--background` in app/globals.css (oklch(0.16 0.01 150)).
+    themeColor: '#151a17',
 };
 
 export default function RootLayout({
@@ -83,16 +85,14 @@ export default function RootLayout({
     children: ReactNode;
 }>) {
     return (
-        <html lang="bn" className="h-full bg-zinc-950">
+        <html lang="bn" className={`${fredoka.variable} ${geistMono.variable} h-full antialiased`}>
         <head>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{__html: JSON.stringify(getRootJsonLd())}}
             />
         </head>
-        <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+        <body className="min-h-full flex flex-col">
         <AuthProvider>
             {children}
         </AuthProvider>

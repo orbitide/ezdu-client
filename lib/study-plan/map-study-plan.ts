@@ -1,6 +1,7 @@
 import type { StudyPlanDto, StudyPlanDayDto, StudyPlanItemDto } from '@/types/api';
 
-const MINUTES_PER_MOCK = 15;
+/** Mirrors mobile's `StudyPlan.minutesPerMock` (study_plan_model.dart). */
+export const MINUTES_PER_MOCK = 15;
 
 /** YYYY-MM-DD in the user's local timezone (matches mobile date comparison). */
 export function localDateKey(d: Date | string): string {

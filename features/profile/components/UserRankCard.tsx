@@ -15,9 +15,9 @@ function getLeagueBorderClass(league: string): string {
     if (n === 'gold') return 'border-yellow-400/40';
     if (n === 'platinum') return 'border-sky-400/40';
     if (n === 'diamond') return 'border-blue-400/40';
-    if (n === 'emerald') return 'border-emerald-400/40';
+    if (n === 'emerald') return 'border-primary/40';
     if (n === 'champion') return 'border-purple-400/40';
-    return 'border-zinc-700/40';
+    return 'border-border';
 }
 
 function getLeagueEmoji(league: string): string {
@@ -36,7 +36,7 @@ function StatCell({ icon, value }: { icon: React.ReactNode; value: string }) {
     return (
         <div className="flex items-center gap-2 min-w-0">
             <span className="shrink-0">{icon}</span>
-            <span className="text-sm font-extrabold text-zinc-100 truncate">{value}</span>
+            <span className="text-sm font-extrabold text-foreground truncate">{value}</span>
         </div>
     );
 }

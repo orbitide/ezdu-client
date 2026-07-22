@@ -23,7 +23,7 @@ export function ProfileHeader({ user, linkToAvatarEditor = false }: ProfileHeade
     const avatarEl = user.avatarConfig ? (
         <AvatarSvg config={user.avatarConfig} size={96} />
     ) : (
-        <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 text-2xl font-bold text-white">
+        <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-primary to-blue-600 text-2xl font-bold text-white">
             {initials}
         </div>
     );
@@ -34,7 +34,7 @@ export function ProfileHeader({ user, linkToAvatarEditor = false }: ProfileHeade
             {linkToAvatarEditor ? (
                 <Link
                     href="/settings/avatar"
-                    className="rounded-full ring-2 ring-zinc-700 ring-offset-2 ring-offset-zinc-950 hover:ring-emerald-500/60 transition-all"
+                    className="rounded-full ring-2 ring-border ring-offset-2 ring-offset-background hover:ring-primary/60 transition-all"
                 >
                     {avatarEl}
                 </Link>
@@ -43,7 +43,7 @@ export function ProfileHeader({ user, linkToAvatarEditor = false }: ProfileHeade
             )}
 
             {/* @username · joined date */}
-            <p className="text-xs font-bold tracking-wide text-zinc-400 uppercase text-center">
+            <p className="text-xs font-bold tracking-wide text-muted-foreground uppercase text-center">
                 {user.username ? `@${user.username}` : `@${user.name.toLowerCase().replace(/\s+/g, '')}`}
                 {joinedDate && ` · ${joinedDate} থেকে`}
             </p>
@@ -51,12 +51,12 @@ export function ProfileHeader({ user, linkToAvatarEditor = false }: ProfileHeade
             {/* Following / Followers */}
             <div className="flex gap-8">
                 <div className="text-center">
-                    <p className="text-base font-bold text-zinc-100">{user.following ?? 0}</p>
-                    <p className="text-xs text-zinc-500">ফলো করছি</p>
+                    <p className="text-base font-bold text-foreground">{user.following ?? 0}</p>
+                    <p className="text-xs text-muted-foreground">ফলো করছি</p>
                 </div>
                 <div className="text-center">
-                    <p className="text-base font-bold text-zinc-100">{user.followers ?? 0}</p>
-                    <p className="text-xs text-zinc-500">ফলোয়ার</p>
+                    <p className="text-base font-bold text-foreground">{user.followers ?? 0}</p>
+                    <p className="text-xs text-muted-foreground">ফলোয়ার</p>
                 </div>
             </div>
         </div>

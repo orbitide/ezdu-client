@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import type { SubjectDto } from '@/types/api';
 
 const ACCENT_PALETTE = [
-    { icon: 'text-emerald-400', bg: 'bg-emerald-500/18', circle: 'bg-emerald-500/15' },
+    { icon: 'text-primary', bg: 'bg-primary/18', circle: 'bg-primary/15' },
     { icon: 'text-amber-400', bg: 'bg-amber-500/18', circle: 'bg-amber-500/15' },
     { icon: 'text-green-400', bg: 'bg-green-500/18', circle: 'bg-green-500/15' },
     { icon: 'text-purple-400', bg: 'bg-purple-500/18', circle: 'bg-purple-500/15' },
@@ -32,8 +32,8 @@ export function ArchiveSubjectCard({ subject, index, href }: ArchiveSubjectCardP
         <Link
             href={href}
             className={cn(
-                'group relative block aspect-[5/4] max-h-28 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900',
-                'transition-colors hover:border-zinc-700',
+                'group relative block aspect-[5/4] max-h-28 overflow-hidden rounded-lg border border-border bg-card',
+                'transition-colors hover:border-border',
             )}
         >
             {hasCover ? (
@@ -53,7 +53,7 @@ export function ArchiveSubjectCard({ subject, index, href }: ArchiveSubjectCardP
                     />
                     <ChevronRight
                         size={14}
-                        className="absolute right-2 top-2 text-zinc-500 group-hover:text-zinc-400"
+                        className="absolute right-2 top-2 text-muted-foreground group-hover:text-muted-foreground"
                     />
                     <div className="relative flex h-full flex-col justify-between p-2.5">
                         <div
@@ -74,11 +74,11 @@ export function ArchiveSubjectCard({ subject, index, href }: ArchiveSubjectCardP
                             )}
                         </div>
                         <div className="space-y-0.5">
-                            <p className="line-clamp-2 text-xs font-medium leading-snug text-zinc-100">
+                            <p className="line-clamp-2 text-xs font-medium leading-snug text-foreground">
                                 {subject.name}
                             </p>
                             {subject.subTitle?.trim() && (
-                                <p className="line-clamp-1 text-[10px] text-zinc-500">{subject.subTitle}</p>
+                                <p className="line-clamp-1 text-[10px] text-muted-foreground">{subject.subTitle}</p>
                             )}
                         </div>
                     </div>

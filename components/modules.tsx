@@ -40,10 +40,10 @@ export const EdtechModules = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-                        লার্নিং <span className="text-emerald-400">মডিউলস</span>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+                        লার্নিং <span className="text-primary">মডিউলস</span>
                     </h2>
-                    <p className="text-zinc-400 max-w-2xl mx-auto">
+                    <p className="text-muted-foreground max-w-2xl mx-auto">
                         লেসন, প্র্যাকটিস ও অগ্রগতি—একই অ্যাপে কীভাবে জুড়ে দেওয়া হয়েছে
                     </p>
                 </motion.div>
@@ -56,14 +56,14 @@ export const EdtechModules = () => {
                             animate={isInView ? { opacity: 1, x: 0 } : {}}
                             transition={{ duration: 0.6, delay: index * 0.15 }}
                         >
-                            <Card className="h-full surface-raised-hover transition-colors duration-300 border-zinc-800/80 hover:border-zinc-600/50">
+                            <Card className="h-full surface-raised-hover transition-colors duration-300 border-border hover:border-ring/40">
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-lg bg-zinc-800/80 border border-zinc-700 flex items-center justify-center flex-shrink-0 transition-colors hover:border-emerald-600/35">
-                                        <module.icon className="text-emerald-400" size={24} />
+                                    <div className="w-12 h-12 rounded-lg bg-muted/80 border border-border flex items-center justify-center flex-shrink-0 transition-colors hover:border-primary/35">
+                                        <module.icon className="text-primary" size={24} />
                                     </div>
                                     <div>
-                                        <h3 className="text-xl font-bold text-white mb-2">{module.title}</h3>
-                                        <p className="text-zinc-400 leading-relaxed">{module.description}</p>
+                                        <h3 className="text-xl font-bold text-foreground mb-2">{module.title}</h3>
+                                        <p className="text-muted-foreground leading-relaxed">{module.description}</p>
                                     </div>
                                 </div>
                             </Card>

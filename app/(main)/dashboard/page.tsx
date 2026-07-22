@@ -8,6 +8,10 @@ import { RecentActivity } from '@/features/dashboard/components/RecentActivity';
 import { DashboardStats } from '@/features/dashboard/components/DashboardStats';
 import { DashboardPlanPanel } from '@/features/dashboard/components/DashboardPlanPanel';
 import { MiniLeaderboard } from '@/features/dashboard/components/MiniLeaderboard';
+import { DailyRevisionCard } from '@/features/dashboard/components/DailyRevisionCard';
+import { UpcomingModelTestsCard } from '@/features/dashboard/components/UpcomingModelTestsCard';
+import { TwoColumnShell } from '@/components/layout/two-column-shell';
+import { PageContainer } from '@/components/layout/page-container';
 import { useAuthStore } from '@/store/auth.store';
 import { useAppDataStore } from '@/store/app-data.store';
 import type { ActivityItem, ExamProgress } from '@/features/dashboard/types';
@@ -49,8 +53,8 @@ function mapMasteryToProgress(items: SubjectMasteryDto[]): ExamProgress[] {
     const examIds: ExamId[] = ['ssc', 'hsc', 'bcs', 'ielts', 'vocabulary'];
     return items.slice(0, 5).map((item, i) => ({
         examId: examIds[i % examIds.length],
-        completedTopics: item.masteredLessons,
-        totalTopics: item.totalLessons,
+        completedTopics: item.masteredCount,
+        totalTopics: item.totalQuestions,
         lastPracticed: 'সম্প্রতি',
     }));
 }
@@ -106,7 +110,7 @@ export default function DashboardPage() {
     if (!isPreloaded) {
         return (
             <div className="flex min-h-[60vh] items-center justify-center">
-                <Loader2 size={32} className="animate-spin text-emerald-500" />
+                <Loader2 size={32} className="animate-spin text-primary" />
             </div>
         );
     }
@@ -122,69 +126,65 @@ export default function DashboardPage() {
     } : undefined;
 
     return (
-        <div className="mx-auto max-w-7xl px-4 py-6 lg:px-6">
+        <PageContainer>
             {/* Greeting */}
             <div className="mb-6">
-                <h1 className="text-xl font-bold text-zinc-100">
+                <h1 className="text-xl font-bold text-foreground">
                     স্বাগতম{user?.name ? `, ${user.name}` : ''}!
                 </h1>
-                <p className="text-sm text-zinc-500">
+                <p className="text-sm text-muted-foreground">
                     আজকের লক্ষ্য পূরণ করতে প্র্যাকটিস শুরু করো
                 </p>
             </div>
 
-            {/* Two-column layout: right panel is first in DOM for mobile order */}
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_340px]">
+            <TwoColumnShell
+                right={
+                    <>
+                        <DashboardStats stats={stats} plan={plan} />
+                        <DashboardPlanPanel plan={plan} planLoading={planLoading} />
+                        <UpcomingModelTestsCard />
+                    </>
+                }
+            >
+                <HomeGrid />
 
-                {/* Right panel — shows above content on mobile, sidebar on desktop */}
-                <aside className="order-first space-y-4 lg:order-last lg:sticky lg:top-6 lg:self-start">
-                    <DashboardStats stats={stats} plan={plan} />
-                    <DashboardPlanPanel
-                        plan={plan}
-                        planLoading={planLoading}
-                    />
-                </aside>
+                <DailyRevisionCard />
 
-                {/* Left column — main content */}
-                <div className="order-last min-w-0 space-y-6 lg:order-first">
-                    <HomeGrid />
+                {recommendations && (
+                    <RecommendationSection data={recommendations} />
+                )}
 
-                    {recommendations && (
-                        <RecommendationSection data={recommendations} />
+                <div className="grid gap-4 lg:grid-cols-2">
+                    {activity.length > 0 ? (
+                        <RecentActivity items={activity} />
+                    ) : (
+                        <EmptyCard
+                            title="এখনো কোনো প্র্যাকটিস নেই"
+                            sub="প্রথম কুইজটি শুরু করো!"
+                        />
                     )}
-
-                    <div className="grid gap-4 lg:grid-cols-2">
-                        {activity.length > 0 ? (
-                            <RecentActivity items={activity} />
-                        ) : (
-                            <EmptyCard
-                                title="এখনো কোনো প্র্যাকটিস নেই"
-                                sub="প্রথম কুইজটি শুরু করো!"
-                            />
-                        )}
-                        {progress.length > 0 ? (
-                            <ExamProgressList items={progress} />
-                        ) : (
-                            <EmptyCard
-                                title="কোনো অগ্রগতি নেই"
-                                sub="কুইজ দিলে তোমার অগ্রগতি এখানে দেখাবে"
-                            />
-                        )}
-                        <div className="lg:col-span-2">
-                            <MiniLeaderboard entries={leaderboard} />
-                        </div>
+                    {progress.length > 0 ? (
+                        <ExamProgressList items={progress} />
+                    ) : (
+                        <EmptyCard
+                            title="কোনো অগ্রগতি নেই"
+                            sub="কুইজ দিলে তোমার অগ্রগতি এখানে দেখাবে"
+                        />
+                    )}
+                    <div className="lg:col-span-2">
+                        <MiniLeaderboard entries={leaderboard} />
                     </div>
                 </div>
-            </div>
-        </div>
+            </TwoColumnShell>
+        </PageContainer>
     );
 }
 
 function EmptyCard({ title, sub }: { title: string; sub: string }) {
     return (
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 text-center">
-            <p className="text-sm font-medium text-zinc-400">{title}</p>
-            <p className="mt-1 text-xs text-zinc-600">{sub}</p>
+        <div className="rounded-xl border border-border bg-card p-6 text-center">
+            <p className="text-sm font-medium text-muted-foreground">{title}</p>
+            <p className="mt-1 text-xs text-muted-foreground">{sub}</p>
         </div>
     );
 }
@@ -200,13 +200,13 @@ function RecommendationSection({ data }: { data: RecommendationsDto }) {
     if (items.length === 0) return null;
 
     return (
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">আজকের পরামর্শ</p>
+        <div className="rounded-xl border border-border bg-card p-4 space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">আজকের পরামর্শ</p>
             <div className="grid gap-2 sm:grid-cols-2">
                 {items.map(({ label, value }) => (
-                    <div key={label} className="rounded-lg border border-zinc-800 bg-zinc-950/50 px-3 py-2.5">
-                        <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-600">{label}</p>
-                        <p className="mt-0.5 text-sm text-zinc-300 line-clamp-2">{value}</p>
+                    <div key={label} className="rounded-lg border border-border bg-background/50 px-3 py-2.5">
+                        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{label}</p>
+                        <p className="mt-0.5 text-sm text-muted-foreground line-clamp-2">{value}</p>
                     </div>
                 ))}
             </div>

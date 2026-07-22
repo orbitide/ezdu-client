@@ -58,13 +58,13 @@ export function LoginForm() {
             {/* Logo */}
             <div className="mb-8 flex flex-col items-center gap-3">
                 <Image src="/logo_rounded.png" alt="EzDu" width={80} height={80} className="rounded-2xl" />
-                <span className="text-2xl font-extrabold tracking-tight text-zinc-100">EzDu</span>
+                <span className="text-2xl font-extrabold tracking-tight text-foreground">EzDu</span>
             </div>
 
             <div className="w-full max-w-sm space-y-6">
                 <div>
-                    <h1 className="text-2xl font-extrabold tracking-tight text-zinc-100">স্বাগতম!</h1>
-                    <p className="mt-1 text-sm text-zinc-500">তোমার অ্যাকাউন্টে লগইন করো</p>
+                    <h1 className="text-2xl font-extrabold tracking-tight text-foreground">স্বাগতম!</h1>
+                    <p className="mt-1 text-sm text-muted-foreground">তোমার অ্যাকাউন্টে লগইন করো</p>
                 </div>
 
                 {error && (
@@ -76,24 +76,24 @@ export function LoginForm() {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-zinc-400">ইমেইল</label>
+                        <label className="text-xs font-semibold text-muted-foreground">ইমেইল</label>
                         <div className="relative">
-                            <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
+                            <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                             <input
                                 type="email"
                                 placeholder="তোমার ইমেইল দাও"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="w-full rounded-xl border border-zinc-800 bg-zinc-900 py-3 pl-10 pr-4 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500"
+                                className="w-full rounded-xl border border-border bg-card py-3 pl-10 pr-4 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-primary"
                             />
                         </div>
                     </div>
 
                     <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-zinc-400">পাসওয়ার্ড</label>
+                        <label className="text-xs font-semibold text-muted-foreground">পাসওয়ার্ড</label>
                         <div className="relative">
-                            <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
+                            <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="তোমার পাসওয়ার্ড দাও"
@@ -101,18 +101,18 @@ export function LoginForm() {
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                                 minLength={6}
-                                className="w-full rounded-xl border border-zinc-800 bg-zinc-900 py-3 pl-10 pr-11 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500"
+                                className="w-full rounded-xl border border-border bg-card py-3 pl-10 pr-11 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-primary"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+                                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground"
                             >
                                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                             </button>
                         </div>
                         <div className="flex justify-end">
-                            <Link href="/forgot-password" className="text-xs font-medium text-emerald-400 hover:text-emerald-300">
+                            <Link href="/forgot-password" className="text-xs font-medium text-primary hover:text-primary">
                                 ভুলে গেছো?
                             </Link>
                         </div>
@@ -125,23 +125,23 @@ export function LoginForm() {
                 </form>
 
                 <div className="flex items-center gap-3">
-                    <div className="flex-1 border-t border-zinc-800" />
-                    <span className="text-xs text-zinc-600">অথবা</span>
-                    <div className="flex-1 border-t border-zinc-800" />
+                    <div className="flex-1 border-t border-border" />
+                    <span className="text-xs text-muted-foreground">অথবা</span>
+                    <div className="flex-1 border-t border-border" />
                 </div>
 
                 <button
                     type="button"
                     disabled
-                    className="flex w-full items-center justify-center gap-3 rounded-xl border border-zinc-700 bg-zinc-900 py-3 text-sm font-semibold text-zinc-400 opacity-50 cursor-not-allowed"
+                    className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-card py-3 text-sm font-semibold text-muted-foreground opacity-50 cursor-not-allowed"
                 >
                     <Image src="/icons/google_logo.svg" alt="Google" width={18} height={18} />
                     Google দিয়ে লগইন (শীঘ্রই আসছে)
                 </button>
 
-                <p className="text-center text-sm text-zinc-500">
+                <p className="text-center text-sm text-muted-foreground">
                     অ্যাকাউন্ট নেই?{' '}
-                    <Link href="/register" className="font-semibold text-emerald-400 hover:text-emerald-300">
+                    <Link href="/register" className="font-semibold text-primary hover:text-primary">
                         শুরু করো
                     </Link>
                 </p>

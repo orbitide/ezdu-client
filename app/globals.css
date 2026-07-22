@@ -1,13 +1,34 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/*
+ * Design system ported from the Orbitide ezdu-client reference.
+ *
+ * The site is permanently dark (see CLAUDE.md), so the reference's `.dark`
+ * token values are promoted directly onto `:root`. There is no `.dark` class
+ * to toggle and no theme switcher — a single always-on dark palette.
+ */
+
+@layer base {
+  html {
+    font-size: 17px;
+  }
+  body:has([data-app-shell]) {
+    height: 100%;
+    overflow: hidden;
+  }
+  a, button {
+    cursor: pointer;
+  }
+}
 
 @theme inline {
+  --font-sans: var(--font-fredoka);
+  --font-mono: var(--font-geist-mono);
+  --background-image-brand-gradient: var(--brand-gradient);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -37,85 +58,125 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+
+  /* Gamification tokens */
+  --color-coin: var(--coin);
+  --color-coin-foreground: var(--coin-foreground);
+  --color-xp: var(--xp);
+  --color-xp-foreground: var(--xp-foreground);
+  --color-streak: var(--streak);
+  --color-streak-foreground: var(--streak-foreground);
+
+  /* Pro / premium tokens */
+  --color-pro: var(--pro);
+  --color-pro-foreground: var(--pro-foreground);
+
+  /* Rank tier tokens */
+  --color-rank-novice: var(--rank-novice);
+  --color-rank-apprentice: var(--rank-apprentice);
+  --color-rank-adept: var(--rank-adept);
+  --color-rank-expert: var(--rank-expert);
+  --color-rank-master: var(--rank-master);
+  --color-rank-grandmaster: var(--rank-grandmaster);
+  --color-rank-champion: var(--rank-champion);
+  --color-rank-legend: var(--rank-legend);
+  --color-rank-mythic: var(--rank-mythic);
+  --color-avatar-preview-surface: var(--avatar-preview-surface);
+  --color-avatar-preview-surface-strong: var(--avatar-preview-surface-strong);
 }
 
 :root {
+  /* Signature emerald gradient — purposeful, contained (app icon only) */
+  --brand-from: #00d492;
+  --brand-to: #008d61;
+  --brand-gradient: linear-gradient(135deg, var(--brand-from) 0%, var(--brand-to) 100%);
+
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  /* Fixed navbar — logo row height only (safe area is padding on <nav>, see Navbar) */
+
+  /* Fixed marketing navbar offsets */
   --ez-marketing-nav-height: 3.5rem;
   --ez-exam-bar-height: 3.5rem;
   --ez-safe-top: env(safe-area-inset-top, 0px);
   --ez-chrome-row: calc(var(--ez-safe-top) + var(--ez-marketing-nav-height));
   --ez-marketing-header-exam: calc(var(--ez-chrome-row) + var(--ez-exam-bar-height));
-}
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /* ── Core palette (reference `.dark` values — permanently applied) ── */
+  --background: oklch(0.16 0.01 150);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.21 0.01 150);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.21 0.01 150);
+  --popover-foreground: oklch(0.97 0 0);
+  --primary: oklch(0.773 0.086 149);
+  --primary-foreground: oklch(0.12 0.02 150);
+  --secondary: oklch(0.28 0.035 155);
+  --secondary-foreground: oklch(0.97 0 0);
+  --muted: oklch(0.27 0.025 155);
+  --muted-foreground: oklch(0.66 0.03 155);
+  --accent: oklch(0.32 0.06 155);
+  --accent-foreground: oklch(0.97 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 14%);
+  --input: oklch(1 0 0 / 18%);
+  --ring: oklch(0.769 0.169 161.9);
+
+  --chart-1: oklch(0.769 0.169 161.9);
+  --chart-2: oklch(0.72 0.16 200);
+  --chart-3: oklch(0.76 0.16 150);
+  --chart-4: oklch(0.78 0.16 48);
+  --chart-5: oklch(0.72 0.20 330);
+
+  --sidebar: oklch(0.19 0.01 150);
+  --sidebar-foreground: oklch(0.97 0 0);
+  --sidebar-primary: oklch(0.773 0.086 149);
+  --sidebar-primary-foreground: oklch(0.12 0.02 150);
+  --sidebar-accent: oklch(0.26 0.03 150);
+  --sidebar-accent-foreground: oklch(0.97 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: oklch(0.773 0.086 149);
+
+  /* Gamification colors */
+  --coin: oklch(0.80 0.15 85);
+  --coin-foreground: oklch(0.20 0.04 85);
+  --xp: oklch(0.70 0.18 260);
+  --xp-foreground: oklch(0.12 0.02 150);
+  --streak: oklch(0.68 0.20 35);
+  --streak-foreground: oklch(0.12 0.02 150);
+
+  /* Pro / premium (#AB47BC) */
+  --pro: oklch(0.576 0.194 321.6);
+  --pro-foreground: oklch(0.985 0 0);
+
+  /* Rank tier palette (Novice -> Mythic) */
+  --rank-novice: oklch(0.65 0.01 150);
+  --rank-apprentice: oklch(0.70 0.12 145);
+  --rank-adept: oklch(0.70 0.16 200);
+  --rank-expert: oklch(0.70 0.18 250);
+  --rank-master: oklch(0.68 0.20 290);
+  --rank-grandmaster: oklch(0.70 0.22 330);
+  --rank-champion: oklch(0.75 0.18 48);
+  --rank-legend: oklch(0.80 0.15 85);
+  --rank-mythic: oklch(0.72 0.24 10);
+
+  /* Avatar studio */
+  --avatar-preview-surface: oklch(0.28 0.02 155);
+  --avatar-preview-surface-strong: oklch(0.22 0.015 150);
+
+  /* Personalized learning diagram */
+  --pl-wire: #a78bfa;
+  --pl-wire-opacity: 0.55;
+  --pl-gradient-from: #a78bfa;
+  --pl-gradient-from-opacity: 0.25;
+  --pl-gradient-to: #c4b5fd;
+  --pl-gradient-to-opacity: 0.85;
+  --pl-dot: #a78bfa;
+  --pl-chip-dot: #c4b5fd;
+  --pl-light: #ede9fe;
 }
 
 @keyframes live-soft-ping {
@@ -136,12 +197,12 @@
 @keyframes badge-live-shimmer {
   0%,
   100% {
-    border-color: rgb(63 63 70);
-    box-shadow: 0 0 0 0 rgb(16 185 129 / 0);
+    border-color: var(--border);
+    box-shadow: 0 0 0 0 oklch(0.572 0.063 149.8 / 0);
   }
   50% {
-    border-color: rgb(82 82 91);
-    box-shadow: 0 0 20px -8px rgb(16 185 129 / 0.2);
+    border-color: var(--ring);
+    box-shadow: 0 0 20px -8px oklch(0.572 0.063 149.8 / 0.2);
   }
 }
 
@@ -149,28 +210,41 @@
   0%,
   100% {
     box-shadow:
-      0 10px 25px -10px rgb(5 150 105 / 0.45),
-      0 0 0 0 rgb(16 185 129 / 0);
+      0 10px 25px -10px oklch(0.572 0.063 149.8 / 0.45),
+      0 0 0 0 oklch(0.572 0.063 149.8 / 0);
   }
   50% {
     box-shadow:
-      0 12px 32px -8px rgb(16 185 129 / 0.55),
-      0 0 0 1px rgb(52 211 153 / 0.25);
+      0 12px 32px -8px oklch(0.572 0.063 149.8 / 0.55),
+      0 0 0 1px oklch(0.773 0.086 149 / 0.25);
   }
 }
 
+@keyframes challenge-shake {
+  0%,
+  100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(3px); }
+}
+
 @layer utilities {
+  .animate-challenge-shake {
+    animation: challenge-shake 0.4s ease-in-out;
+  }
+
   /* Live indicator — dot + soft ring (respect reduced motion below) */
   .live-dot {
     @apply relative flex h-2 w-2 shrink-0 items-center justify-center;
   }
   .live-dot::before {
     content: "";
-    @apply absolute inline-flex h-full w-full rounded-full bg-emerald-500/40;
+    @apply absolute inline-flex h-full w-full rounded-full bg-primary/40;
     animation: live-soft-ping 2.25s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
   .live-dot-inner {
-    @apply relative z-[1] h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-zinc-950;
+    @apply relative z-[1] h-2 w-2 rounded-full bg-primary ring-2 ring-background;
   }
 
   .live-dot.live-dot-sm {
@@ -182,10 +256,10 @@
 
   /* On solid emerald surfaces (e.g. pricing ribbon) */
   .live-dot.live-dot-on-light .live-dot-inner {
-    @apply ring-emerald-700;
+    @apply ring-primary;
   }
 
-  /* Pill / badge with gentle “active” glow */
+  /* Pill / badge with gentle "active" glow */
   .badge-live {
     animation: badge-live-shimmer 3.5s ease-in-out infinite;
   }
@@ -194,21 +268,21 @@
     animation: ribbon-emerald-pulse 2.5s ease-in-out infinite;
   }
 
-  /* Landing dark theme — flat surfaces, minimal gradient */
+  /* Surfaces — token-backed so pages never hardcode palette colours */
   .surface-page {
-    @apply bg-zinc-950 text-zinc-100;
+    @apply bg-background text-foreground;
   }
   .surface-section-muted {
-    @apply bg-zinc-900/40;
+    @apply bg-muted/40;
   }
   .surface-raised {
-    @apply rounded-xl border border-zinc-800 bg-zinc-900/70;
+    @apply rounded-xl border border-border bg-card;
   }
   .surface-raised-hover {
-    @apply transition-colors hover:border-zinc-700;
+    @apply transition-colors hover:border-ring/40;
   }
   .surface-chrome {
-    @apply border-zinc-800 bg-zinc-950/90 backdrop-blur-lg;
+    @apply border-border bg-background/90 backdrop-blur-lg;
   }
 
   /* Clear fixed navbar + notch (max keeps desktop spacing when safe-area is 0) */
@@ -228,9 +302,22 @@
   * {
     @apply border-border outline-ring/50;
   }
-  /* Match marketing shell (same as home `surface-page`) */
+
   body {
-    @apply min-h-full bg-zinc-950 text-zinc-100;
+    @apply min-h-full bg-background text-foreground font-sans font-medium antialiased;
+  }
+
+  h1 {
+    @apply text-3xl font-bold tracking-tight md:text-4xl;
+  }
+  h2 {
+    @apply text-2xl font-bold tracking-tight md:text-3xl;
+  }
+  h3 {
+    @apply text-xl font-semibold tracking-tight md:text-2xl;
+  }
+  h4 {
+    @apply text-lg font-semibold md:text-xl;
   }
 
   @media (prefers-reduced-motion: reduce) {

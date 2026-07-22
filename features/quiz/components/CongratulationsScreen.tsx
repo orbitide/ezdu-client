@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { RotateCcw, Home, BookOpen, Clock, Zap, Star, Trophy } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, toBangla } from '@/lib/utils';
 import type { QuizResult } from '../types';
 import type { UserQuizResultDto } from '@/types/api';
 
@@ -17,7 +17,7 @@ interface CongratulationsScreenProps {
 }
 
 function getGrade(accuracy: number) {
-    if (accuracy >= 90) return { label: 'অসাধারণ! 🎉',   color: 'text-emerald-400', ring: '#10b981' };
+    if (accuracy >= 90) return { label: 'অসাধারণ! 🎉',   color: 'text-primary', ring: '#10b981' };
     if (accuracy >= 70) return { label: 'ভালো হয়েছে! 👏', color: 'text-teal-400',    ring: '#2dd4bf' };
     if (accuracy >= 40) return { label: 'চেষ্টা করো 💪',  color: 'text-yellow-400',  ring: '#facc15' };
     return               { label: 'আরো পড়তে হবে 📚',     color: 'text-rose-400',    ring: '#f43f5e' };
@@ -26,7 +26,7 @@ function getGrade(accuracy: number) {
 function formatTime(s: number) {
     const m = Math.floor(s / 60);
     const sec = s % 60;
-    return m > 0 ? `${m}মি ${sec}সে` : `${sec}সে`;
+    return m > 0 ? `${toBangla(m)}মি ${toBangla(sec)}সে` : `${toBangla(sec)}সে`;
 }
 
 // Confetti particle
@@ -75,7 +75,7 @@ export function CongratulationsScreen({
     });
 
     return (
-        <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12 bg-zinc-950">
+        <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12 bg-background">
             {/* Confetti */}
             {showConfetti && (
                 <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -94,7 +94,7 @@ export function CongratulationsScreen({
                     className="flex flex-col items-center gap-4"
                 >
                     {/* Conic ring */}
-                    <div className="relative flex h-36 w-36 items-center justify-center rounded-full border-4 border-zinc-800">
+                    <div className="relative flex h-36 w-36 items-center justify-center rounded-full border-4 border-border">
                         <div
                             className="absolute inset-0 rounded-full"
                             style={{
@@ -103,54 +103,54 @@ export function CongratulationsScreen({
                             }}
                         />
                         <div className="text-center z-10">
-                            <p className={cn('text-4xl font-extrabold', grade.color)}>{accuracy}%</p>
-                            <p className="text-xs text-zinc-500 mt-0.5">নির্ভুলতা</p>
+                            <p className={cn('text-4xl font-extrabold', grade.color)}>{toBangla(accuracy)}%</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">নির্ভুলতা</p>
                         </div>
                     </div>
 
                     <p className={cn('text-xl font-bold', grade.color)}>{grade.label}</p>
 
                     {saving && (
-                        <p className="text-xs text-zinc-500 animate-pulse">ফলাফল সেভ হচ্ছে...</p>
+                        <p className="text-xs text-muted-foreground animate-pulse">ফলাফল সেভ হচ্ছে...</p>
                     )}
                 </motion.div>
 
                 {/* XP earned */}
                 <motion.div {...fadeUp(0.18)} className="flex items-center justify-center gap-2 rounded-2xl border border-yellow-500/20 bg-yellow-500/8 py-3">
                     <Zap size={18} className="text-yellow-400" />
-                    <span className="text-2xl font-extrabold text-yellow-400">+{xpEarned} XP</span>
+                    <span className="text-2xl font-extrabold text-yellow-400">+{toBangla(xpEarned)} XP</span>
                     {streak != null && streak > 0 && (
                         <>
-                            <span className="text-zinc-600 mx-1">·</span>
+                            <span className="text-muted-foreground mx-1">·</span>
                             <Star size={16} className="text-orange-400" />
-                            <span className="text-sm font-semibold text-orange-400">{streak} স্ট্রিক</span>
+                            <span className="text-sm font-semibold text-orange-400">{toBangla(streak)} স্ট্রিক</span>
                         </>
                     )}
                 </motion.div>
 
                 {/* Stats grid */}
                 <motion.div {...fadeUp(0.28)} className="grid grid-cols-2 gap-3">
-                    <div className="flex flex-col items-center gap-1 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
-                        <p className="text-2xl font-extrabold text-emerald-400">{correct}</p>
-                        <p className="text-xs text-zinc-500">সঠিক উত্তর</p>
+                    <div className="flex flex-col items-center gap-1 rounded-xl border border-primary/20 bg-primary/5 p-4">
+                        <p className="text-2xl font-extrabold text-primary">{toBangla(correct)}</p>
+                        <p className="text-xs text-muted-foreground">সঠিক উত্তর</p>
                     </div>
                     <div className="flex flex-col items-center gap-1 rounded-xl border border-red-500/20 bg-red-500/5 p-4">
-                        <p className="text-2xl font-extrabold text-red-400">{incorrect}</p>
-                        <p className="text-xs text-zinc-500">ভুল উত্তর</p>
+                        <p className="text-2xl font-extrabold text-red-400">{toBangla(incorrect)}</p>
+                        <p className="text-xs text-muted-foreground">ভুল উত্তর</p>
                     </div>
-                    <div className="flex flex-col items-center gap-1 rounded-xl border border-zinc-700 bg-zinc-900 p-4">
+                    <div className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card p-4">
                         <div className="flex items-center gap-1.5">
-                            <Clock size={14} className="text-zinc-400" />
-                            <p className="text-lg font-bold text-zinc-100">{formatTime(timeTaken)}</p>
+                            <Clock size={14} className="text-muted-foreground" />
+                            <p className="text-lg font-bold text-foreground">{formatTime(timeTaken)}</p>
                         </div>
-                        <p className="text-xs text-zinc-500">সময়</p>
+                        <p className="text-xs text-muted-foreground">সময়</p>
                     </div>
-                    <div className="flex flex-col items-center gap-1 rounded-xl border border-zinc-700 bg-zinc-900 p-4">
+                    <div className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card p-4">
                         <div className="flex items-center gap-1.5">
-                            <Trophy size={14} className="text-zinc-400" />
-                            <p className="text-lg font-bold text-zinc-100">{skipped}</p>
+                            <Trophy size={14} className="text-muted-foreground" />
+                            <p className="text-lg font-bold text-foreground">{toBangla(skipped)}</p>
                         </div>
-                        <p className="text-xs text-zinc-500">বাদ দেওয়া</p>
+                        <p className="text-xs text-muted-foreground">বাদ দেওয়া</p>
                     </div>
                 </motion.div>
 
@@ -168,14 +168,14 @@ export function CongratulationsScreen({
                     )}
                     <button
                         onClick={onRetry}
-                        className="flex items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 text-sm font-semibold text-black hover:bg-emerald-400 transition-colors"
+                        className="flex items-center justify-center gap-2 rounded-xl bg-primary py-3.5 text-sm font-semibold text-black hover:bg-primary transition-colors"
                     >
                         <RotateCcw size={16} />
                         আবার চেষ্টা করো
                     </button>
                     <button
                         onClick={onHome}
-                        className="flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900 py-3 text-sm font-medium text-zinc-300 hover:bg-zinc-800 transition-colors"
+                        className="flex items-center justify-center gap-2 rounded-xl border border-border bg-card py-3 text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
                     >
                         <Home size={16} />
                         হোমে ফিরে যাও

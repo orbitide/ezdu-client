@@ -29,10 +29,10 @@ export const Features = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-                        প্র্যাকটিস থেকে ফলাফল—<span className="text-emerald-400">একই অ্যাপে</span>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+                        প্র্যাকটিস থেকে ফলাফল—<span className="text-primary">একই অ্যাপে</span>
                     </h2>
-                    <p className="text-zinc-400 max-w-2xl mx-auto">
+                    <p className="text-muted-foreground max-w-2xl mx-auto">
                         কী পাবেন: প্রশ্ন, ব্যাখ্যা, টেস্ট আর অগ্রগতির টুল—এক জায়গায় সাজানো
                     </p>
                 </motion.div>
@@ -45,14 +45,14 @@ export const Features = () => {
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.6, delay: index * 0.1 }}
                         >
-                            <Card className="h-full surface-raised-hover transition-colors duration-300 group cursor-pointer border-zinc-800/80 hover:border-zinc-600/50">
-                                <div className="w-14 h-14 rounded-xl bg-zinc-800/80 border border-zinc-700 flex items-center justify-center mb-4 transition-colors group-hover:border-emerald-600/40">
-                                    <feature.icon className="text-emerald-400" size={28} />
+                            <Card className="h-full surface-raised-hover transition-colors duration-300 group cursor-pointer border-border hover:border-ring/40">
+                                <div className="w-14 h-14 rounded-xl bg-muted/80 border border-border flex items-center justify-center mb-4 transition-colors group-hover:border-primary/40">
+                                    <feature.icon className="text-primary" size={28} />
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                                <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                                     {feature.title}
                                 </h3>
-                                <p className="text-zinc-400 leading-relaxed">{feature.description}</p>
+                                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
                             </Card>
                         </motion.div>
                     ))}

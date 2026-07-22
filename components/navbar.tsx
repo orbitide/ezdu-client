@@ -23,14 +23,14 @@ export const Navbar = () => {
                         whileHover={{ scale: 1.05 }}
                     >
                         <Image alt="EzDu logo" src="/logo_rounded.png" width={36} height={32} />
-                        <span className="text-2xl font-bold tracking-tight text-white">EzDu</span>
+                        <span className="text-2xl font-bold tracking-tight text-foreground">EzDu</span>
                     </motion.div>
                 </Link>
 
                 <div className="flex items-center gap-3">
                     <Link
                         href="/login"
-                        className="text-sm font-medium text-zinc-400 hover:text-zinc-100 transition-colors"
+                        className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                     >
                         লগইন
                     </Link>

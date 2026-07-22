@@ -142,7 +142,7 @@ export const PersonalizedLearning = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="text-3xl md:text-4xl font-bold text-zinc-100 leading-tight mb-6"
+                    className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-6"
                 >
                     তোমার জন্য{' '}
                     <span className="text-violet-400">কাস্টমাইজড</span> প্র্যাকটিস
@@ -151,7 +151,7 @@ export const PersonalizedLearning = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 0.25 }}
-                    className="text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed"
+                    className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed"
                 >
                     Ezdu-র AI তোমার দুর্বল জায়গা বুঝে ঠিক সেখানেই মনোযোগ দেয়। SSC, HSC, BCS বা IELTS — যেটাই হোক, প্র্যাকটিস তোমার মতো করেই সাজানো।
                 </motion.p>

@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Tabs } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
@@ -63,18 +63,23 @@ export const Pricing = () => {
                     initial={{opacity: 0, y: 30}}
                     animate={isInView ? {opacity: 1, y: 0} : {}}
                     className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
                         শেখা সবার জন্য,{' '}
-                        <span className="text-emerald-400">ফ্রিতেই শুরু করো</span>
+                        <span className="text-primary">ফ্রিতেই শুরু করো</span>
                     </h2>
-                    <p className=" text-zinc-400 mb-8">
+                    <p className=" text-muted-foreground mb-8">
                         প্র্যাকটিস ও লেসন সবসময়{' '}
-                        <span className="text-white font-semibold">বিনামূল্যে।</span>
+                        <span className="text-foreground font-semibold">বিনামূল্যে।</span>
                         {' '}প্রিমিয়াম নাও যখন আরো বেশি চাও
                     </p>
 
                     <div className="flex justify-center mb-12">
-                        <Tabs tabs={['মাসিক', 'বার্ষিক']} activeTab={activeTab} setActiveTab={setActiveTab}/>
+                        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as string)}>
+                            <TabsList>
+                                <TabsTrigger value="মাসিক">মাসিক</TabsTrigger>
+                                <TabsTrigger value="বার্ষিক">বার্ষিক</TabsTrigger>
+                            </TabsList>
+                        </Tabs>
                     </div>
                 </motion.div>
 
@@ -87,11 +92,11 @@ export const Pricing = () => {
                             transition={{delay: index * 0.2}}
                         >
                             <Card
-                                className={`h-full relative ${plan.popular ? 'border-emerald-600/50 ring-1 ring-emerald-600/30' : ''}`}>
+                                className={`h-full relative ${plan.popular ? 'border-primary/50 ring-1 ring-primary/30' : ''}`}>
 
                                 {/* Most Popular Badge — shows savings % when yearly */}
                                 {plan.period == '/বছর' && plan.popular && (
-                                    <div className="ribbon-live absolute -top-4 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-600 px-4 py-1.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/30">
+                                    <div className="ribbon-live absolute -top-4 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-primary/40 bg-primary px-4 py-1.5 text-sm font-semibold text-white shadow-lg shadow-primary/30">
                                 <span className="live-dot live-dot-sm live-dot-on-light" aria-hidden>
                                     <span className="live-dot-inner"/>
                                 </span>
@@ -100,22 +105,22 @@ export const Pricing = () => {
                                 )}
 
                                 <div className="text-center mb-6">
-                                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                                    <p className="text-zinc-400 mb-4">{plan.description}</p>
+                                    <h3 className="text-2xl font-bold text-foreground mb-2">{plan.name}</h3>
+                                    <p className="text-muted-foreground mb-4">{plan.description}</p>
 
                                     {/* Price */}
                                     <div className="flex items-baseline justify-center gap-2">
-                                        <span className="text-5xl font-bold text-white">{plan.price}</span>
+                                        <span className="text-5xl font-bold text-foreground">{plan.price}</span>
                                         {plan.period && (
-                                            <span className="text-zinc-500">{plan.period}</span>
+                                            <span className="text-muted-foreground">{plan.period}</span>
                                         )}
                                     </div>
 
 
                                     {plan.subPrice && (
                                         <div className="mt-1.5 flex items-center justify-center gap-1.5">
-                                            <span className="text-sm text-zinc-600 line-through">{plan.subPrice.original}/মাস</span>
-                                            <span className="text-sm text-white font-medium">{plan.subPrice.discounted}/মাস</span>
+                                            <span className="text-sm text-muted-foreground line-through">{plan.subPrice.original}/মাস</span>
+                                            <span className="text-sm text-foreground font-medium">{plan.subPrice.discounted}/মাস</span>
                                         </div>
                                     )}
                                 </div>
@@ -123,8 +128,8 @@ export const Pricing = () => {
                                 <div className="space-y-3 mb-8">
                                     {plan.features.map((feature, i) => (
                                         <div key={i} className="flex items-start gap-3">
-                                            <Check className="text-emerald-400 flex-shrink-0 mt-1" size={20}/>
-                                            <span className="text-zinc-300">{feature}</span>
+                                            <Check className="text-primary flex-shrink-0 mt-1" size={20}/>
+                                            <span className="text-muted-foreground">{feature}</span>
                                         </div>
                                     ))}
                                 </div>

@@ -5,11 +5,15 @@ import {
     Loader2, BarChart2, CheckCircle2, XCircle, AlertCircle, BookOpen,
     TrendingUp, Target, Flame, Zap,
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, toBangla } from '@/lib/utils';
 import { getProgress } from '@/lib/api/progress';
 import { getMyStats, getMySubjectMastery, getMyQuizHistory } from '@/lib/api/users';
 import { getQuizReview } from '@/lib/api/quiz';
 import type { ProgressDto, SubjectMasteryDto, UserQuizHistoryDto, ReviewQuestionDto, UserStatsDto } from '@/types/api';
+import { subjectMasteryPercent } from '@/types/api';
+import { TwoColumnShell } from '@/components/layout/two-column-shell';
+import { DefaultRightRail } from '@/components/layout/default-right-rail';
+import { PageContainer } from '@/components/layout/page-container';
 
 type Tab = 'overview' | 'history' | 'mistakes' | 'weak';
 
@@ -44,39 +48,39 @@ function OverviewTab() {
             {/* Key stats */}
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {[
-                    { label: 'মোট XP', value: stats?.xp?.toLocaleString() ?? '—', icon: <Zap size={15} />, color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
-                    { label: 'স্ট্রিক', value: `${stats?.streak ?? '—'} দিন`, icon: <Flame size={15} />, color: 'text-orange-400', bg: 'bg-orange-500/10' },
-                    { label: 'নির্ভুলতা', value: `${stats?.accuracy ?? '—'}%`, icon: <Target size={15} />, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-                    { label: 'মোট কুইজ', value: stats?.totalQuizzes ?? '—', icon: <BarChart2 size={15} />, color: 'text-blue-400', bg: 'bg-blue-500/10' },
+                    { label: 'মোট XP', value: stats?.xp != null ? toBangla(stats.xp.toLocaleString()) : '—', icon: <Zap size={15} />, color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
+                    { label: 'স্ট্রিক', value: `${stats?.streak != null ? toBangla(stats.streak) : '—'} দিন`, icon: <Flame size={15} />, color: 'text-orange-400', bg: 'bg-orange-500/10' },
+                    { label: 'নির্ভুলতা', value: `${stats?.accuracy != null ? toBangla(stats.accuracy) : '—'}%`, icon: <Target size={15} />, color: 'text-primary', bg: 'bg-primary/10' },
+                    { label: 'মোট কুইজ', value: stats?.totalQuizzes != null ? toBangla(stats.totalQuizzes) : '—', icon: <BarChart2 size={15} />, color: 'text-blue-400', bg: 'bg-blue-500/10' },
                 ].map((s) => (
-                    <div key={s.label} className="rounded-xl border border-zinc-800 bg-zinc-900 p-4">
+                    <div key={s.label} className="rounded-xl border border-border bg-card p-4">
                         <div className={cn('flex h-8 w-8 items-center justify-center rounded-lg mb-2', s.bg, s.color)}>
                             {s.icon}
                         </div>
                         <p className={cn('text-xl font-bold', s.color)}>{s.value}</p>
-                        <p className="text-xs text-zinc-500 mt-0.5">{s.label}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">{s.label}</p>
                     </div>
                 ))}
             </div>
 
             {/* Subject mastery */}
             {mastery.length > 0 && (
-                <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 space-y-3">
-                    <p className="text-sm font-semibold text-zinc-100">বিষয় দক্ষতা</p>
+                <div className="rounded-xl border border-border bg-card p-4 space-y-3">
+                    <p className="text-sm font-semibold text-foreground">বিষয় দক্ষতা</p>
                     {mastery.map((item) => {
-                        const pct = item.masteryPercent;
-                        const bar = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-yellow-500' : 'bg-rose-500';
-                        const txt = pct >= 80 ? 'text-emerald-400' : pct >= 50 ? 'text-yellow-400' : 'text-rose-400';
+                        const pct = subjectMasteryPercent(item);
+                        const bar = pct >= 80 ? 'bg-primary' : pct >= 50 ? 'bg-yellow-500' : 'bg-rose-500';
+                        const txt = pct >= 80 ? 'text-primary' : pct >= 50 ? 'text-yellow-400' : 'text-rose-400';
                         return (
                             <div key={item.subjectId} className="space-y-1.5">
                                 <div className="flex items-center justify-between text-xs">
-                                    <span className="text-zinc-300 font-medium">{item.subjectName}</span>
-                                    <div className="flex items-center gap-2 text-zinc-500">
-                                        <span>{item.masteredLessons}/{item.totalLessons} লেসন</span>
-                                        <span className={cn('font-bold', txt)}>{pct}%</span>
+                                    <span className="text-muted-foreground font-medium">{item.subjectName}</span>
+                                    <div className="flex items-center gap-2 text-muted-foreground">
+                                        <span>{toBangla(item.masteredCount)}/{toBangla(item.totalQuestions)} প্রশ্ন</span>
+                                        <span className={cn('font-bold', txt)}>{toBangla(pct)}%</span>
                                     </div>
                                 </div>
-                                <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-800">
+                                <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                                     <div className={cn('h-full rounded-full transition-all', bar)} style={{ width: `${pct}%` }} />
                                 </div>
                             </div>
@@ -141,27 +145,27 @@ function HistoryTab() {
                     item.quizType === 'Archive' ? 'আর্কাইভ' :
                     item.quizType === 'ModelTest' ? 'মডেল টেস্ট' : 'কুইজ';
                 return (
-                    <div key={item.id} className="flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
+                    <div key={item.id} className="flex items-center gap-3 rounded-xl border border-border bg-card p-4">
                         <div className={cn(
                             'flex h-9 w-9 shrink-0 items-center justify-center rounded-xl',
-                            pct >= 70 ? 'bg-emerald-500/10' : 'bg-rose-500/10'
+                            pct >= 70 ? 'bg-primary/10' : 'bg-rose-500/10'
                         )}>
                             {pct >= 70
-                                ? <CheckCircle2 size={18} className="text-emerald-400" />
+                                ? <CheckCircle2 size={18} className="text-primary" />
                                 : <XCircle size={18} className="text-rose-400" />
                             }
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-zinc-100 truncate">
+                            <p className="text-sm font-medium text-foreground truncate">
                                 {item.quizTitle || item.subjectName || 'কুইজ'}
                             </p>
-                            <div className="flex items-center gap-2 text-xs text-zinc-500 mt-0.5">
-                                <span className="rounded bg-zinc-800 px-1.5 py-0.5 text-[10px]">{quizType}</span>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
+                                <span className="rounded bg-muted px-1.5 py-0.5 text-[10px]">{quizType}</span>
                                 <span>{date}</span>
                             </div>
                             <div className="mt-1.5 flex items-center gap-3 text-xs">
-                                <span className="text-zinc-400">{item.correctAnswers}/{item.totalQuestions} সঠিক</span>
-                                <span className={cn('font-bold', pct >= 70 ? 'text-emerald-400' : 'text-rose-400')}>{pct}%</span>
+                                <span className="text-muted-foreground">{item.correctAnswers}/{item.totalQuestions} সঠিক</span>
+                                <span className={cn('font-bold', pct >= 70 ? 'text-primary' : 'text-rose-400')}>{toBangla(pct)}%</span>
                                 {item.xpEarned > 0 && <span className="text-yellow-400">+{item.xpEarned} XP</span>}
                             </div>
                         </div>
@@ -172,7 +176,7 @@ function HistoryTab() {
                 <button
                     onClick={loadMore}
                     disabled={loadingMore}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-zinc-800 py-3 text-sm text-zinc-400 hover:border-zinc-700 hover:text-zinc-100 transition-colors disabled:opacity-50"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-border py-3 text-sm text-muted-foreground hover:border-border hover:text-foreground transition-colors disabled:opacity-50"
                 >
                     {loadingMore ? <Loader2 size={15} className="animate-spin" /> : 'আরো দেখো'}
                 </button>
@@ -220,7 +224,7 @@ function MistakesTab() {
             </div>
 
             {mistakes.map((q, i) => (
-                <div key={q.id} className="rounded-xl border border-rose-500/20 bg-zinc-900 overflow-hidden">
+                <div key={q.id} className="rounded-xl border border-rose-500/20 bg-card overflow-hidden">
                     <button
                         onClick={() => setExpanded(expanded === q.id ? null : q.id)}
                         className="flex w-full items-start gap-3 p-4 text-left"
@@ -228,21 +232,21 @@ function MistakesTab() {
                         <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-rose-500/15 text-[11px] font-bold text-rose-400">
                             {i + 1}
                         </div>
-                        <p className="flex-1 text-sm text-zinc-100 line-clamp-2">{q.text}</p>
-                        <span className="text-xs text-zinc-600 shrink-0">{expanded === q.id ? '▲' : '▼'}</span>
+                        <p className="flex-1 text-sm text-foreground line-clamp-2">{q.text}</p>
+                        <span className="text-xs text-muted-foreground shrink-0">{expanded === q.id ? '▲' : '▼'}</span>
                     </button>
 
                     {expanded === q.id && (
-                        <div className="border-t border-zinc-800 px-4 pb-4 pt-3 space-y-2">
+                        <div className="border-t border-border px-4 pb-4 pt-3 space-y-2">
                             {q.options.map((opt) => {
                                 const isCorrect = opt.isCorrect;
                                 const isWrong = opt.id === q.selectedOptionId && !isCorrect;
                                 return (
                                     <div key={opt.id} className={cn(
                                         'flex items-start gap-2.5 rounded-lg border px-3 py-2.5 text-sm',
-                                        isCorrect ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300' :
+                                        isCorrect ? 'border-primary/40 bg-primary/10 text-primary' :
                                         isWrong ? 'border-rose-500/40 bg-rose-500/10 text-rose-300' :
-                                        'border-zinc-800 text-zinc-500'
+                                        'border-border text-muted-foreground'
                                     )}>
                                         <span className="shrink-0 font-bold text-xs mt-0.5">
                                             {isCorrect ? '✓' : isWrong ? '✗' : '○'}
@@ -252,9 +256,9 @@ function MistakesTab() {
                                 );
                             })}
                             {q.explanation && (
-                                <div className="flex gap-2 rounded-lg bg-zinc-800/60 p-3 mt-1">
+                                <div className="flex gap-2 rounded-lg bg-muted/60 p-3 mt-1">
                                     <BookOpen size={13} className="text-blue-400 shrink-0 mt-0.5" />
-                                    <p className="text-xs text-zinc-400 leading-relaxed">{q.explanation}</p>
+                                    <p className="text-xs text-muted-foreground leading-relaxed">{q.explanation}</p>
                                 </div>
                             )}
                         </div>
@@ -285,19 +289,19 @@ function WeakSubjectsTab() {
 
     return (
         <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">আরো প্র্যাকটিস দরকার</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">আরো প্র্যাকটিস দরকার</p>
             {weak.map((s) => {
                 const pct = s.accuracy;
                 return (
-                    <div key={s.subjectId} className="rounded-xl border border-zinc-800 bg-zinc-900 p-4 space-y-2.5">
+                    <div key={s.subjectId} className="rounded-xl border border-border bg-card p-4 space-y-2.5">
                         <div className="flex items-center justify-between">
-                            <p className="text-sm font-semibold text-zinc-100">{s.subjectName}</p>
-                            <span className="text-sm font-bold text-rose-400">{pct}%</span>
+                            <p className="text-sm font-semibold text-foreground">{s.subjectName}</p>
+                            <span className="text-sm font-bold text-rose-400">{toBangla(pct)}%</span>
                         </div>
-                        <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-800">
+                        <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                             <div className="h-full rounded-full bg-rose-500 transition-all" style={{ width: `${pct}%` }} />
                         </div>
-                        <p className="text-xs text-zinc-500">{s.questionsAttempted} প্রশ্নের উত্তর দেওয়া হয়েছে</p>
+                        <p className="text-xs text-muted-foreground">{s.questionsAttempted} প্রশ্নের উত্তর দেওয়া হয়েছে</p>
                     </div>
                 );
             })}
@@ -317,10 +321,10 @@ function TabLoader() {
 
 function EmptyState({ icon, text, sub }: { icon: React.ReactNode; text: string; sub?: string }) {
     return (
-        <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900 py-14 px-6 text-center">
-            <div className="text-zinc-700 mb-1">{icon}</div>
-            <p className="text-sm font-medium text-zinc-400">{text}</p>
-            {sub && <p className="text-xs text-zinc-600">{sub}</p>}
+        <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-border bg-card py-14 px-6 text-center">
+            <div className="text-muted-foreground mb-1">{icon}</div>
+            <p className="text-sm font-medium text-muted-foreground">{text}</p>
+            {sub && <p className="text-xs text-muted-foreground">{sub}</p>}
         </div>
     );
 }
@@ -331,16 +335,16 @@ export default function ProgressPage() {
     const [tab, setTab] = useState<Tab>('overview');
 
     return (
-        <div className="flex flex-col min-h-dvh bg-zinc-950">
+        <div className="flex flex-col min-h-dvh bg-background">
             {/* Header */}
-            <div className="shrink-0 border-b border-zinc-800/60 px-4 pt-5 pb-0">
+            <div className="shrink-0 border-b border-border px-4 pt-5 pb-0">
                 <div className="flex items-center gap-3 mb-4">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10">
                         <TrendingUp size={20} className="text-blue-400" />
                     </div>
                     <div>
-                        <h1 className="text-lg font-bold text-zinc-100">অগ্রগতি</h1>
-                        <p className="text-xs text-zinc-500">তোমার শেখার পরিসংখ্যান</p>
+                        <h1 className="text-lg font-bold text-foreground">অগ্রগতি</h1>
+                        <p className="text-xs text-muted-foreground">তোমার শেখার পরিসংখ্যান</p>
                     </div>
                 </div>
 
@@ -354,7 +358,7 @@ export default function ProgressPage() {
                                 'shrink-0 px-4 py-2.5 text-xs font-semibold border-b-2 transition-colors whitespace-nowrap',
                                 tab === t.id
                                     ? 'border-blue-400 text-blue-400'
-                                    : 'border-transparent text-zinc-500 hover:text-zinc-300'
+                                    : 'border-transparent text-muted-foreground hover:text-muted-foreground'
                             )}
                         >
                             {t.label}
@@ -364,11 +368,15 @@ export default function ProgressPage() {
             </div>
 
             {/* Tab content */}
-            <div className="flex-1 overflow-y-auto px-4 py-5 max-w-3xl mx-auto w-full">
-                {tab === 'overview' && <OverviewTab />}
-                {tab === 'history' && <HistoryTab />}
-                {tab === 'mistakes' && <MistakesTab />}
-                {tab === 'weak' && <WeakSubjectsTab />}
+            <div className="flex-1 overflow-y-auto">
+                <PageContainer>
+                    <TwoColumnShell right={<DefaultRightRail />}>
+                        {tab === 'overview' && <OverviewTab />}
+                        {tab === 'history' && <HistoryTab />}
+                        {tab === 'mistakes' && <MistakesTab />}
+                        {tab === 'weak' && <WeakSubjectsTab />}
+                    </TwoColumnShell>
+                </PageContainer>
             </div>
         </div>
     );

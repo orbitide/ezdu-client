@@ -43,12 +43,12 @@ export function WeeklyChart({ data, compareData, otherLabel }: WeeklyChartProps)
                     return (
                         <div key={i} className="flex-1 flex items-end justify-center gap-0.5 h-full">
                             <div
-                                className="flex-1 rounded-t bg-emerald-500/70 min-w-0 transition-all"
+                                className="flex-1 rounded-t bg-primary/70 min-w-0 transition-all"
                                 style={{ height: myH }}
                             />
                             {compareData && (
                                 <div
-                                    className="flex-1 rounded-t bg-zinc-600 min-w-0 transition-all"
+                                    className="flex-1 rounded-t bg-muted-foreground min-w-0 transition-all"
                                     style={{ height: theirH }}
                                 />
                             )}
@@ -60,7 +60,7 @@ export function WeeklyChart({ data, compareData, otherLabel }: WeeklyChartProps)
             {/* Day labels */}
             <div className="flex gap-1">
                 {dayKeys.map((day, i) => (
-                    <p key={i} className="flex-1 text-center text-[9px] text-zinc-600">
+                    <p key={i} className="flex-1 text-center text-[9px] text-muted-foreground">
                         {DAY_BN[day] ?? day.slice(0, 2)}
                     </p>
                 ))}
@@ -70,13 +70,13 @@ export function WeeklyChart({ data, compareData, otherLabel }: WeeklyChartProps)
             {compareData && (
                 <div className="flex items-center gap-4 pt-0.5">
                     <div className="flex items-center gap-1.5">
-                        <div className="h-2 w-3 rounded-sm bg-emerald-500/70" />
-                        <span className="text-[10px] text-zinc-500">আমি</span>
+                        <div className="h-2 w-3 rounded-sm bg-primary/70" />
+                        <span className="text-[10px] text-muted-foreground">আমি</span>
                     </div>
                     {otherLabel && (
                         <div className="flex items-center gap-1.5">
-                            <div className="h-2 w-3 rounded-sm bg-zinc-600" />
-                            <span className="text-[10px] text-zinc-500">{otherLabel}</span>
+                            <div className="h-2 w-3 rounded-sm bg-muted-foreground" />
+                            <span className="text-[10px] text-muted-foreground">{otherLabel}</span>
                         </div>
                     )}
                 </div>

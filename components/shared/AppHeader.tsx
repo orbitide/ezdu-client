@@ -19,10 +19,10 @@ export function AppHeader({title, className}: AppHeaderProps) {
 
     return (
         <header
-            className={cn("flex h-14 items-center justify-between border-b border-zinc-800 bg-zinc-950/80 px-4 backdrop-blur-sm lg:px-6", className)}>
+            className={cn("flex h-14 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur-sm lg:px-6", className)}>
             <div className="flex items-center gap-3">
                 {title && (
-                    <h1 className="text-sm font-semibold text-zinc-100 lg:text-base">{title}</h1>
+                    <h1 className="text-sm font-semibold text-foreground lg:text-base">{title}</h1>
                 )}
             </div>
 
@@ -44,9 +44,9 @@ export function AppHeader({title, className}: AppHeaderProps) {
                     <span className="text-xs">🪙</span>
                     <span>{coin}</span>
                 </Link>
-                <button className="relative text-zinc-400 hover:text-zinc-100">
+                <button className="relative text-muted-foreground hover:text-foreground">
                     <Bell size={20}/>
-                    <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-500"/>
+                    <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-primary"/>
                 </button>
             </div>
         </header>

@@ -74,12 +74,12 @@ export function ReportModal({ open, onClose, questionId }: ReportModalProps) {
                         exit={{ y: 40, opacity: 0 }}
                         transition={{ type: 'spring', damping: 20, stiffness: 260 }}
                         onClick={(e) => e.stopPropagation()}
-                        className="w-full max-w-sm rounded-2xl border border-zinc-700 bg-zinc-900 p-6 space-y-4"
+                        className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 space-y-4"
                     >
                         {done ? (
                             <div className="flex flex-col items-center gap-3 py-4 text-center">
                                 <span className="text-2xl">✅</span>
-                                <p className="text-sm font-medium text-zinc-200">
+                                <p className="text-sm font-medium text-foreground">
                                     রিপোর্ট পাঠানো হয়েছে। ধন্যবাদ!
                                 </p>
                             </div>
@@ -88,11 +88,11 @@ export function ReportModal({ open, onClose, questionId }: ReportModalProps) {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <Flag size={15} className="text-rose-400" />
-                                        <h3 className="text-sm font-bold text-zinc-100">প্রশ্ন রিপোর্ট করো</h3>
+                                        <h3 className="text-sm font-bold text-foreground">প্রশ্ন রিপোর্ট করো</h3>
                                     </div>
                                     <button
                                         onClick={handleClose}
-                                        className="text-zinc-500 hover:text-zinc-300 transition-colors"
+                                        className="text-muted-foreground hover:text-muted-foreground transition-colors"
                                     >
                                         <X size={16} />
                                     </button>
@@ -109,14 +109,14 @@ export function ReportModal({ open, onClose, questionId }: ReportModalProps) {
                                                     'flex items-center gap-3 rounded-xl border px-4 py-2.5 text-left transition-colors',
                                                     checked
                                                         ? 'border-rose-500/50 bg-rose-500/10'
-                                                        : 'border-zinc-700 bg-zinc-800/50 hover:border-zinc-600'
+                                                        : 'border-border bg-muted/50 hover:border-ring/40'
                                                 )}
                                             >
                                                 <span className={cn(
                                                     'flex h-4 w-4 shrink-0 items-center justify-center rounded border-2 transition-colors',
                                                     checked
                                                         ? 'border-rose-400 bg-rose-400'
-                                                        : 'border-zinc-600 bg-transparent'
+                                                        : 'border-ring/40 bg-transparent'
                                                 )}>
                                                     {checked && (
                                                         <svg viewBox="0 0 10 8" fill="none" className="w-2.5 h-2.5">
@@ -127,11 +127,11 @@ export function ReportModal({ open, onClose, questionId }: ReportModalProps) {
                                                 <span className="min-w-0">
                                                     <span className={cn(
                                                         'block text-sm font-medium',
-                                                        checked ? 'text-rose-300' : 'text-zinc-200'
+                                                        checked ? 'text-rose-300' : 'text-foreground'
                                                     )}>
                                                         {r.label}
                                                     </span>
-                                                    <span className="block text-xs text-zinc-500 mt-0.5">{r.sub}</span>
+                                                    <span className="block text-xs text-muted-foreground mt-0.5">{r.sub}</span>
                                                 </span>
                                             </button>
                                         );
@@ -143,13 +143,13 @@ export function ReportModal({ open, onClose, questionId }: ReportModalProps) {
                                     onChange={(e) => setComment(e.target.value)}
                                     placeholder="আর কিছু জানাতে চাইলে লিখো (ঐচ্ছিক)"
                                     rows={2}
-                                    className="w-full resize-none rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none"
+                                    className="w-full resize-none rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-ring/50 focus:outline-none"
                                 />
 
                                 <div className="flex gap-3">
                                     <button
                                         onClick={handleClose}
-                                        className="flex-1 rounded-xl border border-zinc-700 py-2.5 text-sm font-medium text-zinc-300 hover:bg-zinc-800 transition-colors"
+                                        className="flex-1 rounded-xl border border-border py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
                                     >
                                         বাতিল
                                     </button>

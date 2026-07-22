@@ -22,7 +22,7 @@ function weeklyResetCountdown(): string {
 const RANK_ICONS: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
 const RANK_COLORS: Record<number, string> = {
     1: 'text-yellow-400',
-    2: 'text-zinc-300',
+    2: 'text-muted-foreground',
     3: 'text-amber-600',
 };
 
@@ -35,12 +35,12 @@ export function MiniLeaderboard({ entries }: Props) {
         <div className="space-y-3">
             <div className="flex items-start justify-between">
                 <div>
-                    <h2 className="text-sm font-semibold text-zinc-100">এই সপ্তাহের লিডাররা</h2>
-                    <p className="text-xs text-zinc-500">{weeklyResetCountdown()}</p>
+                    <h2 className="text-sm font-semibold text-foreground">এই সপ্তাহের লিডাররা</h2>
+                    <p className="text-xs text-muted-foreground">{weeklyResetCountdown()}</p>
                 </div>
                 <Link
                     href="/leaderboard"
-                    className="flex items-center gap-0.5 text-xs text-zinc-500 transition-colors hover:text-zinc-300"
+                    className="flex items-center gap-0.5 text-xs text-muted-foreground transition-colors hover:text-muted-foreground"
                 >
                     সব দেখো <ChevronRight size={12} />
                 </Link>
@@ -49,14 +49,14 @@ export function MiniLeaderboard({ entries }: Props) {
             {entries.length === 0 ? (
                 <EmptyState />
             ) : (
-                <div className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900">
-                    <ul className="divide-y divide-zinc-800">
+                <div className="overflow-hidden rounded-xl border border-border bg-card">
+                    <ul className="divide-y divide-border">
                         {top5.map((entry) => (
                             <Row key={entry.userId} entry={entry} />
                         ))}
                         {showSeparator && (
                             <>
-                                <li className="flex items-center justify-center py-2 text-xs text-zinc-600">
+                                <li className="flex items-center justify-center py-2 text-xs text-muted-foreground">
                                     · · · {me.rank - 5} জন · · ·
                                 </li>
                                 <Row entry={me} />
@@ -74,20 +74,20 @@ function Row({ entry }: { entry: LeaderboardEntry }) {
     return (
         <li className={cn(
             'flex items-center gap-3 px-4 py-3',
-            entry.isCurrentUser && 'border-l-2 border-emerald-500 bg-emerald-500/5'
+            entry.isCurrentUser && 'border-l-2 border-primary bg-primary/5'
         )}>
-            <span className={cn('w-7 shrink-0 text-center text-sm font-bold', RANK_COLORS[entry.rank] ?? 'text-zinc-500')}>
+            <span className={cn('w-7 shrink-0 text-center text-sm font-bold', RANK_COLORS[entry.rank] ?? 'text-muted-foreground')}>
                 {RANK_ICONS[entry.rank] ?? `#${entry.rank}`}
             </span>
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-800 text-xs font-bold text-zinc-300">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-bold text-muted-foreground">
                 {initial}
             </div>
             <div className="min-w-0 flex-1">
-                <p className={cn('truncate text-sm font-medium', entry.isCurrentUser ? 'text-emerald-300' : 'text-zinc-100')}>
+                <p className={cn('truncate text-sm font-medium', entry.isCurrentUser ? 'text-primary' : 'text-foreground')}>
                     {entry.name}
-                    {entry.isCurrentUser && <span className="ml-1.5 text-xs text-zinc-500">(তুমি)</span>}
+                    {entry.isCurrentUser && <span className="ml-1.5 text-xs text-muted-foreground">(তুমি)</span>}
                 </p>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-muted-foreground">
                     {entry.streak > 0 && `🔥 ${entry.streak} · `}{entry.xp.toLocaleString()} XP
                 </p>
             </div>
@@ -101,10 +101,10 @@ function Row({ entry }: { entry: LeaderboardEntry }) {
 
 function EmptyState() {
     return (
-        <div className="space-y-2 rounded-xl border border-zinc-800 bg-zinc-900 p-6 text-center">
+        <div className="space-y-2 rounded-xl border border-border bg-card p-6 text-center">
             <Trophy size={28} className="mx-auto text-yellow-400/40" />
-            <p className="text-sm font-medium text-zinc-400">লিডারবোর্ড আনলক করো!</p>
-            <p className="text-xs text-zinc-600">একটি কুইজ দাও এবং লিডারবোর্ডে তোমার জায়গা নিশ্চিত করো</p>
+            <p className="text-sm font-medium text-muted-foreground">লিডারবোর্ড আনলক করো!</p>
+            <p className="text-xs text-muted-foreground">একটি কুইজ দাও এবং লিডারবোর্ডে তোমার জায়গা নিশ্চিত করো</p>
         </div>
     );
 }

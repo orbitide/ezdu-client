@@ -110,7 +110,7 @@ export default function AboutPage() {
                         repeat: Infinity,
                         ease: 'linear',
                     }}
-                    className="absolute top-1/4 left-1/4 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"
+                    className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"
                 />
                 <motion.div
                     animate={{
@@ -133,17 +133,17 @@ export default function AboutPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-2 mb-6"
+                        className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 rounded-full px-4 py-2 mb-6"
                     >
-                        <Sparkles size={16} className="text-emerald-400" />
-                        <span className="text-emerald-400 text-sm font-medium">Our Story</span>
+                        <Sparkles size={16} className="text-primary" />
+                        <span className="text-primary text-sm font-medium">Our Story</span>
                     </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent"
+                        className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-teal-300 to-cyan-300 bg-clip-text text-transparent"
                     >
                         About EzDu
                     </motion.h1>
@@ -172,10 +172,10 @@ export default function AboutPage() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.6, delay: index * 0.1 }}
                                     viewport={{ once: true }}
-                                    className="text-center p-6 rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-950 border border-emerald-500/20 hover:border-emerald-500/50 transition-all"
+                                    className="text-center p-6 rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-950 border border-primary/20 hover:border-primary/50 transition-all"
                                 >
-                                    <Icon className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
-                                    <div className="text-3xl font-bold bg-gradient-to-r from-emerald-300 to-teal-300 bg-clip-text text-transparent mb-2">
+                                    <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                                    <div className="text-3xl font-bold bg-gradient-to-r from-primary to-teal-300 bg-clip-text text-transparent mb-2">
                                         {stat.value}
                                     </div>
                                     <div className="text-gray-400">{stat.label}</div>
@@ -195,7 +195,7 @@ export default function AboutPage() {
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent">
+                        <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-primary via-teal-300 to-cyan-300 bg-clip-text text-transparent">
                             Our Story
                         </h2>
                         <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
@@ -221,7 +221,7 @@ export default function AboutPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent"
+                        className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary via-teal-300 to-cyan-300 bg-clip-text text-transparent"
                     >
                         Our Values
                     </motion.h2>
@@ -236,10 +236,10 @@ export default function AboutPage() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.6, delay: index * 0.1 }}
                                     viewport={{ once: true }}
-                                    className="p-8 rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-950 border border-emerald-500/20 hover:border-emerald-500/50 transition-all hover:shadow-lg hover:shadow-emerald-500/10"
+                                    className="p-8 rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-950 border border-primary/20 hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10"
                                 >
-                                    <Icon className="w-12 h-12 text-emerald-400 mb-4" />
-                                    <h3 className="text-xl font-semibold text-white mb-3">{value.title}</h3>
+                                    <Icon className="w-12 h-12 text-primary mb-4" />
+                                    <h3 className="text-xl font-semibold text-foreground mb-3">{value.title}</h3>
                                     <p className="text-gray-400">{value.description}</p>
                                 </motion.div>
                             );
@@ -256,7 +256,7 @@ export default function AboutPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent"
+                        className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary via-teal-300 to-cyan-300 bg-clip-text text-transparent"
                     >
                         Our Journey
                     </motion.h2>
@@ -272,13 +272,13 @@ export default function AboutPage() {
                                 className="flex gap-8 items-start"
                             >
                                 <div className="flex-shrink-0">
-                                    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-emerald-500/20 border border-emerald-500/50">
-                                        <span className="text-emerald-400 font-bold">{index + 1}</span>
+                                    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-primary/20 border border-primary/50">
+                                        <span className="text-primary font-bold">{index + 1}</span>
                                     </div>
                                 </div>
-                                <div className="flex-1 p-6 rounded-2xl bg-gradient-to-r from-neutral-900 to-neutral-950 border border-neutral-800 hover:border-emerald-500/50 transition-all">
-                                    <div className="text-emerald-400 font-bold text-lg mb-2">{milestone.year}</div>
-                                    <h3 className="text-xl font-semibold text-white mb-2">{milestone.title}</h3>
+                                <div className="flex-1 p-6 rounded-2xl bg-gradient-to-r from-neutral-900 to-neutral-950 border border-neutral-800 hover:border-primary/50 transition-all">
+                                    <div className="text-primary font-bold text-lg mb-2">{milestone.year}</div>
+                                    <h3 className="text-xl font-semibold text-foreground mb-2">{milestone.title}</h3>
                                     <p className="text-gray-400">{milestone.description}</p>
                                 </div>
                             </motion.div>
@@ -295,7 +295,7 @@ export default function AboutPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent"
+                        className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary via-teal-300 to-cyan-300 bg-clip-text text-transparent"
                     >
                         Leadership Team
                     </motion.h2>
@@ -308,13 +308,13 @@ export default function AboutPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: index * 0.1 }}
                                 viewport={{ once: true }}
-                                className="p-6 rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-950 border border-emerald-500/20 hover:border-emerald-500/50 transition-all text-center"
+                                className="p-6 rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-950 border border-primary/20 hover:border-primary/50 transition-all text-center"
                             >
-                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 mx-auto mb-4 flex items-center justify-center">
-                                    <Users className="w-8 h-8 text-emerald-400" />
+                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-teal-500/20 border border-primary/30 mx-auto mb-4 flex items-center justify-center">
+                                    <Users className="w-8 h-8 text-primary" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-white mb-1">{member.name}</h3>
-                                <div className="text-emerald-400 font-medium text-sm mb-3">{member.role}</div>
+                                <h3 className="text-lg font-semibold text-foreground mb-1">{member.name}</h3>
+                                <div className="text-primary font-medium text-sm mb-3">{member.role}</div>
                                 <p className="text-gray-400 text-sm">{member.description}</p>
                             </motion.div>
                         ))}
@@ -330,13 +330,13 @@ export default function AboutPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
-                        className="text-center p-12 rounded-3xl bg-gradient-to-br from-emerald-900/20 to-teal-900/20 border border-emerald-500/30 hover:border-emerald-500/60 transition-all"
+                        className="text-center p-12 rounded-3xl bg-gradient-to-br from-primary/15 to-teal-500/15 border border-primary/30 hover:border-primary/60 transition-all"
                     >
-                        <h2 className="text-3xl font-bold text-white mb-4">Join Our Mission</h2>
+                        <h2 className="text-3xl font-bold text-foreground mb-4">Join Our Mission</h2>
                         <p className="text-lg text-gray-400 mb-8">
                             Be part of a team transforming education. We&apos;re always looking for passionate individuals to join us.
                         </p>
-                        <button className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold transition-all border border-emerald-500/30 hover:border-emerald-500/60 hover:shadow-lg hover:shadow-emerald-500/20">
+                        <button className="px-8 py-3 bg-primary hover:bg-primary text-white rounded-lg font-semibold transition-all border border-primary/30 hover:border-primary/60 hover:shadow-lg hover:shadow-primary/20">
                             View Open Positions
                         </button>
                     </motion.div>

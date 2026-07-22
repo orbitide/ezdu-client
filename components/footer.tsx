@@ -40,18 +40,18 @@ export const Footer = () => {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="surface-page border-t border-zinc-800">
+        <footer className="surface-page border-t border-border">
             <div className="container mx-auto px-4 py-12">
                 <div className="grid md:grid-cols-4 gap-8 mb-10">
                     <div>
                         <Link href="/" className="inline-flex items-center gap-2 mb-3">
                             <Image alt="EzDu logo" src="/logo_rounded.png" width={40} height={32} />
-                            <span className="text-2xl font-bold text-white tracking-tight">
+                            <span className="text-2xl font-bold text-foreground tracking-tight">
                                 EzDu
                             </span>
                         </Link>
 
-                        <p className="text-zinc-500 text-sm mb-4">
+                        <p className="text-muted-foreground text-sm mb-4">
                             Free learning for smarter exam preparation.
                         </p>
 
@@ -63,7 +63,7 @@ export const Footer = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={social.label}
-                                    className="w-9 h-9 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center text-zinc-500 hover:text-emerald-400 hover:border-zinc-700 transition"
+                                    className="w-9 h-9 bg-card border border-border rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary hover:border-border transition"
                                 >
                                     <social.icon size={18} />
                                 </a>
@@ -73,13 +73,13 @@ export const Footer = () => {
 
                     {Object.entries(footerLinks).map(([category, links]) => (
                         <div key={category}>
-                            <h4 className="font-semibold text-white mb-3">{category}</h4>
+                            <h4 className="font-semibold text-foreground mb-3">{category}</h4>
                             <ul className="space-y-2 text-sm">
                                 {links.map(({ title, link }) => (
                                     <li key={title}>
                                         <Link
                                             href={link}
-                                            className="text-zinc-500 hover:text-emerald-400 transition-colors"
+                                            className="text-muted-foreground hover:text-primary transition-colors"
                                         >
                                             {title}
                                         </Link>
@@ -90,7 +90,7 @@ export const Footer = () => {
                     ))}
                 </div>
 
-                <div className="border-t border-zinc-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+                <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
                     <p>© {year} EzDu. All rights reserved.</p>
 
                     <ul className="flex gap-4 flex-wrap justify-center">
@@ -98,7 +98,7 @@ export const Footer = () => {
                             <li key={title}>
                                 <Link
                                     href={link}
-                                    className="hover:text-emerald-400 transition-colors"
+                                    className="hover:text-primary transition-colors"
                                 >
                                     {title}
                                 </Link>

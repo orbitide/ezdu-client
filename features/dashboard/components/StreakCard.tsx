@@ -21,17 +21,17 @@ export function StreakCard({ streak }: StreakCardProps) {
             </div>
             <div className="flex items-end gap-1">
                 <span className="text-3xl font-bold text-orange-400">{streak}</span>
-                <span className="mb-1 text-sm text-zinc-500">দিন</span>
+                <span className="mb-1 text-sm text-muted-foreground">দিন</span>
             </div>
             <div className="mt-3 flex gap-1">
                 {DAYS.map((day, i) => (
                     <div key={day} className="flex flex-1 flex-col items-center gap-1">
                         <div
                             className={`h-6 w-full rounded ${
-                                completedDays[i] ? 'bg-orange-500' : 'bg-zinc-800'
+                                completedDays[i] ? 'bg-orange-500' : 'bg-muted'
                             }`}
                         />
-                        <span className="text-[10px] text-zinc-600">{day}</span>
+                        <span className="text-[10px] text-muted-foreground">{day}</span>
                     </div>
                 ))}
             </div>

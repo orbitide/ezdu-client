@@ -76,29 +76,29 @@ export default function WordMatchPage() {
     return (
         <div className="mx-auto max-w-3xl px-4 py-6 space-y-5 lg:px-6">
             <div className="flex items-center gap-3">
-                <button onClick={() => router.back()} className="text-zinc-400 hover:text-zinc-100 transition-colors">
+                <button onClick={() => router.back()} className="text-muted-foreground hover:text-foreground transition-colors">
                     <ArrowLeft size={20} />
                 </button>
                 <div className="flex-1">
-                    <h1 className="text-base font-bold text-zinc-100">শব্দ মিলাও</h1>
-                    <p className="text-xs text-zinc-500">{matched.size}/{words.length} মিলানো হয়েছে</p>
+                    <h1 className="text-base font-bold text-foreground">শব্দ মিলাও</h1>
+                    <p className="text-xs text-muted-foreground">{matched.size}/{words.length} মিলানো হয়েছে</p>
                 </div>
-                <button onClick={restart} className="text-xs text-zinc-400 hover:text-zinc-100 flex items-center gap-1 transition-colors">
+                <button onClick={restart} className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors">
                     <RotateCcw size={14} />
                     রিসেট
                 </button>
             </div>
 
             {/* Progress bar */}
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-800">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
                 <div className="h-full rounded-full bg-indigo-500 transition-all" style={{ width: `${pct}%` }} />
             </div>
 
             {finished ? (
                 <div className="flex flex-col items-center justify-center py-16 space-y-4">
                     <p className="text-3xl">🎉</p>
-                    <p className="text-xl font-bold text-emerald-400">অসাধারণ! সব মিলানো হয়েছে!</p>
-                    <button onClick={restart} className="flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-black hover:bg-emerald-400 transition-colors">
+                    <p className="text-xl font-bold text-primary">অসাধারণ! সব মিলানো হয়েছে!</p>
+                    <button onClick={restart} className="flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-black hover:bg-primary transition-colors">
                         <RotateCcw size={16} />
                         আবার খেলো
                     </button>
@@ -107,7 +107,7 @@ export default function WordMatchPage() {
                 <div className="grid grid-cols-2 gap-3">
                     {/* Words column */}
                     <div className="space-y-2">
-                        <p className="text-xs font-semibold text-zinc-500 text-center uppercase tracking-wide">শব্দ</p>
+                        <p className="text-xs font-semibold text-muted-foreground text-center uppercase tracking-wide">শব্দ</p>
                         {words.map((word) => (
                             <button
                                 key={word.id}
@@ -115,10 +115,10 @@ export default function WordMatchPage() {
                                 disabled={matched.has(word.id)}
                                 className={cn(
                                     'w-full rounded-xl border px-3 py-3 text-sm font-semibold transition-all',
-                                    matched.has(word.id) ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-400 opacity-60' :
+                                    matched.has(word.id) ? 'border-primary/40 bg-primary/10 text-primary opacity-60' :
                                     wrong.has(word.id) ? 'border-rose-500 bg-rose-500/10 text-rose-400 scale-95' :
                                     selectedWord === word.id ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300' :
-                                    'border-zinc-700 bg-zinc-900 text-zinc-100 hover:border-zinc-600'
+                                    'border-border bg-card text-foreground hover:border-ring/40'
                                 )}
                             >
                                 {word.word}
@@ -128,7 +128,7 @@ export default function WordMatchPage() {
 
                     {/* Definitions column */}
                     <div className="space-y-2">
-                        <p className="text-xs font-semibold text-zinc-500 text-center uppercase tracking-wide">অর্থ</p>
+                        <p className="text-xs font-semibold text-muted-foreground text-center uppercase tracking-wide">অর্থ</p>
                         {shuffledDefs.map((word) => (
                             <button
                                 key={word.id}
@@ -136,10 +136,10 @@ export default function WordMatchPage() {
                                 disabled={matched.has(word.id)}
                                 className={cn(
                                     'w-full rounded-xl border px-3 py-3 text-xs text-left transition-all',
-                                    matched.has(word.id) ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-400 opacity-60' :
+                                    matched.has(word.id) ? 'border-primary/40 bg-primary/10 text-primary opacity-60' :
                                     wrong.has(word.id) ? 'border-rose-500 bg-rose-500/10 text-rose-400 scale-95' :
                                     selectedDef === word.id ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300' :
-                                    'border-zinc-700 bg-zinc-900 text-zinc-300 hover:border-zinc-600'
+                                    'border-border bg-card text-muted-foreground hover:border-ring/40'
                                 )}
                             >
                                 {word.banglaDefinition || word.definition.slice(0, 60) + (word.definition.length > 60 ? '...' : '')}

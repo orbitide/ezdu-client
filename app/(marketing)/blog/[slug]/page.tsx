@@ -45,7 +45,7 @@ export default async function BlogPostPage({
                 <div className="max-w-2xl mx-auto">
                     <Link
                         href="/blog"
-                        className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-300 transition-colors mb-10"
+                        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-muted-foreground transition-colors mb-10"
                     >
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                             <path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -54,8 +54,8 @@ export default async function BlogPostPage({
                     </Link>
 
                     <div className="mb-8">
-                        <div className="flex flex-wrap items-center gap-3 mb-4 text-sm text-zinc-500">
-                            <span className="rounded-full border border-zinc-700 bg-zinc-800/80 px-2.5 py-0.5 text-emerald-400">
+                        <div className="flex flex-wrap items-center gap-3 mb-4 text-sm text-muted-foreground">
+                            <span className="rounded-full border border-border bg-muted/80 px-2.5 py-0.5 text-primary">
                                 {post.category}
                             </span>
                             <span>{post.date}</span>
@@ -68,29 +68,29 @@ export default async function BlogPostPage({
                             </span>
                         </div>
 
-                        <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
+                        <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-4">
                             {post.title}
                         </h1>
 
-                        <p className="text-lg text-zinc-400 leading-relaxed border-l-2 border-emerald-400/40 pl-4">
+                        <p className="text-lg text-muted-foreground leading-relaxed border-l-2 border-primary/40 pl-4">
                             {post.excerpt}
                         </p>
                     </div>
 
-                    <hr className="border-zinc-800 mb-8" />
+                    <hr className="border-border mb-8" />
 
                     <article className="prose-custom space-y-5">
                         {post.sections.map((section, i) => {
                             if (section.type === 'paragraph') {
                                 return (
-                                    <p key={i} className="text-zinc-300 leading-relaxed">
+                                    <p key={i} className="text-muted-foreground leading-relaxed">
                                         {section.content as string}
                                     </p>
                                 );
                             }
                             if (section.type === 'heading') {
                                 return (
-                                    <h2 key={i} className="text-xl font-semibold text-white mt-10 mb-2">
+                                    <h2 key={i} className="text-xl font-semibold text-foreground mt-10 mb-2">
                                         {section.content as string}
                                     </h2>
                                 );
@@ -99,8 +99,8 @@ export default async function BlogPostPage({
                                 return (
                                     <ul key={i} className="space-y-2 pl-1">
                                         {(section.content as string[]).map((item, j) => (
-                                            <li key={j} className="flex gap-3 text-zinc-300">
-                                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                                            <li key={j} className="flex gap-3 text-muted-foreground">
+                                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                                                 <span className="leading-relaxed">{item}</span>
                                             </li>
                                         ))}
@@ -111,10 +111,10 @@ export default async function BlogPostPage({
                                 return (
                                     <div
                                         key={i}
-                                        className="rounded-xl border border-emerald-400/20 bg-emerald-400/5 px-5 py-4"
+                                        className="rounded-xl border border-primary/20 bg-primary/5 px-5 py-4"
                                     >
-                                        <p className="text-sm font-semibold text-emerald-400 mb-1">টিপস</p>
-                                        <p className="text-sm text-zinc-300 leading-relaxed">
+                                        <p className="text-sm font-semibold text-primary mb-1">টিপস</p>
+                                        <p className="text-sm text-muted-foreground leading-relaxed">
                                             {section.content as string}
                                         </p>
                                     </div>
@@ -124,32 +124,32 @@ export default async function BlogPostPage({
                         })}
                     </article>
 
-                    <div className="mt-16 rounded-xl border border-zinc-800 bg-zinc-900/70 p-6 text-center">
-                        <p className="text-zinc-400 mb-4 text-sm">
+                    <div className="mt-16 rounded-xl border border-border bg-card/70 p-6 text-center">
+                        <p className="text-muted-foreground mb-4 text-sm">
                             EzDu অ্যাপ দিয়ে AI-চালিত প্র্যাকটিস শুরু করো — বিনামূল্যে।
                         </p>
                         <div className="flex flex-wrap gap-3 justify-center text-sm">
                             <Link
                                 href="/ssc"
-                                className="px-4 py-2 rounded-lg border border-zinc-700 text-zinc-300 hover:border-emerald-400/40 hover:text-emerald-400 transition-colors"
+                                className="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors"
                             >
                                 SSC প্রস্তুতি
                             </Link>
                             <Link
                                 href="/hsc"
-                                className="px-4 py-2 rounded-lg border border-zinc-700 text-zinc-300 hover:border-blue-400/40 hover:text-blue-400 transition-colors"
+                                className="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:border-blue-400/40 hover:text-blue-400 transition-colors"
                             >
                                 HSC প্রস্তুতি
                             </Link>
                             <Link
                                 href="/bcs"
-                                className="px-4 py-2 rounded-lg border border-zinc-700 text-zinc-300 hover:border-purple-400/40 hover:text-purple-400 transition-colors"
+                                className="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:border-purple-400/40 hover:text-purple-400 transition-colors"
                             >
                                 BCS প্রস্তুতি
                             </Link>
                             <Link
                                 href="/ielts"
-                                className="px-4 py-2 rounded-lg border border-zinc-700 text-zinc-300 hover:border-amber-400/40 hover:text-amber-400 transition-colors"
+                                className="px-4 py-2 rounded-lg border border-border text-muted-foreground hover:border-amber-400/40 hover:text-amber-400 transition-colors"
                             >
                                 IELTS প্রস্তুতি
                             </Link>

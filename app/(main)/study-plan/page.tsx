@@ -7,8 +7,12 @@ import { Star, Lock, CheckCircle, Loader2, AlertCircle, BookOpen } from 'lucide-
 import { cn } from '@/lib/utils';
 import { getActivePlan } from '@/lib/api/study-plan';
 import { getQuestionsByLesson } from '@/lib/api/quiz';
-import { localDateKey } from '@/lib/study-plan/map-study-plan';
-import { useChallengeStore } from '@/features/challenge/challenge.store';
+import { localDateKey, MINUTES_PER_MOCK } from '@/lib/study-plan/map-study-plan';
+import { useLaunchStore } from '@/features/quiz/engine/launch.store';
+import { TwoColumnShell } from '@/components/layout/two-column-shell';
+import { DefaultRightRail } from '@/components/layout/default-right-rail';
+import { PageContainer } from '@/components/layout/page-container';
+import { QuizType } from '@/types/api';
 import type { StudyPlanDto, StudyPlanItemDto, StudyPlanDayDto } from '@/types/api';
 
 // Zigzag x-positions cycling: right → left → center
@@ -20,7 +24,7 @@ export default function StudyPlanPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [startingItemId, setStartingItemId] = useState<string | null>(null);
-    const { startChallenge } = useChallengeStore();
+    const launch = useLaunchStore((s) => s.launch);
     const todayRef = useRef<HTMLDivElement | null>(null);
 
     const fetchPlan = useCallback(() => {
@@ -52,20 +56,27 @@ export default function StudyPlanPage() {
                 text: q.text,
                 options: q.options.map((o) => ({ id: o.id, text: o.text, isCorrect: o.isCorrect })),
                 explanation: q.explanation,
+                subjectId: q.subjectId,
                 subject: item.subjectName ?? q.subjectName,
                 topic: q.topicName,
             }));
             if (questions.length === 0) { setStartingItemId(null); return; }
-            startChallenge(questions, item.subjectName ?? '', item.lessonName, {
-                lessonId: Number(item.lessonId),
-                dayNumber: item.dayNumber ?? 1,
-                subjectId: item.subjectId ?? 0,
-            });
-            router.push('/challenge/session');
+            // Matches mobile's `plan_active_page.dart` config.
+            launch(
+                {
+                    quizType: QuizType.Plan,
+                    quizId: item.lessonId,
+                    title: item.lessonName,
+                    timeInMinutes: MINUTES_PER_MOCK,
+                },
+                questions,
+                '/study-plan',
+            );
+            router.push('/quiz/session');
         } catch {
             setStartingItemId(null);
         }
-    }, [startChallenge, router]);
+    }, [launch, router]);
 
     if (loading) {
         return (
@@ -76,25 +87,27 @@ export default function StudyPlanPage() {
     }
 
     return (
-        <div className="mx-auto max-w-2xl px-4 pb-16 pt-4 lg:px-6">
-            {error && (
-                <div className="mb-4 flex items-center gap-2 rounded-xl border border-red-900/50 bg-red-950/40 px-4 py-3 text-sm text-red-400">
-                    <AlertCircle size={16} className="shrink-0" />
-                    {error}
-                </div>
-            )}
+        <PageContainer className="pb-16">
+            <TwoColumnShell right={<DefaultRightRail />}>
+                {error && (
+                    <div className="mb-4 flex items-center gap-2 rounded-xl border border-red-900/50 bg-red-950/40 px-4 py-3 text-sm text-red-400">
+                        <AlertCircle size={16} className="shrink-0" />
+                        {error}
+                    </div>
+                )}
 
-            {!plan ? (
-                <NoPlanState />
-            ) : (
-                <PlanPath
-                    plan={plan}
-                    startingItemId={startingItemId}
-                    todayRef={todayRef}
-                    onStartQuiz={handleStartPlanQuiz}
-                />
-            )}
-        </div>
+                {!plan ? (
+                    <NoPlanState />
+                ) : (
+                    <PlanPath
+                        plan={plan}
+                        startingItemId={startingItemId}
+                        todayRef={todayRef}
+                        onStartQuiz={handleStartPlanQuiz}
+                    />
+                )}
+            </TwoColumnShell>
+        </PageContainer>
     );
 }
 
@@ -107,8 +120,8 @@ function NoPlanState() {
                 <BookOpen size={28} className="text-teal-400" />
             </div>
             <div>
-                <p className="text-base font-semibold text-zinc-100">কোনো সক্রিয় প্ল্যান নেই</p>
-                <p className="mt-1 text-sm text-zinc-500">
+                <p className="text-base font-semibold text-foreground">কোনো সক্রিয় প্ল্যান নেই</p>
+                <p className="mt-1 text-sm text-muted-foreground">
                     Ezdu মোবাইল অ্যাপ থেকে স্টাডি প্ল্যান তৈরি করুন।<br />তৈরি হলে এখানে দেখাবে।
                 </p>
             </div>
@@ -127,7 +140,7 @@ function ProgressStrip({ plan }: { plan: StudyPlanDto }) {
 
     return (
         <div className="flex items-center gap-3 px-1 py-3">
-            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-800">
+            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
                 <div
                     className={cn(
                         'h-full rounded-full transition-all duration-700',
@@ -149,7 +162,7 @@ function ProgressStrip({ plan }: { plan: StudyPlanDto }) {
                     <CheckCircle size={11} className="text-amber-400" />
                 </div>
             ) : (
-                <span className="shrink-0 text-[11px] text-zinc-500">{daysLeft} দিন বাকি</span>
+                <span className="shrink-0 text-[11px] text-muted-foreground">{daysLeft} দিন বাকি</span>
             )}
         </div>
     );
@@ -175,21 +188,21 @@ function DayBanner({
                 'flex items-stretch overflow-hidden rounded-xl border',
                 isToday
                     ? 'border-teal-500/35 bg-teal-500/10'
-                    : 'border-zinc-800 bg-zinc-900',
+                    : 'border-border bg-card',
             )}
         >
             {/* Accent ribbon */}
             <div
                 className={cn(
                     'w-1 shrink-0 self-stretch my-2 ml-2 rounded-full',
-                    isToday ? 'bg-teal-500' : 'bg-zinc-700',
+                    isToday ? 'bg-teal-500' : 'bg-muted',
                 )}
             />
             <div className="flex flex-1 items-center gap-2 px-3 py-3">
                 <span
                     className={cn(
                         'text-base font-extrabold tracking-tight',
-                        isToday ? 'text-teal-400' : 'text-zinc-100',
+                        isToday ? 'text-teal-400' : 'text-foreground',
                     )}
                 >
                     {isToday ? 'আজ' : `${day.dayNumber} দিন`}
@@ -202,13 +215,13 @@ function DayBanner({
                 <span
                     className={cn(
                         'text-xs font-semibold',
-                        isToday ? 'text-teal-400/85' : 'text-zinc-500',
+                        isToday ? 'text-teal-400/85' : 'text-muted-foreground',
                     )}
                 >
                     {day.items.length}টি লেসন
                 </span>
                 {allDone && (
-                    <CheckCircle size={16} className="text-emerald-400" />
+                    <CheckCircle size={16} className="text-primary" />
                 )}
             </div>
         </div>
@@ -227,10 +240,10 @@ function getNodeState(item: StudyPlanItemDto, isToday: boolean, isPast: boolean)
 }
 
 const NODE_COLORS: Record<NodeState, { ring: string; bg: string; border: string }> = {
-    completed: { ring: '#10b981', bg: 'bg-emerald-500', border: 'border-emerald-400/30' },
+    completed: { ring: '#10b981', bg: 'bg-primary', border: 'border-primary/30' },
     today:     { ring: '#14b8a6', bg: 'bg-teal-500',    border: 'border-teal-400/30' },
     missed:    { ring: '#f59e0b', bg: 'bg-amber-500',   border: 'border-amber-400/30' },
-    future:    { ring: '#3f3f46', bg: 'bg-zinc-700',    border: 'border-zinc-600/40' },
+    future:    { ring: '#3f3f46', bg: 'bg-muted',    border: 'border-ring/40/40' },
 };
 
 function PlanNodeCircle({
@@ -322,11 +335,11 @@ function PlanNodeCircle({
                     }}
                 >
                     {loading ? (
-                        <Loader2 size={iconSize} className="animate-spin text-white/80" />
+                        <Loader2 size={iconSize} className="animate-spin text-foreground/80" />
                     ) : state === 'future' ? (
-                        <Lock size={iconSize} className="text-white/50" />
+                        <Lock size={iconSize} className="text-foreground/50" />
                     ) : (
-                        <Star size={iconSize} className="text-white" fill="white" />
+                        <Star size={iconSize} className="text-foreground" fill="white" />
                     )}
                 </div>
             </div>
@@ -355,8 +368,8 @@ function PlanNodeCircle({
                 <p
                     className={cn(
                         'text-center text-xs font-semibold leading-tight line-clamp-2',
-                        state === 'completed' ? 'text-zinc-500' :
-                        state === 'future'    ? 'text-zinc-600' : 'text-zinc-300',
+                        state === 'completed' ? 'text-muted-foreground' :
+                        state === 'future'    ? 'text-muted-foreground' : 'text-muted-foreground',
                     )}
                     style={{ width: outerSize + 24, maxWidth: outerSize + 24 }}
                 >

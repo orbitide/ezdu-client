@@ -19,45 +19,45 @@ export function RegisterForm() {
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-                <label className="text-xs font-medium text-zinc-400">নাম</label>
+                <label className="text-xs font-medium text-muted-foreground">নাম</label>
                 <input
                     type="text"
                     placeholder="তোমার নাম লেখো"
                     required
-                    className="w-full rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-primary"
                 />
             </div>
             <div className="space-y-1.5">
-                <label className="text-xs font-medium text-zinc-400">ইমেইল</label>
+                <label className="text-xs font-medium text-muted-foreground">ইমেইল</label>
                 <input
                     type="email"
                     placeholder="your@email.com"
                     required
-                    className="w-full rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-primary"
                 />
             </div>
             <div className="space-y-1.5">
-                <label className="text-xs font-medium text-zinc-400">পাসওয়ার্ড</label>
+                <label className="text-xs font-medium text-muted-foreground">পাসওয়ার্ড</label>
                 <div className="relative">
                     <input
                         type={show ? 'text' : 'password'}
                         placeholder="••••••••"
                         required
                         minLength={8}
-                        className="w-full rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 pr-11 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500"
+                        className="w-full rounded-xl border border-border bg-card px-4 py-3 pr-11 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-primary"
                     />
                     <button
                         type="button"
                         onClick={() => setShow(!show)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground"
                     >
                         {show ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                 </div>
             </div>
             <div className="space-y-1.5">
-                <label className="text-xs font-medium text-zinc-400">লক্ষ্য পরীক্ষা (ঐচ্ছিক)</label>
-                <select className="w-full rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm text-zinc-100 outline-none transition-colors focus:border-emerald-500 appearance-none">
+                <label className="text-xs font-medium text-muted-foreground">লক্ষ্য পরীক্ষা (ঐচ্ছিক)</label>
+                <select className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-primary appearance-none">
                     <option value="">বেছে নাও...</option>
                     {EXAMS.map((e) => (
                         <option key={e.id} value={e.id}>
@@ -70,7 +70,7 @@ export function RegisterForm() {
             <button
                 type="submit"
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3 font-semibold text-black hover:bg-emerald-400 disabled:opacity-70 transition-colors"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 font-semibold text-black hover:bg-primary disabled:opacity-70 transition-colors"
             >
                 {loading && <Loader2 size={16} className="animate-spin" />}
                 {loading ? 'রেজিস্ট্রেশন হচ্ছে...' : 'অ্যাকাউন্ট তৈরি করো'}
@@ -78,14 +78,14 @@ export function RegisterForm() {
 
             {/* Divider */}
             <div className="flex items-center gap-3">
-                <div className="flex-1 border-t border-zinc-800" />
-                <span className="text-xs text-zinc-600">অথবা</span>
-                <div className="flex-1 border-t border-zinc-800" />
+                <div className="flex-1 border-t border-border" />
+                <span className="text-xs text-muted-foreground">অথবা</span>
+                <div className="flex-1 border-t border-border" />
             </div>
 
             <button
                 type="button"
-                className="flex w-full items-center justify-center gap-3 rounded-xl border border-zinc-700 bg-zinc-900 py-3 text-sm font-medium text-zinc-200 hover:bg-zinc-800 transition-colors"
+                className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-card py-3 text-sm font-medium text-foreground hover:bg-muted transition-colors"
             >
                 <svg width="18" height="18" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -96,9 +96,9 @@ export function RegisterForm() {
                 Google দিয়ে রেজিস্ট্রেশন করো
             </button>
 
-            <p className="text-center text-sm text-zinc-500">
+            <p className="text-center text-sm text-muted-foreground">
                 আগে থেকেই অ্যাকাউন্ট আছে?{' '}
-                <Link href="/login" className="font-medium text-emerald-400 hover:text-emerald-300">
+                <Link href="/login" className="font-medium text-primary hover:text-primary">
                     লগইন করো
                 </Link>
             </p>

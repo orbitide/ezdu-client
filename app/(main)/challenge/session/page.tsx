@@ -54,18 +54,18 @@ export default function ChallengeSessionPage() {
     const progress = ((currentIndex + 1) / questions.length) * 100;
 
     return (
-        <div className="flex flex-col min-h-dvh bg-zinc-950">
+        <div className="flex flex-col min-h-dvh bg-background">
             {/* ── Header ── */}
-            <header className="flex items-center gap-3 border-b border-zinc-800/60 px-4 py-3 shrink-0">
+            <header className="flex items-center gap-3 border-b border-border px-4 py-3 shrink-0">
                 <button
                     onClick={() => router.push('/challenge')}
-                    className="flex h-8 w-8 items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                 >
                     <ArrowLeft size={18} />
                 </button>
                 <div className="flex-1 min-w-0">
-                    <p className="truncate text-sm font-semibold text-zinc-100">{subjectName}</p>
-                    <p className="text-xs text-zinc-500">প্রশ্ন {currentIndex + 1} / {questions.length}</p>
+                    <p className="truncate text-sm font-semibold text-foreground">{subjectName}</p>
+                    <p className="text-xs text-muted-foreground">প্রশ্ন {currentIndex + 1} / {questions.length}</p>
                 </div>
 
                 {/* Streak badge — amber/orange like mobile warning color */}
@@ -74,7 +74,7 @@ export default function ChallengeSessionPage() {
                     currentStreak >= 5  ? 'bg-amber-500/20 text-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.25)]' :
                     currentStreak >= 3  ? 'bg-orange-500/20 text-orange-400' :
                     currentStreak > 0   ? 'bg-amber-500/10 text-amber-500' :
-                                          'bg-zinc-800 text-zinc-600'
+                                          'bg-muted text-muted-foreground'
                 )}>
                     <Flame size={14} />
                     <span>{currentStreak}</span>
@@ -82,9 +82,9 @@ export default function ChallengeSessionPage() {
             </header>
 
             {/* ── Progress bar — emerald (mobile success #4CAF50) ── */}
-            <div className="h-1 bg-zinc-800 shrink-0">
+            <div className="h-1 bg-muted shrink-0">
                 <motion.div
-                    className="h-full bg-emerald-500"
+                    className="h-full bg-primary"
                     initial={false}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.3 }}
@@ -100,14 +100,14 @@ export default function ChallengeSessionPage() {
                     transition={{ duration: 0.22 }}
                 >
                     {question.topic && (
-                        <p className="mb-2 text-xs text-zinc-500">{question.topic}</p>
+                        <p className="mb-2 text-xs text-muted-foreground">{question.topic}</p>
                     )}
                     {question.passage && (
-                        <div className="mb-2 rounded-lg border border-zinc-800 bg-zinc-900/50 p-3 text-sm leading-relaxed text-zinc-300">
+                        <div className="mb-2 rounded-lg border border-border bg-card/50 p-3 text-sm leading-relaxed text-muted-foreground">
                             <MathText text={question.passage} block />
                         </div>
                     )}
-                    <p className="text-base font-medium leading-relaxed text-zinc-100">
+                    <p className="text-base font-medium leading-relaxed text-foreground">
                         {currentIndex + 1}. <MathText text={question.text} />
                     </p>
                 </motion.div>
@@ -155,17 +155,17 @@ export default function ChallengeSessionPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.18 }}
-                        className="shrink-0 border-t border-zinc-800/60 bg-zinc-950 px-4 py-4"
+                        className="shrink-0 border-t border-border bg-background px-4 py-4"
                     >
                         <button
                             onClick={handleNext}
                             className={cn(
                                 'flex w-full max-w-2xl mx-auto items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-semibold transition-colors',
                                 isLast
-                                    ? 'bg-emerald-500 text-black hover:bg-emerald-400'
+                                    ? 'bg-primary text-black hover:bg-primary'
                                     : status === 'answered_correct'
                                     ? 'bg-teal-500 text-black hover:bg-teal-400'   /* brand primary teal */
-                                    : 'bg-zinc-700 text-zinc-100 hover:bg-zinc-600' /* neutral after wrong */
+                                    : 'bg-muted text-foreground hover:bg-muted-foreground' /* neutral after wrong */
                             )}
                         >
                             {isLast ? 'ফলাফল দেখো' : 'পরের প্রশ্ন'}
@@ -198,7 +198,7 @@ export default function ChallengeSessionPage() {
                         >
                             <p className="text-6xl mb-2">{CELEBRATION[celebrationStreak].emoji}</p>
                             <p
-                                className="text-4xl font-extrabold text-white"
+                                className="text-4xl font-extrabold text-foreground"
                                 style={{ textShadow: '0 0 20px rgba(0,212,146,0.8), 0 2px 4px rgba(0,0,0,0.5)' }}
                             >
                                 {CELEBRATION[celebrationStreak].title}

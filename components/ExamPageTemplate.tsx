@@ -35,13 +35,13 @@ const COLOR_MAP: Record<ExamColor, {
     check: string;
 }> = {
     emerald: {
-        accent: 'text-emerald-400',
-        accentBg: 'bg-emerald-400/10',
-        border: 'border-emerald-400/20',
-        iconBg: 'bg-emerald-400/10',
-        badge: 'text-emerald-300',
-        badgeBorder: 'border-emerald-400/20',
-        check: 'text-emerald-400',
+        accent: 'text-primary',
+        accentBg: 'bg-primary/10',
+        border: 'border-primary/20',
+        iconBg: 'bg-primary/10',
+        badge: 'text-primary',
+        badgeBorder: 'border-primary/20',
+        check: 'text-primary',
     },
     blue: {
         accent: 'text-blue-400',
@@ -133,12 +133,12 @@ export function ExamPageTemplate({ config }: { config: ExamPageConfig }) {
                         <span className={`text-xs font-semibold ${c.badge}`}>{config.examName} প্রস্তুতি</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-5">
+                    <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight mb-5">
                         {config.title.split(' ').slice(0, -1).join(' ')}{' '}
                         <span className={c.accent}>{config.title.split(' ').slice(-1)}</span>
                     </h1>
 
-                    <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10">
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-10">
                         {config.description}
                     </p>
 
@@ -150,12 +150,12 @@ export function ExamPageTemplate({ config }: { config: ExamPageConfig }) {
             </section>
 
             {/* Stats */}
-            <section className="surface-section-muted border-y border-zinc-800 py-12 px-4">
+            <section className="surface-section-muted border-y border-border py-12 px-4">
                 <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
                     {config.stats.map((stat) => (
                         <div key={stat.label} className="text-center">
                             <div className={`text-3xl font-bold ${c.accent} mb-1`}>{stat.value}</div>
-                            <div className="text-sm text-zinc-500">{stat.label}</div>
+                            <div className="text-sm text-muted-foreground">{stat.label}</div>
                         </div>
                     ))}
                 </div>
@@ -164,11 +164,11 @@ export function ExamPageTemplate({ config }: { config: ExamPageConfig }) {
             {/* Features */}
             <section className="py-20 px-4">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 text-center">
+                    <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3 text-center">
                         EzDu-তে{' '}
                         <span className={c.accent}>{config.examName} প্রস্তুতি</span> কেন আলাদা
                     </h2>
-                    <p className="text-zinc-500 text-center mb-12">
+                    <p className="text-muted-foreground text-center mb-12">
                         শুধু প্রশ্ন না — তোমার দুর্বলতা ধরে ধরে শেখায়
                     </p>
 
@@ -179,7 +179,7 @@ export function ExamPageTemplate({ config }: { config: ExamPageConfig }) {
                                 className={`surface-raised surface-raised-hover p-6 ${c.border}`}
                             >
                                 <h3 className={`font-semibold ${c.accent} mb-2`}>{feature.title}</h3>
-                                <p className="text-sm text-zinc-400 leading-relaxed">{feature.description}</p>
+                                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
                             </div>
                         ))}
                     </div>
@@ -187,12 +187,12 @@ export function ExamPageTemplate({ config }: { config: ExamPageConfig }) {
             </section>
 
             {/* Subjects */}
-            <section className="surface-section-muted border-t border-zinc-800 py-20 px-4">
+            <section className="surface-section-muted border-t border-border py-20 px-4">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 text-center">
+                    <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3 text-center">
                         কোন কোন বিষয় আছে
                     </h2>
-                    <p className="text-zinc-500 text-center mb-10">
+                    <p className="text-muted-foreground text-center mb-10">
                         {config.examName} সিলেবাসের সাথে সামঞ্জস্যপূর্ণ
                     </p>
 
@@ -203,7 +203,7 @@ export function ExamPageTemplate({ config }: { config: ExamPageConfig }) {
                                 className="flex items-center gap-3 surface-raised px-4 py-3"
                             >
                                 <CheckIcon className={c.check} />
-                                <span className="text-sm text-zinc-300">{subject}</span>
+                                <span className="text-sm text-muted-foreground">{subject}</span>
                             </div>
                         ))}
                     </div>
@@ -213,11 +213,11 @@ export function ExamPageTemplate({ config }: { config: ExamPageConfig }) {
             {/* CTA */}
             <section className="py-24 px-4 text-center">
                 <div className="max-w-2xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                         আজই শুরু করো —{' '}
                         <span className={c.accent}>বিনামূল্যে</span>
                     </h2>
-                    <p className="text-zinc-400 mb-8 text-lg leading-relaxed">
+                    <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
                         {config.examName} পরীক্ষায় ভালো করতে চাইলে এখনই EzDu ডাউনলোড করো। AI তোমার দুর্বলতা চিহ্নিত করে প্রতিদিনের প্র্যাকটিস তৈরি করবে।
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">

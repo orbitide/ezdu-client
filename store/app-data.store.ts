@@ -23,7 +23,25 @@ interface AppDataStore {
     isPreloaded: boolean;
     setStudyPlan: (plan: StudyPlanDto | null) => void;
     preload: () => Promise<void>;
+    refreshUser: () => Promise<void>;
     reset: () => void;
+}
+
+/** Mirrors a `UserHomeSummaryDto` into the auth store's `UserProfile` shape. */
+function syncUserToAuthStore(summary: UserHomeSummaryDto) {
+    useAuthStore.getState().setUser({
+        id: String(summary.id),
+        name: summary.name,
+        email: useAuthStore.getState().user?.email ?? '',
+        xp: summary.totalXp,
+        level: 1,
+        streak: summary.streak,
+        coin: summary.coin,
+        totalQuestions: 0,
+        correctAnswers: 0,
+        badges: [],
+        createdAt: '',
+    });
 }
 
 export const useAppDataStore = create<AppDataStore>((set, get) => ({
@@ -46,21 +64,7 @@ export const useAppDataStore = create<AppDataStore>((set, get) => ({
             // sidebar updates immediately, without waiting for the other requests.
             const getMePromise = getMe()
                 .then((summary) => {
-                    if (summary) {
-                        useAuthStore.getState().setUser({
-                            id: String(summary.id),
-                            name: summary.name,
-                            email: useAuthStore.getState().user?.email ?? '',
-                            xp: summary.totalXp,
-                            level: 1,
-                            streak: summary.streak,
-                            coin: summary.coin,
-                            totalQuestions: 0,
-                            correctAnswers: 0,
-                            badges: [],
-                            createdAt: '',
-                        });
-                    }
+                    if (summary) syncUserToAuthStore(summary);
                     return summary;
                 })
                 .catch(() => null);
@@ -106,6 +110,22 @@ export const useAppDataStore = create<AppDataStore>((set, get) => ({
             });
         } catch {
             set({ isPreloading: false, isPreloaded: true });
+        }
+    },
+
+    /**
+     * Re-fetches the user summary so XP / coin / streak reflect a just-submitted
+     * quiz. Mirrors mobile's `userProvider.init()` call at the end of `_doSubmit`.
+     * Unlike `preload`, this is not guarded by `isPreloaded`.
+     */
+    refreshUser: async () => {
+        try {
+            const summary = await getMe();
+            if (!summary) return;
+            syncUserToAuthStore(summary);
+            set({ userSummary: summary });
+        } catch {
+            // A failed refresh must never block the result screen.
         }
     },
 

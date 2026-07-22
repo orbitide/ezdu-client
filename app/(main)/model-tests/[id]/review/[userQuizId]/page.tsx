@@ -7,6 +7,9 @@ import { cn } from '@/lib/utils';
 import { MathText } from '@/components/ui/math-text';
 import { getQuizReview } from '@/lib/api/quiz';
 import type { UserQuizReviewDto, ReviewQuestionDto } from '@/types/api';
+import { TwoColumnShell } from '@/components/layout/two-column-shell';
+import { DefaultRightRail } from '@/components/layout/default-right-rail';
+import { PageContainer } from '@/components/layout/page-container';
 
 export default function QuizReviewPage() {
     const { userQuizId } = useParams<{ id: string; userQuizId: string }>();
@@ -26,7 +29,7 @@ export default function QuizReviewPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[60vh]">
-                <Loader2 size={32} className="animate-spin text-emerald-500" />
+                <Loader2 size={32} className="animate-spin text-primary" />
             </div>
         );
     }
@@ -35,8 +38,8 @@ export default function QuizReviewPage() {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 px-4">
                 <AlertCircle size={32} className="text-rose-400" />
-                <p className="text-sm text-zinc-400">{error || 'কোনো রিভিউ পাওয়া যায়নি'}</p>
-                <button onClick={() => router.back()} className="text-sm text-emerald-400 hover:text-emerald-300">
+                <p className="text-sm text-muted-foreground">{error || 'কোনো রিভিউ পাওয়া যায়নি'}</p>
+                <button onClick={() => router.back()} className="text-sm text-primary hover:text-primary">
                     ফিরে যাও
                 </button>
             </div>
@@ -48,31 +51,33 @@ export default function QuizReviewPage() {
         : 0;
 
     return (
-        <div className="mx-auto max-w-3xl px-4 py-6 space-y-5 lg:px-6">
+        <PageContainer>
+        <TwoColumnShell right={<DefaultRightRail />}>
+        <div className="space-y-5">
             {/* Header */}
             <div className="flex items-center gap-3">
-                <button onClick={() => router.back()} className="text-zinc-400 hover:text-zinc-100 transition-colors">
+                <button onClick={() => router.back()} className="text-muted-foreground hover:text-foreground transition-colors">
                     <ArrowLeft size={20} />
                 </button>
                 <div>
-                    <h1 className="text-lg font-bold text-zinc-100">রিভিউ</h1>
-                    <p className="text-xs text-zinc-500">{review.quizTitle}</p>
+                    <h1 className="text-lg font-bold text-foreground">রিভিউ</h1>
+                    <p className="text-xs text-muted-foreground">{review.quizTitle}</p>
                 </div>
             </div>
 
             {/* Summary bar */}
             <div className="grid grid-cols-3 gap-3">
-                <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3 text-center">
-                    <p className="text-xl font-bold text-emerald-400">{review.correctAnswers}</p>
-                    <p className="text-xs text-zinc-500">সঠিক</p>
+                <div className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-center">
+                    <p className="text-xl font-bold text-primary">{review.correctAnswers}</p>
+                    <p className="text-xs text-muted-foreground">সঠিক</p>
                 </div>
                 <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3 text-center">
                     <p className="text-xl font-bold text-rose-400">{review.totalQuestions - review.correctAnswers}</p>
-                    <p className="text-xs text-zinc-500">ভুল</p>
+                    <p className="text-xs text-muted-foreground">ভুল</p>
                 </div>
-                <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-3 text-center">
-                    <p className="text-xl font-bold text-zinc-100">{accuracy}%</p>
-                    <p className="text-xs text-zinc-500">নির্ভুলতা</p>
+                <div className="rounded-xl border border-border bg-card p-3 text-center">
+                    <p className="text-xl font-bold text-foreground">{accuracy}%</p>
+                    <p className="text-xs text-muted-foreground">নির্ভুলতা</p>
                 </div>
             </div>
 
@@ -89,6 +94,8 @@ export default function QuizReviewPage() {
                 ))}
             </div>
         </div>
+        </TwoColumnShell>
+        </PageContainer>
     );
 }
 
@@ -103,9 +110,9 @@ function QuestionReviewCard({
     const skipped = !question.selectedOptionId;
 
     const StatusIcon = skipped ? MinusCircle : question.isCorrect ? CheckCircle2 : XCircle;
-    const statusColor = skipped ? 'text-zinc-500' : question.isCorrect ? 'text-emerald-400' : 'text-rose-400';
-    const borderColor = skipped ? 'border-zinc-800' : question.isCorrect ? 'border-emerald-500/20' : 'border-rose-500/20';
-    const bgColor = skipped ? 'bg-zinc-900' : question.isCorrect ? 'bg-emerald-500/5' : 'bg-rose-500/5';
+    const statusColor = skipped ? 'text-muted-foreground' : question.isCorrect ? 'text-primary' : 'text-rose-400';
+    const borderColor = skipped ? 'border-border' : question.isCorrect ? 'border-primary/20' : 'border-rose-500/20';
+    const bgColor = skipped ? 'bg-card' : question.isCorrect ? 'bg-primary/5' : 'bg-rose-500/5';
 
     return (
         <div className={cn('rounded-xl border', borderColor, bgColor)}>
@@ -115,8 +122,8 @@ function QuestionReviewCard({
             >
                 <StatusIcon size={18} className={cn('shrink-0 mt-0.5', statusColor)} />
                 <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-zinc-500 mb-1">প্রশ্ন {index}</p>
-                    <p className="text-sm text-zinc-100 line-clamp-2"><MathText text={question.text} /></p>
+                    <p className="text-xs font-medium text-muted-foreground mb-1">প্রশ্ন {index}</p>
+                    <p className="text-sm text-foreground line-clamp-2"><MathText text={question.text} /></p>
                 </div>
                 <span className={cn('text-xs font-medium shrink-0', statusColor)}>
                     {isExpanded ? '▲' : '▼'}
@@ -124,7 +131,7 @@ function QuestionReviewCard({
             </button>
 
             {isExpanded && (
-                <div className="border-t border-zinc-800 p-4 space-y-3">
+                <div className="border-t border-border p-4 space-y-3">
                     {/* Options */}
                     <div className="space-y-2">
                         {question.options.map((opt) => {
@@ -136,10 +143,10 @@ function QuestionReviewCard({
                                     className={cn(
                                         'flex items-start gap-2 rounded-lg border px-3 py-2.5 text-sm',
                                         isCorrect
-                                            ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300'
+                                            ? 'border-primary/40 bg-primary/10 text-primary'
                                             : isSelected && !isCorrect
                                                 ? 'border-rose-500/40 bg-rose-500/10 text-rose-300'
-                                                : 'border-zinc-800 text-zinc-400'
+                                                : 'border-border text-muted-foreground'
                                     )}
                                 >
                                     <span className="shrink-0 font-semibold">
@@ -153,9 +160,9 @@ function QuestionReviewCard({
 
                     {/* Explanation */}
                     {question.explanation && (
-                        <div className="flex gap-2 rounded-lg bg-zinc-800/50 p-3">
+                        <div className="flex gap-2 rounded-lg bg-muted/50 p-3">
                             <BookOpen size={14} className="text-blue-400 shrink-0 mt-0.5" />
-                            <p className="text-xs text-zinc-400 leading-relaxed"><MathText text={question.explanation} /></p>
+                            <p className="text-xs text-muted-foreground leading-relaxed"><MathText text={question.explanation} /></p>
                         </div>
                     )}
                 </div>

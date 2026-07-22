@@ -68,14 +68,14 @@ export default function ResetPasswordPage() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center px-6 py-12">
             <div className="w-full max-w-sm space-y-6">
-                <Link href="/forgot-password" className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors">
+                <Link href="/forgot-password" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                     <ArrowLeft size={16} />
                     ফিরে যাও
                 </Link>
 
                 <div>
-                    <h1 className="text-2xl font-extrabold tracking-tight text-zinc-100">নতুন পাসওয়ার্ড দাও</h1>
-                    <p className="mt-1 text-sm text-zinc-500">তোমার ইমেইলে পাঠানো কোডটি দাও</p>
+                    <h1 className="text-2xl font-extrabold tracking-tight text-foreground">নতুন পাসওয়ার্ড দাও</h1>
+                    <p className="mt-1 text-sm text-muted-foreground">তোমার ইমেইলে পাঠানো কোডটি দাও</p>
                 </div>
 
                 {error && (
@@ -86,7 +86,7 @@ export default function ResetPasswordPage() {
                 )}
 
                 {success && (
-                    <div className="flex items-center gap-2 rounded-xl border border-emerald-900/50 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-400">
+                    <div className="flex items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm text-primary">
                         <CheckCircle2 size={16} className="shrink-0" />
                         পাসওয়ার্ড পরিবর্তন হয়েছে! লগইন পেজে যাচ্ছো...
                     </div>
@@ -95,7 +95,7 @@ export default function ResetPasswordPage() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                     {/* OTP */}
                     <div className="space-y-2">
-                        <label className="text-xs font-semibold text-zinc-400">যাচাই কোড</label>
+                        <label className="text-xs font-semibold text-muted-foreground">যাচাই কোড</label>
                         <div className="flex justify-between gap-2">
                             {otp.map((digit, index) => (
                                 <input
@@ -107,7 +107,7 @@ export default function ResetPasswordPage() {
                                     value={digit}
                                     onChange={(e) => handleOtpChange(index, e.target.value)}
                                     onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                                    className="h-12 w-full rounded-xl border-2 border-zinc-800 bg-zinc-900 text-center text-lg font-bold text-zinc-100 outline-none transition-all focus:border-emerald-500"
+                                    className="h-12 w-full rounded-xl border-2 border-border bg-card text-center text-lg font-bold text-foreground outline-none transition-all focus:border-primary"
                                 />
                             ))}
                         </div>
@@ -115,17 +115,17 @@ export default function ResetPasswordPage() {
 
                     {/* New password */}
                     <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-zinc-400">নতুন পাসওয়ার্ড</label>
+                        <label className="text-xs font-semibold text-muted-foreground">নতুন পাসওয়ার্ড</label>
                         <div className="relative">
-                            <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
+                            <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="নতুন পাসওয়ার্ড দাও"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full rounded-xl border border-zinc-800 bg-zinc-900 py-3 pl-10 pr-11 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500"
+                                className="w-full rounded-xl border border-border bg-card py-3 pl-10 pr-11 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-primary"
                             />
-                            <button type="button" onClick={() => setShowPassword((s) => !s)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300">
+                            <button type="button" onClick={() => setShowPassword((s) => !s)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground">
                                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                             </button>
                         </div>
@@ -133,21 +133,21 @@ export default function ResetPasswordPage() {
 
                     {/* Confirm password */}
                     <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-zinc-400">পাসওয়ার্ড নিশ্চিত করো</label>
+                        <label className="text-xs font-semibold text-muted-foreground">পাসওয়ার্ড নিশ্চিত করো</label>
                         <div className="relative">
-                            <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
+                            <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                             <input
                                 type="password"
                                 placeholder="আবার পাসওয়ার্ড দাও"
                                 value={confirm}
                                 onChange={(e) => setConfirm(e.target.value)}
-                                className="w-full rounded-xl border border-zinc-800 bg-zinc-900 py-3 pl-10 pr-4 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-emerald-500"
+                                className="w-full rounded-xl border border-border bg-card py-3 pl-10 pr-4 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-primary"
                             />
                         </div>
                     </div>
 
                     {password.length > 0 && (
-                        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-3 space-y-1.5">
+                        <div className="rounded-xl border border-border bg-card p-3 space-y-1.5">
                             {[
                                 { ok: valid.length, label: '৬–২০ অক্ষরের' },
                                 { ok: valid.number, label: 'কমপক্ষে ১টি সংখ্যা' },
@@ -155,8 +155,8 @@ export default function ResetPasswordPage() {
                                 { ok: valid.match, label: 'পাসওয়ার্ড মিলছে' },
                             ].map(({ ok, label }) => (
                                 <div key={label} className="flex items-center gap-2">
-                                    <span className={cn('h-1.5 w-1.5 rounded-full', ok ? 'bg-emerald-400' : 'bg-zinc-700')} />
-                                    <span className={cn('text-xs', ok ? 'text-emerald-400' : 'text-zinc-500')}>{label}</span>
+                                    <span className={cn('h-1.5 w-1.5 rounded-full', ok ? 'bg-primary' : 'bg-muted')} />
+                                    <span className={cn('text-xs', ok ? 'text-primary' : 'text-muted-foreground')}>{label}</span>
                                 </div>
                             ))}
                         </div>

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Zap, ChevronRight, Trophy } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, toBangla } from '@/lib/utils';
 import type { LeaderboardEntry } from '@/features/leaderboard/types';
 
 interface Props {
@@ -24,7 +24,7 @@ function weeklyResetCountdown(): string {
 const RANK_ICONS: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
 const RANK_COLORS: Record<number, string> = {
     1: 'text-yellow-400',
-    2: 'text-zinc-300',
+    2: 'text-muted-foreground',
     3: 'text-amber-600',
 };
 
@@ -38,12 +38,12 @@ export function MiniLeaderboard({ entries }: Props) {
             {/* Header */}
             <div className="flex items-start justify-between">
                 <div>
-                    <h2 className="text-sm font-semibold text-zinc-100">এই সপ্তাহের লিডাররা</h2>
-                    <p className="text-xs text-zinc-500">{weeklyResetCountdown()}</p>
+                    <h2 className="text-sm font-semibold text-foreground">এই সপ্তাহের লিডাররা</h2>
+                    <p className="text-xs text-muted-foreground">{weeklyResetCountdown()}</p>
                 </div>
                 <Link
                     href="/leaderboard"
-                    className="flex items-center gap-0.5 text-xs text-zinc-500 transition-colors hover:text-zinc-300"
+                    className="flex items-center gap-0.5 text-xs text-muted-foreground transition-colors hover:text-muted-foreground"
                 >
                     সব দেখো <ChevronRight size={12} />
                 </Link>
@@ -52,15 +52,15 @@ export function MiniLeaderboard({ entries }: Props) {
             {entries.length === 0 ? (
                 <EmptyState />
             ) : (
-                <div className="rounded-xl border border-zinc-800 bg-zinc-900 overflow-hidden">
-                    <ul className="divide-y divide-zinc-800">
+                <div className="rounded-xl border border-border bg-card overflow-hidden">
+                    <ul className="divide-y divide-border">
                         {top5.map((entry) => (
                             <MiniLeaderboardRow key={entry.userId} entry={entry} />
                         ))}
                         {showSeparator && (
                             <>
-                                <li className="flex items-center justify-center py-2 text-xs text-zinc-600">
-                                    · · · {me.rank - 5} জন · · ·
+                                <li className="flex items-center justify-center py-2 text-xs text-muted-foreground">
+                                    · · · {toBangla(me.rank - 5)} জন · · ·
                                 </li>
                                 <MiniLeaderboardRow entry={me} />
                             </>
@@ -74,22 +74,22 @@ export function MiniLeaderboard({ entries }: Props) {
 
 function MiniLeaderboardRow({ entry }: { entry: LeaderboardEntry }) {
     const initial = entry.name.trim().slice(0, 1) || '?';
-    const rankColor = RANK_COLORS[entry.rank] ?? 'text-zinc-500';
+    const rankColor = RANK_COLORS[entry.rank] ?? 'text-muted-foreground';
 
     return (
         <li
             className={cn(
                 'flex items-center gap-3 px-4 py-3',
-                entry.isCurrentUser && 'bg-emerald-500/5 border-l-2 border-emerald-500'
+                entry.isCurrentUser && 'bg-primary/5 border-l-2 border-primary'
             )}
         >
             {/* Rank */}
             <span className={cn('w-7 shrink-0 text-center text-sm font-bold', rankColor)}>
-                {RANK_ICONS[entry.rank] ?? `#${entry.rank}`}
+                {RANK_ICONS[entry.rank] ?? `#${toBangla(entry.rank)}`}
             </span>
 
             {/* Avatar */}
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-800 text-xs font-bold text-zinc-300">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-bold text-muted-foreground">
                 {initial}
             </div>
 
@@ -97,22 +97,22 @@ function MiniLeaderboardRow({ entry }: { entry: LeaderboardEntry }) {
             <div className="min-w-0 flex-1">
                 <p className={cn(
                     'truncate text-sm font-medium',
-                    entry.isCurrentUser ? 'text-emerald-300' : 'text-zinc-100'
+                    entry.isCurrentUser ? 'text-primary' : 'text-foreground'
                 )}>
                     {entry.name}
                     {entry.isCurrentUser && (
-                        <span className="ml-1.5 text-xs text-zinc-500">(তুমি)</span>
+                        <span className="ml-1.5 text-xs text-muted-foreground">(তুমি)</span>
                     )}
                 </p>
-                <p className="text-xs text-zinc-500">
-                    {entry.streak > 0 ? `🔥 ${entry.streak} দিন স্ট্রিক` : 'কোনো স্ট্রিক নেই'}
+                <p className="text-xs text-muted-foreground">
+                    {entry.streak > 0 ? `🔥 ${toBangla(entry.streak)} দিন স্ট্রিক` : 'কোনো স্ট্রিক নেই'}
                 </p>
             </div>
 
             {/* XP */}
             <div className="flex items-center gap-1 text-sm font-bold text-yellow-400">
                 <Zap size={12} />
-                {entry.xp >= 1000 ? `${(entry.xp / 1000).toFixed(1)}k` : entry.xp}
+                {entry.xp >= 1000 ? `${toBangla((entry.xp / 1000).toFixed(1))}k` : toBangla(entry.xp)}
             </div>
         </li>
     );
@@ -120,10 +120,10 @@ function MiniLeaderboardRow({ entry }: { entry: LeaderboardEntry }) {
 
 function EmptyState() {
     return (
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 text-center space-y-2">
+        <div className="rounded-xl border border-border bg-card p-6 text-center space-y-2">
             <Trophy size={28} className="mx-auto text-yellow-400/40" />
-            <p className="text-sm font-medium text-zinc-400">লিডারবোর্ড আনলক করো!</p>
-            <p className="text-xs text-zinc-600">একটি কুইজ দাও এবং লিডারবোর্ডে তোমার জায়গা নিশ্চিত করো</p>
+            <p className="text-sm font-medium text-muted-foreground">লিডারবোর্ড আনলক করো!</p>
+            <p className="text-xs text-muted-foreground">একটি কুইজ দাও এবং লিডারবোর্ডে তোমার জায়গা নিশ্চিত করো</p>
         </div>
     );
 }

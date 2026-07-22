@@ -19,20 +19,20 @@ export const Hero = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="badge-live inline-flex items-center gap-2.5 rounded-full border border-zinc-700 bg-zinc-900/60 px-4 py-2 mb-6"
+                        className="badge-live inline-flex items-center gap-2.5 rounded-full border border-border bg-card/60 px-4 py-2 mb-6"
                     >
                         <span className="live-dot" aria-hidden>
                             <span className="live-dot-inner" />
                         </span>
-                        <span className="text-xs font-medium text-zinc-300">লক্ষ্যের পথে তোমার সঙ্গী</span>
+                        <span className="text-xs font-medium text-muted-foreground">লক্ষ্যের পথে তোমার সঙ্গী</span>
                     </motion.div>
 
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-6 text-white">
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-6 text-foreground">
                         <span className="block">শেখো প্রতিদিন,</span>
-                        <span className="block text-emerald-400">জিতো প্রতিবার</span>
+                        <span className="block text-primary">জিতো প্রতিবার</span>
                     </h1>
 
-                    <p className="text-zinc-400 mb-8 leading-relaxed max-w-xl">
+                    <p className="text-muted-foreground mb-8 leading-relaxed max-w-xl">
                         EzDu-তে জাতীয় কারিকুলামভিত্তিক MCQ প্র্যাকটিস, সময়সীমাসহ মক টেস্ট, ধাপে ধাপে ব্যাখ্যা আর অগ্রগতির
                         সারাংশ—এক অ্যাপে। ফোনে ইনস্টল করে আজই প্রথম সেট শুরু করতে পারো।
                     </p>
@@ -62,7 +62,7 @@ export const Hero = () => {
                     </div>
 
                     <motion.div
-                        className="absolute top-6 -left-8 surface-raised border-zinc-700/90 p-4 shadow-lg"
+                        className="absolute top-6 -left-8 surface-raised border-border p-4 shadow-lg"
                         animate={reduceMotion ? { y: 0 } : { y: [0, -5, 0] }}
                         transition={
                             reduceMotion
@@ -74,14 +74,14 @@ export const Hero = () => {
                                   }
                         }
                     >
-                        <div className="mb-2 inline-block text-emerald-400">
+                        <div className="mb-2 inline-block text-primary">
                             <Trophy size={20} />
                         </div>
-                        <div className="text-sm font-semibold text-white">Top 10%</div>
+                        <div className="text-sm font-semibold text-foreground">Top 10%</div>
                     </motion.div>
 
                     <motion.div
-                        className="absolute bottom-6 -right-8 surface-raised border-zinc-700/90 p-4 shadow-lg"
+                        className="absolute bottom-6 -right-8 surface-raised border-border p-4 shadow-lg"
                         animate={reduceMotion ? { y: 0 } : { y: [0, 5, 0] }}
                         transition={
                             reduceMotion
@@ -94,10 +94,10 @@ export const Hero = () => {
                                   }
                         }
                     >
-                        <div className="mb-2 inline-block text-emerald-400">
+                        <div className="mb-2 inline-block text-primary">
                             <Award size={20} />
                         </div>
-                        <div className="text-sm font-semibold text-white">5 Badges</div>
+                        <div className="text-sm font-semibold text-foreground">5 Badges</div>
                     </motion.div>
                 </motion.div>
             </div>

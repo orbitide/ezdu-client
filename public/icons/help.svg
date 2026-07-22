@@ -1,0 +1,10 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="hpBody" x1="36" y1="6" x2="36" y2="66" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#f1fef8"/></linearGradient>
+<linearGradient id="hpGloss" x1="36" y1="8" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity="1"/><stop offset="1" stop-opacity="0"/></linearGradient>
+</defs>
+<circle cx="36" cy="33.3" r="27" fill="url(#hpBody)" stroke="#79eca3" stroke-width="4.5"/>
+<path d="M27 27.68C27 22.28 31.28 18 36.68 18C42.08 18 46.35 22.28 46.35 27.68C46.35 31.28 43.88 34.43 40.5 36.23C38.25 37.35 36.9 39.6 36.9 42" stroke="#5cda8a" stroke-width="5" stroke-linecap="round"/>
+<circle cx="36.9" cy="51.3" r="3.6" fill="#a5f7c3"/>
+<ellipse cx="36" cy="16" rx="16" ry="10" fill="url(#hpGloss)"/>
+</svg>
