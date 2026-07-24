@@ -3,12 +3,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Loader2, AlertCircle, UserPlus, UserMinus } from 'lucide-react';
-import { getUserByUsername, getUserDetails } from '@/lib/api/users';
+import { getUserByUsername, getUserDetails, getWeeklyXp } from '@/lib/api/users';
 import { followUser, unfollowUser } from '@/lib/api/social';
 import { useAuthStore } from '@/store/auth.store';
 import { ProfileHeader } from '@/features/profile/components/ProfileHeader';
 import { UserRankCard } from '@/features/profile/components/UserRankCard';
 import { WeeklyChart } from '@/features/profile/components/WeeklyChart';
+import { normalizeWeeklyXp } from '@/features/profile/utils/normalizeWeeklyXp';
 import type { UserDetailsDto } from '@/types/api';
 import { TwoColumnShell } from '@/components/layout/two-column-shell';
 import { DefaultRightRail } from '@/components/layout/default-right-rail';
@@ -19,20 +20,33 @@ export default function PublicProfilePage() {
     const router = useRouter();
     const currentUser = useAuthStore((s) => s.user);
     const [profile, setProfile] = useState<UserDetailsDto | null>(null);
+    const [weeklyXp, setWeeklyXp] = useState<ReturnType<typeof normalizeWeeklyXp> | null>(null);
     const [loading, setLoading] = useState(true);
+    const [weeklyXpLoading, setWeeklyXpLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [following, setFollowing] = useState(false);
     const [followLoading, setFollowLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
+        setWeeklyXpLoading(true);
+        setError(null);
+
         getUserByUsername(username)
-            .then((basic) => getUserDetails(basic.id))
-            .then((details) => {
+            .then(async (basic) => {
+                const [details, xp] = await Promise.all([
+                    getUserDetails(basic.id),
+                    getWeeklyXp(basic.id),
+                ]);
                 setProfile(details);
+                setWeeklyXp(normalizeWeeklyXp(xp));
                 setFollowing(details.isFollowing);
             })
             .catch(() => setError('প্রোফাইল পাওয়া যায়নি'))
-            .finally(() => setLoading(false));
+            .finally(() => {
+                setLoading(false);
+                setWeeklyXpLoading(false);
+            });
     }, [username]);
 
     const isOwnProfile = currentUser?.id === profile?.id;
@@ -75,7 +89,7 @@ export default function PublicProfilePage() {
         );
     }
 
-    const hasCompareData = (profile.weeklyXp?.friend?.length ?? 0) > 0;
+    const showCompare = !isOwnProfile && weeklyXp != null;
 
     return (
         <PageContainer>
@@ -125,14 +139,18 @@ export default function PublicProfilePage() {
                     {/* Weekly activity */}
                     <div className="rounded-xl border border-border bg-card p-4 space-y-3">
                         <h3 className="text-sm font-semibold text-foreground">সাপ্তাহিক কার্যক্রম</h3>
-                        {hasCompareData ? (
+                        {weeklyXpLoading ? (
+                            <div className="flex h-[72px] items-center justify-center">
+                                <Loader2 size={20} className="animate-spin text-primary" />
+                            </div>
+                        ) : showCompare ? (
                             <WeeklyChart
-                                data={profile.weeklyXp.friend}
-                                compareData={profile.weeklyXp.me}
+                                data={weeklyXp!.me}
+                                compareData={weeklyXp!.friend}
                                 otherLabel={profile.name}
                             />
                         ) : (
-                            <WeeklyChart data={profile.weeklyXp?.me ?? []} />
+                            <WeeklyChart data={weeklyXp?.me ?? weeklyXp?.friend ?? []} />
                         )}
                     </div>
                 </div>

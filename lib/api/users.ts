@@ -9,6 +9,7 @@ import type {
     UserConfigDto,
     PagedList,
     UserQuizHistoryDto,
+    CompareProgressDto,
 } from '@/types/api';
 
 export interface UserConfigResponseDto {
@@ -60,6 +61,11 @@ export async function getUserByUsername(username: string): Promise<UserDto> {
 
 export async function getUserDetails(userId: string): Promise<UserDetailsDto> {
     const res = await apiClient.get(`/users/details/${userId}`);
+    return res.data?.data ?? res.data;
+}
+
+export async function getWeeklyXp(userId: string): Promise<CompareProgressDto> {
+    const res = await apiClient.get(`/users/details/${userId}/weekly-xp`);
     return res.data?.data ?? res.data;
 }
 

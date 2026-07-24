@@ -7,8 +7,9 @@ import { ProfileHeader } from '@/features/profile/components/ProfileHeader';
 import { UserRankCard } from '@/features/profile/components/UserRankCard';
 import { WeeklyChart } from '@/features/profile/components/WeeklyChart';
 import { AchievementsPreview } from '@/features/profile/components/AchievementsPreview';
+import { normalizeWeeklyXp } from '@/features/profile/utils/normalizeWeeklyXp';
 import { useAuthStore } from '@/store/auth.store';
-import { getUserDetails } from '@/lib/api/users';
+import { getUserDetails, getWeeklyXp } from '@/lib/api/users';
 import type { UserDetailsDto } from '@/types/api';
 import { TwoColumnShell } from '@/components/layout/two-column-shell';
 import { DefaultRightRail } from '@/components/layout/default-right-rail';
@@ -17,18 +18,33 @@ import { PageContainer } from '@/components/layout/page-container';
 export default function ProfilePage() {
     const authUser = useAuthStore((s) => s.user);
     const [profile, setProfile] = useState<UserDetailsDto | null>(null);
+    const [weeklyXp, setWeeklyXp] = useState<ReturnType<typeof normalizeWeeklyXp> | null>(null);
     const [loading, setLoading] = useState(true);
+    const [weeklyXpLoading, setWeeklyXpLoading] = useState(true);
 
     useEffect(() => {
         if (!authUser?.id) {
             setLoading(false);
+            setWeeklyXpLoading(false);
             return;
         }
+
         setLoading(true);
-        getUserDetails(authUser.id)
-            .then(setProfile)
+        setWeeklyXpLoading(true);
+
+        Promise.all([
+            getUserDetails(authUser.id),
+            getWeeklyXp(authUser.id),
+        ])
+            .then(([details, xp]) => {
+                setProfile(details);
+                setWeeklyXp(normalizeWeeklyXp(xp));
+            })
             .catch(() => {})
-            .finally(() => setLoading(false));
+            .finally(() => {
+                setLoading(false);
+                setWeeklyXpLoading(false);
+            });
     }, [authUser?.id]);
 
     if (loading || !authUser) {
@@ -77,7 +93,13 @@ export default function ProfilePage() {
                             {/* Weekly activity */}
                             <div className="rounded-xl border border-border bg-card p-4 space-y-3">
                                 <h3 className="text-sm font-semibold text-foreground">সাপ্তাহিক কার্যক্রম</h3>
-                                <WeeklyChart data={profile.weeklyXp?.me ?? []} />
+                                {weeklyXpLoading ? (
+                                    <div className="flex h-[72px] items-center justify-center">
+                                        <Loader2 size={20} className="animate-spin text-primary" />
+                                    </div>
+                                ) : (
+                                    <WeeklyChart data={weeklyXp?.me ?? []} />
+                                )}
                             </div>
 
                             {/* Achievements preview */}

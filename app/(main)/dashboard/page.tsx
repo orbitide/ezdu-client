@@ -19,6 +19,7 @@ import type { ExamId } from '@/config/exams';
 import type { UserQuizHistoryDto, SubjectMasteryDto, StudyPlanDto } from '@/types/api';
 import type { RecommendationsDto } from '@/lib/api/recommendations';
 import { ExamProgressList } from '@/app/(main)/dashboard/ExamProgress';
+import { MathText } from '@/components/ui/math-text';
 
 function guessExamId(subjectName: string): ExamId {
     const s = subjectName.toLowerCase();
@@ -194,8 +195,8 @@ function RecommendationSection({ data }: { data: RecommendationsDto }) {
         data.weakSubject && { label: 'দুর্বল বিষয়', value: data.weakSubject.subjectName },
         data.lesson && { label: 'পড়ার পরামর্শ', value: `${data.lesson.lessonName} — ${data.lesson.subjectName}` },
         data.vocabulary && { label: 'আজকের শব্দ', value: `${data.vocabulary.name} — ${data.vocabulary.banglaTranslation}` },
-        data.question && { label: 'অনুশীলন প্রশ্ন', value: data.question.name },
-    ].filter(Boolean) as { label: string; value: string }[];
+        data.question && { label: 'অনুশীলন প্রশ্ন', value: data.question.name, hasMath: true },
+    ].filter(Boolean) as { label: string; value: string; hasMath?: boolean }[];
 
     if (items.length === 0) return null;
 
@@ -203,10 +204,12 @@ function RecommendationSection({ data }: { data: RecommendationsDto }) {
         <div className="rounded-xl border border-border bg-card p-4 space-y-3">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">আজকের পরামর্শ</p>
             <div className="grid gap-2 sm:grid-cols-2">
-                {items.map(({ label, value }) => (
+                {items.map(({ label, value, hasMath }) => (
                     <div key={label} className="rounded-lg border border-border bg-background/50 px-3 py-2.5">
                         <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{label}</p>
-                        <p className="mt-0.5 text-sm text-muted-foreground line-clamp-2">{value}</p>
+                        <p className="mt-0.5 text-sm text-muted-foreground line-clamp-2">
+                            {hasMath ? <MathText text={value} /> : value}
+                        </p>
                     </div>
                 ))}
             </div>
