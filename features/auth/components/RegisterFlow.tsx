@@ -67,6 +67,7 @@ export function RegisterFlow() {
                     ? { config: { classId: form.classId, groupId: form.groupId ?? undefined } }
                     : {}),
             });
+            await resendOtp({ email: form.email });
             next();
         } catch (err: unknown) {
             const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;

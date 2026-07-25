@@ -37,12 +37,17 @@ export async function register(dto: RegisterDto): Promise<ApiResponse2> {
 }
 
 export async function verifyOtpAndRegister(dto: VerifyOtpDto): Promise<AuthResponseDto> {
-    const res = await apiClient.post('/auth/verify-otp-and-register', dto);
+    const res = await apiClient.post('/auth/verify-otp-and-register', {
+        recipient: dto.email,
+        code: Number(dto.otp),
+    });
     return res.data;
 }
 
 export async function resendOtp(dto: SendOtpDto): Promise<ApiResponse2> {
-    const res = await apiClient.post('/auth/resend-otp-for-register', dto);
+    const res = await apiClient.post('/auth/resend-otp-for-register', {
+        recipient: dto.email,
+    });
     return res.data;
 }
 
