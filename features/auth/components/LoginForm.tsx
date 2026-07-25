@@ -6,10 +6,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Eye, EyeOff, Loader2, Mail, Lock, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { login } from '@/lib/api/auth';
+import { login, resendOtp } from '@/lib/api/auth';
 import { useAuthStore } from '@/store/auth.store';
 import { useAppDataStore } from '@/store/app-data.store';
 import type { UserProfile } from '@/types/user';
+import { LoginStatus } from '@/types/api';
 
 export function LoginForm() {
     const router = useRouter();
@@ -22,17 +23,33 @@ export function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [needsEmailVerification, setNeedsEmailVerification] = useState(false);
+    const [verifyLoading, setVerifyLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
+        setNeedsEmailVerification(false);
         setLoading(true);
         try {
-            const res = await login({ username: email, password });
+            const result = await login({ username: email, password });
+
+            if (result.status === LoginStatus.EmailVerificationRequired) {
+                setNeedsEmailVerification(true);
+                setError('Email address is not verified. Please verify your email to continue.');
+                return;
+            }
+
+            const auth = result.auth;
+            if (!auth?.token) {
+                setError('Login failed. Please try again.');
+                return;
+            }
+
             const user: UserProfile = {
-                id: String(res.id),
-                name: res.name,
-                email: res.email,
+                id: String(auth.id),
+                name: auth.name,
+                email: auth.email,
                 xp: 0,
                 level: 1,
                 streak: 0,
@@ -50,6 +67,18 @@ export function LoginForm() {
             setError(msg || 'ইমেইল বা পাসওয়ার্ড সঠিক নয়।');
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleVerifyEmail = async () => {
+        setVerifyLoading(true);
+        try {
+            await resendOtp({ email });
+            router.push(`/register?email=${encodeURIComponent(email)}`);
+        } catch {
+            setError('OTP পাঠানো সম্ভব হয়নি। আবার চেষ্টা করো।');
+        } finally {
+            setVerifyLoading(false);
         }
     };
 
@@ -122,6 +151,20 @@ export function LoginForm() {
                         {loading && <Loader2 size={16} className="animate-spin" />}
                         {loading ? 'লগইন হচ্ছে...' : 'লগইন'}
                     </Button>
+
+                    {needsEmailVerification && (
+                        <Button
+                            type="button"
+                            variant="default"
+                            size="lg"
+                            disabled={verifyLoading}
+                            className="w-full"
+                            onClick={handleVerifyEmail}
+                        >
+                            {verifyLoading && <Loader2 size={16} className="animate-spin" />}
+                            OTP পাঠান এবং যাচাই করুন
+                        </Button>
+                    )}
                 </form>
 
                 <div className="flex items-center gap-3">

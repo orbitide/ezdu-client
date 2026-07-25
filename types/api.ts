@@ -6,6 +6,18 @@ export interface ApiResponse<T> {
     data: T;
 }
 
+export interface ApiError {
+    field: string;
+    message: string;
+}
+
+export interface ApiResponse2<T = void> {
+    success: boolean;
+    message?: string;
+    errors?: ApiError[];
+    data?: T;
+}
+
 export interface PagedList<T> {
     items: T[];
     totalCount: number;
@@ -60,6 +72,23 @@ export interface AuthResponseDto {
     name: string;
     email: string;
     token: string;
+    refreshToken?: string;
+}
+
+export enum LoginStatus {
+    Success = 0,
+    EmailVerificationRequired = 1,
+}
+
+export interface PendingVerificationDto {
+    email: string;
+    name: string;
+}
+
+export interface LoginResultDto {
+    status: LoginStatus;
+    auth?: AuthResponseDto;
+    pending?: PendingVerificationDto;
 }
 
 // ─── User ────────────────────────────────────────────────────────────────────

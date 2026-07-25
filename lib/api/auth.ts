@@ -7,15 +7,17 @@ import type {
     VerifyOtpDto,
     ChangePasswordDto,
     AuthResponseDto,
+    LoginResultDto,
     UserDto,
+    ApiResponse2,
 } from '@/types/api';
 
-export async function login(dto: LoginDto): Promise<AuthResponseDto> {
-    const res = await apiClient.post('/auth/login', dto);
+export async function login(dto: LoginDto): Promise<LoginResultDto> {
+    const res = await apiClient.post<LoginResultDto>('/auth/login', dto);
     return res.data;
 }
 
-export async function register(dto: RegisterDto): Promise<{ message: string }> {
+export async function register(dto: RegisterDto): Promise<ApiResponse2> {
     // Mobile omits `groupId` entirely when empty (register_request.dart), so a
     // class without groups doesn't post a null the backend has to interpret.
     const config = dto.config
@@ -39,7 +41,7 @@ export async function verifyOtpAndRegister(dto: VerifyOtpDto): Promise<AuthRespo
     return res.data;
 }
 
-export async function resendOtp(dto: SendOtpDto): Promise<{ message: string }> {
+export async function resendOtp(dto: SendOtpDto): Promise<ApiResponse2> {
     const res = await apiClient.post('/auth/resend-otp-for-register', dto);
     return res.data;
 }
@@ -49,7 +51,7 @@ export async function googleLogin(dto: GoogleLoginDto): Promise<AuthResponseDto>
     return res.data;
 }
 
-export async function sendOtp(dto: SendOtpDto): Promise<{ message: string }> {
+export async function sendOtp(dto: SendOtpDto): Promise<ApiResponse2> {
     const res = await apiClient.post('/auth/send-otp', dto);
     return res.data;
 }
@@ -59,7 +61,7 @@ export async function verifyPasswordResetOtp(dto: VerifyOtpDto): Promise<{ messa
     return res.data;
 }
 
-export async function changePassword(dto: ChangePasswordDto): Promise<{ message: string }> {
+export async function changePassword(dto: ChangePasswordDto): Promise<ApiResponse2> {
     const res = await apiClient.post('/auth/change-password', dto);
     return res.data;
 }
