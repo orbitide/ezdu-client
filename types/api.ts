@@ -471,7 +471,7 @@ export interface StudyPlanItemDto {
     masteryPercent?: number;
 }
 
-/** Payload item for POST /study-plans/save (matches backend CreateStudyPlanVm). */
+/** Payload item for POST /student/study-plans/save (matches backend CreateStudyPlanVm). */
 export interface SaveStudyPlanItemDto {
     lessonId: number;
     subjectId: number;
