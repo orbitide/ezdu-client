@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 
 export const Navbar = () => {
     const reduceMotion = useReducedMotion();
@@ -27,6 +27,7 @@ export const Navbar = () => {
                     </motion.div>
                 </Link>
 
+                {/* Login and registration are temporarily unavailable.
                 <div className="flex items-center gap-3">
                     <Link
                         href="/login"
@@ -40,6 +41,7 @@ export const Navbar = () => {
                         </Button>
                     </motion.div>
                 </div>
+                */}
             </div>
         </motion.nav>
     );

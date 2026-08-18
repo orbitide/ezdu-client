@@ -14,13 +14,13 @@ const contactInfo = [
     {
         icon: Phone,
         title: 'Phone',
-        value: '+880 1234 567890',
+        value: '+880 1639 577494',
         description: 'Call us during business hours',
     },
     {
         icon: MapPin,
         title: 'Location',
-        value: 'Dhaka, Bangladesh',
+        value: 'Rangpur, Bangladesh',
         description: 'Visit us at our office',
     },
     {
