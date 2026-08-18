@@ -75,8 +75,8 @@ export const viewport: Viewport = {
     width: 'device-width',
     initialScale: 1,
     viewportFit: 'cover',
-    // Matches `--background` in app/globals.css (oklch(0.16 0.01 150)).
-    themeColor: '#151a17',
+    // Matches the neutralized `--background` in app/globals.css.
+    themeColor: '#121312',
 };
 
 export default function RootLayout({
