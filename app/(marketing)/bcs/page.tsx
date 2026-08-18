@@ -23,17 +23,18 @@ export const metadata: Metadata = buildMetadata('bcs', {
 const config: ExamPageConfig = {
     slug: 'bcs',
     examName: 'BCS',
-    title: 'BCS পরীক্ষার প্রস্তুতি',
+    kicker: 'BCS Preliminary প্রস্তুতি',
+    title: 'সিলেবাস ধরে BCS Preliminary প্র্যাকটিস',
     description:
-        'BCS Preliminary-র জন্য বাংলা, ইংরেজি, গণিত, সাধারণ জ্ঞান, বাংলাদেশ বিষয়াবলিসহ সব বিষয়ে AI-চালিত MCQ প্র্যাকটিস। লক্ষাধিক প্রতিযোগীর মধ্যে এগিয়ে থাকো।',
-    color: 'purple',
+        'বাংলা, ইংরেজি, গণিত, মানসিক দক্ষতা, বাংলাদেশ ও আন্তর্জাতিক বিষয়াবলি—Preliminary-র বিস্তৃত সিলেবাসকে বিষয়ভিত্তিক MCQ প্র্যাকটিসে গুছিয়ে নাও।',
     icon: 'briefcase',
-    stats: [
-        { value: '১০,০০০+', label: 'MCQ প্রশ্ন' },
-        { value: '৯+', label: 'বিষয়' },
-        { value: 'পূর্ববর্তী', label: 'BCS প্রশ্ন' },
-        { value: 'AI', label: 'দুর্বলতা চিহ্নিতকরণ' },
+    highlights: [
+        { title: 'Preliminary syllabus', description: 'বিষয় ধরে বিস্তৃত সিলেবাস গুছিয়ে প্র্যাকটিস' },
+        { title: 'বিগত BCS প্রশ্ন', description: 'প্রশ্নের ধরন ও পুনরাবৃত্ত গুরুত্বপূর্ণ টপিক বোঝা' },
+        { title: 'দুর্বল বিষয়ে revision', description: 'ভুল হওয়া টপিকে ফিরে গিয়ে প্রস্তুতির ঘাটতি কমানো' },
     ],
+    featureHeading: 'বিস্তৃত সিলেবাসে ফোকাস হারাবে না',
+    featureDescription: 'BCS Preliminary প্রস্তুতিকে বিষয়, টপিক ও বিগত প্রশ্নে ভাগ করে প্রতিদিন কী প্র্যাকটিস করবে তা সহজ করো।',
     features: [
         {
             title: 'Preliminary-র পূর্ণ কভারেজ',
@@ -41,7 +42,7 @@ const config: ExamPageConfig = {
         },
         {
             title: 'পূর্ববর্তী BCS প্রশ্ন সমাধান',
-            description: 'বিগত ৩০+ BCS-এর Preliminary প্রশ্ন ব্যাখ্যাসহ — সবচেয়ে বেশি আসা টপিক চেনো।',
+            description: 'বিগত BCS Preliminary প্রশ্ন ব্যাখ্যাসহ অনুশীলন করে প্রশ্নের পরিচিত ধরনগুলো চেনো।',
         },
         {
             title: 'গণিত ও মানসিক দক্ষতা',
@@ -60,6 +61,13 @@ const config: ExamPageConfig = {
             description: 'তোমার ভুলের history দেখে AI ঠিক সেই টপিকগুলো থেকে বেশি প্রশ্ন দেয় — সময় নষ্ট হয় না।',
         },
     ],
+    steps: [
+        { title: 'একটি বিষয় বেছে নাও', description: 'সিলেবাস থেকে আজকের বিষয় ও ছোট একটি টপিক ঠিক করো।' },
+        { title: 'MCQ ও বিগত প্রশ্ন দাও', description: 'ধারণা যাচাইয়ের সঙ্গে পরীক্ষার প্রশ্নের ধরন বুঝে নাও।' },
+        { title: 'ভুল টপিক revise করো', description: 'যে অংশে ভুল বেশি হচ্ছে, পরের session-এ সেটিকে অগ্রাধিকার দাও।' },
+    ],
+    subjectsHeading: 'BCS Preliminary-র বিষয়সমূহ',
+    subjectsDescription: 'সিলেবাসের প্রতিটি অংশ আলাদাভাবে প্র্যাকটিস করে balanced preparation তৈরি করো।',
     subjects: [
         'বাংলা ভাষা ও সাহিত্য',
         'ইংরেজি ভাষা ও সাহিত্য',
@@ -71,6 +79,8 @@ const config: ExamPageConfig = {
         'নৈতিকতা, মূল্যবোধ ও সুশাসন',
         'তথ্য ও যোগাযোগ প্রযুক্তি',
     ],
+    closingTitle: 'BCS প্রস্তুতির বড় পথটি ছোট session-এ শুরু করো',
+    closingDescription: 'EzDu ডাউনলোড করে বিনামূল্যে বিষয়ভিত্তিক BCS Preliminary MCQ প্র্যাকটিস শুরু করো।',
 };
 
 const jsonLd = getPageJsonLd(

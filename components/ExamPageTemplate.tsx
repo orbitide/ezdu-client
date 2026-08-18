@@ -13,7 +13,7 @@ function CheckIcon({ className }: { className?: string }) {
 
 export type ExamColor = 'emerald' | 'blue' | 'purple' | 'rose' | 'amber' | 'indigo' | 'cyan' | 'orange' | 'green';
 
-export type ExamPageConfig = {
+export type LegacyExamPageConfig = {
     slug: string;
     examName: string;
     title: string;
@@ -117,7 +117,7 @@ const COLOR_MAP: Record<ExamColor, {
     },
 };
 
-export function ExamPageTemplate({ config }: { config: ExamPageConfig }) {
+export function LegacyExamPageTemplate({ config }: { config: LegacyExamPageConfig }) {
     const c = COLOR_MAP[config.color];
 
     return (
@@ -229,3 +229,6 @@ export function ExamPageTemplate({ config }: { config: ExamPageConfig }) {
         </div>
     );
 }
+
+export { FocusedExamPageTemplate as ExamPageTemplate } from '@/components/FocusedExamPageTemplate';
+export type { FocusedExamPageConfig as ExamPageConfig } from '@/components/FocusedExamPageTemplate';

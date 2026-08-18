@@ -22,17 +22,18 @@ export const metadata: Metadata = buildMetadata('ielts', {
 const config: ExamPageConfig = {
     slug: 'ielts',
     examName: 'IELTS',
-    title: 'IELTS প্রস্তুতি',
+    kicker: 'IELTS skill practice',
+    title: 'চারটি skill, একটি নিয়মিত IELTS routine',
     description:
         'IELTS-এ ভালো band score পেতে দরকার consistent practice এবং সঠিক strategy। EzDu-তে Reading, Listening, Writing, Speaking — চারটি section-এ AI-চালিত প্র্যাকটিস ও mock test।',
-    color: 'amber',
     icon: 'globe',
-    stats: [
-        { value: '৩,০০০+', label: 'Practice প্রশ্ন' },
-        { value: '৪টি', label: 'Section কভারেজ' },
-        { value: 'Band 5–8', label: 'লক্ষ্যমাত্রা' },
-        { value: 'AI', label: 'Personalized practice' },
+    highlights: [
+        { title: 'Reading & Listening', description: 'Question type বুঝে focused practice' },
+        { title: 'Writing & Speaking', description: 'Structure, vocabulary ও expression গুছিয়ে নেওয়া' },
+        { title: 'IELTS Vocabulary', description: 'Context-এ দরকারি শব্দ শেখা ও নিয়মিত revision' },
     ],
+    featureHeading: 'IELTS-এর প্রতিটি skill-এর জন্য আলাদা ফোকাস',
+    featureDescription: 'শুধু mock test নয়—Reading, Listening, Writing ও Speaking-এর আলাদা দুর্বলতা ধরে একটি balanced routine তৈরি করো।',
     features: [
         {
             title: 'Reading Practice',
@@ -54,11 +55,15 @@ const config: ExamPageConfig = {
             title: 'Grammar Accuracy',
             description: 'Band score-এ grammar-এর ভূমিকা অনেক বড় — targeted grammar drills দিয়ে ভুল কমাও।',
         },
-        {
-            title: 'Band Score Prediction',
-            description: 'প্র্যাকটিস session-এর ভিত্তিতে তোমার বর্তমান level এবং কোথায় উন্নতি দরকার তা AI বলে দেয়।',
-        },
+        { title: 'Focused Revision', description: 'যে question type বা vocabulary-তে বারবার ভুল হচ্ছে, সেটি আবার প্র্যাকটিস করো।' },
     ],
+    steps: [
+        { title: 'একটি skill বেছে নাও', description: 'Reading, Listening, Writing বা Speaking—আজকের focus ঠিক করো।' },
+        { title: 'Question type ধরে practice', description: 'একই ধরনের প্রশ্নে pattern, timing ও accuracy তৈরি করো।' },
+        { title: 'Vocabulary revise করো', description: 'নতুন শব্দ context-এ শেখো এবং বিরতি দিয়ে আবার মনে করো।' },
+    ],
+    subjectsHeading: 'চার skill ও vocabulary practice',
+    subjectsDescription: 'Academic ও General Training-এর দরকার অনুযায়ী relevant section বেছে নাও।',
     subjects: [
         'Reading — Academic',
         'Reading — General Training',
@@ -69,6 +74,8 @@ const config: ExamPageConfig = {
         'Grammar for IELTS',
         'Speaking Topics',
     ],
+    closingTitle: 'IELTS preparation-কে daily habit বানাও',
+    closingDescription: 'EzDu ডাউনলোড করে বিনামূল্যে skill-based IELTS practice ও vocabulary revision শুরু করো।',
 };
 
 const jsonLd = getPageJsonLd(
