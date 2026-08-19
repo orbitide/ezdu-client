@@ -3,7 +3,6 @@ import { Fredoka, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import { getRootJsonLd } from "@/lib/jsonld";
-import { AuthProvider } from "@/components/auth-provider";
 
 const fredoka = Fredoka({
     variable: "--font-fredoka",
@@ -93,9 +92,7 @@ export default function RootLayout({
             />
         </head>
         <body className="min-h-full flex flex-col">
-        <AuthProvider>
-            {children}
-        </AuthProvider>
+        {children}
         </body>
         </html>
     );
